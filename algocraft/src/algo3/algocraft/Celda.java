@@ -1,7 +1,5 @@
 package algo3.algocraft;
 
-import Edificio;
-import Recurso;
 
 public class Celda {
 	Recurso recurso;

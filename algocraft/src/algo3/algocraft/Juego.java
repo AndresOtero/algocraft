@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /*El codigo no se sube roto, ni sin formato(ctrl+shift+f). ->hay tabla*/
 public class Juego {
 	private static Juego instancia = null;
-	private Mapa mapa = new Mapa();
+	private Mapa mapa = getInstance();//nose como se llama correctamente
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
 	public void crearJugador(String nombre, Color color, TipoRaza raza) {
