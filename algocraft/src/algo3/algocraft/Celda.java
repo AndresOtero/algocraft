@@ -1,7 +1,29 @@
 package algo3.algocraft;
 
-public class Celda {
-	private Aerea FOO;
-	private Terrestre TOO;
+import Edificio;
+import Recurso;
 
+public class Celda {
+	Recurso recurso;
+	Edificio edificio;
+	private boolean visible,areaTerrestre;
+	
+	public Celda(int a,int b){
+		visible = false;
+		areaTerrestre = true;
+	}
+	
+	public boolean esVisible(){
+		return visible;
+	}
+	public void cambiarVisibilidad(boolean nuevaVisibilidad){
+		visible = nuevaVisibilidad;
+	}
+	public boolean esTerrestre(){
+		return areaTerrestre;
+	}
+	public void cambiarAreaTerrestre(boolean area){
+		areaTerrestre = area;
+	}
+	
 }
