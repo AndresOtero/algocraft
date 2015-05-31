@@ -8,20 +8,13 @@ import Posicion;
 import java.util.HashMap;
 import java.util.Map;
 
-//public class Mapa {
-//	/* ver implementacion tablero tateti */
-	//private Map<Posicion, Celda> mapa;
-
-	//public Mapa() {
-		//this.mapa = new HashMap<>();
-	//}
-
-//}
 public class Mapa {
-	//private Mapa mapa;
+	
+	private Mapa instancia = null;
 	private Map<Posicion, Celda> mapa; 
 	private int ancho;
 	private int largo;
+
 	
 	private Mapa(int ancho, int largo){
 		this.mapa = new HashMap<Posicion, Celda>();
@@ -34,13 +27,18 @@ public class Mapa {
 			}
 		}
 	}
-	public Mapa getMapa(){
-		if (mapa == null){
-			mapa = new Mapa(ancho,largo);
+	private synchronized void createInstance() {
+		if (instancia == null) {
+			instancia = new Mapa(ancho,largo);
 		}
-		return (Mapa) mapa;
+	}
+	
+	public Mapa getInstance(){
+		if (instancia == null){
+			instancia = new Mapa(ancho,largo);
+		}
+		return (Mapa) instancia;
 	}
 	
 
 }
-
