@@ -8,7 +8,7 @@ public class Celda {
 	Edificio edificio;
 	private boolean visible,areaTerrestre;
 	
-	public Celda(int a,int b){
+	public Celda(){
 		visible = false;
 		areaTerrestre = true;
 	}
