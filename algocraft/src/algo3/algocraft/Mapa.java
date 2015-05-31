@@ -1,16 +1,12 @@
 package algo3.algocraft;
 
-import Celda;
-import CeldaVacia;
-import Mapa;
-import Posicion;
-
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Mapa {
 	
-	private Mapa instancia = null;
+	private static Mapa instancia = null;
 	private Map<Posicion, Celda> mapa; 
 	private int ancho;
 	private int largo;
@@ -27,18 +23,16 @@ public class Mapa {
 			}
 		}
 	}
-	private synchronized void createInstance() {
+	private synchronized static void createInstance() {
 		if (instancia == null) {
-			instancia = new Mapa(ancho,largo);
+			instancia = new Mapa(0,0);
 		}
 	}
-	
-	public Mapa getInstance(){
-		if (instancia == null){
-			instancia = new Mapa(ancho,largo);
-		}
-		return (Mapa) instancia;
-	}
-	
 
+	public static Mapa getInstance() {
+		if (instancia == null)
+			createInstance();
+		return instancia;
+	}
 }
+

@@ -1,12 +1,9 @@
 package algo3.algocraft;
-
-import Edificio;
-import Recurso;
-
 public class Celda {
-	Recurso recurso;
-	Edificio edificio;
-	private boolean visible,areaTerrestre;
+	private boolean visible;
+	private boolean areaTerrestre;
+	/*Recurso recurso;
+	Edificio edificio;*/
 	
 	public Celda(){
 		visible = false;

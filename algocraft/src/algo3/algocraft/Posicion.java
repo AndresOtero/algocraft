@@ -35,4 +35,8 @@ public class Posicion {
 		return true;
 	}
 
+	public int distancia(Posicion destino) {
+		return (Math.abs(x-destino.x)+Math.abs(y-destino.y));
+	}
+
 }
