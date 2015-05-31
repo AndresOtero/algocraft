@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+
 public class Mapa {
 	
 	private static Mapa instancia = null;
@@ -28,7 +29,6 @@ public class Mapa {
 			instancia = new Mapa(0,0);
 		}
 	}
-
 	public static Mapa getInstance() {
 		if (instancia == null)
 			createInstance();

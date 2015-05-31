@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Juego {
 	private static Juego instancia = null;
 	private Mapa mapa=null;
+
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
 	public void crearJugador(String nombre, Color color, TipoRaza raza) {

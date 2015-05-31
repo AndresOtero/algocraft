@@ -1,7 +1,7 @@
 package algo3.algocraft;
 
+
 public abstract class Unidad {
-	
 	protected int dañoTierra;
 	protected int dañoAire;
 	protected int rangoAtaqueTierra;
