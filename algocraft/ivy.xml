@@ -1,0 +1,6 @@
+<ivy-module version="2.0">
+    <info organisation="org.apache" module="tp0-java-algo3"/>
+    <dependencies>
+        <dependency org="junit" name="junit" rev="4.10"/>
+    </dependencies>
+</ivy-module>
