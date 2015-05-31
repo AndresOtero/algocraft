@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class Mapa {
 	
 	private static Mapa instancia = null;

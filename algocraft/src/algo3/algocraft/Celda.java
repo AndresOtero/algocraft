@@ -1,9 +1,8 @@
 package algo3.algocraft;
-
-public class Celda {
-	private boolean visible;
-	private boolean areaTerrestre;
-
+	
+	Recurso recurso;
+	Edificio edificio;
+	private boolean visible,areaTerrestre;
 	
 	public Celda(){
 		visible = false;

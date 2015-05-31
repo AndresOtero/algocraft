@@ -4,9 +4,14 @@ import java.util.ArrayList;
 
 /*El codigo no se sube roto, ni sin formato(ctrl+shift+f). ->hay tabla*/
 public class Juego {
+<<<<<<< HEAD
 	private static Juego instancia = null;
 	private Mapa mapa=null;
 
+=======
+	private static Juego instancia = null;
+	private Mapa mapa = getInstance();//nose como se llama correctamente
+>>>>>>> refs/remotes/origin/master
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
 	public void crearJugador(String nombre, Color color, TipoRaza raza) {
