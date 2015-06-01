@@ -1,9 +1,11 @@
 package algo3.algocraft;
+
+public class Celda{	
 	
 	Recurso recurso;
 	Edificio edificio;
 	private boolean visible,areaTerrestre;
-	
+
 	public Celda(){
 		visible = false;
 		areaTerrestre = true;
