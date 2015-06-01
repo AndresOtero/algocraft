@@ -3,8 +3,8 @@ package algo3.algocraft;
 public class Espectro extends Unidad implements Terrestre, Aerea {
 
 	public Espectro() {
-		dañoTierra = 8;
-		dañoAire = 20;
+		danioTierra = 8;
+		danioAire = 20;
 		rangoAtaqueTierra = 5;
 		rangoAtaqueAire = 5;
 

@@ -1,5 +1,6 @@
 package algo3.algocraft;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ public class Mapa {
 	
 	private static Mapa instancia = null;
 	private Map<Posicion, Celda> mapa; 
+	private ArrayList<Unidad> Unidades = new ArrayList<Unidad>();
 	private int ancho;
 	private int largo;
 

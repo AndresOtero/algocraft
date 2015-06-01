@@ -2,8 +2,8 @@ package algo3.algocraft;
 
 public class Scout extends Unidad implements Terrestre, Aerea {
 	public Scout(){
-		dañoTierra=8;
-		dañoAire=14;
+		danioTierra=8;
+		danioAire=14;
 		rangoAtaqueTierra=4;
 		rangoAtaqueAire=4;
 		

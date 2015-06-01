@@ -3,8 +3,8 @@ package algo3.algocraft;
 public class Zealot extends Unidad implements Terrestre,Transportable {
 	private int transporte=2;
 	public Zealot(){
-		dañoTierra=8;
-		dañoAire=0;
+		danioTierra=8;
+		danioAire=0;
 		rangoAtaqueTierra=1;
 		rangoAtaqueAire=1;
 		

@@ -1,42 +1,19 @@
 package algo3.algocraft;
 
-<<<<<<< HEAD
-
 public abstract class Unidad {
-	protected int dañoTierra;
-	protected int dañoAire;
+	protected int danioTierra;
+	protected int danioAire;
 	protected int rangoAtaqueTierra;
 	protected int rangoAtaqueAire;
-=======
-public class Unidad {
-	private int transporte;
-	private int vision;
-	/*costo tienen que ser recursos*/
-	private int tiempo;
-	private int vida;
-	/*daï¿½o tienen que ser recursos*/
-	/*daÃ±o es un int, no recurso, lo unico que improta es a que tipo de unidad ataca
-	aerea o terrestre*/
-	private int danioTerrestre;
-	private int danioAereo;
-	private int suministro;
-	private int rango;
-	public Unidad(){
-		
-	}
-
->>>>>>> refs/remotes/origin/master
-	
 	protected int vida;
 	protected int escudo=0;
 	protected int suministro;
 	protected int tiempoDeConstruccion;
-	
 	protected int vision;
-	
-	/*costo tienen que ser recursos*/
-	
-	/*daño tienen que ser recursos*/
+	private int transporte;
+	protected int costoMineral;
+	protected int costoGas;
+	private int tiempo;	
 
 	public int vision(){
 		return vision;
@@ -47,13 +24,13 @@ public class Unidad {
 	public int tiempoDeConstruccion(){
 		return tiempoDeConstruccion;
 	}
-	public void recibirDaño(int daño) {
-		daño = this.recibirDañoConEscudo(daño);
-		vida = vida - daño;
+	public void recibirDanio(int danio) {
+		danio = this.recibirDanioConEscudo(danio);
+		vida = vida - danio;
 	}
 
-	private int recibirDañoConEscudo(int daño) {
-		escudo = escudo - daño;
+	private int recibirDanioConEscudo(int danio) {
+		escudo = escudo - danio;
 		if ((escudo) > 0) {
 			return 0;
 		}
@@ -61,19 +38,20 @@ public class Unidad {
 	}
 
 	public boolean estaMuerto() {
+		//si la vida es mayor a 0 devuelve true, osea que estaria muerto??? no es alrevez??
 		return (vida > 0);
 	}
 
 	public int atacarPorTierra(Posicion fuente, Posicion destino) {
 		if ((fuente.distancia(destino)) <= rangoAtaqueTierra) {
-			return (dañoTierra);
+			return (danioTierra);
 		}
 		return 0;
 	}
 
 	public int atacarPorAire(Posicion fuente, Posicion destino) {
 		if ((fuente.distancia(destino)) <= rangoAtaqueAire) {
-			return (dañoAire);
+			return (danioAire);
 		}
 		return 0;
 	}

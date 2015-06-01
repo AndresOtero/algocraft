@@ -3,8 +3,8 @@ package algo3.algocraft;
 public class Dragon extends Unidad implements Terrestre, Transportable {
 	private int transporte=4;
 	public Dragon(){
-		dañoTierra=20;
-		dañoAire=20;
+		danioTierra=20;
+		danioAire=20;
 		rangoAtaqueTierra=4;
 		rangoAtaqueAire=4;
 		

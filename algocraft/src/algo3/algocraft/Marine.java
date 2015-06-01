@@ -4,8 +4,8 @@ public class Marine extends Unidad implements Terrestre,Transportable {
 	private int transporte=1;
 	
 	public Marine(){
-		dañoTierra=6;
-		dañoAire=6;
+		danioTierra=6;
+		danioAire=6;
 		rangoAtaqueTierra=4;
 		rangoAtaqueAire=4;
 
