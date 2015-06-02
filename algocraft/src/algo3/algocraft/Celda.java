@@ -2,7 +2,7 @@ package algo3.algocraft;
 
 public class Celda{	
 	
-	Recurso recurso;
+	FuenteRecurso recurso;
 	Edificio edificio;
 	private boolean visible,areaTerrestre;
 
