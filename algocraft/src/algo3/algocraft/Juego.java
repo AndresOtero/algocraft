@@ -2,17 +2,14 @@ package algo3.algocraft;
 
 import java.util.ArrayList;
 
-/*El codigo no se sube roto, ni sin formato(ctrl+shift+f). ->hay tabla*/
+
 public class Juego {
-
-	private static Juego instancia = null;
-	private Mapa mapa = null;
-
-	private static Juego instancia = null;
-	private Mapa mapa = getInstance();// nose como se llama correctamente
+	private static Juego instancia=null;
+	private Mapa mapa = Mapa.getInstance();
+	
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
-	public void crearJugador(String nombre, Color color, TipoRaza raza) {
+	public void crearJugador(String nombre, Color color, TipoRaza raza) throws NombreIncorrectoException {
 		this.chequearNombreYColorNoRepetidos(nombre, color);
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);

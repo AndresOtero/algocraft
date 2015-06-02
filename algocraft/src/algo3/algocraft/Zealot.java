@@ -2,7 +2,7 @@ package algo3.algocraft;
 
 public class Zealot extends Unidad implements Terrestre,Transportable {
 	private int transporte=2;
-	public Zealot(){
+	public Zealot(Color colorJugador){
 		danioTierra=8;
 		danioAire=0;
 		rangoAtaqueTierra=1;
@@ -13,15 +13,15 @@ public class Zealot extends Unidad implements Terrestre,Transportable {
 		suministro=2;
 		tiempoDeConstruccion=4;
 		vision=7;
-	}
-	@Override
-	public void moverPorTierra() {
-		// TODO Auto-generated method stub
-
+		
+		costoMineral=50;
+		costoGas=0;
+		color=colorJugador;
 	}
 	@Override
 	public int transporte() {
 		return transporte;
 	}
+
 
 }

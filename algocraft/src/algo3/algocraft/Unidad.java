@@ -10,11 +10,19 @@ public abstract class Unidad {
 	protected int suministro;
 	protected int tiempoDeConstruccion;
 	protected int vision;
-	private int transporte;
 	protected int costoMineral;
 	protected int costoGas;
-	private int tiempo;	
-
+	protected Color color;
+	
+	public int costoMineral(){
+		return costoMineral;
+	}
+	public int costoGas(){
+		return costoGas;
+	}
+	public Color color(){
+		return color;
+	}
 	public int vision(){
 		return vision;
 	}
@@ -34,12 +42,11 @@ public abstract class Unidad {
 		if ((escudo) > 0) {
 			return 0;
 		}
-		return escudo;
+		return danio-escudo;
 	}
 
 	public boolean estaMuerto() {
-		//si la vida es mayor a 0 devuelve true, osea que estaria muerto??? no es alrevez??
-		return (vida > 0);
+		return (vida <= 0);
 	}
 
 	public int atacarPorTierra(Posicion fuente, Posicion destino) {

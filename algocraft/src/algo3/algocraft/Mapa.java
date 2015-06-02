@@ -6,10 +6,8 @@ import java.util.Map;
 
 
 public class Mapa {
-	
 	private static Mapa instancia = null;
-	private Map<Posicion, Celda> mapa; 
-	private ArrayList<Unidad> Unidades = new ArrayList<Unidad>();
+	private Map<Posicion, Celda> mapa =null; 
 	private int ancho;
 	private int largo;
 
@@ -25,6 +23,7 @@ public class Mapa {
 			}
 		}
 	}
+	
 	private synchronized static void createInstance() {
 		if (instancia == null) {
 			instancia = new Mapa(0,0);

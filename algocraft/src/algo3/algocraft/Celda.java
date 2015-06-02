@@ -1,10 +1,9 @@
 package algo3.algocraft;
 
-public class Celda{	
-	
-	Recurso recurso;
+public class Celda {
 	Edificio edificio;
-	private boolean visible,areaTerrestre;
+	private boolean visible;
+	private boolean areaTerrestre;
 
 	public Celda(){
 		visible = false;
@@ -23,5 +22,4 @@ public class Celda{
 	public void cambiarAreaTerrestre(boolean area){
 		areaTerrestre = area;
 	}
-	
 }

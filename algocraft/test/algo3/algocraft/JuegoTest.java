@@ -14,13 +14,8 @@ public class JuegoTest {
 		Juego juego = Juego.getInstance();
 		TipoRaza raza = TipoRaza.TERRAN;
 		Color color = Color.ROJO;
-		juego.crearJugador("alan", color, raza);
-		juego.crearJugador("pepe",Color.AMARILLO,TipoRaza.TERRAN);
+		
 
-		Golliat unidad1 = new Golliat();
-		Golliat unidad2 = new Golliat();
-		unidad1.disparar(unidad2); //codear
-		assertEquals(unidad2.vida(),100);//codear, el 100 es para testear nomas
 		
 		
 	}

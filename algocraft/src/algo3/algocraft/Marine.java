@@ -3,7 +3,7 @@ package algo3.algocraft;
 public class Marine extends Unidad implements Terrestre,Transportable {
 	private int transporte=1;
 	
-	public Marine(){
+	public Marine(Color colorJugador){
 		danioTierra=6;
 		danioAire=6;
 		rangoAtaqueTierra=4;
@@ -13,10 +13,11 @@ public class Marine extends Unidad implements Terrestre,Transportable {
 		suministro=1;
 		tiempoDeConstruccion=3;
 		vision=7;
-	}
-	@Override
-	public void moverPorTierra() {
-		// TODO Auto-generated method stub
+		
+		color=colorJugador;
+		costoMineral=50;
+		costoGas=0;
+		
 	}
 	@Override
 	public int transporte() {

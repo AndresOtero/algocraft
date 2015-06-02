@@ -1,7 +1,7 @@
 package algo3.algocraft;
 
 public class Scout extends Unidad implements Terrestre, Aerea {
-	public Scout(){
+	public Scout(Color colorJugador){
 		danioTierra=8;
 		danioAire=14;
 		rangoAtaqueTierra=4;
@@ -12,17 +12,11 @@ public class Scout extends Unidad implements Terrestre, Aerea {
 		suministro=3;
 		tiempoDeConstruccion=9;
 		vision=7;
+		
+		this.color=colorJugador;
+		costoMineral=300;
+		costoGas=150;
 	}
-	@Override
-	public void moverPorAgua() {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void moverPorTierra() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

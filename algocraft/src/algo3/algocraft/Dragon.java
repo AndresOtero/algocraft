@@ -2,7 +2,7 @@ package algo3.algocraft;
 
 public class Dragon extends Unidad implements Terrestre, Transportable {
 	private int transporte=4;
-	public Dragon(){
+	public Dragon(Color colorJugador){
 		danioTierra=20;
 		danioAire=20;
 		rangoAtaqueTierra=4;
@@ -13,16 +13,15 @@ public class Dragon extends Unidad implements Terrestre, Transportable {
 		suministro=2;
 		tiempoDeConstruccion=6;
 		vision=8;
+		costoMineral=125;
+		costoGas=50;
+		this.color=colorJugador;
 	}
 	@Override
 	public int transporte() {
 		return transporte;
 	}
 
-	@Override
-	public void moverPorTierra() {
-		// TODO Auto-generated method stub
 
-	}
 
 }
