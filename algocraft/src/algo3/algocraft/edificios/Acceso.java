@@ -2,7 +2,7 @@ package algo3.algocraft.edificios;
 
 import algo3.algocraft.*;
 
-public class Acceso extends Edificio implements RecolectableMinerales {
+public class Acceso extends Edificio implements CreadorSoldados {
 	
 	public Acceso(){
 		this.costoGas = 0;
@@ -12,17 +12,13 @@ public class Acceso extends Edificio implements RecolectableMinerales {
 		this.escudo = 500;
 	}
 	
-	public int recolectarMineral(){
-		if (this.puedoRecolectar()) return 10;
-		return 0;
+	public Dragon crearDragon(){
+		return new Dragon(color);
 	}
-
 	
-	/*LOGICA DE TURNOS -- */
-	private boolean puedoRecolectar() {
-		return true;
+	public Zealot crearZealot(){
+		return new Zealot(color);
 	}
-
 
 }
 
