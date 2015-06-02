@@ -4,9 +4,9 @@ public class Jugador {
 	private String nombre;
 	private Color color;
 	private TipoRaza raza;
-	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador){
+	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador) throws NombreIncorrectoException{
 		 if(nombre.length()<4){
-			 /*Error*/
+			 throw new  NombreIncorrectoException();
 		 }
 		 this.color=colorJugador;
 		 this.nombre=nombreJugador;
