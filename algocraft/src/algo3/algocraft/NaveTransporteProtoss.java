@@ -1,7 +1,7 @@
 package algo3.algocraft;
 
-public class NaveTransporte extends UnidadDeTransporte {
-	public NaveTransporte(Color colorJugador){
+public class NaveTransporteProtoss extends UnidadDeTransporte {
+	public NaveTransporteProtoss(Color colorJugador){
 		ocupado = 0;
 		capacidad = 8;
 		vision = 8;
@@ -11,5 +11,6 @@ public class NaveTransporte extends UnidadDeTransporte {
 		suministro=2;
 		vida=60;
 		escudo=80;
+		this.color = color;
 	}
 }

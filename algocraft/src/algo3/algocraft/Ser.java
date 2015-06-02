@@ -13,16 +13,16 @@ public abstract class Ser {
 	}
 
 	public void recibirDanio(int danio) {
-		danio = this.recibirDanioConEscudo(danio);
-		vida = vida - danio;
+		int nuevoDanio = this.recibirDanioConEscudo(danio);
+		vida = vida + nuevoDanio;
 	}
 
 	private int recibirDanioConEscudo(int danio) {
-		escudo = escudo - danio;
-		if ((escudo) > 0) {
+		int escudoAtacado = escudo - danio;
+		if ((escudoAtacado) > 0) {
 			return 0;
 		}
-		return danio - escudo;
+		return escudoAtacado;
 	}
 
 	public boolean estaMuerto() {
@@ -39,6 +39,14 @@ public abstract class Ser {
 
 	public Color color() {
 		return color;
+	}
+
+	public int vida() {
+		return this.vida;
+	}
+
+	public int escudo() {
+		return this.escudo;
 	}
 
 }

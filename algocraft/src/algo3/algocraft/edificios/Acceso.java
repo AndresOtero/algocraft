@@ -1,16 +1,29 @@
 package algo3.algocraft.edificios;
 
-import algo3.algocraft.EdificioProtoss;
+import algo3.algocraft.*;
 
-public class Acceso extends EdificioProtoss {
+public class Acceso extends Edificio implements RecolectableMinerales {
 	
 	public Acceso(){
 		this.costoGas = 0;
 		this.costoMineral = 150;
-		this.tiempo = 8;
+		this.tiempoDeConstruccion = 8;
 		this.vida = 500;
-		this.escudoActual = 500;
-		this.escudoInicial = 500;
+		this.escudo = 500;
+	}
+	
+	public int recolectarMineral(){
+		if (this.puedoRecolectar()) return 10;
+		return 0;
 	}
 
+	
+	/*LOGICA DE TURNOS -- */
+	private boolean puedoRecolectar() {
+		return true;
+	}
+
+
 }
+
+

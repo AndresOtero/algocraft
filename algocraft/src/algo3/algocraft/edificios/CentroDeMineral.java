@@ -2,17 +2,30 @@ package algo3.algocraft.edificios;
 
 import algo3.algocraft.*;
 
-public class CentroDeMineral extends Edificio {
+public class CentroDeMineral extends Edificio implements RecolectableMinerales {
 
 	private Mineral mineral;
 
-	public CentroDeMineral(Mineral mineral){
+	public CentroDeMineral(Mineral mineral) {
 		this.vida = 500;
-		this.tiempo = 4;
+		this.tiempoDeConstruccion = 4;
 		this.costoGas = 0;
 		this.costoMineral = 50;
 		this.mineral = mineral;
-	
+		
+
+	}
+
+	@Override
+	public int recolectarMineral() {
+		if (this.puedoRecolectar())
+			return 10;
+		return 0;
+	}
+
+	private boolean puedoRecolectar() {
+
+		return true;
 	}
 
 }
