@@ -19,7 +19,7 @@ public class ScoutTest {
 	}
 	@Test
 	public void ataque(){
-		Unidad unidad=(Unidad) new Scout(Color.AMARILLO);
+		UnidadDeAtaque unidad=(UnidadDeAtaque) new Scout(Color.AMARILLO);
 		Posicion fuente= new Posicion(0,0);
 		Posicion enRango = new Posicion(1,0);
 		Posicion fueraDeRango=new Posicion(100,100);

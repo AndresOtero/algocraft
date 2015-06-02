@@ -20,7 +20,7 @@ public class GolliatTest {
 
 	@Test
 	public void ataque() {
-		Unidad unidad = (Unidad) new Golliat(Color.AMARILLO);
+		UnidadDeAtaque unidad = (UnidadDeAtaque) new Golliat(Color.AMARILLO);
 		Posicion fuente = new Posicion(0, 0);
 		Posicion enRango = new Posicion(1, 0);
 		Posicion fueraDeRango = new Posicion(100, 100);

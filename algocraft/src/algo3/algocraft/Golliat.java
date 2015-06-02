@@ -1,6 +1,6 @@
 package algo3.algocraft;
 
-public class Golliat extends Unidad implements Terrestre, Transportable {
+public class Golliat extends UnidadDeAtaque implements Terrestre, Transportable {
 	private int transporte=2;
 	public Golliat(Color colorJugador){
 		danioTierra=12;

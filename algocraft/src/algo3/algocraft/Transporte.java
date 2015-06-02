@@ -1,18 +1,15 @@
 package algo3.algocraft;
 
-public class Transporte extends Unidad implements Transportador {
-	private int ocupado=0;
-	private int capacidad=8;
-	
-	@Override
-	public Boolean subirUnidad(Transportable transportable) {
-		return true;
-	}
-
-	@Override
-	public void bajarUnidad(Transportable transportable) {
-		// TODO Auto-generated method stub
-		
+public class Transporte extends UnidadDeTransporte {
+	public Transporte(Color colorJugador) {
+		ocupado = 0;
+		capacidad = 8;
+		vision = 8;
+		costoMineral=100;
+		costoGas=100;
+		tiempoDeConstruccion=7;
+		suministro=2;
+		vida=150;
 	}
 
 }

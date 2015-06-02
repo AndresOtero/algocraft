@@ -1,6 +1,6 @@
 package algo3.algocraft;
 
-public class Scout extends Unidad implements Terrestre, Aerea {
+public class Scout extends UnidadDeAtaque implements Terrestre, Aerea {
 	public Scout(Color colorJugador){
 		danioTierra=8;
 		danioAire=14;

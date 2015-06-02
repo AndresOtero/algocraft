@@ -1,6 +1,6 @@
 package algo3.algocraft;
 
-public class Marine extends Unidad implements Terrestre,Transportable {
+public class Marine extends UnidadDeAtaque implements Terrestre,Transportable {
 	private int transporte=1;
 	
 	public Marine(Color colorJugador){

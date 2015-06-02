@@ -1,6 +1,6 @@
 package algo3.algocraft;
 
-public class Espectro extends Unidad implements Terrestre, Aerea {
+public class Espectro extends UnidadDeAtaque implements Terrestre, Aerea {
 
 	public Espectro(Color colorJugador) {
 		danioTierra = 8;

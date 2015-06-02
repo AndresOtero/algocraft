@@ -1,6 +1,6 @@
 package algo3.algocraft;
 
-public class Dragon extends Unidad implements Terrestre, Transportable {
+public class Dragon extends UnidadDeAtaque implements Terrestre, Transportable {
 	private int transporte=4;
 	public Dragon(Color colorJugador){
 		danioTierra=20;

@@ -1,6 +1,6 @@
 package algo3.algocraft;
 
-public class Zealot extends Unidad implements Terrestre,Transportable {
+public class Zealot extends UnidadDeAtaque implements Terrestre,Transportable {
 	private int transporte=2;
 	public Zealot(Color colorJugador){
 		danioTierra=8;

@@ -18,7 +18,7 @@ public class DragonTest {
 	}
 	@Test
 	public void ataque(){
-		Unidad unidad=(Unidad) new Dragon(Color.AMARILLO);
+		UnidadDeAtaque unidad=(UnidadDeAtaque) new Dragon(Color.AMARILLO);
 		Posicion fuente= new Posicion(0,0);
 		Posicion enRango = new Posicion(1,0);
 		Posicion fueraDeRango=new Posicion(100,100);
