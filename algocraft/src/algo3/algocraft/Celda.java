@@ -1,6 +1,9 @@
 package algo3.algocraft;
 
-public class Celda {
+
+public class Celda{	
+	
+	FuenteRecurso recurso;
 	Edificio edificio;
 	private boolean visible;
 	private boolean areaTerrestre;
