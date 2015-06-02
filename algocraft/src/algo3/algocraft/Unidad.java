@@ -1,6 +1,6 @@
 package algo3.algocraft;
 
-public abstract class Unidad {
+public abstract class Unidad extends Ser {
 	protected int danioTierra;
 	protected int danioAire;
 	protected int rangoAtaqueTierra;
