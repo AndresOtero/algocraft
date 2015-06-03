@@ -44,13 +44,13 @@ public class Mapa {
 	public void ponerTerrestre(Posicion pos,Ser ser){
 		int clave = pos.hashCode();
 		Celda celda = mapa.get(clave);
-		if (celda.ocupadaTerrestre()) System.out.println("ESTA OCUPADA TERRESTRE");//EXCEPCION
+		if (celda.ocupadoTerrestre()) System.out.println("ESTA OCUPADA TERRESTRE");//EXCEPCION
 		else celda.agregarSerTerrestre(ser);	
 	}
 	public void ponerAereo(Posicion pos,Ser ser){
 		int clave = pos.hashCode();
 		Celda celda = mapa.get(clave);
-		if (celda.ocupadaAerea()) System.out.println("ESTA OCUPADA AEREA");//EXCEPCION
+		if (celda.ocupadoAerea()) System.out.println("ESTA OCUPADA AEREA");//EXCEPCION
 		else celda.agregarSerAereo(ser);	
 	}
 	

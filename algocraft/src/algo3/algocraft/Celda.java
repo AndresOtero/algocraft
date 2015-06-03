@@ -1,63 +1,70 @@
 package algo3.algocraft;
 
+public class Celda {
 
-public class Celda{	
-	
 	private FuenteRecurso recurso;
-	private Ser ser;
+	private Ser serTerrestre;
+	private Ser serAereo;
 	private boolean visible;
-	private boolean areaTerrestre;
-	private boolean ocupadaTerrestre;
-	private boolean ocupadaAerea;
-	
 
-	public Celda(){
-		visible = false;
-		areaTerrestre = true;
-		ocupadaTerrestre = false;
-		ocupadaAerea = false;
+	public Celda() {
+		this.recurso = null;
+		this.serAereo = null;
+		this.serTerrestre = null;
 	}
-	
-	public boolean esVisible(){
+
+	public boolean esVisible() {
 		return visible;
 	}
-	public void cambiarVisibilidad(boolean nuevaVisibilidad){
+
+	public void cambiarVisibilidad(boolean nuevaVisibilidad) {
 		visible = nuevaVisibilidad;
 	}
-	public boolean esTerrestre(){
-		return areaTerrestre;
+
+	public boolean ocupadoTerrestre() {
+		if (this.serTerrestre != null || this.recurso != null)
+			return true;
+		return false;
 	}
-	public void cambiarAreaTerrestreAccesible(boolean area){
-		areaTerrestre = area;
+
+	public boolean ocupadoAerea() {
+		if (this.serAereo != null)
+			return true;
+		return false;
 	}
-	public Ser serDeLaCelda(){
-		return ser;
+
+	public Ser serEnLaCeldaTerrestre() {
+		return this.serTerrestre;
 	}
-	public void agregarSerAereo(Ser ser){
-		this.ser =ser;
-		ocupadaAerea = true;
+
+	public Ser serEnLaCeldaAerea() {
+		return this.serAereo;
 	}
-	public void agregarSerTerrestre(Ser ser){
-		this.ser =ser;
-		ocupadaTerrestre = true;
+
+	public boolean agregarSerAereo(Ser ser) {
+		if (this.serAereo == null) {
+			this.serAereo = ser;
+			return true;
+		}
+		return false;
 	}
-	public FuenteRecurso fuenteRecurso(){
+
+	public boolean agregarSerTerrestre(Ser ser) {
+		if (this.serTerrestre == null) {  /* IMPORTANTE : PODRIAMOS ESTAR AGREGANDO UN SER Y UN RECURSO EN LA MISMA CELDA
+		TENDRIAMOS QUE VALIDAR QUE SOLO ( SOLO ) PUEDE AGREGARSE UN SER EDIFICIO REFINERIA O MINERALERO EN UN LUGAR
+		DONDE YA HAYA UN RECURSO > Jc*/									 
+			this.serTerrestre = ser;
+			return true;
+		}
+		return false;
+
+	}
+
+	public FuenteRecurso fuenteRecurso() {
 		return recurso;
 	}
-	public void agregarFuenteRecurso(FuenteRecurso fuenteRecurso){
+
+	public void agregarFuenteRecurso(FuenteRecurso fuenteRecurso) {
 		recurso = fuenteRecurso;
-		visible = true;
-	}
-	public boolean ocupadaTerrestre(){
-		return ocupadaTerrestre;
-	}
-	public boolean ocupadaAerea(){
-		return ocupadaAerea;
-	}
-	public void sacarTerrestre(){
-		ocupadaTerrestre = false;
-	}
-	public void sacarAereo(){
-		ocupadaAerea = false;
 	}
 }
