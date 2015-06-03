@@ -6,13 +6,15 @@ public class NexoMineral extends Edificio implements RecolectableMinerales{
 
 	private Mineral mineral;
 
-	public NexoMineral(Mineral mineral) {
+	public NexoMineral(Mineral mineral, Color colorJugador) {
 		this.vida = 250;
 		this.escudo = 250;
 		this.tiempoDeConstruccion = 4;
 		this.costoGas = 0;
 		this.costoMineral = 50;
 		this.mineral = mineral;
+		this.color=colorJugador;
+
 	
 	}
 
