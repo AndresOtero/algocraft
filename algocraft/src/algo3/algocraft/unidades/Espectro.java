@@ -1,4 +1,6 @@
-package algo3.algocraft;
+package algo3.algocraft.unidades;
+
+import algo3.algocraft.*;
 
 public class Espectro extends UnidadDeAtaque implements Terrestre, Aerea {
 

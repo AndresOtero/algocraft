@@ -3,6 +3,7 @@ package algo3.algocraft;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import algo3.algocraft.exceptions.*;
 
 
 public class Mapa {

@@ -1,4 +1,4 @@
-package algo3.algocraft;
+package algo3.algocraft.unidades;
 
 import java.util.ArrayList;
 

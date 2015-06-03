@@ -1,4 +1,4 @@
-package algo3.algocraft;
+package algo3.algocraft.unidades;
 
 public abstract class UnidadMagica extends Unidad {
 	protected int energia = 50;

@@ -1,4 +1,4 @@
 package algo3.algocraft;
 
-public interface Terrestre {
+public interface Terrestre{
 }

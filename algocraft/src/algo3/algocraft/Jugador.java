@@ -1,4 +1,5 @@
 package algo3.algocraft;
+import algo3.algocraft.exceptions.*;
 
 public class Jugador {
 	private String nombre;

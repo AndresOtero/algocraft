@@ -1,4 +1,6 @@
-package algo3.algocraft;
+package algo3.algocraft.unidades;
+
+import algo3.algocraft.*;
 
 public class AltoTemplario extends UnidadMagica implements Transportable {
 	private int transporte = 2;

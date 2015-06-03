@@ -1,7 +1,7 @@
 package algo3.algocraft;
 
 import java.util.ArrayList;
-
+import algo3.algocraft.exceptions.*;
 
 public class Juego {
 

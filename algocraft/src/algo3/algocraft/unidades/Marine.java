@@ -1,4 +1,6 @@
-package algo3.algocraft;
+package algo3.algocraft.unidades;
+
+import algo3.algocraft.*;
 
 public class Marine extends UnidadDeAtaque implements Terrestre,Transportable {
 	private int transporte=1;

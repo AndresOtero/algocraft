@@ -1,4 +1,6 @@
-package algo3.algocraft;
+package algo3.algocraft.unidades;
+
+import algo3.algocraft.Color;
 
 public class NaveCiencia extends UnidadMagica {
 	private Unidad unidadObjetivo=null;

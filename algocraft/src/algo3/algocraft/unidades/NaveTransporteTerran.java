@@ -1,4 +1,6 @@
-package algo3.algocraft;
+package algo3.algocraft.unidades;
+
+import algo3.algocraft.Color;
 
 public class NaveTransporteTerran extends UnidadDeTransporte{
 	public NaveTransporteTerran(Color colorJugador){
