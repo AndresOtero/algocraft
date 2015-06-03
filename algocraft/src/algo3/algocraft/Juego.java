@@ -5,22 +5,36 @@ import java.util.ArrayList;
 
 public class Juego {
 
+	
+	
 	private static Juego instancia=null;
 	private Mapa mapa = Mapa.getInstance();
 
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
-	public void crearJugador(String nombre, Color color, TipoRaza raza) throws NombreIncorrectoException {
+	public   void crearJugador(String nombre, Color color, TipoRaza raza) throws NombreIncorrectoException {
 
 		this.chequearNombreYColorNoRepetidos(nombre, color);
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);
 	}
+	
+	public void iniciarJuego(){
+		
+	}
+	
+	public void pasarTurno(){
+		
+	}
+	
+	public Celda ContenidoFilaColumna(int fila, int columna){
+		return mapa.ContenidoFilaColumna(fila,columna);
+	}
 
 	private void chequearNombreYColorNoRepetidos(String nombre, Color color) {
 		for (Jugador jugador : jugadores) {
 			if (jugador.esNombre(nombre) || jugador.esColor(color)) {
-				//Errpr 
+				//Error 
 			}
 		}
 	}

@@ -64,5 +64,10 @@ public class Mapa {
 			createInstance();
 		return instancia;
 	}
+	public  Celda ContenidoFilaColumna(int fila, int columna) {
+		return mapa.get((new Posicion(fila,columna)).hashCode());
+	}
 }
+
+
 
