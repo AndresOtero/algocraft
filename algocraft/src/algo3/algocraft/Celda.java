@@ -67,4 +67,11 @@ public class Celda {
 	public void agregarFuenteRecurso(FuenteRecurso fuenteRecurso) {
 		recurso = fuenteRecurso;
 	}
+
+	public void desocuparTerrestre() {
+		serTerrestre = null;
+	}
+	public void desocuparAerea() {
+		serAereo = null;
+	}
 }

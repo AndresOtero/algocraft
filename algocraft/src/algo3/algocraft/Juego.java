@@ -46,7 +46,7 @@ public class Juego {
 	
 	public void iniciarJuego(){
 		turnos = new Turnos(jugadores);
-		mapa.crearMapa(jugadores);
+		mapa.getInstance(jugadores);
 	}
 	
 	public void pasarTurno(){
@@ -83,7 +83,7 @@ public class Juego {
 
 	// Singleton
 	private Juego() {
-		mapa = Mapa.getInstance();
+		mapa = Mapa.getInstance(jugadores);
 	}
 
 	private synchronized static void createInstance() {

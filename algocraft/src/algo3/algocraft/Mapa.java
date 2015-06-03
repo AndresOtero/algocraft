@@ -11,62 +11,64 @@ public class Mapa {
 	private Map<Posicion, Celda> mapa =null; 
 	private int ancho;
 	private int largo;
-	private Map<Color, ArrayList<Ser>> seres =null; 
+	private Map<Color, ArrayList<Ser>> seres; 
 	private ArrayList<Jugador> jugadores;
 
 	
 	private Mapa(int ancho, int largo,ArrayList<Jugador> jugadores){
 		this.mapa = new HashMap<Posicion, Celda>();
+		this.seres = new HashMap<Color, ArrayList<Ser>>();
 		this.ancho = ancho;
 		this.largo = largo;
 		this.jugadores = jugadores;
-		for (int i = 1; i <= this.ancho; i++) {
-			for (int j=1; j<=this.largo; j++) {
+		for (int i = 0; i <= this.ancho; i++) {
+			for (int j=0; j<=this.largo; j++) {
 				Posicion p = new Posicion(i,j);
-				mapa.put(p, new Celda());
+				Celda c = new Celda();
+				mapa.put(p,c);
 			}
 		}
-		inicializarMapa();
+		//inicializarMapa();
 	}
 	
 	
 	private void inicializarMapa(){
 		Posicion pos = new Posicion(1,1);
-		int clave = pos.hashCode();
+		//int clave = pos.hashCode();
 		/*Aunque el objeto pos de tipo Posicion sea distinto al ya creado dentro del mapa
 		 * el hashCode de ambos va a ser le mismo por tener las mismas coordenadas*/
-		Celda celda = mapa.get(clave);
+		Celda celda = mapa.get(pos);
 		VolcanGasVespeno volcan = new VolcanGasVespeno(pos);
-		celda.agregarFuenteRecurso(volcan);
+		/*celda.agregarFuenteRecurso(volcan);
 		for(int i = 1;i<6;i++){
 			Posicion pos2 = new Posicion(i+2,1);
 			int clave2 = pos2.hashCode();
 			Celda celda2 = mapa.get(clave2);
 			Mineral mineral = new Mineral(pos2);
 			celda2.agregarFuenteRecurso(mineral);
-			}
+			}*/
 		
 	}
 	public void ponerTerrestre(Posicion pos,Ser ser){
-		int clave = pos.hashCode();
-		Celda celda = mapa.get(clave);
-		if (celda.ocupadoTerrestre()) System.out.println("ESTA OCUPADA TERRESTRE");//EXCEPCION
+		//int clave = pos.hashCode();
+		Celda celda = mapa.get(pos);
+		if (celda.ocupadoTerrestre()) System.out.println("La celda esta ocupada");
 		else celda.agregarSerTerrestre(ser);	
 		Color color = ser.color();
 		agregarSerDeColor(ser,color);
 	}
 		
-	public void ponerAereo(Posicion pos,Ser ser){
-		int clave = pos.hashCode();
-		Celda celda = mapa.get(clave);
-		if (celda.ocupadoAerea()) System.out.println("ESTA OCUPADA AEREA");//EXCEPCION
+	public void ponerAereo(Posicion pos,Ser ser) throws NoEsPosibleMoverException{
+		//int clave = pos.hashCode();
+		Celda celda = mapa.get(pos);
+		if (celda.ocupadoAerea()) throw new NoEsPosibleMoverException();
 		else celda.agregarSerAereo(ser);	
 		Color color = ser.color();
 		agregarSerDeColor(ser,color);
 	}
 	
 	private void agregarSerDeColor(Ser ser, Color color) {
-		if (seres.containsKey(color)){
+		if (seres.get(color) != null){
 			(seres.get(color)).add(ser);	
 		}
 		else{
@@ -87,17 +89,36 @@ public class Mapa {
 		return instancia;
 	}
 	public  Celda ContenidoFilaColumna(int fila, int columna) {
-		return mapa.get((new Posicion(fila,columna)).hashCode());
+		return mapa.get((new Posicion(fila,columna)));
 	}
 	public ArrayList<Ser> seresDeJugador(Color color){
-		
+		return (seres.get(color));
 	}
 
-	public void mover(Ser unidadAMover, int fila, int columna) throws NoEsPosibleMoverException {
+	public void moverTerrestre(Ser unidadAMover, int xInicial, int yInicial,int xFinal,int yFinal){
 		// aca deberia mover una unidad a la fila y columna que le pasan
-		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException. Suerte :)
-		throw new NoEsPosibleMoverException();
+		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
+		Celda celda = mapa.get((new Posicion(xFinal,yFinal)));
+		if (celda.ocupadoTerrestre()) {
+			System.out.println("ESTA OCUPADO TERRESTRE"); //throw new NoEsPosibleMoverException();
+		}
+		else {
+			ponerTerrestre(new Posicion(xFinal,yFinal),unidadAMover);	
+			celda.desocuparTerrestre();
+		}
 		
+	}
+	public void moverAerea(Ser unidadAMover, int xInicial, int yInicial,int xFinal,int yFinal) throws NoEsPosibleMoverException {
+		// aca deberia mover una unidad a la fila y columna que le pasan
+		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
+		Celda celda = mapa.get((new Posicion(xFinal,yFinal)));
+		if (celda.ocupadoAerea()) {
+			System.out.println("ESTA OCUPADO TERRESTRE"); //throw new NoEsPosibleMoverException();
+		}
+		else {
+			ponerAereo(new Posicion(xFinal,yFinal),unidadAMover);	
+			celda.desocuparAerea();
+		}
 	}
 }
 
