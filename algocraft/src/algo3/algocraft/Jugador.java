@@ -18,4 +18,8 @@ public class Jugador {
 	public boolean esColor(Color colorJugador) {
 		return (colorJugador==color);
 	}
+	
+	public String nombre(){
+		return this.nombre;
+	}
 }

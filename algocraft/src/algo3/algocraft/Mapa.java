@@ -24,6 +24,11 @@ public class Mapa {
 		}
 		inicializarMapa();
 	}
+	
+	public void crearMapa(ArrayList<Jugador> jugadores){
+		//ACA SE CREA EL MAPA Y SE REPARTE TODa LA FIESTA
+	}
+	
 	private void inicializarMapa(){
 		Posicion pos = new Posicion(1,1);
 		int clave = pos.hashCode();
@@ -66,6 +71,13 @@ public class Mapa {
 	}
 	public  Celda ContenidoFilaColumna(int fila, int columna) {
 		return mapa.get((new Posicion(fila,columna)).hashCode());
+	}
+
+	public void mover(Ser unidadAMover, int fila, int columna) throws NoEsPosibleMoverException {
+		// aca deberia mover una unidad a la fila y columna que le pasan
+		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException. Suerte :)
+		throw new NoEsPosibleMoverException();
+		
 	}
 }
 

@@ -1,14 +1,17 @@
 package algo3.algocraft;
 
+import java.util.ArrayList;
+
 public class Turnos {
+	
 	
 	private Jugador[] jugadores = new Jugador[2];
 	
 	private int turno;
 	
-	Turnos(Jugador jugador1,Jugador jugador2){
-		jugadores[0] = jugador1;
-		jugadores[1] = jugador2;
+	Turnos(ArrayList<Jugador> jugadores){
+		this.jugadores[0] = jugadores.get(0);
+		this.jugadores[1] = jugadores.get(1);
 		turno = 0;
 	}
 	
@@ -19,6 +22,8 @@ public class Turnos {
 	public void avanzarTurno(){
 		turno++;
 	}
+	
+
 	
 }
 
