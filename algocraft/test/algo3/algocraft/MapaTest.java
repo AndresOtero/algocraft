@@ -77,7 +77,6 @@ public class MapaTest {
 		ArrayList<EdificioDeRecurso> edificiosDeGas = mapa.edificioDeGas(Color.ROJO);
 		for (int i =0;i<(edificiosDeGas).size();i++){
 			Assert.assertTrue(edificiosDeGas.get(i) == edificiosDeGas.get(i));
-		}	
-		
+		}		
 	}
 }
