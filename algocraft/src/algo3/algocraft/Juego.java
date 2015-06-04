@@ -1,9 +1,12 @@
 package algo3.algocraft;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import algo3.algocraft.edificios.AbstractFactoryEdificios;
 import algo3.algocraft.edificios.EdificioDeRecurso;
+import algo3.algocraft.edificios.FactoryEdificiosProtoss;
+import algo3.algocraft.edificios.FactoryEdificiosTerran;
 import algo3.algocraft.exceptions.*;
 import algo3.algocraft.unidades.UnidadDeAtaque;
 
@@ -14,6 +17,7 @@ public class Juego {
 	private static Juego instancia=null;
 	private Mapa mapa;
 	private Turnos turnos;
+	private HashMap<Jugador, AbstractFactoryEdificios> fabricas = new HashMap<Jugador, AbstractFactoryEdificios>();
 	
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
@@ -23,6 +27,13 @@ public class Juego {
 		this.chequearNombreYColorNoRepetidos(nombre, color);
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);
+		if(raza == TipoRaza.TERRAN){
+			fabricas.put(jugador, new FactoryEdificiosTerran(color));
+		}else
+			
+		{
+			fabricas.put(jugador, new FactoryEdificiosProtoss(color));
+		}
 	}
 	
 	public int agregarJugador(String nombre, Color color, TipoRaza raza, String[] errores){
@@ -137,6 +148,7 @@ public class Juego {
 	public void agregarEdificio(String string, int i, int j) throws NoHayRecursosException, NoEstanLosRequisitosException {
 		// TODO Auto-generated method stub
 		//throw new NoHayRecursosException();
+		turnos.turnoActual().
 		throw new NoEstanLosRequisitosException();
 	}
 
@@ -148,16 +160,14 @@ public class Juego {
 	
 	public void atacarAire(UnidadDeAtaque atacante, Ser atacado){
 		atacante.atacarAire(atacado);
-		sacarMuertos(atacado);
+		if(atacado.estaMuerto())
+			mapa.borrarSerAereo(atacado);
 	}
 
-	private void sacarMuertos(Ser atacado) {
-		if(atacado.estaMuerto())
-			mapa.Sacar(atacado);
-	}
 	
 	public void atacarTierra(UnidadDeAtaque atacante, Ser atacado){
 		atacante.atacarTierra(atacado);
-		sacarMuertos(atacado);
+		if(atacado.estaMuerto())
+			mapa.borrarSerTerrestre(atacado);
 	}
 }

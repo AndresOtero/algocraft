@@ -12,7 +12,7 @@ public class Mapa {
 	private static Mapa instancia = null;
 	private Map<Posicion, Celda> mapa =null; 
 	private int ancho;
-	private int largo;
+	private int alto;
 	private Map<Color, ArrayList<Ser>> seres;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;
@@ -25,9 +25,9 @@ public class Mapa {
 		this.edificiosDeGas = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.ancho = ancho;
-		this.largo = largo;
+		this.alto = largo;
 		for (int i = 0; i <= this.ancho; i++) {
-			for (int j=0; j<=this.largo; j++) {
+			for (int j=0; j<=this.alto; j++) {
 				Posicion p = new Posicion(i,j);
 				Celda c = new Celda();
 				mapa.put(p,c);
@@ -44,6 +44,12 @@ public class Mapa {
 		celda.agregarFuenteRecurso(volcan);
 		for(int i = 1;i<6;i++){
 			Posicion pos2 = new Posicion(i+2,1);
+			Celda celda2 = mapa.get(pos2);
+			Mineral mineral = new Mineral();
+			celda2.agregarFuenteRecurso(mineral);
+			}
+		for(int i = this.alto -1;0<i;i--){
+			Posicion pos2 = new Posicion(i-2,this.alto);
 			Celda celda2 = mapa.get(pos2);
 			Mineral mineral = new Mineral();
 			celda2.agregarFuenteRecurso(mineral);
@@ -119,38 +125,42 @@ public class Mapa {
 		return instancia;
 	}
 	
-	public  Celda ContenidoFilaColumna(int fila, int columna) {
-		return mapa.get((new Posicion(fila,columna)));
+	public  Celda ContenidoPosicion(Posicion pos) {
+		return mapa.get(pos);
 	}
 	
 	public ArrayList<Ser> seresDeJugador(Color color){
 		return (seres.get(color));
 	}
 
-	public void moverTerrestre(Ser unidadAMover, int xInicial, int yInicial,int xFinal,int yFinal){
+	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal){
 		// aca deberia mover una unidad a la fila y columna que le pasan
 		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
-		Celda celda = mapa.get((new Posicion(xFinal,yFinal)));
-		if (celda.ocupadoTerrestre()) {
-			System.out.println("ESTA OCUPADO TERRESTRE"); //throw new NoEsPosibleMoverException();
+		Celda celdaFinal = mapa.get(posicionFinal);
+		Celda celdaInicial = mapa.get(posicionInicial);
+		Ser unidadAMover = celdaInicial.serEnLaCeldaTerrestre();
+		if (celdaFinal.ocupadoTerrestre()) {
+			System.out.println("ESTA OCUPADO Terrestre"); //throw new NoEsPosibleMoverException();
 		}
 		else {
-			ponerTerrestre(new Posicion(xFinal,yFinal),unidadAMover);	
-			celda.desocuparTerrestre();
+			ponerTerrestre(posicionFinal,unidadAMover);	
+			celdaInicial.desocuparTerrestre();
 		}
 		
 	}
 	
-	public void moverAerea(Ser unidadAMover, int xInicial, int yInicial,int xFinal,int yFinal) {
+	public void moverAerea(Posicion posicionInicial,Posicion posicionFinal) {
 		// aca deberia mover una unidad a la fila y columna que le pasan
 		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
-		Celda celda = mapa.get((new Posicion(xFinal,yFinal)));
-		if (celda.ocupadoAerea()) {
+		Celda celdaFinal = mapa.get(posicionFinal);
+		Celda celdaInicial = mapa.get(posicionInicial);
+		Ser unidadAMover = celdaInicial.serEnLaCeldaAerea();
+		if (celdaFinal.ocupadoAerea()) {
 			System.out.println("ESTA OCUPADO Aerea"); //throw new NoEsPosibleMoverException();
 		}
 		else {
-			ponerAereo(new Posicion(xFinal,yFinal),unidadAMover);	
-			celda.desocuparAerea();
+			ponerAereo(posicionFinal,unidadAMover);	
+			celdaInicial.desocuparAerea();
 		}
 	}
 	
@@ -187,13 +197,14 @@ public class Mapa {
 
 	private Posicion buscarPosicionDeSer(Ser ser) {
 		for(int i = 0;i<this.ancho;i++){
-			for(int j=0;j<this.largo;j++){
+			for(int j=0;j<this.alto;j++){
 				Posicion p = new Posicion(i,j);
 				Celda celda = mapa.get(p);
 				if(ser == celda.serEnLaCeldaAerea()) return p;	
-				if(ser == celda.serEnLaCeldaTerrestre() return p;
+				if(ser == celda.serEnLaCeldaTerrestre()) return p;
 			}
 		}
+		return null;
 	}
 }
 
