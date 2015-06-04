@@ -6,12 +6,14 @@ public class CentroDeMineral extends Edificio implements RecolectableMinerales {
 
 	private Mineral mineral;
 
-	public CentroDeMineral(Mineral mineral) {
+	public CentroDeMineral(Mineral mineral, Color colorJugador) {
 		this.vida = 500;
 		this.tiempoDeConstruccion = 4;
 		this.costoGas = 0;
 		this.costoMineral = 50;
 		this.mineral = mineral;
+		this.color=colorJugador;
+
 		
 
 	}
