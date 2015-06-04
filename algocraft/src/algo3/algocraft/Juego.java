@@ -148,10 +148,16 @@ public class Juego {
 	
 	public void atacarAire(UnidadDeAtaque atacante, Ser atacado){
 		atacante.atacarAire(atacado);
+		sacarMuertos(atacado);
+	}
+
+	private void sacarMuertos(Ser atacado) {
+		if(atacado.estaMuerto())
+			mapa.Sacar(atacado);
 	}
 	
 	public void atacarTierra(UnidadDeAtaque atacante, Ser atacado){
 		atacante.atacarTierra(atacado);
-		
+		sacarMuertos(atacado);
 	}
 }
