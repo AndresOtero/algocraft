@@ -15,7 +15,7 @@ public class FactoryEdificiosProtossTest {
 	@Test
 	public void crearNexoTest() {
 		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(Color.ROJO);
-		Mineral mineral = new Mineral(new Posicion(0,0));
+		Mineral mineral = new Mineral();
 		factory.fabricarRecolectableMinerales(mineral);
 		for(int i=4;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
@@ -29,7 +29,7 @@ public class FactoryEdificiosProtossTest {
 	@Test
 	public void crearAsimilidorTest() {
 		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(Color.ROJO);
-		VolcanGasVespeno gas = new VolcanGasVespeno(new Posicion(0,0));
+		VolcanGasVespeno gas = new VolcanGasVespeno();
 		factory.fabricarRecolectableGas(gas);
 		for(int i=6;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
