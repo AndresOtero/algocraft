@@ -1,43 +1,41 @@
 package algo3.algocraft.edificios;
 
-import algo3.algocraft.Color;
+import algo3.algocraft.*;
 
 public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
-
+	private Color color;
+	public FactoryEdificiosProtoss(Color colorJugador){
+		color=colorJugador;
+	}
 	
 	@Override
-	public CreadorAereos fabricarCreadorAereos(Color color) {
+	public CreadorAereos fabricarCreadorAereos() {
 		return new PuertoEstelarProtoss(color);
 	}
 
 	@Override
-	public CreadorTerrestres fabricarCreadorTerrestres(Color color) {
-		// TODO Auto-generated method stub
-		return null;
+	public CreadorSoldados fabricarCreadorSoldados() {
+		return new Acceso(color);
 	}
 
 	@Override
-	public CreadorSoldados fabricarCreadorSoldados(Color color) {
-		// TODO Auto-generated method stub
-		return null;
+	public SumaPoblacion fabricarSumaPoblacion() {
+		return new Pilon(color);
 	}
 
 	@Override
-	public SumaPoblacion fabricarSumaPoblacion(Color color) {
-		// TODO Auto-generated method stub
-		return null;
+	public RecolectableGas fabricarRecolectableGas(VolcanGasVespeno volcan) {
+		return new Asimilador(volcan, color);
 	}
 
 	@Override
-	public RecolectableGas fabricarRecolectableGas(Color color) {
-		// TODO Auto-generated method stub
-		return null;
+	public RecolectableMinerales fabricarRecolectableMinerales(Mineral mineral) {
+		return new NexoMineral(mineral,color);
 	}
 
 	@Override
-	public RecolectableMinerales fabricarRecolectableMinerales(Color color) {
-		// TODO Auto-generated method stub
-		return null;
+	public CreadorTerrestres fabricarCreadorTerrestres() {
+		return new ArchivosTemplarios(color);
 	}
 
 }
