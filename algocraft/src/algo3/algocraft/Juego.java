@@ -60,11 +60,15 @@ public class Juego {
 	}
 	
 	private void administrarRecursos(){
-		/*Jugador jugadorActual = turnos.turnoActual();
-		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa.edificioDeRecursos(jugadorActual.color());
+		Jugador jugadorActual = turnos.turnoActual();
+		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa.edificioDeGas(jugadorActual.color());
 		for(EdificioDeRecurso edificio : edificiosDeRecursos ){
-			jugadorActual.agregarRecurso(edificio.),);
-		}*/
+			jugadorActual.agregarGasVespeno(edificio.recolectar());
+		}
+		edificiosDeRecursos = mapa.edificioDeMineral(jugadorActual.color());
+		for(EdificioDeRecurso edificio : edificiosDeRecursos ){
+			jugadorActual.agregarMineral(edificio.recolectar());
+		}
 	}
 	
 	public void pasarTurno(){
@@ -128,9 +132,10 @@ public class Juego {
 		return instancia;
 	}
 
-	public void agregarEdificio(String string, int i, int j) throws NoHayRecursosException {
+	public void agregarEdificio(String string, int i, int j) throws NoHayRecursosException, NoEstanLosRequisitosException {
 		// TODO Auto-generated method stub
-		throw new NoHayRecursosException();
+		//throw new NoHayRecursosException();
+		throw new NoEstanLosRequisitosException();
 	}
 
 	public void crearUnidad(String string) throws NoHayRecursosException, NoHayEspacioException {
