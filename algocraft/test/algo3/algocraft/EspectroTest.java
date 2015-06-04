@@ -38,6 +38,19 @@ public class EspectroTest {
 		unidad.recibirDanio(1000);
 		Assert.assertTrue(unidad.estaMuerto());
 	}
+	@Test
+	public void pasarTurno() {
+		Ser ser = new Espectro(Color.AZUL);
+		int tiempoDeConstruccion=ser.tiempoDeConstruccion();
+		for(;tiempoDeConstruccion>1;tiempoDeConstruccion--){
+			ser.pasarTurno();
+			Assert.assertEquals(tiempoDeConstruccion-1,ser.tiempoDeConstruccion());
+			Assert.assertFalse(ser.creado());
+		}
+		ser.pasarTurno();
+		tiempoDeConstruccion=ser.tiempoDeConstruccion();
+		Assert.assertTrue(ser.creado());
+	}
 	
 	
 

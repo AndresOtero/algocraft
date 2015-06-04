@@ -1,41 +1,56 @@
 package algo3.algocraft.edificios;
 
+import java.util.ArrayList;
+
 import algo3.algocraft.*;
 
 public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	private Color color;
+	private ArrayList<Edificio> edificiosEnCola= new ArrayList<Edificio>();
 	public FactoryEdificiosProtoss(Color colorJugador){
 		color=colorJugador;
 	}
 	
 	@Override
-	public CreadorAereos fabricarCreadorAereos() {
-		return new PuertoEstelarProtoss(color);
+	public void fabricarCreadorAereos() {
+		edificiosEnCola.add( new PuertoEstelarProtoss(color));
 	}
 
 	@Override
-	public CreadorSoldados fabricarCreadorSoldados() {
-		return new Acceso(color);
+	public void fabricarCreadorSoldados() {
+		edificiosEnCola.add(new Acceso(color));
 	}
 
 	@Override
-	public SumaPoblacion fabricarSumaPoblacion() {
-		return new Pilon(color);
+	public void fabricarSumaPoblacion() {
+		edificiosEnCola.add( new Pilon(color));
 	}
 
 	@Override
-	public RecolectableGas fabricarRecolectableGas(VolcanGasVespeno volcan) {
-		return new Asimilador(volcan, color);
+	public void fabricarRecolectableGas(VolcanGasVespeno volcan) {
+		edificiosEnCola.add( new Asimilador(volcan, color));
 	}
 
 	@Override
-	public RecolectableMinerales fabricarRecolectableMinerales(Mineral mineral) {
-		return new NexoMineral(mineral,color);
+	public void fabricarRecolectableMinerales(Mineral mineral) {
+		edificiosEnCola.add(new NexoMineral(mineral,color));
 	}
 
 	@Override
-	public CreadorTerrestres fabricarCreadorTerrestres() {
-		return new ArchivosTemplarios(color);
+	public void fabricarCreadorTerrestres() {
+		edificiosEnCola.add(new ArchivosTemplarios(color));
+	}
+
+	@Override
+	public ArrayList<Edificio> pasarTurno() {
+		ArrayList<Edificio> edificiosCreados= new ArrayList<Edificio>();
+		for (Edificio edificio: edificiosEnCola){
+			edificio.pasarTurno();
+			if(edificio.creado()){
+				edificiosCreados.add(edificio);
+			}
+		}
+		return edificiosCreados;
 	}
 
 }

@@ -3,7 +3,7 @@ package algo3.algocraft.edificios;
 import algo3.algocraft.*;
 import algo3.algocraft.unidades.*;
 
-public class Barraca extends Edificio implements CreadorSoldados{
+public class Barraca extends EdificioCreador implements CreadorSoldados{
 	
 	public Barraca(Color colorJugador){
 		this.vida = 1000;
@@ -15,7 +15,7 @@ public class Barraca extends Edificio implements CreadorSoldados{
 	}
 
 	
-	public Marine crearMarine(){
-		return new Marine(color);
+	public void crearMarine(){
+		this.agregarACola( new Marine(color));
 	}
 }

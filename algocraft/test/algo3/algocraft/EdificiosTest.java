@@ -10,8 +10,8 @@ public class EdificiosTest {
 
 	@Test
 	public void edificioAtacado() {
-		Mineral min = new Mineral();
-		CentroDeMineral ed = new CentroDeMineral(min);
+		Mineral min = new Mineral(null);
+		CentroDeMineral ed = new CentroDeMineral(min, null);
 		ed.recibirDanio(450);
 		Assert.assertTrue(ed.vida() == 50);
 
@@ -19,7 +19,7 @@ public class EdificiosTest {
 
 	@Test
 	public void edificioAtacadoYdestruido() {
-		Mineral min = new Mineral();
+		Mineral min = new Mineral(null);
 		Edificio ed = new CentroDeMineral(min);
 		ed.recibirDanio(500);
 		Assert.assertTrue(ed.vida() == 0);

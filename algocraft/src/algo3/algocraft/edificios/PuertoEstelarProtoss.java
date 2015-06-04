@@ -2,7 +2,7 @@ package algo3.algocraft.edificios;
 
 import algo3.algocraft.*;
 import algo3.algocraft.unidades.*;
-public class PuertoEstelarProtoss extends Edificio implements CreadorAereos {
+public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAereos {
 
 	public PuertoEstelarProtoss(Color colorJugador){
 		this.vida = 600;
@@ -14,11 +14,11 @@ public class PuertoEstelarProtoss extends Edificio implements CreadorAereos {
 
 	}
 	
-	public Scout crearScout(){
-		return new Scout ( color);
+	public void crearScout(){
+		this.agregarACola( new Scout ( color));
 	}
 	
-	public NaveTransporteProtoss crearNaveTransporteProtoss(){
-		return new NaveTransporteProtoss(color);
+	public void crearNaveTransporteProtoss(){
+		this.agregarACola( new NaveTransporteProtoss(color));
 	}
 }

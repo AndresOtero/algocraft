@@ -12,8 +12,7 @@ public abstract class Unidad extends Ser {
 
 	public int suministro() {
 		return suministro;
-	}
-
+	} 
 
 
 }
