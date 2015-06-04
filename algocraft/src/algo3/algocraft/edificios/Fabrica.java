@@ -3,7 +3,7 @@ package algo3.algocraft.edificios;
 import algo3.algocraft.*;
 import algo3.algocraft.unidades.Golliat;
 
-public class Fabrica extends Edificio implements CreadorTerrestres {
+public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 	
 	public Fabrica(Color colorJugador){
 		this.vida = 1250;
@@ -14,7 +14,7 @@ public class Fabrica extends Edificio implements CreadorTerrestres {
 
 	}
 
-	public Golliat crearGolliat(){
-		return new Golliat(color);
+	public void crearGolliat(){
+		this.agregarACola( new Golliat(color));
 	}
 }

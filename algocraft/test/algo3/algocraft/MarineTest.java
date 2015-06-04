@@ -45,6 +45,19 @@ public class MarineTest {
 		Transportable transportable = new Marine(Color.AZUL);
 		Assert.assertEquals(1, transportable.transporte());
 	}
+	@Test
+	public void pasarTurno() {
+		Ser ser = new Marine(Color.AZUL);
+		int tiempoDeConstruccion=ser.tiempoDeConstruccion();
+		for(;tiempoDeConstruccion>1;tiempoDeConstruccion--){
+			ser.pasarTurno();
+			Assert.assertEquals(tiempoDeConstruccion-1,ser.tiempoDeConstruccion());
+			Assert.assertFalse(ser.creado());
+		}
+		ser.pasarTurno();
+		tiempoDeConstruccion=ser.tiempoDeConstruccion();
+		Assert.assertTrue(ser.creado());
+	}
 
 }
 

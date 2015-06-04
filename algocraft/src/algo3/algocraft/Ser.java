@@ -1,5 +1,9 @@
 package algo3.algocraft;
 
+import java.util.ArrayList;
+
+import algo3.algocraft.unidades.Unidad;
+
 public abstract class Ser {
 	protected int vida;
 	protected int escudo = 0;
@@ -9,7 +13,17 @@ public abstract class Ser {
 	protected Color color;
 
 	public int tiempoDeConstruccion() {
-		return tiempoDeConstruccion;
+		return this.tiempoDeConstruccion;
+	}
+	public void pasarTurno(){
+		if(this.tiempoDeConstruccion==0){
+			return;
+		}
+		this.tiempoDeConstruccion=this.tiempoDeConstruccion-1;
+		return;
+	}
+	public boolean creado(){
+		return (tiempoDeConstruccion==0);
 	}
 
 	public void recibirDanio(int danio) {

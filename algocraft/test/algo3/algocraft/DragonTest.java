@@ -42,7 +42,19 @@ public class DragonTest {
 		Transportable transportable = new Dragon(Color.AZUL);
 		Assert.assertEquals(4, transportable.transporte());
 	}
-	
+	@Test
+	public void pasarTurno() {
+		Ser ser = new Dragon(Color.AZUL);
+		int tiempoDeConstruccion=ser.tiempoDeConstruccion();
+		for(;tiempoDeConstruccion>1;tiempoDeConstruccion--){
+			ser.pasarTurno();
+			Assert.assertEquals(tiempoDeConstruccion-1,ser.tiempoDeConstruccion());
+			Assert.assertFalse(ser.creado());
+		}
+		ser.pasarTurno();
+		tiempoDeConstruccion=ser.tiempoDeConstruccion();
+		Assert.assertTrue(ser.creado());
+	}
 
 }
 

@@ -46,4 +46,17 @@ public class GolliatTest {
 		Transportable transportable = new Golliat(Color.AZUL);
 		Assert.assertEquals(2, transportable.transporte());
 	}
+	@Test
+	public void pasarTurno() {
+		Ser ser = new Golliat(Color.AZUL);
+		int tiempoDeConstruccion=ser.tiempoDeConstruccion();
+		for(;tiempoDeConstruccion>1;tiempoDeConstruccion--){
+			ser.pasarTurno();
+			Assert.assertEquals(tiempoDeConstruccion-1,ser.tiempoDeConstruccion());
+			Assert.assertFalse(ser.creado());
+		}
+		ser.pasarTurno();
+		tiempoDeConstruccion=ser.tiempoDeConstruccion();
+		Assert.assertTrue(ser.creado());
+	}
 }
