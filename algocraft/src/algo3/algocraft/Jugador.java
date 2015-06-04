@@ -5,6 +5,8 @@ public class Jugador {
 	private String nombre;
 	private Color color;
 	private TipoRaza raza;
+	private int GasVespeno = 0;
+	private int Minerales = 0;
 	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador) throws NombreIncorrectoException{
 		 if(nombre.length()<4){
 			 throw new  NombreIncorrectoException();
@@ -23,4 +25,6 @@ public class Jugador {
 	public String nombre(){
 		return this.nombre;
 	}
+	
+	public void agregar
 }
