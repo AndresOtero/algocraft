@@ -1,4 +1,8 @@
 package algo3.algocraft;
+import algo3.algocraft.edificios.AbstractFactoryEdificios;
+import algo3.algocraft.edificios.Fabrica;
+import algo3.algocraft.edificios.FactoryEdificiosProtoss;
+import algo3.algocraft.edificios.FactoryEdificiosTerran;
 import algo3.algocraft.exceptions.*;
 
 public class Jugador {
@@ -7,7 +11,7 @@ public class Jugador {
 	private TipoRaza raza;
 	private int GasVespeno = 0;
 	private int Minerales = 0;
-	
+	private AbstractFactoryEdificios fabricaEdificios;
 	public Color color(){
 		return this.color;
 	}
@@ -19,6 +23,11 @@ public class Jugador {
 		 this.color=colorJugador;
 		 this.nombre=nombreJugador;
 		 this.raza=razaJugador;
+		 if(razaJugador == raza.PROTOSS){
+			 this.fabricaEdificios = new FactoryEdificiosProtoss(colorJugador);
+		 }else{
+			 this.fabricaEdificios = new FactoryEdificiosTerran(colorJugador);
+		 }
 	 }
 	public Boolean esNombre(String nombreJugador) {
 		return (nombreJugador==nombre);
@@ -42,6 +51,8 @@ public class Jugador {
 	public int Minerales(){
 		return this.Minerales;
 	}
+	
+	
 	
 	public int GasVespeno(){
 		return this.GasVespeno;
