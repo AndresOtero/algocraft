@@ -1,6 +1,8 @@
 package algo3.algocraft;
 
 import java.util.ArrayList;
+
+import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.exceptions.*;
 
 public class Juego {
@@ -47,10 +49,22 @@ public class Juego {
 	public void iniciarJuego(){
 		turnos = new Turnos(jugadores);
 		mapa.getInstance(jugadores);
+		inicializarRecursos();
+	}
+
+	private void inicializarRecursos() {
+		for(Jugador juga: jugadores){
+			juga.agregarGasVespeno(200);
+			juga.agregarMineral(200);
+		}
 	}
 	
 	private void administrarRecursos(){
-		
+		/*Jugador jugadorActual = turnos.turnoActual();
+		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa.edificioDeRecursos(jugadorActual.color());
+		for(EdificioDeRecurso edificio : edificiosDeRecursos ){
+			jugadorActual.agregarRecurso(edificio.),);
+		}*/
 	}
 	
 	public void pasarTurno(){
@@ -112,5 +126,16 @@ public class Juego {
 		if (instancia == null)
 			createInstance();
 		return instancia;
+	}
+
+	public void agregarEdificio(String string, int i, int j) throws NoHayRecursosException {
+		// TODO Auto-generated method stub
+		throw new NoHayRecursosException();
+	}
+
+	public void crearUnidad(String string) throws NoHayRecursosException, NoHayEspacioException {
+		// TODO Auto-generated method stub
+		//throw new NoHayRecursosException();
+		throw new NoHayEspacioException();
 	}
 }
