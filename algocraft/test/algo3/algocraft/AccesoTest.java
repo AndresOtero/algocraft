@@ -17,9 +17,9 @@ public class AccesoTest {
 	public void setTest() {
 		Ser unidad=(Ser) new Acceso(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==unidad.color());
-		Assert.assertEquals( 6,unidad.tiempoDeConstruccion());
-		Assert.assertEquals( 125,unidad.costoMineral());
-		Assert.assertEquals( 50,unidad.costoGas());
+		Assert.assertEquals( 8,unidad.tiempoDeConstruccion());
+		Assert.assertEquals( 150,unidad.costoMineral());
+		Assert.assertEquals( 0,unidad.costoGas());
 	}
 	@Test
 	public void recibirdanio(){
@@ -33,7 +33,7 @@ public class AccesoTest {
 	public void crearDragon(){
 		Acceso acceso=(Acceso) new Acceso(Color.AMARILLO);
 		acceso.crearDragon();
-		for(int i=4;i>1;i--){
+		for(int i=6;i>1;i--){
 			acceso.pasarTurno();
 			Assert.assertTrue(acceso.unidadesEnCola().isEmpty());
 		}

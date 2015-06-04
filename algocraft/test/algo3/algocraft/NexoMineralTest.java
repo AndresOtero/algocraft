@@ -29,7 +29,7 @@ public class NexoMineralTest {
 	@Test
 	public void recolectarRecursio(){
 		Mineral mineral=new Mineral();
-		NexoMineral edificio=(NexoMineral) new CentroDeMineral(mineral, Color.ROJO);
+		NexoMineral edificio=(NexoMineral) new NexoMineral(mineral, Color.ROJO);
 		Assert.assertEquals(10, edificio.recolectar());
 	}
 	
