@@ -58,10 +58,10 @@ public class Mapa {
 		agregarSerDeColor(ser,color);
 	}
 		
-	public void ponerAereo(Posicion pos,Ser ser) throws NoEsPosibleMoverException{
+	public void ponerAereo(Posicion pos,Ser ser) {
 		//int clave = pos.hashCode();
 		Celda celda = mapa.get(pos);
-		if (celda.ocupadoAerea()) throw new NoEsPosibleMoverException();
+		if (celda.ocupadoAerea()) System.out.println("La celda esta ocupada");
 		else celda.agregarSerAereo(ser);	
 		Color color = ser.color();
 		agregarSerDeColor(ser,color);
@@ -108,12 +108,12 @@ public class Mapa {
 		}
 		
 	}
-	public void moverAerea(Ser unidadAMover, int xInicial, int yInicial,int xFinal,int yFinal) throws NoEsPosibleMoverException {
+	public void moverAerea(Ser unidadAMover, int xInicial, int yInicial,int xFinal,int yFinal) {
 		// aca deberia mover una unidad a la fila y columna que le pasan
 		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
 		Celda celda = mapa.get((new Posicion(xFinal,yFinal)));
 		if (celda.ocupadoAerea()) {
-			System.out.println("ESTA OCUPADO TERRESTRE"); //throw new NoEsPosibleMoverException();
+			System.out.println("ESTA OCUPADO Aerea"); //throw new NoEsPosibleMoverException();
 		}
 		else {
 			ponerAereo(new Posicion(xFinal,yFinal),unidadAMover);	
