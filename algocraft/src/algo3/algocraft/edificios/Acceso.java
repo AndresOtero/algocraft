@@ -1,5 +1,7 @@
 package algo3.algocraft.edificios;
 
+import java.util.ArrayList;
+
 import algo3.algocraft.*;
 import algo3.algocraft.unidades.*;
 
@@ -12,12 +14,13 @@ public class Acceso extends EdificioCreador implements CreadorSoldados {
 		this.vida = 500;
 		this.escudo = 500;
 		this.color=colorJugador;
+		this.unidadesEnCola=new ArrayList<Unidad>();
 	}
-	
 	public void crearDragon(){
-		this.agregarACola(new Dragon(color));
+		Dragon dragon=new Dragon(color);
+		this.agregarACola(dragon);
+		return;
 	}
-	
 	public void crearZealot(){
 		this.agregarACola( new Zealot(color));
 	}

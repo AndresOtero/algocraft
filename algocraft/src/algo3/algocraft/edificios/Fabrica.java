@@ -1,7 +1,10 @@
 package algo3.algocraft.edificios;
 
+import java.util.ArrayList;
+
 import algo3.algocraft.*;
 import algo3.algocraft.unidades.Golliat;
+import algo3.algocraft.unidades.Unidad;
 
 public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 	
@@ -11,9 +14,8 @@ public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 		this.costoGas = 100;
 		this.costoMineral = 200;
 		this.color=colorJugador;
-
+		this.unidadesEnCola=new ArrayList<Unidad>();
 	}
-
 	public void crearGolliat(){
 		this.agregarACola( new Golliat(color));
 	}

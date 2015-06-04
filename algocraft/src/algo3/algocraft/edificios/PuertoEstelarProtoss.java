@@ -1,5 +1,7 @@
 package algo3.algocraft.edificios;
 
+import java.util.ArrayList;
+
 import algo3.algocraft.*;
 import algo3.algocraft.unidades.*;
 public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAereos {
@@ -11,7 +13,7 @@ public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAere
 		this.costoGas = 150;
 		this.costoMineral = 150;
 		this.color=colorJugador;
-
+		this.unidadesEnCola=new ArrayList<Unidad>();
 	}
 	
 	public void crearScout(){
