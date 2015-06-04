@@ -3,29 +3,18 @@ package algo3.algocraft.edificios;
 import algo3.algocraft.*;
 
 
-public class Refineria extends Edificio implements RecolectableGas{
+public class Refineria extends EdificioDeRecurso implements RecolectableGas{
 	
-	private VolcanGasVespeno volcan;
 
 	public Refineria(VolcanGasVespeno volcan, Color colorJugador){
 		this.vida = 750;
 		this.tiempoDeConstruccion = 6;
 		this.costoGas = 0;
 		this.costoMineral = 100;
-		this.volcan = volcan;
+		this.fuenteRecurso = volcan;
 		this.color=colorJugador;
-
-	}
-
-	@Override
-	public int recolectarGas() {
-		if(puedoRecolectar())return 10;
-		return 0;
-	}
-
-	private boolean puedoRecolectar() {
 		
-		return true;
 	}
+
 
 }

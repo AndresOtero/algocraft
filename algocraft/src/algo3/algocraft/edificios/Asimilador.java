@@ -2,9 +2,8 @@ package algo3.algocraft.edificios;
 
 import algo3.algocraft.*;
 import algo3.algocraft.unidades.*;
-public class Asimilador extends Edificio implements RecolectableGas {
+public class Asimilador extends EdificioDeRecurso implements RecolectableGas {
 	
-	private VolcanGasVespeno volcan;
 
 	public Asimilador(VolcanGasVespeno volcan, Color colorJugador){
 		this.vida = 450;
@@ -12,19 +11,12 @@ public class Asimilador extends Edificio implements RecolectableGas {
 		this.tiempoDeConstruccion = 6;
 		this.costoGas = 0;
 		this.costoMineral = 100;
-		this.volcan = volcan;
+		this.fuenteRecurso = volcan;
 		this.color=colorJugador;
 
 	}
 
-	@Override
-	public int recolectarGas() {
-		if(this.puedoRecolectar())return 10;
-		return 0;
-	}
 
-	private boolean puedoRecolectar() {
-		return true;
-	}
+	
 
 }
