@@ -7,7 +7,7 @@ import java.awt.font.NumericShaper.Range;
 import org.junit.Assert;
 import org.junit.Test;
 
-import algo3.algocraft.exception.NoEstanLosRequisitosException;
+import algo3.algocraft.exceptions.NoEstanLosRequisitosException;
 import algo3.algocraft.exceptions.NoHayEspacioException;
 import algo3.algocraft.exceptions.NoHayRecursosException;
 
@@ -37,7 +37,7 @@ public class JuegoTest {
 			
 		}catch(NoHayRecursosException e){
 			entro = true;
-		}catch(NoHayEspacioException e){
+		}catch(NoHayEspacioException  | NoEstanLosRequisitosException e){
 			
 		}
 		assertEquals(true, entro);
@@ -82,7 +82,7 @@ public class JuegoTest {
 			
 		}catch(NoHayEspacioException e){
 			entro = true;
-		}catch(NoHayRecursosException e){
+		}catch(NoHayRecursosException  | NoEstanLosRequisitosException e){
 			
 		}
 		assertEquals(true, entro);
@@ -101,7 +101,7 @@ public class JuegoTest {
 		try{
 			juego.agregarEdificio("Fabrica",0,0);
 
-		}catch(algo3.algocraft.exceptions.NoEstanLosRequisitosException e){
+		}catch(NoEstanLosRequisitosException e){
 			entro = true;
 		}catch(NoHayRecursosException e){
 			
