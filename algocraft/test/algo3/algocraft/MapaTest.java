@@ -6,6 +6,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import algo3.algocraft.edificios.EdificioDeRecurso;
+import algo3.algocraft.edificios.Refineria;
 import algo3.algocraft.unidades.Dragon;
 import algo3.algocraft.unidades.Marine;
 import algo3.algocraft.unidades.Scout;
@@ -62,5 +64,20 @@ public class MapaTest {
 		}
 		mapa.moverAerea(unidad1, 15, 15, 20, 20);
 		mapa.moverAerea(unidad1, 20, 20, 16, 15); //ocupada terrestre todo ok
+	}
+	public void testMapaRecursos(){
+		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+		Mapa mapa = Mapa.getInstance(jugadores);
+		Celda celda = mapa.ContenidoFilaColumna(1, 1);
+		VolcanGasVespeno volcan = (VolcanGasVespeno) celda.fuenteRecurso();
+		Assert.assertTrue(volcan != null);
+		EdificioDeRecurso ref = new Refineria(volcan,Color.ROJO);
+		Posicion pos = new Posicion(1,1);
+		mapa.ponerEdificioGas(pos, ref);
+		ArrayList<EdificioDeRecurso> edificiosDeGas = mapa.edificioDeGas(Color.ROJO);
+		for (int i =0;i<(edificiosDeGas).size();i++){
+			Assert.assertTrue(edificiosDeGas.get(i) == edificiosDeGas.get(i));
+		}	
+		
 	}
 }

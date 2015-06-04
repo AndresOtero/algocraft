@@ -61,7 +61,7 @@ public class Mapa {
 		agregarSerDeColor(ser,color);
 	}
 
-	public void ponerEdificioDeRecurso(Posicion pos,EdificioDeRecurso edificio){
+	private void ponerEdificioDeRecurso(Posicion pos,EdificioDeRecurso edificio){
 		Celda celda = mapa.get(pos);
 		if (celda.fuenteRecurso() == null) System.out.println("NO HAY RECURSO AHI"); //expection
 		else {
