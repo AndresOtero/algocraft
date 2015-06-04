@@ -14,9 +14,9 @@ public class NexoMineralTest {
 	public void setTest() {
 		Ser edificio=(Ser) new NexoMineral(null, Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
-		Assert.assertEquals( 6,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 125,edificio.costoMineral());
-		Assert.assertEquals( 50,edificio.costoGas());
+		Assert.assertEquals( 4,edificio.tiempoDeConstruccion());
+		Assert.assertEquals( 50,edificio.costoMineral());
+		Assert.assertEquals( 0,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){

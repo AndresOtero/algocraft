@@ -14,7 +14,6 @@ public class Mapa {
 	private int ancho;
 	private int largo;
 	private Map<Color, ArrayList<Ser>> seres;
-	private ArrayList<Jugador> jugadores;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;
 	
@@ -27,7 +26,6 @@ public class Mapa {
 		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.ancho = ancho;
 		this.largo = largo;
-		this.jugadores = jugadores;
 		for (int i = 0; i <= this.ancho; i++) {
 			for (int j=0; j<=this.largo; j++) {
 				Posicion p = new Posicion(i,j);

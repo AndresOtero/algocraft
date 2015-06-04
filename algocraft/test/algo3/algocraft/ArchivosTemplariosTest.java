@@ -17,9 +17,9 @@ public class ArchivosTemplariosTest {
 	public void setTest() {
 		Ser edificio=(Ser) new ArchivosTemplarios(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
-		Assert.assertEquals( 6,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 125,edificio.costoMineral());
-		Assert.assertEquals( 50,edificio.costoGas());
+		Assert.assertEquals( 9,edificio.tiempoDeConstruccion());
+		Assert.assertEquals( 150,edificio.costoMineral());
+		Assert.assertEquals( 200,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){

@@ -18,23 +18,23 @@ public class FabricaTest {
 	public void setTest() {
 		Ser edificio=(Ser) new Fabrica(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
-		Assert.assertEquals( 6,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 125,edificio.costoMineral());
-		Assert.assertEquals( 50,edificio.costoGas());
+		Assert.assertEquals( 12,edificio.tiempoDeConstruccion());
+		Assert.assertEquals( 200,edificio.costoMineral());
+		Assert.assertEquals( 100,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){
 		Ser edificio=(Ser) new Fabrica(Color.ROJO);
 		edificio.recibirDanio(10);
 		Assert.assertFalse(edificio.estaMuerto());
-		edificio.recibirDanio(1000);
+		edificio.recibirDanio(1300);
 		Assert.assertTrue(edificio.estaMuerto());
 	}
 	@Test 
 	public void crearGoliat(){
 		Fabrica fabrica=(Fabrica) new Fabrica(Color.ROJO);
-		fabrica.crearGolliat();;
-		for(int i=4;i>1;i--){
+		fabrica.crearGolliat();
+		for(int i=0 ; i<4; i++){
 			fabrica.pasarTurno();
 			Assert.assertTrue(fabrica.unidadesEnCola().isEmpty());
 		}
