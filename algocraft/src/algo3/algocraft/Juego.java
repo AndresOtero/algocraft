@@ -2,8 +2,10 @@ package algo3.algocraft;
 
 import java.util.ArrayList;
 
+import algo3.algocraft.edificios.AbstractFactoryEdificios;
 import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.exceptions.*;
+import algo3.algocraft.unidades.UnidadDeAtaque;
 
 public class Juego {
 
@@ -12,9 +14,10 @@ public class Juego {
 	private static Juego instancia=null;
 	private Mapa mapa;
 	private Turnos turnos;
+	
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
-	public   void crearJugador(String nombre, Color color, TipoRaza raza) throws NombreIncorrectoException, ColorRepetidoException {
+	public  void crearJugador(String nombre, Color color, TipoRaza raza) throws NombreIncorrectoException, ColorRepetidoException {
 
 		if(nombre.length() < 4) throw new NombreIncorrectoException();
 		this.chequearNombreYColorNoRepetidos(nombre, color);
@@ -141,5 +144,14 @@ public class Juego {
 		// TODO Auto-generated method stub
 		//throw new NoHayRecursosException();
 		throw new NoHayEspacioException();
+	}
+	
+	public void atacarAire(UnidadDeAtaque atacante, Ser atacado){
+		atacante.atacarAire(atacado);
+	}
+	
+	public void atacarTierra(UnidadDeAtaque atacante, Ser atacado){
+		atacante.atacarTierra(atacado);
+		
 	}
 }

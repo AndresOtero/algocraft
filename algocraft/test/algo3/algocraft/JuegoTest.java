@@ -26,21 +26,17 @@ public class JuegoTest {
 		
 		juego.iniciarJuego();
 		
-		boolean entro = false;
+		boolean entro = true;
 		
-		try{
-			juego.agregarEdificio("Barraca",0,0);
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
+		entro = entro & juego.agregarEdificio("Barraca",0,0);
+		entro = entro &	juego.crearUnidad("Marines");
+		entro = entro &	juego.crearUnidad("Marines");
+		entro = entro &	juego.crearUnidad("Marines");
+		entro = entro &	juego.crearUnidad("Marines");
+		
+		assertEquals(false, entro);
 			
-		}catch(NoHayRecursosException e){
-			entro = true;
-		}catch(NoHayEspacioException  | NoEstanLosRequisitosException e){
-			
-		}
-		assertEquals(true, entro);
+	
 		
 	}
 	
@@ -54,38 +50,31 @@ public class JuegoTest {
 		
 		boolean entro = false;
 		
-		try{
-			juego.agregarEdificio("Barraca",0,0);
-			juego.agregarEdificio("Nexo mineral",1,1);
-			juego.agregarEdificio("Asimilador",2,2);
+		juego.agregarEdificio("Barraca",0,0);
+		juego.agregarEdificio("Nexo mineral",1,1);
+		juego.agregarEdificio("Asimilador",2,2);
 			
-			juego.pasarTurno();
-			juego.pasarTurno();
-			juego.pasarTurno();
-			juego.pasarTurno();
-			juego.pasarTurno();
-			juego.pasarTurno();
-			juego.pasarTurno();
-			juego.pasarTurno();
-			juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
 			
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			juego.crearUnidad("Marines");
-			
+		entro = entro & juego.crearUnidad("Marines");
+		entro = entro & juego.crearUnidad("Marines");
+		entro = entro & juego.crearUnidad("Marines");
+		entro = entro & juego.crearUnidad("Marines");
+		entro = entro & juego.crearUnidad("Marines");
+		entro = entro & juego.crearUnidad("Marines");
+		entro = entro & juego.crearUnidad("Marines");
+		entro = entro & juego.crearUnidad("Marines");
 			
 			
-		}catch(NoHayEspacioException e){
-			entro = true;
-		}catch(NoHayRecursosException  | NoEstanLosRequisitosException e){
-			
-		}
-		assertEquals(true, entro);
+		assertEquals(false, entro);
 		
 	}
 	public void testCrearEdificioSinRequisito(){

@@ -1,6 +1,7 @@
 package algo3.algocraft.unidades;
 
 import algo3.algocraft.Posicion;
+import algo3.algocraft.Ser;
 
 public abstract class UnidadDeAtaque extends Unidad {
 
@@ -8,7 +9,7 @@ public abstract class UnidadDeAtaque extends Unidad {
 	protected int danioAire;
 	protected int rangoAtaqueTierra;
 	protected int rangoAtaqueAire;
-	public int atacarPorTierra(Posicion fuente, Posicion destino) {
+	/* public int atacarPorTierra(Posicion fuente, Posicion destino) {
 		if ((fuente.distancia(destino)) <= rangoAtaqueTierra) {
 			return (danioTierra);
 		}
@@ -20,6 +21,12 @@ public abstract class UnidadDeAtaque extends Unidad {
 			return (danioAire);
 		}
 		return 0;
+	} */
+	public void atacarTierra(Ser atacado){
+		atacado.recibirDanio(danioTierra); 
+	}
+	public void atacarAire(Ser atacado ){
+		atacado.recibirDanio(danioAire); 
 	}
 
 }
