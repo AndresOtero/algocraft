@@ -5,14 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import algo3.algocraft.edificios.CentroDeMineral;
-import algo3.algocraft.edificios.NexoMineral;
+import algo3.algocraft.edificios.DepositoDeSuminisitros;
+import algo3.algocraft.edificios.Pilon;
 
-public class NexoMineralTest {
+public class PilonTest {
 
 	@Test
 	public void setTest() {
-		Ser edificio=(Ser) new NexoMineral(null, Color.ROJO);
+		Ser edificio=(Ser) new Pilon(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 6,edificio.tiempoDeConstruccion());
 		Assert.assertEquals( 125,edificio.costoMineral());
@@ -20,19 +20,10 @@ public class NexoMineralTest {
 	}
 	@Test
 	public void recibirdanio(){
-		Ser edificio=(Ser) new NexoMineral(null, Color.ROJO);
+		Ser edificio=(Ser) new Pilon(Color.ROJO);
 		edificio.recibirDanio(10);
 		Assert.assertFalse(edificio.estaMuerto());
 		edificio.recibirDanio(1000);
 		Assert.assertTrue(edificio.estaMuerto());
 	}
-	@Test
-	public void recolectarRecursio(){
-		Mineral mineral=new Mineral();
-		NexoMineral edificio=(NexoMineral) new CentroDeMineral(mineral, Color.ROJO);
-		Assert.assertEquals(10, edificio.recolectar());
-	}
-	
-
-
 }
