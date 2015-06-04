@@ -49,14 +49,30 @@ public class Juego {
 		mapa.getInstance(jugadores);
 	}
 	
-	public void pasarTurno(){
-		turnos.avanzarTurno();
+	private void administrarRecursos(){
+		
 	}
 	
-	public boolean moverPosicion(Ser unidadAMover, int fila, int columna){
+	public void pasarTurno(){
+		turnos.avanzarTurno();
+		administrarRecursos();
+	}
+	
+	public boolean moverPosicionTerrestre(Ser unidadAMover,int filaInicio, int columnaInicio ,int filaDestino, int columnaDestino){
 		try{
 			verificarPropiedadUnidad(unidadAMover);
-			mapa.mover(unidadAMover, fila, columna);
+			mapa.moverTerrestre(unidadAMover,filaInicio,columnaInicio,filaDestino,columnaDestino);
+		}
+		catch(NoEsPosibleMoverException e){
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean moverPosicionAereo(Ser unidadAMover,int filaInicio, int columnaInicio ,int filaDestino, int columnaDestino){
+		try{
+			verificarPropiedadUnidad(unidadAMover);
+			mapa.moverAerea(unidadAMover,filaInicio,columnaInicio,filaDestino,columnaDestino);
 		}
 		catch(NoEsPosibleMoverException e){
 			return false;
