@@ -7,6 +7,11 @@ public class Jugador {
 	private TipoRaza raza;
 	private int GasVespeno = 0;
 	private int Minerales = 0;
+	
+	public Color color(){
+		return this.color;
+	}
+	
 	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador) throws NombreIncorrectoException{
 		 if(nombre.length()<4){
 			 throw new  NombreIncorrectoException();
@@ -26,5 +31,23 @@ public class Jugador {
 		return this.nombre;
 	}
 	
-	public void agregar
+	public void agregarRecurso(int cantidad, FuenteRecurso fuente){
+		
+	}
+	
+	public void agregarGasVespeno(int gas){
+		this.GasVespeno += gas;
+	}
+	
+	public void agregarMineral(int mineral){
+		this.GasVespeno += mineral;
+	}
+	
+	public int Minerales(){
+		return this.Minerales;
+	}
+	
+	public int GasVespeno(){
+		return this.GasVespeno;
+	}
 }
