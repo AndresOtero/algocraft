@@ -161,6 +161,40 @@ public class Mapa {
 	public ArrayList<EdificioDeRecurso> edificioDeMineral (Color color){
 		return (edificiosDeMineral.get(color));
 	}
+	
+	private Posicion borrarSer(Ser ser){
+		Color color = ser.color();
+		ArrayList<Ser> seresDeColor = seres.get(color);
+		for (int i=0;i<seresDeColor.size();i++){
+			Ser OtroSer = seresDeColor.get(i);
+			if (ser == OtroSer) seresDeColor.remove(ser);			
+		}
+		return buscarPosicionDeSer(ser);
+		
+	}
+	public void borrarSerAereo(Ser ser){
+		Posicion pos = borrarSer(ser);
+		Celda celda = mapa.get(pos);
+		celda.desocuparAerea();
+		
+	}
+	public void borrarSerTerrestre(Ser ser){
+		Posicion pos = borrarSer(ser);
+		Celda celda = mapa.get(pos);
+		celda.desocuparTerrestre();
+	}
+
+
+	private Posicion buscarPosicionDeSer(Ser ser) {
+		for(int i = 0;i<this.ancho;i++){
+			for(int j=0;j<this.largo;j++){
+				Posicion p = new Posicion(i,j);
+				Celda celda = mapa.get(p);
+				if(ser == celda.serEnLaCeldaAerea()) return p;	
+				if(ser == celda.serEnLaCeldaTerrestre() return p;
+			}
+		}
+	}
 }
 
 
