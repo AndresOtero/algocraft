@@ -16,16 +16,16 @@ public class PuertoEstelarProtossTest {
 	public void setTest() {
 		Ser edificio=(Ser) new PuertoEstelarProtoss(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
-		Assert.assertEquals( 6,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 125,edificio.costoMineral());
-		Assert.assertEquals( 50,edificio.costoGas());
+		Assert.assertEquals( 10,edificio.tiempoDeConstruccion());
+		Assert.assertEquals( 150,edificio.costoMineral());
+		Assert.assertEquals( 150,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){
 		Ser edificio=(Ser) new PuertoEstelarProtoss(Color.ROJO);
-		edificio.recibirDanio(10);
+		edificio.recibirDanio(100);
 		Assert.assertFalse(edificio.estaMuerto());
-		edificio.recibirDanio(1000);
+		edificio.recibirDanio(1200);
 		Assert.assertTrue(edificio.estaMuerto());
 	}
 	@Test 

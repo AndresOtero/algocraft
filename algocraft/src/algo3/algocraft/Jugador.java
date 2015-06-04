@@ -31,10 +31,6 @@ public class Jugador {
 		return this.nombre;
 	}
 	
-	public void agregarRecurso(int cantidad, FuenteRecurso fuente){
-		
-	}
-	
 	public void agregarGasVespeno(int gas){
 		this.GasVespeno += gas;
 	}

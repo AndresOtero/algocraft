@@ -12,7 +12,6 @@ public class Juego {
 	private static Juego instancia=null;
 	private Mapa mapa;
 	private Turnos turnos;
-
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
 	public   void crearJugador(String nombre, Color color, TipoRaza raza) throws NombreIncorrectoException, ColorRepetidoException {
@@ -104,7 +103,7 @@ public class Juego {
 	}
 	
 	public Celda ContenidoFilaColumna(int fila, int columna){
-		return mapa.ContenidoFilaColumna(fila,columna);
+		return mapa.ContenidoFilaColumna(fila,columna);  // Aereo o Terrestre ?
 	}
 
 	private void chequearNombreYColorNoRepetidos(String nombre, Color color) throws ColorRepetidoException {
