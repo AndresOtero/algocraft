@@ -11,7 +11,6 @@ public class Jugador {
 	private TipoRaza raza;
 	private int GasVespeno = 0;
 	private int Minerales = 0;
-	private AbstractFactoryEdificios fabricaEdificios;
 	public Color color(){
 		return this.color;
 	}
@@ -23,11 +22,7 @@ public class Jugador {
 		 this.color=colorJugador;
 		 this.nombre=nombreJugador;
 		 this.raza=razaJugador;
-		 if(razaJugador == raza.PROTOSS){
-			 this.fabricaEdificios = new FactoryEdificiosProtoss(colorJugador);
-		 }else{
-			 this.fabricaEdificios = new FactoryEdificiosTerran(colorJugador);
-		 }
+		 
 	 }
 	public Boolean esNombre(String nombreJugador) {
 		return (nombreJugador==nombre);
@@ -39,6 +34,8 @@ public class Jugador {
 	public String nombre(){
 		return this.nombre;
 	}
+	
+	
 	
 	public void agregarGasVespeno(int gas){
 		this.GasVespeno += gas;
