@@ -191,9 +191,11 @@ public class Mapa {
 				Posicion p = new Posicion(i,j);
 				Celda celda = mapa.get(p);
 				if(ser == celda.serEnLaCeldaAerea()) return p;	
-				if(ser == celda.serEnLaCeldaTerrestre() return p;
+				if(ser == celda.serEnLaCeldaTerrestre()) return p;
 			}
 		}
+		//poner excepcion
+		return null;
 	}
 }
 

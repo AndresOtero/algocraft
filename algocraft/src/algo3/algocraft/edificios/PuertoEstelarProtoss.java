@@ -14,13 +14,13 @@ public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAere
 		this.costoMineral = 150;
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
-	}
+		this.unidadesCreadas=new ArrayList<Unidad>();	}
 	
 	public void crearScout(){
-		this.agregarACola( new Scout ( color));
+		this.agregarACola( new Scout ( this.color));
 	}
 	
 	public void crearNaveTransporteProtoss(){
-		this.agregarACola( new NaveTransporteProtoss(color));
+		this.agregarACola( new NaveTransporteProtoss(this.color));
 	}
 }

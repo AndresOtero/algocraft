@@ -34,13 +34,12 @@ public class BarracaTest {
 		barraca.crearMarine();
 	
 		for(int i=4;i>1;i--){
+			Assert.assertTrue(barraca.unidadesCreadas().isEmpty());
 			barraca.pasarTurno();
-			Assert.assertTrue(barraca.unidadesEnCola().isEmpty());
 		}
-		barraca.pasarTurno();
-		Assert.assertFalse(barraca.unidadesEnCola().isEmpty());
-		Marine marine = (Marine) barraca.unidadesEnCola().remove(0);
-		Assert.assertTrue(barraca.unidadesEnCola().isEmpty());
+		Assert.assertFalse(barraca.unidadesCreadas().isEmpty());
+		Marine marine = (Marine) barraca.unidadesCreadas().remove(0);
+		Assert.assertTrue(barraca.unidadesCreadas().isEmpty());
 		Assert.assertTrue(marine.color()==Color.AMARILLO);
 	}
 

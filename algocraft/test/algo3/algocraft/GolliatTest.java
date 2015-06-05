@@ -21,16 +21,14 @@ public class GolliatTest {
 	}
 
 	@Test
-	public void ataque() {
-		UnidadDeAtaque unidad = (UnidadDeAtaque) new Golliat(Color.AMARILLO);
-		Posicion fuente = new Posicion(0, 0);
-		Posicion enRango = new Posicion(1, 0);
-		Posicion fueraDeRango = new Posicion(100, 100);
-		Assert.assertEquals(12, unidad.atacarPorTierra(fuente, enRango));
-		Assert.assertEquals(0, unidad.atacarPorTierra(fuente, fueraDeRango));
-		Assert.assertEquals(10, unidad.atacarPorAire(fuente, enRango));
-		Assert.assertEquals(0, unidad.atacarPorAire(fuente, fueraDeRango));
+	public void ataque(){
+		UnidadDeAtaque unidad=(UnidadDeAtaque) new Golliat(Color.AMARILLO);
+		Unidad atacado = new Marine(Color.ROJO);		
+		for ( int i = 0 ; i< 10 ; i++ )
+		unidad.atacarTierra(atacado);
+		Assert.assertTrue(atacado.estaMuerto());
 	}
+	
 
 	@Test
 	public void recibirdanio() {

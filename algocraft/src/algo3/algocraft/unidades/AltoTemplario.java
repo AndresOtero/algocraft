@@ -15,11 +15,13 @@ public class AltoTemplario extends UnidadMagica implements Transportable {
 		costoGas = 150;
 		this.color = colorJugador;
 	}
-	public void tormenta(){	
-		
+
+	public void tormenta() {
+
 	}
-	public void alucinacion(){
-		
+
+	public void alucinacion() {
+
 	}
 
 	@Override

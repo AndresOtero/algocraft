@@ -34,43 +34,43 @@ public class PuertoEstelarTerranTest {
 	public void CrearNaveTransporteTerran(){
 		PuertoEstelarTerran puertoEstelar= new PuertoEstelarTerran(Color.ROJO);
 		puertoEstelar.CrearNaveTransporteTerran();
-		for(int i=4;i>1;i--){
+		for(int i=7;i>1;i--){
 			puertoEstelar.pasarTurno();
-			Assert.assertTrue(puertoEstelar.unidadesEnCola().isEmpty());
+			Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
 		}
 		puertoEstelar.pasarTurno();
-		Assert.assertFalse(puertoEstelar.unidadesEnCola().isEmpty());
-		NaveTransporteTerran nave = (NaveTransporteTerran) puertoEstelar.unidadesEnCola().remove(0);
-		Assert.assertTrue(puertoEstelar.unidadesEnCola().isEmpty());
-		Assert.assertTrue(nave.color()==Color.AMARILLO);
+		Assert.assertFalse(puertoEstelar.unidadesCreadas().isEmpty());
+		NaveTransporteTerran nave = (NaveTransporteTerran) puertoEstelar.unidadesCreadas().remove(0);
+		Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
+		Assert.assertTrue(nave.color()==Color.ROJO);
 	}
 	@Test 
 	public void crearEspectro(){
 		PuertoEstelarTerran puertoEstelar= new PuertoEstelarTerran(Color.ROJO);
 		puertoEstelar.crearEspectro();
-		for(int i=4;i>1;i--){
+		for(int i=8;i>1;i--){
 			puertoEstelar.pasarTurno();
-			Assert.assertTrue(puertoEstelar.unidadesEnCola().isEmpty());
+			Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
 		}
 		puertoEstelar.pasarTurno();
-		Assert.assertFalse(puertoEstelar.unidadesEnCola().isEmpty());
-		Espectro espectro = (Espectro) puertoEstelar.unidadesEnCola().remove(0);
-		Assert.assertTrue(puertoEstelar.unidadesEnCola().isEmpty());
-		Assert.assertTrue(espectro.color()==Color.AMARILLO);
+		Assert.assertFalse(puertoEstelar.unidadesCreadas().isEmpty());
+		Espectro espectro = (Espectro) puertoEstelar.unidadesCreadas().remove(0);
+		Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
+		Assert.assertTrue(espectro.color()==Color.ROJO);
 	}
 	@Test 
 	public void crearNaveCiencia(){
 		PuertoEstelarTerran puertoEstelar= new PuertoEstelarTerran(Color.ROJO);
 		puertoEstelar.crearNaveCiencia();
-		for(int i=4;i>1;i--){
+		for(int i=0;i<9;i++){
 			puertoEstelar.pasarTurno();
-			Assert.assertTrue(puertoEstelar.unidadesEnCola().isEmpty());
+			Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
 		}
 		puertoEstelar.pasarTurno();
-		Assert.assertFalse(puertoEstelar.unidadesEnCola().isEmpty());
-		NaveCiencia nave = (NaveCiencia) puertoEstelar.unidadesEnCola().remove(0);
-		Assert.assertTrue(puertoEstelar.unidadesEnCola().isEmpty());
-		Assert.assertTrue(nave.color()==Color.AMARILLO);
+		Assert.assertFalse(puertoEstelar.unidadesCreadas().isEmpty());
+		NaveCiencia nave = (NaveCiencia) puertoEstelar.unidadesCreadas().remove(0);
+		Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
+		Assert.assertTrue(nave.color()==Color.ROJO);
 	}
 
 

@@ -35,12 +35,12 @@ public class AccesoTest {
 		acceso.crearDragon();
 		for(int i=6;i>1;i--){
 			acceso.pasarTurno();
-			Assert.assertTrue(acceso.unidadesEnCola().isEmpty());
+			Assert.assertTrue(acceso.unidadesCreadas().isEmpty());
 		}
 		acceso.pasarTurno();
-		Assert.assertFalse(acceso.unidadesEnCola().isEmpty());
-		Dragon dragon = (Dragon) acceso.unidadesEnCola().remove(0);
-		Assert.assertTrue(acceso.unidadesEnCola().isEmpty());
+		Assert.assertFalse(acceso.unidadesCreadas().isEmpty());
+		Dragon dragon = (Dragon) acceso.unidadesCreadas().remove(0);
+		Assert.assertTrue(acceso.unidadesCreadas().isEmpty());
 		Assert.assertTrue(dragon.color()==Color.AMARILLO);
 	}
 	@Test 
@@ -49,12 +49,12 @@ public class AccesoTest {
 		acceso.crearZealot();
 		for(int i=4;i>1;i--){
 			acceso.pasarTurno();
-			Assert.assertTrue(acceso.unidadesEnCola().isEmpty());
+			Assert.assertTrue(acceso.unidadesCreadas().isEmpty());
 		}
 		acceso.pasarTurno();
-		Assert.assertFalse(acceso.unidadesEnCola().isEmpty());
-		Zealot zealot = (Zealot) acceso.unidadesEnCola().remove(0);
-		Assert.assertTrue(acceso.unidadesEnCola().isEmpty());
+		Assert.assertFalse(acceso.unidadesCreadas().isEmpty());
+		Zealot zealot = (Zealot) acceso.unidadesCreadas().remove(0);
+		Assert.assertTrue(acceso.unidadesCreadas().isEmpty());
 		Assert.assertTrue(zealot.color()==Color.AMARILLO);
 	}
 

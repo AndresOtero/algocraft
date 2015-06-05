@@ -6,14 +6,15 @@ import algo3.algocraft.*;
 
 public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	private Color color;
-	private ArrayList<Edificio> edificiosEnCola= new ArrayList<Edificio>();
-	public FactoryEdificiosProtoss(Color colorJugador){
-		color=colorJugador;
+	private ArrayList<Edificio> edificiosEnCola = new ArrayList<Edificio>();
+
+	public FactoryEdificiosProtoss(Color colorJugador) {
+		color = colorJugador;
 	}
-	
+
 	@Override
 	public void fabricarCreadorAereos() {
-		edificiosEnCola.add( new PuertoEstelarProtoss(color));
+		edificiosEnCola.add(new PuertoEstelarProtoss(color));
 	}
 
 	@Override
@@ -23,17 +24,17 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarSumaPoblacion() {
-		edificiosEnCola.add( new Pilon(color));
+		edificiosEnCola.add(new Pilon(color));
 	}
 
 	@Override
 	public void fabricarRecolectableGas(VolcanGasVespeno volcan) {
-		edificiosEnCola.add( new Asimilador(volcan, color));
+		edificiosEnCola.add(new Asimilador(volcan, color));
 	}
 
 	@Override
 	public void fabricarRecolectableMinerales(Mineral mineral) {
-		edificiosEnCola.add(new NexoMineral(mineral,color));
+		edificiosEnCola.add(new NexoMineral(mineral, color));
 	}
 
 	@Override
@@ -43,10 +44,10 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 
 	@Override
 	public ArrayList<Edificio> pasarTurno() {
-		ArrayList<Edificio> edificiosCreados= new ArrayList<Edificio>();
-		for (Edificio edificio: edificiosEnCola){
+		ArrayList<Edificio> edificiosCreados = new ArrayList<Edificio>();
+		for (Edificio edificio : edificiosEnCola) {
 			edificio.pasarTurno();
-			if(edificio.creado()){
+			if (edificio.creado()) {
 				edificiosCreados.add(edificio);
 			}
 		}

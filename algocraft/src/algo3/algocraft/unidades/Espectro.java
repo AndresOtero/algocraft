@@ -9,18 +9,15 @@ public class Espectro extends UnidadDeAtaque implements Terrestre, Aerea {
 		danioAire = 20;
 		rangoAtaqueTierra = 5;
 		rangoAtaqueAire = 5;
-
+		
 		vida = 120;
 		suministro = 2;
 		tiempoDeConstruccion = 8;
 		vision = 7;
-		
-		color=colorJugador;
-		costoMineral=150;
-		costoGas=100;
-		
-	}
+		color = colorJugador;
+		costoMineral = 150;
+		costoGas = 100;
 
-	
+	}
 
 }

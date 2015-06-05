@@ -34,15 +34,14 @@ public class FabricaTest {
 	public void crearGoliat(){
 		Fabrica fabrica=(Fabrica) new Fabrica(Color.ROJO);
 		fabrica.crearGolliat();
-		for(int i=0 ; i<4; i++){
+		for(int i=0 ; i<6; i++){
+			Assert.assertTrue(fabrica.unidadesCreadas().isEmpty());
 			fabrica.pasarTurno();
-			Assert.assertTrue(fabrica.unidadesEnCola().isEmpty());
 		}
-		fabrica.pasarTurno();
-		Assert.assertFalse(fabrica.unidadesEnCola().isEmpty());
-		Golliat golliat = (Golliat) fabrica.unidadesEnCola().remove(0);
-		Assert.assertTrue(fabrica.unidadesEnCola().isEmpty());
-		Assert.assertTrue(golliat.color()==Color.AMARILLO);
+		Assert.assertFalse(fabrica.unidadesCreadas().isEmpty());
+		Golliat golliat = (Golliat) fabrica.unidadesCreadas().remove(0);
+		Assert.assertTrue(fabrica.unidadesCreadas().isEmpty());
+		Assert.assertTrue(golliat.color()==Color.ROJO);
 	}
 
 }

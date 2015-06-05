@@ -1,5 +1,5 @@
 package algo3.algocraft.edificios;
 
-public interface RecolectableGas  {
+public interface RecolectableGas {
 
 }

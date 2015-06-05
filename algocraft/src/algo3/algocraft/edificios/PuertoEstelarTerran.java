@@ -13,15 +13,15 @@ public class PuertoEstelarTerran extends EdificioCreador implements CreadorAereo
 		this.costoMineral = 150;
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
-	}	
+		this.unidadesCreadas=new ArrayList<Unidad>();	}	
 	public void crearEspectro() {
-		this.agregarACola( new Espectro(color));
+		this.agregarACola( new Espectro(this.color));
 	}
 	public void crearNaveCiencia() {
-		this.agregarACola( new NaveCiencia(color));
+		this.agregarACola( new NaveCiencia(this.color));
 	}
 	public void CrearNaveTransporteTerran() {
-		this.agregarACola( new NaveTransporteTerran(color));
+		this.agregarACola( new NaveTransporteTerran(this.color));
 	}
 
 }

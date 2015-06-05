@@ -52,7 +52,7 @@ public abstract class Ser {
 	}
 
 	public Color color() {
-		return color;
+		return this.color;
 	}
 
 	public int vida() {

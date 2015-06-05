@@ -33,14 +33,14 @@ public class ArchivosTemplariosTest {
 	public void crearTemplario(){
 		ArchivosTemplarios archivos=(ArchivosTemplarios) new ArchivosTemplarios(Color.AMARILLO);
 		archivos.crearAltoTemplario();
-		for(int i=4;i>1;i--){
+		for(int i=7;i>1;i--){
 			archivos.pasarTurno();
-			Assert.assertTrue(archivos.unidadesEnCola().isEmpty());
+			Assert.assertTrue(archivos.unidadesCreadas().isEmpty());
 		}
 		archivos.pasarTurno();
-		Assert.assertFalse(archivos.unidadesEnCola().isEmpty());
-		AltoTemplario templario = (AltoTemplario) archivos.unidadesEnCola().remove(0);
-		Assert.assertTrue(archivos.unidadesEnCola().isEmpty());
+		Assert.assertFalse(archivos.unidadesCreadas().isEmpty());
+		AltoTemplario templario = (AltoTemplario) archivos.unidadesCreadas().remove(0);
+		Assert.assertTrue(archivos.unidadesCreadas().isEmpty());
 		Assert.assertTrue(templario.color()==Color.AMARILLO);
 	}
 	

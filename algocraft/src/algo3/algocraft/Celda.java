@@ -50,9 +50,15 @@ public class Celda {
 	}
 
 	public boolean agregarSerTerrestre(Ser ser) {
-		if (this.serTerrestre == null) {  /* IMPORTANTE : PODRIAMOS ESTAR AGREGANDO UN SER Y UN RECURSO EN LA MISMA CELDA
-		TENDRIAMOS QUE VALIDAR QUE SOLO ( SOLO ) PUEDE AGREGARSE UN SER EDIFICIO REFINERIA O MINERALERO EN UN LUGAR
-		DONDE YA HAYA UN RECURSO > Jc*/									 
+		if (this.serTerrestre == null) { /*
+										 * IMPORTANTE : PODRIAMOS ESTAR
+										 * AGREGANDO UN SER Y UN RECURSO EN LA
+										 * MISMA CELDA TENDRIAMOS QUE VALIDAR
+										 * QUE SOLO ( SOLO ) PUEDE AGREGARSE UN
+										 * SER EDIFICIO REFINERIA O MINERALERO
+										 * EN UN LUGAR DONDE YA HAYA UN RECURSO
+										 * > Jc
+										 */
 			this.serTerrestre = ser;
 			return true;
 		}
@@ -71,6 +77,7 @@ public class Celda {
 	public void desocuparTerrestre() {
 		serTerrestre = null;
 	}
+
 	public void desocuparAerea() {
 		serAereo = null;
 	}
