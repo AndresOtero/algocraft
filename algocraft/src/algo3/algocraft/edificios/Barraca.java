@@ -17,4 +17,5 @@ public class Barraca extends EdificioCreador implements CreadorSoldados {
 	}
 	public void crearMarine() {
 		this.agregarACola(new Marine(this.color));
+	}
 }

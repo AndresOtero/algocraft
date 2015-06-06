@@ -15,9 +15,9 @@ public class Jugador {
 		return this.color;
 	}
 	
-	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador) throws NombreIncorrectoException{
-		 if(nombre.length()<4){
-			 throw new  NombreIncorrectoException();
+	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador) {
+		 if(nombreJugador.length()<4){
+			 // throw new  NombreIncorrectoException();
 		 }
 		 this.color=colorJugador;
 		 this.nombre=nombreJugador;

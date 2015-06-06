@@ -19,7 +19,7 @@ public class MapaTest {
 	public void testMapaTerrestres() {
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		ArrayList<Ser> UnidadesRojas = new ArrayList<Ser>();
-		Mapa mapa = Mapa.getInstance(jugadores);
+		Mapa mapa = Mapa.getInstance(50,50,jugadores);
 		Unidad unidad1=(Unidad) new Marine(Color.ROJO);
 		Unidad unidad2=(Unidad) new Marine(Color.ROJO);
 		Unidad unidad3=(Unidad) new Marine(Color.ROJO);
@@ -36,16 +36,16 @@ public class MapaTest {
 		for (int i =0;i<(UnidadesRojas).size();i++){
 			Assert.assertTrue(UnidadesMapa.get(i) == UnidadesRojas.get(i));
 		}
-		mapa.moverTerrestre(unidad1, 15, 15, 20, 20);
+		mapa.moverTerrestre(new Posicion(15,15),new Posicion(20,20));
 		//la siguiente linea deberia imprimir que esta ocupado
 		//nose como probarlo con assert
-		mapa.moverTerrestre(unidad1, 20, 20, 16, 15); 
+		mapa.moverTerrestre(new Posicion(20,20), new Posicion (16,15)); 
 				
 	}
 	public void testMapaAereo() {
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		ArrayList<Ser> UnidadesRojas = new ArrayList<Ser>();
-		Mapa mapa = Mapa.getInstance(jugadores);
+		Mapa mapa = Mapa.getInstance(50,50,jugadores);
 		Unidad unidad1=(Unidad) new Scout(Color.ROJO);
 		Unidad unidad2=(Unidad) new Scout(Color.ROJO);
 		Unidad unidad3=(Unidad) new Scout(Color.ROJO);
@@ -62,13 +62,13 @@ public class MapaTest {
 		for (int i =0;i<(UnidadesRojas).size();i++){
 			Assert.assertTrue(UnidadesMapa.get(i) == UnidadesRojas.get(i));
 		}
-		mapa.moverAerea(unidad1, 15, 15, 20, 20);
-		mapa.moverAerea(unidad1, 20, 20, 16, 15); //ocupada terrestre todo ok
+		mapa.moverAerea(new Posicion(15,15),new Posicion(20,20));
+		mapa.moverAerea(new Posicion(20,20),new Posicion(16,15)); //ocupada terrestre todo ok
 	}
 	public void testMapaRecursos(){
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
-		Mapa mapa = Mapa.getInstance(jugadores);
-		Celda celda = mapa.ContenidoFilaColumna(1, 1);
+		Mapa mapa = Mapa.getInstance(50,50,jugadores);
+		Celda celda = mapa.ContenidoPosicion(new Posicion(1, 1));
 		VolcanGasVespeno volcan = (VolcanGasVespeno) celda.fuenteRecurso();
 		Assert.assertTrue(volcan != null);
 		EdificioDeRecurso ref = new Refineria(volcan,Color.ROJO);
