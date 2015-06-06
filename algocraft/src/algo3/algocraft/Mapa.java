@@ -1,6 +1,7 @@
 package algo3.algocraft;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -194,7 +195,6 @@ public class Mapa {
 		celda.desocuparTerrestre();
 	}
 
-
 	private Posicion buscarPosicionDeSer(Ser ser) {
 		for(int i = 0;i<this.ancho;i++){
 			for(int j=0;j<this.alto;j++){
@@ -209,6 +209,11 @@ public class Mapa {
 
 		return null;
 	}
+	
+	
+	
+	
+	
 }
 
 
