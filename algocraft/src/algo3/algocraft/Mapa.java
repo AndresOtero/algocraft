@@ -156,18 +156,22 @@ public class Mapa {
 		return mapa.get(pos);
 	}	
 	public Boolean estaVaciaTerrestre(Posicion pos){
-		return this.ContenidoPosicion(pos).ocupadoTerrestre();	
+		Celda celda=this.ContenidoPosicion(pos);
+		Boolean estaVacia=!(this.ContenidoPosicion(pos).ocupadoTerrestre());	
+		return !(this.ContenidoPosicion(pos).ocupadoTerrestre());	
 	}
 	public Boolean estaVaciaAereo(Posicion pos){
-		return this.ContenidoPosicion(pos).ocupadoAerea();		
+		Celda celda=this.ContenidoPosicion(pos);
+		Boolean estaVacia=!(this.ContenidoPosicion(pos).ocupadoAerea());	
+		return !(this.ContenidoPosicion(pos).ocupadoAerea());		
 	}
 	private ArrayList<Posicion> adyacentes(Posicion pos){
 		ArrayList<Posicion> adyacentes =new ArrayList<Posicion>();
 		for(int i=-1;i<2;i=i+2){/*Busca las celdas adyacentes a la posicion*/
-			if(this.ancho<=i+pos.abscisa()){
+			if(this.ancho>=i+pos.abscisa()){
 				adyacentes.add(new Posicion(pos.abscisa()+i,pos.ordenada()));
 			}
-			if(this.alto<=i+pos.ordenada()){
+			if(this.alto>=i+pos.ordenada()){
 				adyacentes.add(new Posicion(pos.abscisa(),pos.ordenada()+i));
 			}
 		}
@@ -196,7 +200,7 @@ public class Mapa {
 			return;
 		}
 		Celda celdaInicial = mapa.get(posicionInicial);
-		Ser unidadAMover = celdaInicial.serEnLaCeldaAerea();
+		Ser unidadAMover = celdaInicial.serEnLaCeldaTerrestre();
 		ArrayList<Posicion> camino=this.encontrarMinimoCamino(posicionInicial,posicionFinal, unidadAMover.movimiento());
 		if(camino.isEmpty()){
 			System.out.println("No se pudo mover "); //throw new NoEsPosibleMoverException();

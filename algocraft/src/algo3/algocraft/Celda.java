@@ -22,15 +22,11 @@ public class Celda {
 	}
 
 	public boolean ocupadoTerrestre() {
-		if (this.serTerrestre != null || this.recurso != null)
-			return true;
-		return false;
+		return (this.serTerrestre != null && this.recurso != null);
 	}
 
 	public boolean ocupadoAerea() {
-		if (this.serAereo != null)
-			return true;
-		return false;
+		return (this.serAereo != null);
 	}
 
 	public Ser serEnLaCeldaTerrestre() {
