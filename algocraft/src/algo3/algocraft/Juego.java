@@ -8,6 +8,7 @@ import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.edificios.FactoryEdificiosProtoss;
 import algo3.algocraft.edificios.FactoryEdificiosTerran;
 import algo3.algocraft.exceptions.*;
+import algo3.algocraft.unidades.Unidad;
 import algo3.algocraft.unidades.UnidadDeAtaque;
 
 public class Juego {
@@ -18,6 +19,7 @@ public class Juego {
 	private HashMap<Jugador, AbstractFactoryEdificios> fabricas = new HashMap<Jugador, AbstractFactoryEdificios>();
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
+	//Metodos de Inicializacion
 	public void crearJugador(String nombre, Color color, TipoRaza raza) {
 
 		/*
@@ -47,10 +49,7 @@ public class Juego {
 	 * }
 	 */
 
-	public String JugadorActual() {
-		return turnos.turnoActual().nombre();
-	}
-
+	
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
 		Mapa.getInstance(5,5,jugadores); // puse 5x5 modificar si se quiere
@@ -63,6 +62,12 @@ public class Juego {
 			juga.agregarMineral(200);
 		}
 	}
+	
+	//Metodos de logica de juego
+	public String JugadorActual() {
+		return turnos.turnoActual().nombre();
+	}
+
 
 	private void administrarRecursos() {
 		Jugador jugadorActual = turnos.turnoActual();
@@ -81,29 +86,45 @@ public class Juego {
 		turnos.avanzarTurno();
 		administrarRecursos();
 	}
-
-	public boolean moverPosicionTerrestre(Ser unidadAMover, int filaInicio,
+	public Celda ContenidoFilaColumna(int fila, int columna) {
+		return mapa.ContenidoPosicion(new Posicion(fila, columna)); // Aereo o
+																	// Terrestre
+																	// ?
+	}
+	//Metodos de movimiento
+	public boolean moverPosicionTerrestre(Unidad unidadAMover, int filaInicio,
 			int columnaInicio, int filaDestino, int columnaDestino) {
 		try {
+			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
+			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
 			verificarPropiedadUnidad(unidadAMover);
-			mapa.moverTerrestre(new Posicion(filaInicio, columnaInicio),
-					new Posicion(filaDestino, columnaDestino));
+			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
+			mapa.moverTerrestre(posicionInicial,posicionFinal );
 		} catch (NoEsPosibleMoverException e) {
 			return false;
 		}
 		return true;
 	}
 
-	public boolean moverPosicionAereo(Ser unidadAMover, int filaInicio,
+	public boolean moverPosicionAereo(Unidad unidadAMover, int filaInicio,
 			int columnaInicio, int filaDestino, int columnaDestino) {
 		try {
+			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
+			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
 			verificarPropiedadUnidad(unidadAMover);
-			mapa.moverAerea(new Posicion(filaInicio, columnaInicio),
-					new Posicion(filaDestino, columnaDestino));
+			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
+			mapa.moverAerea(posicionInicial,posicionFinal);
 		} catch (NoEsPosibleMoverException e) {
 			return false;
 		}
 		return true;
+	}
+	
+	//Verificaciones
+	private void verificarMovimientoUnidad(Unidad unidadAMover,
+			Posicion posicionInicial, Posicion posicionFinal) 	throws NoEsPosibleMoverException {
+		if (unidadAMover.vision()>posicionInicial.distancia(posicionFinal))
+			throw new NoEsPosibleMoverException();
 	}
 
 	private void verificarPropiedadUnidad(Ser unidad)
@@ -112,11 +133,7 @@ public class Juego {
 			throw new NoEsPosibleMoverException();
 	}
 
-	public Celda ContenidoFilaColumna(int fila, int columna) {
-		return mapa.ContenidoPosicion(new Posicion(fila, columna)); // Aereo o
-																	// Terrestre
-																	// ?
-	}
+	
 
 	private void chequearNombreYColorNoRepetidos(String nombre, Color color)
 			throws ColorRepetidoException {
@@ -126,7 +143,33 @@ public class Juego {
 			}
 		}
 	}
+	//Metodos de Creacion
+	public void agregarEdificio(String string, int i, int j)
+			throws NoHayRecursosException, NoEstanLosRequisitosException {
+		// TODO Auto-generated method stub
+		// throw new NoHayRecursosException();
+		turnos.turnoActual();
+		// throw new NoEstanLosRequisitosException();
+	}
 
+	public void crearUnidad(String string) throws NoHayRecursosException,
+			NoHayEspacioException {
+		// TODO Auto-generated method stub
+		// throw new NoHayRecursosException();
+		throw new NoHayEspacioException();
+	}
+	//Metodos De Ataque
+	public void atacarAire(UnidadDeAtaque atacante, Ser atacado) {
+		atacante.atacarAire(atacado);
+		if (atacado.estaMuerto())
+			mapa.borrarSerAereo(atacado);
+	}
+
+	public void atacarTierra(UnidadDeAtaque atacante, Ser atacado) {
+		atacante.atacarTierra(atacado);
+		if (atacado.estaMuerto())
+			mapa.borrarSerTerrestre(atacado);
+	}
 	// Singleton
 	private Juego() {
 		mapa = Mapa.getInstance(5,5,jugadores);
@@ -144,30 +187,4 @@ public class Juego {
 		return instancia;
 	}
 
-	public void agregarEdificio(String string, int i, int j)
-			throws NoHayRecursosException, NoEstanLosRequisitosException {
-		// TODO Auto-generated method stub
-		// throw new NoHayRecursosException();
-		turnos.turnoActual();
-		// throw new NoEstanLosRequisitosException();
-	}
-
-	public void crearUnidad(String string) throws NoHayRecursosException,
-			NoHayEspacioException {
-		// TODO Auto-generated method stub
-		// throw new NoHayRecursosException();
-		throw new NoHayEspacioException();
-	}
-
-	public void atacarAire(UnidadDeAtaque atacante, Ser atacado) {
-		atacante.atacarAire(atacado);
-		if (atacado.estaMuerto())
-			mapa.borrarSerAereo(atacado);
-	}
-
-	public void atacarTierra(UnidadDeAtaque atacante, Ser atacado) {
-		atacante.atacarTierra(atacado);
-		if (atacado.estaMuerto())
-			mapa.borrarSerTerrestre(atacado);
-	}
 }

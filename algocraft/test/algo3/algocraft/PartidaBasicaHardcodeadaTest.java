@@ -45,7 +45,7 @@ public class PartidaBasicaHardcodeadaTest {
 		
 		// Algunas verificaciones 
 		
-		Assert.assertTrue(mapa.estaVaciaTerrestre(new Posicion(1,1)));
+		Assert.assertFalse(mapa.estaVaciaTerrestre(new Posicion(1,1)));
 		Assert.assertTrue(mapa.estaVaciaTerrestre(new Posicion(1,5)));
 		Assert.assertTrue(mapa.estaVaciaAereo(new Posicion(1,1)));
 		Assert.assertTrue(mapa.ContenidoPosicion(new Posicion(3,2)).serEnLaCeldaTerrestre() == zealotj1);
