@@ -1,5 +1,7 @@
 package algo3.algocraft;
 
+import java.util.ArrayList;
+
 public class Posicion {
 
 	private int x;
@@ -8,6 +10,12 @@ public class Posicion {
 	public Posicion(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	public int abscisa(){
+		return x;
+	}
+	public int ordenada(){
+		return y;
 	}
 
 	@Override

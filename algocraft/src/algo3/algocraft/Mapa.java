@@ -1,6 +1,7 @@
 package algo3.algocraft;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class Mapa {
 		inicializarMapa();
 	}
 	
-	
+	/*Metodos de Inicializacion*/
 	private void inicializarMapa(){
 		/*Posicion pos = new Posicion(1,1);
 		Celda celda = mapa.get(pos);
@@ -93,7 +94,7 @@ public class Mapa {
 	
 	
 	}
-	
+	/*Metodos de ubicacion de unidades y edificios*/
 	public void ponerTerrestre(Posicion pos,Ser ser){
 		Celda celda = mapa.get(pos);
 		if (celda.ocupadoTerrestre()) System.out.println("La celda esta ocupada");
@@ -149,27 +150,43 @@ public class Mapa {
 			seres.put(color,seresDeColor);
 		}
 	}
-
-	private synchronized static void createInstance(int fil, int col ,ArrayList<Jugador> jugadores) {
-		if (instancia == null) {
-			instancia = new Mapa(fil,col,jugadores);
-		}
-	}
 	
-	public static Mapa getInstance(int fil , int col ,ArrayList<Jugador> jugadores) {
-		if (instancia == null)
-			createInstance(fil , col ,jugadores);
-		return instancia;
-	}
-	
+	/*Metodos de Busqueda*/
 	public  Celda ContenidoPosicion(Posicion pos) {
 		return mapa.get(pos);
+	}	
+	public Boolean estaVaciaTerrestre(Posicion pos){
+		return this.ContenidoPosicion(pos).ocupadoTerrestre();	
+	}
+	public Boolean estaVaciaAereo(Posicion pos){
+		return this.ContenidoPosicion(pos).ocupadoAerea();		
+	}
+	private ArrayList<Posicion> adyacentes(Posicion pos){
+		ArrayList<Posicion> adyacentes =new ArrayList<Posicion>();
+		for(int i=-1;i<2;i=i+2){/*Busca las celdas adyacentes a la posicion*/
+			if(this.ancho<=i+pos.abscisa()){
+				adyacentes.add(new Posicion(pos.abscisa()+i,pos.ordenada()));
+			}
+			if(this.alto<=i+pos.ordenada()){
+				adyacentes.add(new Posicion(pos.abscisa(),pos.ordenada()+i));
+			}
+		}
+		return adyacentes;
 	}
 	
 	public ArrayList<Ser> seresDeJugador(Color color){
 		return (seres.get(color));
 	}
 
+	public ArrayList<EdificioDeRecurso> edificioDeGas (Color color){
+		return (edificiosDeGas.get(color));
+	}
+	
+	public ArrayList<EdificioDeRecurso> edificioDeMineral (Color color){
+		return (edificiosDeMineral.get(color));
+	}
+	
+	/*Metodos para mover*/
 	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal){
 		// aca deberia mover una unidad a la fila y columna que le pasan
 		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
@@ -201,14 +218,91 @@ public class Mapa {
 		}
 	}
 	
-	public ArrayList<EdificioDeRecurso> edificioDeGas (Color color){
-		return (edificiosDeGas.get(color));
+	private ArrayList<Posicion> encontrarMinimoCamino(Posicion posicionInicial, Posicion posicionFinal, Movimiento movimiento){
+		/*Map distancia = new HashMap<Posicion, Integer>();
+		ArrayList<Posicion>visto = new ArrayList<Posicion>();
+		int absInicial=inicial.abscisa();
+		int ordInicial=inicial.ordenada();
+		ArrayList<Posicion> adyacentes=this.adyacentes(inicial);
+		for(int i = absInicial-rango;i<absInicial+rango;i++){//Recorre las posiciones dentro del rango de movimiento 
+			for(int j=ordInicial-rango;j<ordInicial+rango;j++){
+				
+				Posicion p = new Posicion(i,j);
+				for(Posicion adyacente:adyacentes){
+					if(adyacente.equals(p)){
+						distancia.put(p, 1);
+						continue;//vuelve al comienzo del bucle
+					}
+				}
+				distancia.put(p, rango+1);
+			}
+		}
+		distancia.put(inicial,0);
+		visto.add(inicial);
+		while(visto.size()!=distancia.size()){
+			Iterator iter =distancia.entrySet().iterator();
+			int distanciaMinima=rango+2;
+			Posicion posicionMinima=null;
+			//Encuentra el nodo de menor distancia que no esta visto
+			while(iter.hasNext()){
+				Map.Entry<Posicion, Integer> par =(Map.Entry<Posicion, Integer>) iter.next();
+				if(par.getValue()<distanciaMinima & !visto.contains(par.getKey())){
+					distanciaMinima=par.getValue();
+					posicionMinima=par.getKey();
+				}
+			}
+			visto.add(posicionMinima);
+			//  para cada w sucesores (G, vértice) hacer
+         	//si distancia[w]>distancia[vértice]+peso (vértice, w) entonces
+            //distancia[w] = distancia[vértice]+peso (vértice, w)
+			
+		}
+		*/
+		ArrayList<Posicion>camino=new ArrayList<Posicion>();
+		ArrayList<Posicion>visitados=new ArrayList<Posicion>();
+		this.encontrarMinimoCaminoRecursivo(posicionInicial,posicionFinal,movimiento,camino, visitados);
+		return camino;		
 	}
 	
-	public ArrayList<EdificioDeRecurso> edificioDeMineral (Color color){
-		return (edificiosDeMineral.get(color));
+	private Boolean encontrarMinimoCaminoRecursivo(Posicion posicionInicial,Posicion posicionFinal,Movimiento movimiento, ArrayList<Posicion> camino,ArrayList<Posicion> visitados) {
+		if(posicionFinal.equals(posicionInicial)){
+			return true;
+		}
+		visitados.add(posicionInicial);
+		int distanciaMinima=0;
+		Posicion posicionDistanciaMinima=null;
+		ArrayList<Posicion> adyacentes=  this.adyacentes(posicionInicial);
+		Iterator<Posicion> iter=adyacentes.iterator();
+		while(iter.hasNext()){
+			Posicion adyacente =iter.next();
+			if((!this.sePuedeMover(adyacente,movimiento))||(visitados.contains(adyacente))){//Si no se puede mover o fue visitado
+				continue;
+			}
+			int distanciaAlFinal= adyacente.distancia(posicionFinal);
+			if((distanciaMinima==0||distanciaMinima>=distanciaAlFinal)){
+				posicionDistanciaMinima=adyacente;
+			}
+		}
+		if(posicionDistanciaMinima==null){//Ya visito todos los caminos 
+			camino.remove(posicionInicial);
+			return false;
+		}
+		visitados.add(posicionDistanciaMinima);
+		camino.add(posicionDistanciaMinima);
+		if(this.encontrarMinimoCaminoRecursivo(posicionDistanciaMinima, posicionFinal,movimiento , camino, visitados)){
+			return true;
+		}
+		return this.encontrarMinimoCaminoRecursivo(posicionInicial, posicionFinal,movimiento , camino, visitados);
 	}
-	
+
+	private boolean sePuedeMover(Posicion pos, Movimiento movimiento) {
+		if(movimiento==Movimiento.Terrestre){
+			return this.estaVaciaTerrestre(pos);
+		}
+		return (this.estaVaciaAereo(pos)||this.estaVaciaTerrestre(pos));//los que se mueven por el aire pueden moverse por ambos
+	}
+
+	/*Metodos de Borrado*/
 	private Posicion borrarSer(Ser ser){
 		Color color = ser.color();
 		ArrayList<Ser> seresDeColor = seres.get(color);
@@ -246,6 +340,18 @@ public class Mapa {
 		return null;
 	}
 	
+	/*Singleton*/
+	private synchronized static void createInstance(int fil, int col ,ArrayList<Jugador> jugadores) {
+		if (instancia == null) {
+			instancia = new Mapa(fil,col,jugadores);
+		}
+	}
+	
+	public static Mapa getInstance(int fil , int col ,ArrayList<Jugador> jugadores) {
+		if (instancia == null)
+			createInstance(fil , col ,jugadores);
+		return instancia;
+	}
 	
 	
 	
