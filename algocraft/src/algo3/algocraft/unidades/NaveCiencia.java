@@ -1,8 +1,9 @@
 package algo3.algocraft.unidades;
 
 import algo3.algocraft.Color;
+import algo3.algocraft.Movimiento;
 
-public class NaveCiencia extends UnidadMagica {
+public class NaveCiencia extends UnidadMagica implements Aerea {
 	private Unidad unidadObjetivo = null;
 
 	public NaveCiencia(Color colorJugador) {
@@ -13,6 +14,7 @@ public class NaveCiencia extends UnidadMagica {
 		vida = 200;
 		this.color = colorJugador;
 		this.tiempoDeConstruccion = 10;
+		movimiento=Movimiento.Aereo;
 	}
 
 	@Override

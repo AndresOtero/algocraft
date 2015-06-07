@@ -20,6 +20,7 @@ public class Zealot extends UnidadDeAtaque implements Terrestre, Transportable {
 		costoMineral = 50;
 		costoGas = 0;
 		color = colorJugador;
+		movimiento=Movimiento.Terrestre;
 	}
 
 	@Override

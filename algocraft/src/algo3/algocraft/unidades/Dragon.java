@@ -19,6 +19,7 @@ public class Dragon extends UnidadDeAtaque implements Terrestre, Transportable {
 		costoMineral = 125;
 		costoGas = 50;
 		this.color = colorJugador;
+		movimiento=Movimiento.Terrestre;
 	}
 
 	@Override

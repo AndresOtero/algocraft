@@ -18,6 +18,7 @@ public class Golliat extends UnidadDeAtaque implements Terrestre, Transportable 
 		color = colorJugador;
 		costoMineral = 100;
 		costoGas = 50;
+		movimiento=Movimiento.Terrestre;
 	}
 
 	@Override

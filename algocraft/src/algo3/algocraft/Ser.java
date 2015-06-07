@@ -11,7 +11,10 @@ public abstract class Ser {
 	protected int costoMineral;
 	protected int costoGas;
 	protected Color color;
-
+	protected Movimiento movimiento=null;
+	public Movimiento movimiento(){
+		return movimiento;
+	}
 	public int tiempoDeConstruccion() {
 		return this.tiempoDeConstruccion;
 	}

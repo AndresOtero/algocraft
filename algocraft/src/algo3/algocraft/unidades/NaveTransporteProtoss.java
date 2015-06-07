@@ -1,6 +1,7 @@
 package algo3.algocraft.unidades;
 
 import algo3.algocraft.Color;
+import algo3.algocraft.Movimiento;
 
 public class NaveTransporteProtoss extends UnidadDeTransporte {
 	public NaveTransporteProtoss(Color colorJugador) {
@@ -15,5 +16,7 @@ public class NaveTransporteProtoss extends UnidadDeTransporte {
 		vida = 60;
 		escudo = 80;
 		this.color = colorJugador;
+		movimiento=Movimiento.Aereo;
+
 	}
 }

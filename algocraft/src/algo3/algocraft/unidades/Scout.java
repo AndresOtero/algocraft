@@ -17,6 +17,8 @@ public class Scout extends UnidadDeAtaque implements Terrestre, Aerea {
 		this.color = colorJugador;
 		costoMineral = 300;
 		costoGas = 150;
+		movimiento=Movimiento.Aereo;
+
 	}
 
 }

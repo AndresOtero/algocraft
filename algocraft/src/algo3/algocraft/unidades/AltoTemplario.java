@@ -2,7 +2,7 @@ package algo3.algocraft.unidades;
 
 import algo3.algocraft.*;
 
-public class AltoTemplario extends UnidadMagica implements Transportable {
+public class AltoTemplario extends UnidadMagica implements Terrestre,Transportable {
 	private int transporte = 2;
 
 	public AltoTemplario(Color colorJugador) {
@@ -14,6 +14,7 @@ public class AltoTemplario extends UnidadMagica implements Transportable {
 		costoMineral = 50;
 		costoGas = 150;
 		this.color = colorJugador;
+		movimiento=Movimiento.Terrestre;
 	}
 
 	public void tormenta() {

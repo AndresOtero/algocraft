@@ -191,75 +191,49 @@ public class Mapa {
 		// aca deberia mover una unidad a la fila y columna que le pasan
 		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
 		Celda celdaFinal = mapa.get(posicionFinal);
-		Celda celdaInicial = mapa.get(posicionInicial);
-		Ser unidadAMover = celdaInicial.serEnLaCeldaTerrestre();
 		if (celdaFinal.ocupadoTerrestre()) {
 			System.out.println("ESTA OCUPADO Terrestre"); //throw new NoEsPosibleMoverException();
+			return;
 		}
-		else {
-			ponerTerrestre(posicionFinal,unidadAMover);	
-			celdaInicial.desocuparTerrestre();
+		Celda celdaInicial = mapa.get(posicionInicial);
+		Ser unidadAMover = celdaInicial.serEnLaCeldaAerea();
+		ArrayList<Posicion> camino=this.encontrarMinimoCamino(posicionInicial,posicionFinal, unidadAMover.movimiento());
+		if(camino.isEmpty()){
+			System.out.println("No se pudo mover "); //throw new NoEsPosibleMoverException();
+			return;
 		}
-		
+		ponerTerrestre(posicionFinal,unidadAMover);	
+		celdaInicial.desocuparTerrestre();		
 	}
 	
 	public void moverAerea(Posicion posicionInicial,Posicion posicionFinal) {
 		// aca deberia mover una unidad a la fila y columna que le pasan
 		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
 		Celda celdaFinal = mapa.get(posicionFinal);
-		Celda celdaInicial = mapa.get(posicionInicial);
-		Ser unidadAMover = celdaInicial.serEnLaCeldaAerea();
 		if (celdaFinal.ocupadoAerea()) {
 			System.out.println("ESTA OCUPADO Aerea"); //throw new NoEsPosibleMoverException();
+			return;
 		}
-		else {
-			ponerAereo(posicionFinal,unidadAMover);	
-			celdaInicial.desocuparAerea();
+		Celda celdaInicial = mapa.get(posicionInicial);
+		Ser unidadAMover = celdaInicial.serEnLaCeldaAerea();
+		ArrayList<Posicion> camino=this.encontrarMinimoCamino(posicionInicial,posicionFinal, unidadAMover.movimiento());
+		if(camino.isEmpty()){
+			System.out.println("No se pudo mover "); //throw new NoEsPosibleMoverException();
+			return;
 		}
+		ponerAereo(posicionFinal,unidadAMover);	
+		celdaInicial.desocuparAerea();
 	}
 	
 	private ArrayList<Posicion> encontrarMinimoCamino(Posicion posicionInicial, Posicion posicionFinal, Movimiento movimiento){
-		/*Map distancia = new HashMap<Posicion, Integer>();
-		ArrayList<Posicion>visto = new ArrayList<Posicion>();
-		int absInicial=inicial.abscisa();
-		int ordInicial=inicial.ordenada();
-		ArrayList<Posicion> adyacentes=this.adyacentes(inicial);
-		for(int i = absInicial-rango;i<absInicial+rango;i++){//Recorre las posiciones dentro del rango de movimiento 
-			for(int j=ordInicial-rango;j<ordInicial+rango;j++){
-				
-				Posicion p = new Posicion(i,j);
-				for(Posicion adyacente:adyacentes){
-					if(adyacente.equals(p)){
-						distancia.put(p, 1);
-						continue;//vuelve al comienzo del bucle
-					}
-				}
-				distancia.put(p, rango+1);
-			}
-		}
-		distancia.put(inicial,0);
-		visto.add(inicial);
-		while(visto.size()!=distancia.size()){
-			Iterator iter =distancia.entrySet().iterator();
-			int distanciaMinima=rango+2;
-			Posicion posicionMinima=null;
-			//Encuentra el nodo de menor distancia que no esta visto
-			while(iter.hasNext()){
-				Map.Entry<Posicion, Integer> par =(Map.Entry<Posicion, Integer>) iter.next();
-				if(par.getValue()<distanciaMinima & !visto.contains(par.getKey())){
-					distanciaMinima=par.getValue();
-					posicionMinima=par.getKey();
-				}
-			}
-			visto.add(posicionMinima);
-			//  para cada w sucesores (G, vértice) hacer
-         	//si distancia[w]>distancia[vértice]+peso (vértice, w) entonces
-            //distancia[w] = distancia[vértice]+peso (vértice, w)
-			
-		}
-		*/
+		 /*Este metodo encuentra el minimo camino si es posible encontrarlo sino devuele una lista vacia.
+		 El movimiento es por donde se puede mover el ser por tierra o por aire */
 		ArrayList<Posicion>camino=new ArrayList<Posicion>();
+		if(movimiento==null){
+			return camino;
+		}
 		ArrayList<Posicion>visitados=new ArrayList<Posicion>();
+
 		this.encontrarMinimoCaminoRecursivo(posicionInicial,posicionFinal,movimiento,camino, visitados);
 		return camino;		
 	}

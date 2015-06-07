@@ -18,7 +18,7 @@ public class Marine extends UnidadDeAtaque implements Terrestre, Transportable {
 		color = colorJugador;
 		costoMineral = 50;
 		costoGas = 0;
-
+		movimiento=Movimiento.Terrestre;
 	}
 
 	@Override
