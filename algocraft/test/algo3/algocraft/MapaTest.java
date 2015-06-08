@@ -100,4 +100,5 @@ public class MapaTest {
 			Assert.assertTrue(edificiosDeGas.get(i) == edificiosDeGas.get(i));
 		}		
 	}
+	
 }

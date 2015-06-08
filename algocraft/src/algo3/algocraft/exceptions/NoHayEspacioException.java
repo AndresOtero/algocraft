@@ -1,5 +1,5 @@
 package algo3.algocraft.exceptions;
 
-public class NoHayEspacioException extends Exception {
+public class NoHayEspacioException extends RuntimeException {
 
 }

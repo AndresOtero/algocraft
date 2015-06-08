@@ -1,5 +1,5 @@
 package algo3.algocraft.exceptions;
 
-public class NoEsPosibleMoverException extends Exception {
+public class NoEsPosibleMoverException extends RuntimeException {
 
 }

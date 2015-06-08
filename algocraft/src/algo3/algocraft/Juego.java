@@ -21,11 +21,12 @@ public class Juego {
 
 	//Metodos de Inicializacion
 	public void crearJugador(String nombre, Color color, TipoRaza raza) {
-
-		/*
-		 * if(nombre.length() < 4) throw new NombreIncorrectoException();
-		 * this.chequearNombreYColorNoRepetidos(nombre, color);
-		 */
+		
+		if(nombre.length() < 4){
+			throw new NombreIncorrectoException();
+		}
+		 this.chequearNombreYColorNoRepetidos(nombre, color);
+		
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);
 		if (raza == TipoRaza.TERRAN) {
@@ -92,11 +93,12 @@ public class Juego {
 																	// ?
 	}
 	//Metodos de movimiento
-	public boolean moverPosicionTerrestre(Unidad unidadAMover, int filaInicio,
+	public boolean moverPosicionTerrestre(int filaInicio,
 			int columnaInicio, int filaDestino, int columnaDestino) {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
+			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();
 			verificarPropiedadUnidad(unidadAMover);
 			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
 			mapa.moverTerrestre(posicionInicial,posicionFinal );
@@ -107,11 +109,12 @@ public class Juego {
 		return true;
 	}
 
-	public boolean moverPosicionAereo(Unidad unidadAMover, int filaInicio,
+	public boolean moverPosicionAereo(int filaInicio,
 			int columnaInicio, int filaDestino, int columnaDestino) {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
+			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaAerea();
 			verificarPropiedadUnidad(unidadAMover);
 			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
 			mapa.moverAerea(posicionInicial,posicionFinal);
@@ -124,13 +127,12 @@ public class Juego {
 	
 	//Verificaciones
 	private void verificarMovimientoUnidad(Unidad unidadAMover,
-			Posicion posicionInicial, Posicion posicionFinal) 	throws NoEsPosibleMoverException {
+			Posicion posicionInicial, Posicion posicionFinal)  {
 		if (unidadAMover.vision()>posicionInicial.distancia(posicionFinal))
 			throw new NoEsPosibleMoverException();
 	}
 
-	private void verificarPropiedadUnidad(Unidad unidad)
-			throws NoEsPosibleMoverException {
+	private void verificarPropiedadUnidad(Unidad unidad){
 		if (!turnos.turnoActual().esColor(unidad.color) || turnos.yaSeMovio(unidad))
 			throw new NoEsPosibleMoverException();
 	}
@@ -145,34 +147,75 @@ public class Juego {
 		}
 	}
 	//Metodos de Creacion
-	public void agregarEdificio(String string, int i, int j)
-			throws NoHayRecursosException, NoEstanLosRequisitosException {
+	public void agregarEdificio(String string, int i, int j) {
 		// TODO Auto-generated method stub
 		// throw new NoHayRecursosException();
 		turnos.turnoActual();
 		// throw new NoEstanLosRequisitosException();
 	}
 
-	public void crearUnidad(String string) throws NoHayRecursosException,
-			NoHayEspacioException {
+	public void crearUnidad(String string){
 		// TODO Auto-generated method stub
 		// throw new NoHayRecursosException();
 		throw new NoHayEspacioException();
 	}
 	//Metodos De Ataque
-	public void atacarAire(UnidadDeAtaque atacante, Ser atacado) {
-		atacante.atacarAire(atacado);
-		if (atacado.estaMuerto())
-			mapa.borrarSerAereo(atacado);
+
+	public boolean atacarAire(int filIni, int colIni , int filFinal , int colFinal) {
+		try{
+			Posicion posini = new Posicion(filIni,colIni);
+			Posicion posfin = new Posicion(filFinal,colFinal);
+			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaAerea();
+			Ser serAtacado1 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaAerea();
+			Ser serAtacado2 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
+			verificarSiPuedeAtacarEnRango(unidadQAtaca,posini,posfin);
+			verificarPropiedadAtaque(unidadQAtaca);
+			if ( serAtacado1 != null ) unidadQAtaca.atacarAire(serAtacado1);
+			if ( serAtacado2 != null) unidadQAtaca.atacarTierra(serAtacado2);
+			if ( serAtacado1.estaMuerto()) mapa.borrarSerAereo(serAtacado1);
+			if ( serAtacado2.estaMuerto()) mapa.borrarSerTerrestre(serAtacado2);
+			turnos.agregarQueAtaco(unidadQAtaca);
+		}
+		catch (NoEsPosibleAtacarException e){
+			return false;
+		}
+		return true;
+	}
+	
+	private void verificarSiPuedeAtacarEnRango(Unidad unidadAMover,
+			Posicion posicionInicial, Posicion posicionFinal) {
+		if (unidadAMover.vision()>posicionInicial.distancia(posicionFinal))
+			throw new NoEsPosibleAtacarException();
+	}
+	
+	private void verificarPropiedadAtaque(Unidad unidad) {
+		if (!turnos.turnoActual().esColor(unidad.color) || turnos.yaAtaco(unidad))
+			throw new NoEsPosibleMoverException();
 	}
 
-	public void atacarTierra(UnidadDeAtaque atacante, Ser atacado) {
-		atacante.atacarTierra(atacado);
-		
-		if (atacado.estaMuerto())
-			mapa.borrarSerTerrestre(atacado);
+
+	public boolean atacarTierra(int filIni,int colIni,int filFinal, int colFinal) {
+		try{
+			Posicion posini = new Posicion(filIni,colIni);
+			Posicion posfin = new Posicion(filFinal,colFinal);
+			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaTerrestre();
+			Ser serAtacado1 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaAerea();
+			Ser serAtacado2 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
+			verificarSiPuedeAtacarEnRango(unidadQAtaca,posini,posfin);
+			verificarPropiedadAtaque(unidadQAtaca);
+			if ( serAtacado1 != null ) unidadQAtaca.atacarAire(serAtacado1);
+			if ( serAtacado2 != null) unidadQAtaca.atacarTierra(serAtacado2);
+			if ( serAtacado1.estaMuerto()) mapa.borrarSerAereo(serAtacado1);
+			if ( serAtacado2.estaMuerto()) mapa.borrarSerTerrestre(serAtacado2);
+			turnos.agregarQueAtaco(unidadQAtaca);
+		}
+		catch (NoEsPosibleAtacarException e){
+			return false;
+		}
+		return true;
 	}
-	// Singleton
+	
+		// Singleton
 	private Juego() {
 		mapa = Mapa.getInstance(5,5,jugadores);
 	}
