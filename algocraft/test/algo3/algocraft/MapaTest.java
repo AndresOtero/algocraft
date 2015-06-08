@@ -39,7 +39,7 @@ public class MapaTest {
 		mapa.moverTerrestre(new Posicion(15,15),new Posicion(20,20));
 		//la siguiente linea deberia imprimir que esta ocupado
 		//nose como probarlo con assert
-		mapa.moverTerrestre(new Posicion(20,20), new Posicion (16,15)); 
+		mapa.moverTerrestre(new Posicion(20,20), new Posicion (15,15)); 
 				
 	}
 	public void testMapaAereo() {

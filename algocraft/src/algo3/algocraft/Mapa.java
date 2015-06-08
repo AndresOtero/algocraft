@@ -158,7 +158,7 @@ public class Mapa {
 	public Boolean estaVaciaTerrestre(Posicion pos){
 		Celda celda=this.ContenidoPosicion(pos);
 		Boolean estaVacia=!(this.ContenidoPosicion(pos).ocupadoTerrestre());	
-		return !(this.ContenidoPosicion(pos).ocupadoTerrestre());	
+		return estaVacia;	
 	}
 	public Boolean estaVaciaAereo(Posicion pos){
 		Celda celda=this.ContenidoPosicion(pos);
@@ -246,7 +246,6 @@ public class Mapa {
 		if(posicionFinal.equals(posicionInicial)){
 			return true;
 		}
-		visitados.add(posicionInicial);
 		int distanciaMinima=0;
 		Posicion posicionDistanciaMinima=null;
 		ArrayList<Posicion> adyacentes=  this.adyacentes(posicionInicial);
@@ -259,6 +258,8 @@ public class Mapa {
 			int distanciaAlFinal= adyacente.distancia(posicionFinal);
 			if((distanciaMinima==0||distanciaMinima>=distanciaAlFinal)){
 				posicionDistanciaMinima=adyacente;
+				distanciaMinima=distanciaAlFinal;
+				
 			}
 		}
 		if(posicionDistanciaMinima==null){//Ya visito todos los caminos 
