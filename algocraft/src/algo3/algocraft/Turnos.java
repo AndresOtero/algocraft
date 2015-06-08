@@ -2,10 +2,15 @@ package algo3.algocraft;
 
 import java.util.ArrayList;
 
+import algo3.algocraft.unidades.Unidad;
+
 public class Turnos {
 	
 	
 	private Jugador[] jugadores = new Jugador[2];
+	private ArrayList <Unidad> movidos = new ArrayList<Unidad>();
+	private ArrayList <Unidad> atacaron = new ArrayList<Unidad>();
+	
 	
 	private int turno;
 	
@@ -21,9 +26,30 @@ public class Turnos {
 	
 	public void avanzarTurno(){
 		turno++;
+		movidos.clear();
+		atacaron.clear();
+	}
+
+	public void agregarMovido(Unidad unidadAMover) {
+		movidos.add(unidadAMover);
+		
 	}
 	
-
+	public void agregarQueAtaco( Unidad ataco){
+		atacaron.add(ataco);
+	}
+	
+	public boolean yaAtaco(Unidad unidadQueQuiereAtacar){
+		if (atacaron.contains( unidadQueQuiereAtacar) ) return true;
+		return false;
+	}
+	
+	public boolean yaSeMovio(Unidad unidadQueQuiereMoverse){
+		if (movidos.contains( unidadQueQuiereMoverse) ) return true;
+		
+		return false;
+	}
+	
 	
 }
 

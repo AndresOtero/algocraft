@@ -100,6 +100,7 @@ public class Juego {
 			verificarPropiedadUnidad(unidadAMover);
 			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
 			mapa.moverTerrestre(posicionInicial,posicionFinal );
+			turnos.agregarMovido(unidadAMover);
 		} catch (NoEsPosibleMoverException e) {
 			return false;
 		}
@@ -114,6 +115,7 @@ public class Juego {
 			verificarPropiedadUnidad(unidadAMover);
 			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
 			mapa.moverAerea(posicionInicial,posicionFinal);
+			turnos.agregarMovido(unidadAMover);
 		} catch (NoEsPosibleMoverException e) {
 			return false;
 		}
@@ -127,16 +129,15 @@ public class Juego {
 			throw new NoEsPosibleMoverException();
 	}
 
-	private void verificarPropiedadUnidad(Ser unidad)
+	private void verificarPropiedadUnidad(Unidad unidad)
 			throws NoEsPosibleMoverException {
-		if (!turnos.turnoActual().esColor(unidad.color))
+		if (!turnos.turnoActual().esColor(unidad.color) || turnos.yaSeMovio(unidad))
 			throw new NoEsPosibleMoverException();
 	}
 
 	
 
-	private void chequearNombreYColorNoRepetidos(String nombre, Color color)
-			throws ColorRepetidoException {
+	private void chequearNombreYColorNoRepetidos(String nombre, Color color)  {
 		for (Jugador jugador : jugadores) {
 			if (jugador.esNombre(nombre) || jugador.esColor(color)) {
 				throw new ColorRepetidoException();
@@ -159,6 +160,8 @@ public class Juego {
 		throw new NoHayEspacioException();
 	}
 	//Metodos De Ataque
+	
+	
 	public void atacarAire(UnidadDeAtaque atacante, Ser atacado) {
 		atacante.atacarAire(atacado);
 		if (atacado.estaMuerto())
@@ -167,6 +170,7 @@ public class Juego {
 
 	public void atacarTierra(UnidadDeAtaque atacante, Ser atacado) {
 		atacante.atacarTierra(atacado);
+		
 		if (atacado.estaMuerto())
 			mapa.borrarSerTerrestre(atacado);
 	}
