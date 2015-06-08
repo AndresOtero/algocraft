@@ -246,7 +246,7 @@ public class Mapa {
 		if(posicionFinal.equals(posicionInicial)){
 			return true;
 		}
-		int distanciaMinima=0;
+		int distanciaMinima=-1;
 		Posicion posicionDistanciaMinima=null;
 		ArrayList<Posicion> adyacentes=  this.adyacentes(posicionInicial);
 		Iterator<Posicion> iter=adyacentes.iterator();
@@ -256,7 +256,7 @@ public class Mapa {
 				continue;
 			}
 			int distanciaAlFinal= adyacente.distancia(posicionFinal);
-			if((distanciaMinima==0||distanciaMinima>=distanciaAlFinal)){
+			if((distanciaMinima==-1||distanciaMinima>=distanciaAlFinal)){
 				posicionDistanciaMinima=adyacente;
 				distanciaMinima=distanciaAlFinal;
 				
