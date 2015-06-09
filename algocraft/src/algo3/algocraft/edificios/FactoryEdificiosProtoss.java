@@ -35,9 +35,9 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarCreadorTerrestres(Jugador jugador) {
+	public Boolean fabricarCreadorSoldados(Jugador jugador) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
-			edificiosEnCola.add(new DepositoDeSuminisitros(color));
+			edificiosEnCola.add(new Acceso(color));
 			jugador.sacarGasVespeno(150);
 			jugador.sacarMineral(0);
 			return true;
@@ -46,7 +46,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarCreadorSoldados(Jugador jugador) {
+	public Boolean fabricarCreadorTerrestres(Jugador jugador) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>200)){
 			edificiosEnCola.add(new ArchivosTemplarios(color));
 			jugador.sacarGasVespeno(150);
