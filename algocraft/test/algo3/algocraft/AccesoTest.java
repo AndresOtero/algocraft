@@ -29,8 +29,11 @@ public class AccesoTest {
 	}
 	@Test 
 	public void crearDragon(){
+		Jugador j1 = new Jugador("pedrito", Color.AMARILLO, TipoRaza.PROTOSS);
+		j1.agregarGasVespeno(1000);
+		j1.agregarMineral(1000);
 		Acceso acceso=(Acceso) new Acceso(Color.AMARILLO);
-		acceso.crearDragon();
+		acceso.crearDragon(j1);
 		for(int i=6;i>1;i--){
 			acceso.pasarTurno();
 			Assert.assertTrue(acceso.unidadesCreadas().isEmpty());
@@ -43,8 +46,11 @@ public class AccesoTest {
 	}
 	@Test 
 	public void crearZealot(){
+		Jugador j1 = new Jugador("pedrito", Color.AMARILLO, TipoRaza.PROTOSS);
+		j1.agregarGasVespeno(1000);
+		j1.agregarMineral(1000);
 		Acceso acceso=(Acceso) new Acceso(Color.AMARILLO);
-		acceso.crearZealot();
+		acceso.crearZealot(j1);
 		for(int i=4;i>1;i--){
 			acceso.pasarTurno();
 			Assert.assertTrue(acceso.unidadesCreadas().isEmpty());
