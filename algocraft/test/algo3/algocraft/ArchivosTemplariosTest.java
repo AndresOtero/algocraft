@@ -30,7 +30,7 @@ public class ArchivosTemplariosTest {
 	@Test 
 	public void crearTemplario(){
 		ArchivosTemplarios archivos=(ArchivosTemplarios) new ArchivosTemplarios(Color.AMARILLO);
-		archivos.crearAltoTemplario();
+		archivos.crearAltoTemplario(null);
 		for(int i=7;i>1;i--){
 			archivos.pasarTurno();
 			Assert.assertTrue(archivos.unidadesCreadas().isEmpty());
