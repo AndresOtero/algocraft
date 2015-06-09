@@ -154,9 +154,10 @@ public class Juego {
 		// throw new NoEstanLosRequisitosException();
 	}
 
-	public void crearUnidad(String string){
-		// TODO Auto-generated method stub
-		// throw new NoHayRecursosException();
+	public void crearUnidad(Unidad unidad){
+		
+		
+		
 		throw new NoHayEspacioException();
 	}
 	//Metodos De Ataque
