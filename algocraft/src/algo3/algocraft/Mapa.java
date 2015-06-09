@@ -182,10 +182,7 @@ public class Mapa {
 
 	private ArrayList<Posicion> adyacentes(Posicion pos) {
 		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
-		for (int i = -1; i < 2; i = i + 2) {/*
-											 * Busca las celdas adyacentes a la
-											 * posicion
-											 */
+		for (int i = -1; i < 2; i = i + 2) {
 			if (this.ancho >= i + pos.abscisa()) {
 				adyacentes.add(new Posicion(pos.abscisa() + i, pos.ordenada()));
 			}
@@ -195,6 +192,22 @@ public class Mapa {
 		}
 		return adyacentes;
 	}
+	public ArrayList<Unidad> calcularRadio(Posicion pos) {
+		ArrayList<Unidad> unidadesAlcanzadas = new ArrayList<Unidad>();
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				Celda celda = this.ContenidoPosicion(new Posicion(pos.abscisa()+i, pos.ordenada()+ j));
+				if (celda.ocupadoTerrestre()){
+					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaTerrestre());
+				}
+				if (celda.ocupadoAerea()){
+					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaAerea());
+				}
+			}
+		}
+		return unidadesAlcanzadas;
+	}
+
 
 	public ArrayList<Ser> seresDeJugador(Color color) {
 		return (seres.get(color));
@@ -310,17 +323,7 @@ public class Mapa {
 		if (movimiento == Movimiento.Terrestre) {
 			return this.estaVaciaTerrestre(pos);
 		}
-		return (this.estaVaciaAereo(pos) || this.estaVaciaTerrestre(pos));// los
-																			// que
-																			// se
-																			// mueven
-																			// por
-																			// el
-																			// aire
-																			// pueden
-																			// moverse
-																			// por
-																			// ambos
+		return (this.estaVaciaAereo(pos) || this.estaVaciaTerrestre(pos));
 	}
 
 	/* Metodos de Borrado */
@@ -377,22 +380,6 @@ public class Mapa {
 		if (instancia == null)
 			createInstance(fil, col, jugadores);
 		return instancia;
-	}
-
-	public ArrayList<Unidad> calcularRadio(Posicion pos) {
-		ArrayList<Unidad> unidadesAlcanzadas = new ArrayList<Unidad>();
-		for (int i = -1; i <= 1; i++) {
-			for (int j = -1; j <= 1; j++) {
-				Celda celda = this.ContenidoPosicion(new Posicion(pos.abscisa()+i, pos.ordenada()+ j));
-				if (celda.ocupadoTerrestre())
-					unidadesAlcanzadas.add((Unidad) celda
-							.serEnLaCeldaTerrestre());
-				if (celda.ocupadoAerea())
-					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaAerea());
-
-			}
-		}
-		return unidadesAlcanzadas;
 	}
 
 }

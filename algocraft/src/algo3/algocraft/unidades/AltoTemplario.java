@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import algo3.algocraft.*;
 
-public class AltoTemplario extends UnidadMagica implements Terrestre,
-		Transportable {
+public class AltoTemplario extends UnidadMagica implements AltoTemplarioInteface {
 	private int transporte = 2;
 
 	public AltoTemplario(Color colorJugador) {
@@ -31,10 +30,6 @@ public class AltoTemplario extends UnidadMagica implements Terrestre,
 		return false;
 	}
 
-	public void alucinacion() {
-
-	}
-
 	@Override
 	public void aumentarEnergia() {
 		if (energia <= 190)
@@ -50,5 +45,14 @@ public class AltoTemplario extends UnidadMagica implements Terrestre,
 	@Override
 	public int transporte() {
 		return transporte;
+	}
+
+	public ArrayList<AltoTemplarioInteface> alucinacion() {
+		ArrayList<AltoTemplarioInteface> listaDeProxys=new ArrayList<AltoTemplarioInteface>();
+		for(int i=0;i<2;i++){
+			AltoTemplarioProxy proxy=new AltoTemplarioProxy(this.color);
+			listaDeProxys.add(proxy);
+		}
+		return listaDeProxys;		
 	}
 }
