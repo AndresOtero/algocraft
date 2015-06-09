@@ -3,13 +3,9 @@ package algo3.algocraft;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import algo3.algocraft.edificios.AbstractFactoryEdificios;
-import algo3.algocraft.edificios.EdificioDeRecurso;
-import algo3.algocraft.edificios.FactoryEdificiosProtoss;
-import algo3.algocraft.edificios.FactoryEdificiosTerran;
+import algo3.algocraft.edificios.*;
 import algo3.algocraft.exceptions.*;
-import algo3.algocraft.unidades.Unidad;
-import algo3.algocraft.unidades.UnidadDeAtaque;
+import algo3.algocraft.unidades.*;
 
 public class Juego {
 
@@ -169,7 +165,26 @@ public class Juego {
 		// throw new NoEstanLosRequisitosException();
 	}
 
-	public void crearUnidad(Unidad unidad){
+	public boolean crearUnidad(int fil, int col, Unidades unidad){
+		Posicion pos = new Posicion(fil,col);
+		// verificar que haya edificio
+		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
+		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
+		
+		
+		if (unidad == Unidades.ALTOTEMPLARIO )  ((ArchivosTemplarios) ed).crearAltoTemplario(turnos.turnoActual());
+		if (unidad == Unidades.SCOUT )  ((PuertoEstelarProtoss) ed).crearScout(turnos.turnoActual());
+		if (unidad == Unidades.MARINE )  ((Barraca) ed).crearMarine(turnos.turnoActual());
+		if (unidad == Unidades.DRAGON )  ((Acceso) ed).crearDragon(turnos.turnoActual());
+		if (unidad == Unidades.NAVECIENCIA )  ((PuertoEstelarTerran) ed).crearNaveCiencia(turnos.turnoActual());
+		if (unidad == Unidades.NAVETRANSPORTEPROTOSS )  ((PuertoEstelarProtoss) ed).crearNaveTransporteProtoss(turnos.turnoActual());
+		if (unidad == Unidades.NAVETRANSPORTETERRAN )  ((PuertoEstelarTerran) ed).crearNaveTransporteTerran(turnos.turnoActual());
+		if (unidad == Unidades.ESPECTRO )  ((PuertoEstelarTerran) ed).crearEspectro(turnos.turnoActual());
+		if (unidad == Unidades.GOLLIAT )  ((Fabrica) ed).crearGolliat(turnos.turnoActual());
+		if (unidad == Unidades.ZEALOT )  ((Acceso) ed).crearZealot(turnos.turnoActual());
+		
+		
+		
 		
 		
 		

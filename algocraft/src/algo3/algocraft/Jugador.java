@@ -41,8 +41,17 @@ public class Jugador {
 		this.GasVespeno += gas;
 	}
 	
+	public void sacarGasVespeno (int gas){
+		this.GasVespeno -=gas;
+	}
+	
+	
 	public void agregarMineral(int mineral){
 		this.GasVespeno += mineral;
+	}
+	
+	public void sacarMineral(int mineral){
+		this.GasVespeno -= mineral;
 	}
 	
 	public int Minerales(){
