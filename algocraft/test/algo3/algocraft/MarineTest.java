@@ -18,8 +18,6 @@ public class MarineTest {
 		Assert.assertEquals( 7,unidad.vision());
 		Assert.assertEquals( 1,unidad.suministro());
 		Assert.assertEquals( 3,unidad.tiempoDeConstruccion());
-		Assert.assertEquals( 50,unidad.costoMineral());
-		Assert.assertEquals( 0,unidad.costoGas());
 	}
 	@Test
 	public void ataque(){

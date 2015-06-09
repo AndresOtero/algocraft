@@ -17,8 +17,6 @@ public class PuertoEstelarProtossTest {
 		Ser edificio=(Ser) new PuertoEstelarProtoss(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 10,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 150,edificio.costoMineral());
-		Assert.assertEquals( 150,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){

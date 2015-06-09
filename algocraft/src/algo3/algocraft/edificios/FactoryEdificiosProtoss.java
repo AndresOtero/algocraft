@@ -11,37 +11,6 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	public FactoryEdificiosProtoss(Color colorJugador) {
 		color = colorJugador;
 	}
-
-	@Override
-	public void fabricarCreadorAereos() {
-		edificiosEnCola.add(new PuertoEstelarProtoss(color));
-	}
-
-	@Override
-	public void fabricarCreadorSoldados() {
-		edificiosEnCola.add(new Acceso(color));
-	}
-
-	@Override
-	public void fabricarSumaPoblacion() {
-		edificiosEnCola.add(new Pilon(color));
-	}
-
-	@Override
-	public void fabricarRecolectableGas(VolcanGasVespeno volcan) {
-		edificiosEnCola.add(new Asimilador(volcan, color));
-	}
-
-	@Override
-	public void fabricarRecolectableMinerales(Mineral mineral) {
-		edificiosEnCola.add(new NexoMineral(mineral, color));
-	}
-
-	@Override
-	public void fabricarCreadorTerrestres() {
-		edificiosEnCola.add(new ArchivosTemplarios(color));
-	}
-
 	@Override
 	public ArrayList<Edificio> pasarTurno() {
 		ArrayList<Edificio> edificiosCreados = new ArrayList<Edificio>();
@@ -52,6 +21,57 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 			}
 		}
 		return edificiosCreados;
+	}
+
+	@Override
+	public Boolean fabricarCreadorAereos(Jugador jugador) {
+		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>150)){
+			edificiosEnCola.add(new PuertoEstelarProtoss(color));
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean fabricarCreadorTerrestres(Jugador jugador) {
+		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
+			edificiosEnCola.add(new DepositoDeSuminisitros(color));
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean fabricarCreadorSoldados(Jugador jugador) {
+		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>200)){
+			edificiosEnCola.add(new ArchivosTemplarios(color));
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean fabricarSumaPoblacion(Jugador jugador) {
+		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
+			edificiosEnCola.add(new Pilon(color));
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean fabricarRecolectableGas(VolcanGasVespeno volcan,
+			Jugador jugador) {
+		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
+			edificiosEnCola.add(new Asimilador(volcan, color));
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean fabricarRecolectableMinerales(Mineral mineral,
+			Jugador jugador) {
+		if((jugador.Minerales()>50)&&(jugador.GasVespeno()>0)){
+			edificiosEnCola.add(new NexoMineral(mineral, color));
+		}	
+
+		return false;
 	}
 
 }

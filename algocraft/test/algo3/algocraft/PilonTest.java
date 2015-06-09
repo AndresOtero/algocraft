@@ -15,8 +15,6 @@ public class PilonTest {
 		Ser edificio=(Ser) new Pilon(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 5,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 100,edificio.costoMineral());
-		Assert.assertEquals( 0,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){

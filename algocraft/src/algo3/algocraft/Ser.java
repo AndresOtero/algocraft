@@ -8,8 +8,6 @@ public abstract class Ser {
 	protected int vida;
 	protected int escudo = 0;
 	protected int tiempoDeConstruccion;
-	protected int costoMineral;
-	protected int costoGas;
 	protected Color color;
 	protected Movimiento movimiento=null;
 	public Movimiento movimiento(){
@@ -46,13 +44,6 @@ public abstract class Ser {
 		return (vida <= 0);
 	}
 
-	public int costoMineral() {
-		return costoMineral;
-	}
-
-	public int costoGas() {
-		return costoGas;
-	}
 
 	public Color color() {
 		return this.color;

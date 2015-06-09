@@ -17,8 +17,6 @@ public class BarracaTest {
 		Ser edificio=(Ser) new Barraca(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 12,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 150,edificio.costoMineral());
-		Assert.assertEquals( 0,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){

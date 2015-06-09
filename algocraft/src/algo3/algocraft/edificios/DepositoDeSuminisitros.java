@@ -7,8 +7,6 @@ public class DepositoDeSuminisitros extends Edificio implements SumaPoblacion {
 	public DepositoDeSuminisitros(Color colorJugador) {
 		this.vida = 500;
 		this.tiempoDeConstruccion = 6;
-		this.costoGas = 0;
-		this.costoMineral = 100;
 		this.color = colorJugador;
 	}
 }

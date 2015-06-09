@@ -7,11 +7,11 @@ import algo3.algocraft.unidades.Unidad;
 
 
 public interface AbstractFactoryEdificios {
-	public void fabricarCreadorAereos();
-	public void fabricarCreadorTerrestres();
-	public void fabricarCreadorSoldados();
-	public void fabricarSumaPoblacion();
-	public void fabricarRecolectableGas(VolcanGasVespeno volcan);
-	public void fabricarRecolectableMinerales(Mineral mineral);
+	public Boolean fabricarCreadorAereos(Jugador jugador);
+	public Boolean fabricarCreadorTerrestres(Jugador jugador);
+	public Boolean fabricarCreadorSoldados(Jugador jugador);
+	public Boolean fabricarSumaPoblacion(Jugador jugador);
+	public Boolean fabricarRecolectableGas(VolcanGasVespeno volcan,Jugador jugador);
+	public Boolean fabricarRecolectableMinerales(Mineral mineral,Jugador jugador);
 	public ArrayList<Edificio> pasarTurno();
 }

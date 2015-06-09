@@ -7,8 +7,6 @@ public class NexoMineral extends EdificioDeRecurso implements RecolectableMinera
 		this.vida = 250;
 		this.escudo = 250;
 		this.tiempoDeConstruccion = 4;
-		this.costoGas = 0;
-		this.costoMineral = 50;
 		this.fuenteRecurso = mineral;
 		this.color=colorJugador;	
 	}

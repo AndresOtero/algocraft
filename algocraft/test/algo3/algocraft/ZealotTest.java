@@ -16,8 +16,6 @@ public class ZealotTest {
 		Assert.assertEquals( 7,unidad.vision());
 		Assert.assertEquals( 2,unidad.suministro());
 		Assert.assertEquals( 4,unidad.tiempoDeConstruccion());
-		Assert.assertEquals( 50,unidad.costoMineral());
-		Assert.assertEquals( 0,unidad.costoGas());
 	}
 	@Test
 	public void ataque(){

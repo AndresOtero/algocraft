@@ -16,8 +16,6 @@ public class DragonTest {
 		Assert.assertEquals( 8,unidad.vision());
 		Assert.assertEquals( 2,unidad.suministro());
 		Assert.assertEquals( 6,unidad.tiempoDeConstruccion());
-		Assert.assertEquals( 125,unidad.costoMineral());
-		Assert.assertEquals( 50,unidad.costoGas());
 	}
 	@Test
 	public void ataque(){

@@ -16,8 +16,6 @@ public class CentroDeMineralTest {
 		Ser edificio=(Ser) new CentroDeMineral(null, Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 4,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 50,edificio.costoMineral());
-		Assert.assertEquals( 0,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){

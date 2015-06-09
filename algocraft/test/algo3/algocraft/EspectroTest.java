@@ -16,8 +16,6 @@ public class EspectroTest {
 		Assert.assertEquals( 7,unidad.vision());
 		Assert.assertEquals( 2,unidad.suministro());
 		Assert.assertEquals( 8,unidad.tiempoDeConstruccion());
-		Assert.assertEquals( 150,unidad.costoMineral());
-		Assert.assertEquals( 100,unidad.costoGas());
 	}
 	@Test
 	public void ataque(){

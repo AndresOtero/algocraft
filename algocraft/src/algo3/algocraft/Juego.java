@@ -147,10 +147,25 @@ public class Juego {
 		}
 	}
 	//Metodos de Creacion
-	public void agregarEdificio(String string, int i, int j) {
-		// TODO Auto-generated method stub
+	public void crearEdificio(TipoEdificio tipoEdifico, int fila, int columna) {
+		AbstractFactoryEdificios factory= fabricas.get(turnos.turnoActual());
+		switch(tipoEdifico){
+			case CreadorAereos:
+				factory.fabricarCreadorAereos();
+			case CreadorTerrestres:
+			
+			case CreadorSoldados:
+				
+			case SumaPoblacion:
+			
+			case RecolectableGas:
+				
+			case RecolectableMinerales:
+			
+			default:
+			//exception
+		}
 		// throw new NoHayRecursosException();
-		turnos.turnoActual();
 		// throw new NoEstanLosRequisitosException();
 	}
 

@@ -8,8 +8,6 @@ import algo3.algocraft.unidades.*;
 public class Acceso extends EdificioCreador implements CreadorSoldados {
 
 	public Acceso(Color colorJugador) {
-		this.costoGas = 0;
-		this.costoMineral = 150;
 		this.tiempoDeConstruccion = 8;
 		this.vida = 500;
 		this.escudo = 500;

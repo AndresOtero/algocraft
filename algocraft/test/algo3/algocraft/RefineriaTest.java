@@ -17,8 +17,6 @@ public class RefineriaTest {
 		Ser edificio=(Ser) new Refineria(null, Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 6,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 100,edificio.costoMineral());
-		Assert.assertEquals( 0,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){

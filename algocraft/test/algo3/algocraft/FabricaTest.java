@@ -19,8 +19,6 @@ public class FabricaTest {
 		Ser edificio=(Ser) new Fabrica(Color.ROJO);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 12,edificio.tiempoDeConstruccion());
-		Assert.assertEquals( 200,edificio.costoMineral());
-		Assert.assertEquals( 100,edificio.costoGas());
 	}
 	@Test
 	public void recibirdanio(){

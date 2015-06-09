@@ -11,8 +11,6 @@ public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 	public Fabrica(Color colorJugador){
 		this.vida = 1250;
 		this.tiempoDeConstruccion = 12;
-		this.costoGas = 100;
-		this.costoMineral = 200;
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
 		this.unidadesCreadas=new ArrayList<Unidad>();	}

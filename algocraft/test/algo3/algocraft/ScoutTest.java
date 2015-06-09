@@ -16,8 +16,6 @@ public class ScoutTest {
 		Assert.assertEquals( 7,unidad.vision());
 		Assert.assertEquals( 3,unidad.suministro());
 		Assert.assertEquals( 9,unidad.tiempoDeConstruccion());
-		Assert.assertEquals( 300,unidad.costoMineral());
-		Assert.assertEquals( 150,unidad.costoGas());
 	}
 	@Test
 	public void ataque(){

@@ -16,8 +16,6 @@ public class GolliatTest {
 		Assert.assertEquals(8, unidad.vision());
 		Assert.assertEquals(2, unidad.suministro());
 		Assert.assertEquals(6, unidad.tiempoDeConstruccion());
-		Assert.assertEquals(100, unidad.costoMineral());
-		Assert.assertEquals(50, unidad.costoGas());
 	}
 
 	@Test
