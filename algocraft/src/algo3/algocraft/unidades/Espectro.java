@@ -15,8 +15,6 @@ public class Espectro extends UnidadDeAtaque implements Terrestre, Aerea {
 		tiempoDeConstruccion = 8;
 		vision = 7;
 		color = colorJugador;
-		costoMineral = 150;
-		costoGas = 100;
 		movimiento=Movimiento.Aereo;
 
 	}

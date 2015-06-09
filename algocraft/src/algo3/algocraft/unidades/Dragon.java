@@ -16,8 +16,6 @@ public class Dragon extends UnidadDeAtaque implements Terrestre, Transportable {
 		suministro = 2;
 		tiempoDeConstruccion = 6;
 		vision = 8;
-		costoMineral = 125;
-		costoGas = 50;
 		this.color = colorJugador;
 		movimiento=Movimiento.Terrestre;
 	}

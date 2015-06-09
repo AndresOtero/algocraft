@@ -9,8 +9,6 @@ public class NaveTransporteTerran extends UnidadDeTransporte {
 		capacidad = 8;
 		
 		vision = 8;
-		costoMineral = 100;
-		costoGas = 100;
 		tiempoDeConstruccion = 7;
 		suministro = 2;
 		vida = 150;

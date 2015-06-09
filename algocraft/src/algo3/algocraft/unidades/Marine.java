@@ -16,8 +16,6 @@ public class Marine extends UnidadDeAtaque implements Terrestre, Transportable {
 		tiempoDeConstruccion = 3;
 		vision = 7;
 		color = colorJugador;
-		costoMineral = 50;
-		costoGas = 0;
 		movimiento=Movimiento.Terrestre;
 	}
 

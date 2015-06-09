@@ -8,8 +8,6 @@ public class NaveCiencia extends UnidadMagica implements Aerea {
 
 	public NaveCiencia(Color colorJugador) {
 		vision = 10;
-		costoMineral = 100;
-		costoGas = 225;
 		suministro = 2;
 		vida = 200;
 		this.color = colorJugador;

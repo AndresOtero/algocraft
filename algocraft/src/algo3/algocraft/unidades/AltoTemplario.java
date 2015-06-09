@@ -11,8 +11,6 @@ public class AltoTemplario extends UnidadMagica implements Terrestre,Transportab
 		suministro = 2;
 		tiempoDeConstruccion = 7;
 		vision = 7;
-		costoMineral = 50;
-		costoGas = 150;
 		this.color = colorJugador;
 		movimiento=Movimiento.Terrestre;
 	}

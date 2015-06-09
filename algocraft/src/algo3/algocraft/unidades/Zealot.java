@@ -17,8 +17,6 @@ public class Zealot extends UnidadDeAtaque implements Terrestre, Transportable {
 		tiempoDeConstruccion = 4;
 		vision = 7;
 
-		costoMineral = 50;
-		costoGas = 0;
 		color = colorJugador;
 		movimiento=Movimiento.Terrestre;
 	}
