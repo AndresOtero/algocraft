@@ -13,11 +13,8 @@ public class Barraca extends EdificioCreador implements CreadorSoldados {
 	public Barraca(Color colorJugador) {
 		this.vida = 1000;
 		this.tiempoDeConstruccion = 12;
-<<<<<<< HEAD
-=======
 		this.costoMineralMarine =50;
 		this.costoGasMarine = 0;
->>>>>>> refs/remotes/origin/master
 		this.color = colorJugador;
 		this.unidadesEnCola = new ArrayList<Unidad>();
 		this.unidadesCreadas = new ArrayList<Unidad>();

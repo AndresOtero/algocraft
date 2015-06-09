@@ -15,13 +15,10 @@ public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAere
 		this.vida = 600;
 		this.escudo = 600;
 		this.tiempoDeConstruccion = 10;
-<<<<<<< HEAD
-=======
 		this.costoMineralScout = 300; 
 		this.costoGasScout = 150;
 		this.costoMineralNave = 200;
 		this.costoGasNave = 0;
->>>>>>> refs/remotes/origin/master
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
 		this.unidadesCreadas=new ArrayList<Unidad>();	}

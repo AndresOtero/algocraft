@@ -15,15 +15,12 @@ public class PuertoEstelarTerran extends EdificioCreador implements CreadorAereo
 	public PuertoEstelarTerran(Color colorJugador) {
 		this.vida = 1300;
 		this.tiempoDeConstruccion = 10;
-<<<<<<< HEAD
-=======
 		this.costoGasEspectro = 100;
 		this.costoMineralEspectro = 150;
 		this.costoMineralNaveDeTransporte =100;
 		this.costoGasNaveDeTransporte = 100;
 		this.costoGasNaveCiencia = 225;
 		this.costoMineralNaveCiencia = 100;
->>>>>>> refs/remotes/origin/master
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
 		this.unidadesCreadas=new ArrayList<Unidad>();	

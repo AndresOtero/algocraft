@@ -15,19 +15,15 @@ public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 	public Fabrica(Color colorJugador) {
 		this.vida = 1250;
 		this.tiempoDeConstruccion = 12;
-<<<<<<< HEAD
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
 		this.unidadesCreadas=new ArrayList<Unidad>();	}
 	public void crearGolliat(){
 		this.agregarACola( new Golliat(this.color));
-=======
 		this.costoGasGolliat = 100;
 		this.costoMineralGolliat = 50;
-		this.color = colorJugador;
 		this.unidadesEnCola = new ArrayList<Unidad>();
 		this.unidadesCreadas = new ArrayList<Unidad>();
->>>>>>> refs/remotes/origin/master
 	}
 
 	public boolean crearGolliat(Jugador jug) {

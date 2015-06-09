@@ -13,11 +13,8 @@ public class ArchivosTemplarios extends EdificioCreador implements CreadorTerres
 		this.vida = 500;
 		this.escudo = 500;
 		this.tiempoDeConstruccion = 9;
-<<<<<<< HEAD
-=======
 		this.costoMineralTemplario = 50;
 		this.costoGasTemplario = 150;
->>>>>>> refs/remotes/origin/master
 		this.color = colorJugador;
 		this.unidadesEnCola = new ArrayList<Unidad>();
 		this.unidadesCreadas = new ArrayList<Unidad>();
