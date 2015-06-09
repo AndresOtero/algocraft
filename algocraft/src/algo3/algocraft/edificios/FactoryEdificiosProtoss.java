@@ -29,6 +29,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 			edificiosEnCola.add(new PuertoEstelarProtoss(color));
 			jugador.sacarGasVespeno(150);
 			jugador.sacarMineral(150);
+			return true;
 		}
 		return false;
 	}
@@ -39,6 +40,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 			edificiosEnCola.add(new DepositoDeSuminisitros(color));
 			jugador.sacarGasVespeno(150);
 			jugador.sacarMineral(0);
+			return true;
 		}
 		return false;
 	}
@@ -47,9 +49,10 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	public Boolean fabricarCreadorSoldados(Jugador jugador) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>200)){
 			edificiosEnCola.add(new ArchivosTemplarios(color));
+			jugador.sacarGasVespeno(150);
+			jugador.sacarMineral(200);
+			return true;
 		}
-		jugador.sacarGasVespeno(150);
-		jugador.sacarMineral(200);
 		return false;
 	}
 
@@ -57,9 +60,11 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	public Boolean fabricarSumaPoblacion(Jugador jugador) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new Pilon(color));
+			jugador.sacarGasVespeno(0);
+			jugador.sacarMineral(100);
+			return true;
 		}
-		jugador.sacarGasVespeno(0);
-		jugador.sacarMineral(100);
+		
 		return false;
 	}
 
@@ -68,9 +73,11 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 			Jugador jugador) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new Asimilador(volcan, color));
+			jugador.sacarGasVespeno(0);
+			jugador.sacarMineral(100);
+			return true;
 		}
-		jugador.sacarGasVespeno(0);
-		jugador.sacarMineral(100);
+		
 		return false;
 	}
 
@@ -79,8 +86,10 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 			Jugador jugador) {
 		if((jugador.Minerales()>50)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new NexoMineral(mineral, color));
+			jugador.sacarGasVespeno(0);
+			jugador.sacarMineral(50);
+			return true;
 		}	
-
 		return false;
 	}
 

@@ -27,18 +27,12 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 		}
 		return edificiosCreados;
 	}
-
-
-
-
-
-
-
-
 	@Override
 	public Boolean fabricarCreadorAereos(Jugador jugador) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>100)){
 			edificiosEnCola.add(new PuertoEstelarTerran(color));
+			jugador.sacarGasVespeno(100);
+			jugador.sacarMineral(150);
 			return true;
 		}
 		return false;
@@ -48,6 +42,8 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	public Boolean fabricarCreadorTerrestres(Jugador jugador) {
 		if((jugador.Minerales()>200)&&(jugador.GasVespeno()>100)){
 			edificiosEnCola.add(new Fabrica(color));
+			jugador.sacarGasVespeno(100);
+			jugador.sacarMineral(200);
 			return true;
 		}
 		
@@ -58,6 +54,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	public Boolean fabricarCreadorSoldados(Jugador jugador) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new Barraca(color));
+			jugador.sacarGasVespeno(0);
+			jugador.sacarMineral(150);
+			return true;
 		}
 		return false;
 	}
@@ -66,6 +65,10 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	public Boolean fabricarSumaPoblacion(Jugador jugador) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new DepositoDeSuminisitros(color));
+			jugador.sacarGasVespeno(0);
+			jugador.sacarMineral(100);
+			return true;
+			
 		}
 		return false;
 	}
@@ -75,6 +78,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 			Jugador jugador) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new Refineria(volcan, color));
+			jugador.sacarGasVespeno(0);
+			jugador.sacarMineral(100);
+			return true;
 		}
 		return false;
 	}
@@ -84,6 +90,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 			Jugador jugador) {
 		if((jugador.Minerales()>50)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new CentroDeMineral(mineral, color));
+			jugador.sacarGasVespeno(0);
+			jugador.sacarMineral(50);
+			return true;
 		}
 		return false;
 	}
