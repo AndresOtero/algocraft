@@ -30,8 +30,11 @@ public class PuertoEstelarTerranTest {
 	}
 	@Test 
 	public void CrearNaveTransporteTerran(){
+		Jugador j1 = new Jugador("pedrito", Color.AMARILLO, TipoRaza.PROTOSS);
+		j1.agregarGasVespeno(1000);
+		j1.agregarMineral(1000);
 		PuertoEstelarTerran puertoEstelar= new PuertoEstelarTerran(Color.ROJO);
-		puertoEstelar.CrearNaveTransporteTerran();
+		puertoEstelar.crearNaveTransporteTerran(j1);
 		for(int i=7;i>1;i--){
 			puertoEstelar.pasarTurno();
 			Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
@@ -44,8 +47,11 @@ public class PuertoEstelarTerranTest {
 	}
 	@Test 
 	public void crearEspectro(){
+		Jugador j1 = new Jugador("pedrito", Color.AMARILLO, TipoRaza.PROTOSS);
+		j1.agregarGasVespeno(1000);
+		j1.agregarMineral(1000);
 		PuertoEstelarTerran puertoEstelar= new PuertoEstelarTerran(Color.ROJO);
-		puertoEstelar.crearEspectro();
+		puertoEstelar.crearEspectro(j1);
 		for(int i=8;i>1;i--){
 			puertoEstelar.pasarTurno();
 			Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
@@ -58,8 +64,11 @@ public class PuertoEstelarTerranTest {
 	}
 	@Test 
 	public void crearNaveCiencia(){
+		Jugador j1 = new Jugador("pedrito", Color.AMARILLO, TipoRaza.PROTOSS);
+		j1.agregarGasVespeno(1000);
+		j1.agregarMineral(1000);
 		PuertoEstelarTerran puertoEstelar= new PuertoEstelarTerran(Color.ROJO);
-		puertoEstelar.crearNaveCiencia();
+		puertoEstelar.crearNaveCiencia(j1);
 		for(int i=0;i<9;i++){
 			puertoEstelar.pasarTurno();
 			Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());

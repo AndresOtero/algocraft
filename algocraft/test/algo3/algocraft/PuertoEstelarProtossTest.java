@@ -28,8 +28,11 @@ public class PuertoEstelarProtossTest {
 	}
 	@Test 
 	public void crearNaveTransporteProtoss(){
+		Jugador j1 = new Jugador("pedrito", Color.AMARILLO, TipoRaza.PROTOSS);
+		j1.agregarGasVespeno(1000);
+		j1.agregarMineral(1000);
 		PuertoEstelarProtoss puertoEstelar= new PuertoEstelarProtoss(Color.ROJO);
-		puertoEstelar.crearNaveTransporteProtoss();
+		puertoEstelar.crearNaveTransporteProtoss(j1);
 		for(int i=8;i>1;i--){
 			puertoEstelar.pasarTurno();
 			Assert.assertTrue(puertoEstelar.unidadesCreadas().isEmpty());
