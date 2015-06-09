@@ -31,7 +31,10 @@ public class FabricaTest {
 	@Test 
 	public void crearGoliat(){
 		Fabrica fabrica=(Fabrica) new Fabrica(Color.ROJO);
-		fabrica.crearGolliat();
+		Jugador jugador=new Jugador("Andy",Color.ROJO,null);
+		jugador.agregarGasVespeno(1000);
+		jugador.agregarMineral(1000);
+		fabrica.crearGolliat(jugador);
 		for(int i=0 ; i<6; i++){
 			Assert.assertTrue(fabrica.unidadesCreadas().isEmpty());
 			fabrica.pasarTurno();
