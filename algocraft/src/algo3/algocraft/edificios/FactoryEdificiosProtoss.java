@@ -27,6 +27,8 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	public Boolean fabricarCreadorAereos(Jugador jugador) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>150)){
 			edificiosEnCola.add(new PuertoEstelarProtoss(color));
+			jugador.sacarGasVespeno(150);
+			jugador.sacarMineral(150);
 		}
 		return false;
 	}
@@ -35,6 +37,8 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	public Boolean fabricarCreadorTerrestres(Jugador jugador) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new DepositoDeSuminisitros(color));
+			jugador.sacarGasVespeno(150);
+			jugador.sacarMineral(0);
 		}
 		return false;
 	}
@@ -44,6 +48,8 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>200)){
 			edificiosEnCola.add(new ArchivosTemplarios(color));
 		}
+		jugador.sacarGasVespeno(150);
+		jugador.sacarMineral(200);
 		return false;
 	}
 
@@ -52,6 +58,8 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new Pilon(color));
 		}
+		jugador.sacarGasVespeno(0);
+		jugador.sacarMineral(100);
 		return false;
 	}
 
@@ -61,6 +69,8 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
 			edificiosEnCola.add(new Asimilador(volcan, color));
 		}
+		jugador.sacarGasVespeno(0);
+		jugador.sacarMineral(100);
 		return false;
 	}
 

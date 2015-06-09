@@ -144,19 +144,22 @@ public class Juego {
 	}
 	//Metodos de Creacion
 	public void crearEdificio(TipoEdificio tipoEdifico, int fila, int columna) {
-		AbstractFactoryEdificios factory= fabricas.get(turnos.turnoActual());
+		AbstractFactoryEdificios factory= fabricas.get(turnos.turnoActual()); 
+		Posicion pos=new Posicion(fila,columna);
+		Celda celda= mapa.ContenidoPosicion(pos);
 		switch(tipoEdifico){
 			case CreadorAereos:
-				factory.fabricarCreadorAereos();
+				factory.fabricarCreadorAereos(turnos.turnoActual());
 			case CreadorTerrestres:
-			
+				factory.fabricarCreadorTerrestres(turnos.turnoActual());
 			case CreadorSoldados:
-				
+				factory.fabricarCreadorSoldados(turnos.turnoActual());
 			case SumaPoblacion:
-			
+				factory.fabricarSumaPoblacion(turnos.turnoActual());
 			case RecolectableGas:
-				
+				factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(), turnos.turnoActual());
 			case RecolectableMinerales:
+				factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), turnos.turnoActual());
 			
 			default:
 			//exception
