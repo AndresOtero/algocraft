@@ -241,6 +241,14 @@ public class Juego {
 		return true;
 	}
 	
+	
+public void ataqueMagicoEnRadio(UnidadMagica unidad, Posicion pos){
+	ArrayList <Unidad> atacados = mapa.calcularRadio(pos);
+	unidad.ataqueRadio(atacados);
+	
+}
+	
+	
 		// Singleton
 	private Juego() {
 		mapa = Mapa.getInstance(5,5,jugadores);

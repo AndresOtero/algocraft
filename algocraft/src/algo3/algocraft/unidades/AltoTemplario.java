@@ -1,8 +1,11 @@
 package algo3.algocraft.unidades;
 
+import java.util.ArrayList;
+
 import algo3.algocraft.*;
 
-public class AltoTemplario extends UnidadMagica implements Terrestre,Transportable {
+public class AltoTemplario extends UnidadMagica implements Terrestre,
+		Transportable {
 	private int transporte = 2;
 
 	public AltoTemplario(Color colorJugador) {
@@ -12,11 +15,20 @@ public class AltoTemplario extends UnidadMagica implements Terrestre,Transportab
 		tiempoDeConstruccion = 7;
 		vision = 7;
 		this.color = colorJugador;
-		movimiento=Movimiento.Terrestre;
+		movimiento = Movimiento.Terrestre;
+		energia = energiaInicial;
 	}
 
-	public void tormenta() {
+	public boolean tormenta(ArrayList<Unidad> atacados) {
+		if (energia > 75) {
+			energia -= 75;
+			for (int i = 0; i < atacados.size(); i++) {
+				atacados.get(i).recibirTormenta();
+			}
+			return true;
+		}
 
+		return false;
 	}
 
 	public void alucinacion() {
@@ -25,7 +37,14 @@ public class AltoTemplario extends UnidadMagica implements Terrestre,Transportab
 
 	@Override
 	public void aumentarEnergia() {
-		energia = energia + 15;
+		if (energia <= 190)
+			energia = energia + 15;
+	}
+
+	@Override
+	public boolean ataqueRadio(ArrayList<Unidad> atacados) {
+		return tormenta(atacados);
+
 	}
 
 	@Override
