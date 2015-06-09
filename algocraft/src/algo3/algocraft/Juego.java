@@ -160,8 +160,6 @@ public class Juego {
 		throw new NoHayEspacioException();
 	}
 	//Metodos De Ataque
-	
-	
 	public void atacarAire(UnidadDeAtaque atacante, Ser atacado) {
 		atacante.atacarAire(atacado);
 		if (atacado.estaMuerto())

@@ -40,14 +40,11 @@ public class Turnos {
 	}
 	
 	public boolean yaAtaco(Unidad unidadQueQuiereAtacar){
-		if (atacaron.contains( unidadQueQuiereAtacar) ) return true;
-		return false;
+		return atacaron.contains( unidadQueQuiereAtacar);
 	}
 	
 	public boolean yaSeMovio(Unidad unidadQueQuiereMoverse){
-		if (movidos.contains( unidadQueQuiereMoverse) ) return true;
-		
-		return false;
+		return (movidos.contains( unidadQueQuiereMoverse) );
 	}
 	
 	
