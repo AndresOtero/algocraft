@@ -383,7 +383,7 @@ public class Mapa {
 		ArrayList<Unidad> unidadesAlcanzadas = new ArrayList<Unidad>();
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
-				Celda celda = this.ContenidoPosicion(new Posicion(i, j));
+				Celda celda = this.ContenidoPosicion(new Posicion(pos.abscisa()+i, pos.ordenada()+ j));
 				if (celda.ocupadoTerrestre())
 					unidadesAlcanzadas.add((Unidad) celda
 							.serEnLaCeldaTerrestre());
