@@ -54,6 +54,7 @@ public class PartidaBasicaHardcodeadaTest {
 		mapa.moverTerrestre(new Posicion(4,1),new Posicion (5,2));
 		
 		Assert.assertFalse(mapa.ContenidoPosicion(new Posicion(4,2)).ocupadoTerrestre());
+		
 		Assert.assertTrue(mapa.ContenidoPosicion(new Posicion(4,3)).serEnLaCeldaTerrestre() == zealot2j1);
 		Assert.assertFalse(mapa.ContenidoPosicion(new Posicion(4,1)).ocupadoTerrestre());
 		Assert.assertTrue(mapa.ContenidoPosicion(new Posicion(5,2)).serEnLaCeldaTerrestre() == dragonj1);

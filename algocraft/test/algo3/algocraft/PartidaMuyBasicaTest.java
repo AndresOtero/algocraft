@@ -9,7 +9,7 @@ public class PartidaMuyBasicaTest {
 public void hayGanadorTest(){
 	Juego juego = Juego.getInstance();
 	juego.crearJugador("Donofrio",Color.ROJO,TipoRaza.TERRAN);
-	juego.crearJugador("Angelici",Color.ROJO,TipoRaza.TERRAN);
+	juego.crearJugador("Angelici",Color.AZUL,TipoRaza.TERRAN);
 	juego.iniciarJuego();
 	
 	

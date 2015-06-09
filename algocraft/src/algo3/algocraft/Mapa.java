@@ -97,7 +97,10 @@ public class Mapa {
 	/*Metodos de ubicacion de unidades y edificios*/
 	public void ponerTerrestre(Posicion pos,Ser ser){
 		Celda celda = mapa.get(pos);
-		if (celda.ocupadoTerrestre()) System.out.println("La celda esta ocupada");
+		if (celda.ocupadoTerrestre()) {
+			System.out.println("La celda esta ocupada");
+			throw new LaCeldaTerrestreEstaOcupada();
+		}
 		else celda.agregarSerTerrestre(ser);	
 		Color color = ser.color();
 		agregarSerDeColor(ser,color);
@@ -105,7 +108,10 @@ public class Mapa {
 
 	private void ponerEdificioDeRecurso(Posicion pos,EdificioDeRecurso edificio){
 		Celda celda = mapa.get(pos);
-		if (celda.fuenteRecurso() == null) System.out.println("NO HAY RECURSO AHI"); //expection
+		if (celda.fuenteRecurso() == null){
+			System.out.println("NO HAY RECURSO AHI"); 
+			throw new NoHayRecursoEnEsaPosicionException();
+		}
 		else {
 			ponerTerrestre(pos,edificio);
 		}
@@ -134,7 +140,10 @@ public class Mapa {
 	
 	public void ponerAereo(Posicion pos,Ser ser) {
 		Celda celda = mapa.get(pos);
-		if (celda.ocupadoAerea()) System.out.println("La celda esta ocupada");
+		if (celda.ocupadoAerea()){
+			System.out.println("La celda esta ocupada");
+			throw new LaCeldaAereaEstaOcupada ();
+		}
 		else celda.agregarSerAereo(ser);	
 		Color color = ser.color();
 		agregarSerDeColor(ser,color);
@@ -196,15 +205,16 @@ public class Mapa {
 		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
 		Celda celdaFinal = mapa.get(posicionFinal);
 		if (celdaFinal.ocupadoTerrestre()) {
-			System.out.println("ESTA OCUPADO Terrestre"); //throw new NoEsPosibleMoverException();
-			return;
+			System.out.println("ESTA OCUPADO Terrestre");
+			throw new NoEsPosibleMoverException();
 		}
 		Celda celdaInicial = mapa.get(posicionInicial);
 		Ser unidadAMover = celdaInicial.serEnLaCeldaTerrestre();
 		ArrayList<Posicion> camino=this.encontrarMinimoCamino(posicionInicial,posicionFinal, unidadAMover.movimiento());
 		if(camino.isEmpty()){
-			System.out.println("No se pudo mover "); //throw new NoEsPosibleMoverException();
-			return;
+			System.out.println("No se pudo mover "); 
+			throw  new NoEsPosibleMoverException();
+			
 		}
 		ponerTerrestre(posicionFinal,unidadAMover);	
 		celdaInicial.desocuparTerrestre();		
@@ -215,16 +225,16 @@ public class Mapa {
 		//si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
 		Celda celdaFinal = mapa.get(posicionFinal);
 		if (celdaFinal.ocupadoAerea()) {
-			System.out.println("ESTA OCUPADO Aerea"); //throw new NoEsPosibleMoverException();
-			return;
-		}
+			System.out.println("ESTA OCUPADO Aerea"); 
+			throw new NoEsPosibleMoverException();
+			}
 		Celda celdaInicial = mapa.get(posicionInicial);
 		Ser unidadAMover = celdaInicial.serEnLaCeldaAerea();
 		ArrayList<Posicion> camino=this.encontrarMinimoCamino(posicionInicial,posicionFinal, unidadAMover.movimiento());
 		if(camino.isEmpty()){
-			System.out.println("No se pudo mover "); //throw new NoEsPosibleMoverException();
-			return;
-		}
+			System.out.println("No se pudo mover ");
+			throw new NoEsPosibleMoverException();
+			}
 		ponerAereo(posicionFinal,unidadAMover);	
 		celdaInicial.desocuparAerea();
 	}
@@ -313,8 +323,6 @@ public class Mapa {
 				if(ser == celda.serEnLaCeldaTerrestre()) return p;
 			}
 		}
-
-		//poner excepcion
 
 		return null;
 	}
