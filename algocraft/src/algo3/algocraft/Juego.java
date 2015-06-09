@@ -173,8 +173,6 @@ public class Juego {
 		// verificar que haya edificio
 		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
-		
-		
 		if (unidad == Unidades.ALTOTEMPLARIO )  ((ArchivosTemplarios) ed).crearAltoTemplario(turnos.turnoActual());
 		if (unidad == Unidades.SCOUT )  ((PuertoEstelarProtoss) ed).crearScout(turnos.turnoActual());
 		if (unidad == Unidades.MARINE )  ((Barraca) ed).crearMarine(turnos.turnoActual());
@@ -185,12 +183,6 @@ public class Juego {
 		if (unidad == Unidades.ESPECTRO )  ((PuertoEstelarTerran) ed).crearEspectro(turnos.turnoActual());
 		if (unidad == Unidades.GOLLIAT )  ((Fabrica) ed).crearGolliat(turnos.turnoActual());
 		if (unidad == Unidades.ZEALOT )  ((Acceso) ed).crearZealot(turnos.turnoActual());
-		
-		
-		
-		
-		
-		
 		throw new NoHayEspacioException();
 	}
 	//Metodos De Ataque

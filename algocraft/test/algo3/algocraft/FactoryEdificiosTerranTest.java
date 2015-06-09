@@ -15,6 +15,12 @@ import org.junit.Test;
 
 
 
+
+
+
+
+
+
 import algo3.algocraft.edificios.*;
 
 public class FactoryEdificiosTerranTest {
@@ -23,7 +29,10 @@ public class FactoryEdificiosTerranTest {
 	public void crearCentroTest() {
 		AbstractFactoryEdificios factory =new FactoryEdificiosTerran(Color.ROJO);
 		Mineral mineral = new Mineral();
-		factory.fabricarRecolectableMinerales(mineral);
+		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
+		jugador.agregarGasVespeno(1000);
+		jugador.agregarMineral(1000);
+		factory.fabricarRecolectableMinerales(mineral, jugador);
 		for(int i=4;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
@@ -37,7 +46,10 @@ public class FactoryEdificiosTerranTest {
 	public void crearRefineriaTest() {
 		AbstractFactoryEdificios factory =new FactoryEdificiosTerran(Color.ROJO);
 		VolcanGasVespeno gas = new VolcanGasVespeno();
-		factory.fabricarRecolectableGas(gas);
+		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
+		jugador.agregarGasVespeno(1000);
+		jugador.agregarMineral(1000);
+		factory.fabricarRecolectableGas(gas, jugador);
 		for(int i=6;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
@@ -50,7 +62,10 @@ public class FactoryEdificiosTerranTest {
 	@Test
 	public void crearDepositoTest() {
 		AbstractFactoryEdificios factory =new FactoryEdificiosTerran(Color.ROJO);
-		factory.fabricarSumaPoblacion();
+		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
+		jugador.agregarGasVespeno(1000);
+		jugador.agregarMineral(1000);
+		factory.fabricarSumaPoblacion(jugador);
 		for(int i=6;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
@@ -63,7 +78,10 @@ public class FactoryEdificiosTerranTest {
 	@Test
 	public void crearBarracaTest() {
 		AbstractFactoryEdificios factory =new FactoryEdificiosTerran(Color.ROJO);
-		factory.fabricarCreadorSoldados();
+		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
+		jugador.agregarGasVespeno(1000);
+		jugador.agregarMineral(1000);
+		factory.fabricarCreadorSoldados(jugador);
 		for(int i=12;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
@@ -76,7 +94,10 @@ public class FactoryEdificiosTerranTest {
 	@Test
 	public void crearPueroEstelarTerranTest() {
 		AbstractFactoryEdificios factory =new FactoryEdificiosTerran(Color.ROJO);
-		factory.fabricarCreadorAereos();
+		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
+		jugador.agregarGasVespeno(1000);
+		jugador.agregarMineral(1000);
+		factory.fabricarCreadorAereos(jugador);
 		for(int i=10;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
@@ -89,7 +110,10 @@ public class FactoryEdificiosTerranTest {
 	@Test
 	public void crearFabricaTest() {
 		AbstractFactoryEdificios factory =new FactoryEdificiosTerran(Color.ROJO);
-		factory.fabricarCreadorTerrestres();
+		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
+		jugador.agregarGasVespeno(1000);
+		jugador.agregarMineral(1000);
+		factory.fabricarCreadorTerrestres(jugador);
 		for(int i=12;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
