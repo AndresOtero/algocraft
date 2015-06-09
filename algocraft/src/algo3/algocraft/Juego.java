@@ -49,7 +49,7 @@ public class Juego {
 	
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
-		Mapa.getInstance(5,5,jugadores); // puse 5x5 modificar si se quiere
+		Mapa.getInstance(15,15,jugadores); // puse 5x5 modificar si se quiere
 		inicializarRecursos();
 	}
 

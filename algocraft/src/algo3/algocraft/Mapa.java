@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.exceptions.*;
@@ -38,6 +39,27 @@ public class Mapa {
 
 	/* Metodos de Inicializacion */
 	private void inicializarMapa() {
+		VolcanGasVespeno volcan1 = new VolcanGasVespeno();
+		VolcanGasVespeno volcan2 = new VolcanGasVespeno();
+		VolcanGasVespeno volcan3 = new VolcanGasVespeno();
+		VolcanGasVespeno volcan4 = new VolcanGasVespeno();
+		Posicion pos1 = new Posicion(1, 1);
+		Posicion pos2 = new Posicion(this.ancho, this.alto);
+		Posicion pos3 = new Posicion(1, this.alto);
+		Posicion pos4 = new Posicion(this.ancho, 1);
+		Celda celda1 = mapa.get(pos1);
+		Celda celda2 = mapa.get(pos2);
+		Celda celda3 = mapa.get(pos3);
+		Celda celda4 = mapa.get(pos4);
+		celda1.agregarFuenteRecurso(volcan1);
+		celda2.agregarFuenteRecurso(volcan2);
+		celda3.agregarFuenteRecurso(volcan3);
+		celda4.agregarFuenteRecurso(volcan4);			
+		inicializarEsquina(0,5,0,5);
+		inicializarEsquina(this.ancho-5,this.ancho,0,5);
+		inicializarEsquina(0,5,this.alto-5,this.alto);
+		inicializarEsquina(this.ancho-5,this.ancho,this.alto-5,this.alto);
+				
 		/*
 		 * Posicion pos = new Posicion(1,1); Celda celda = mapa.get(pos);
 		 * VolcanGasVespeno volcan = new VolcanGasVespeno();
@@ -51,7 +73,7 @@ public class Mapa {
 		 * } despues vemos el algoritmo para calcularlo empecemos con uno de 5x5
 		 * y eligiendo manualmente las posiciones
 		 */
-		VolcanGasVespeno volcan11 = new VolcanGasVespeno();
+		/*VolcanGasVespeno volcan11 = new VolcanGasVespeno();
 		VolcanGasVespeno volcan55 = new VolcanGasVespeno();
 		Mineral mineral12 = new Mineral();
 		Mineral mineral22 = new Mineral();
@@ -92,10 +114,29 @@ public class Mapa {
 		Celda celda45 = mapa.get(pos45);
 		celda45.agregarFuenteRecurso(mineral45);
 		Celda celda35 = mapa.get(pos35);
-		celda35.agregarFuenteRecurso(mineral35);
+		celda35.agregarFuenteRecurso(mineral35);*/
 
 	}
-
+	private void inicializarEsquina(int inicioX,int finX,int inicioY,int finY){
+		for(int i=0;i<5;i++){
+			int x = aleatorio(inicioX,finX);
+			int y = aleatorio(inicioY,finY);
+			Posicion pos = new Posicion(x,y);
+			if (estaVaciaTerrestre(pos) == false) i--;
+			else{
+				Celda celda = mapa.get(pos);
+				Mineral mineral = new Mineral();
+				celda.agregarFuenteRecurso(mineral);
+			}
+		}
+		
+	}
+	
+	private int aleatorio(int min,int max){
+		/*Devuelve un numero aleatorio entre dos recibidos por parametro*/
+		return (int)(Math.random()*(max-min))+min;		
+	}
+	
 	/* Metodos de ubicacion de unidades y edificios */
 	public void ponerTerrestre(Posicion pos, Ser ser) {
 		Celda celda = mapa.get(pos);
