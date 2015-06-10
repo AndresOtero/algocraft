@@ -49,7 +49,7 @@ public class Juego {
 	
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
-		Mapa.getInstance(15,15,jugadores); // puse 5x5 modificar si se quiere
+		mapa = Mapa.getInstance(15,15,jugadores); // puse 5x5 modificar si se quiere
 		inicializarRecursos();
 	}
 
@@ -65,7 +65,16 @@ public class Juego {
 		return turnos.turnoActual().nombre();
 	}
 
-
+	public boolean hayGanador(Color color){
+		boolean hayGanador = false;
+		if (mapa.seresDeJugador(color).isEmpty()) hayGanador = true;
+		else return false;
+		if (mapa.edificioDeGas(color).isEmpty()) hayGanador = true;
+		else return false;
+		if (mapa.edificioDeMineral(color).isEmpty()) hayGanador = true;
+		else return false;
+		return hayGanador;
+	}
 	private void administrarRecursos() {
 		Jugador jugadorActual = turnos.turnoActual();
 		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa
@@ -207,13 +216,13 @@ public class Juego {
 			Posicion posfin = new Posicion(filFinal,colFinal);
 			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaAerea();
 			Ser serAtacado1 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaAerea();
-			Ser serAtacado2 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
+			
 			verificarSiPuedeAtacarEnRango(unidadQAtaca,posini,posfin);
 			verificarPropiedadAtaque(unidadQAtaca);
 			if ( serAtacado1 != null ) unidadQAtaca.atacarAire(serAtacado1);
-			if ( serAtacado2 != null) unidadQAtaca.atacarTierra(serAtacado2);
+			
 			if ( serAtacado1.estaMuerto()) mapa.borrarSerAereo(serAtacado1);
-			if ( serAtacado2.estaMuerto()) mapa.borrarSerTerrestre(serAtacado2);
+			
 			turnos.agregarQueAtaco(unidadQAtaca);
 		}
 		catch (NoEsPosibleAtacarException e){
@@ -239,13 +248,10 @@ public class Juego {
 			Posicion posini = new Posicion(filIni,colIni);
 			Posicion posfin = new Posicion(filFinal,colFinal);
 			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaTerrestre();
-			Ser serAtacado1 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaAerea();
 			Ser serAtacado2 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
 			verificarSiPuedeAtacarEnRango(unidadQAtaca,posini,posfin);
 			verificarPropiedadAtaque(unidadQAtaca);
-			if ( serAtacado1 != null ) unidadQAtaca.atacarAire(serAtacado1);
 			if ( serAtacado2 != null) unidadQAtaca.atacarTierra(serAtacado2);
-			if ( serAtacado1.estaMuerto()) mapa.borrarSerAereo(serAtacado1);
 			if ( serAtacado2.estaMuerto()) mapa.borrarSerTerrestre(serAtacado2);
 			turnos.agregarQueAtaco(unidadQAtaca);
 		}
@@ -260,7 +266,6 @@ public class Juego {
 	}
 	// Singleton
 	private Juego() {
-		mapa = Mapa.getInstance(5,5,jugadores);
 	}
 
 	private synchronized static void createInstance() {
