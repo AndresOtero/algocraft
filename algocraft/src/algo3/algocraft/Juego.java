@@ -34,19 +34,6 @@ public class Juego {
 		}
 	}
 
-	/*
-	 * public int agregarJugador(String nombre, Color color, TipoRaza raza,
-	 * String[] errores){ // me pasan un vector de string donde voy a devolver
-	 * los errores para mostrarlos // al usuario int actual = 0; try{
-	 * crearJugador(nombre,color,raza); } catch(NombreIncorrectoException e){
-	 * errores[actual] = "Nombre Incorrecto"; actual++; }
-	 * catch(ColorRepetidoException e){ errores[actual] = "ColorRepetido";
-	 * actual++; } return actual;
-	 * 
-	 * }
-	 */
-
-	
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
 		mapa = Mapa.getInstance(15,15,jugadores); // puse 5x5 modificar si se quiere
@@ -156,25 +143,32 @@ public class Juego {
 		AbstractFactoryEdificios factory= fabricas.get(turnos.turnoActual()); 
 		Posicion pos=new Posicion(fila,columna);
 		Celda celda= mapa.ContenidoPosicion(pos);
+		Boolean seCreo=false;
+		if(celda.ocupadoTerrestre()){
+			throw new LaCeldaTerrestreEstaOcupada();
+		}
 		switch(tipoEdifico){
 			case CreadorAereos:
-				factory.fabricarCreadorAereos(turnos.turnoActual());
+				seCreo=factory.fabricarCreadorAereos(turnos.turnoActual(),pos);
 			case CreadorTerrestres:
-				factory.fabricarCreadorTerrestres(turnos.turnoActual());
+				seCreo=factory.fabricarCreadorTerrestres(turnos.turnoActual(),pos);
 			case CreadorSoldados:
-				factory.fabricarCreadorSoldados(turnos.turnoActual());
+				seCreo=factory.fabricarCreadorSoldados(turnos.turnoActual(),pos);
 			case SumaPoblacion:
-				factory.fabricarSumaPoblacion(turnos.turnoActual());
+				seCreo=factory.fabricarSumaPoblacion(turnos.turnoActual(),pos);
 			case RecolectableGas:
-				factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(), turnos.turnoActual());
+				seCreo=factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(), turnos.turnoActual(),pos);
 			case RecolectableMinerales:
-				factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), turnos.turnoActual());
-			
-			default:
-			//exception
+				seCreo=factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), turnos.turnoActual(),pos);
 		}
-		// throw new NoHayRecursosException();
-		// throw new NoEstanLosRequisitosException();
+		if(seCreo==false){
+			// throw new NoHayRecursosException();
+			// throw new NoEstanLosRequisitosException();
+			return;
+		}
+		mapa.ponerTerrestre(pos, new EdificioEnConstruccion(turnos.turnoActual().color()));
+
+		
 	}
 
 	public boolean crearUnidad(int fil, int col, Unidades unidad){
