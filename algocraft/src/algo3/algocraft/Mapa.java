@@ -211,14 +211,14 @@ public class Mapa {
 
 	public Boolean estaVaciaTerrestre(Posicion pos) {
 		Celda celda = this.ContenidoPosicion(pos);
-		Boolean estaVacia = !(this.ContenidoPosicion(pos).ocupadoTerrestre());
+		Boolean estaVacia = !(celda.ocupadoTerrestre());
 		return estaVacia;
 	}
 
 	public Boolean estaVaciaAereo(Posicion pos) {
 		Celda celda = this.ContenidoPosicion(pos);
-		Boolean estaVacia = !(this.ContenidoPosicion(pos).ocupadoAerea());
-		return !(this.ContenidoPosicion(pos).ocupadoAerea());
+		Boolean estaVacia = !(celda.ocupadoAerea());
+		return estaVacia;
 	}
 
 	private ArrayList<Posicion> adyacentes(Posicion pos) {
