@@ -1,36 +1,41 @@
 package algo3.algocraft.edificios;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import algo3.algocraft.Color;
 import algo3.algocraft.Edificio;
 import algo3.algocraft.Jugador;
 import algo3.algocraft.Mineral;
+import algo3.algocraft.Posicion;
 import algo3.algocraft.VolcanGasVespeno;
 
 public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	private Color color;
 	private ArrayList<Edificio> edificiosEnCola = new ArrayList<Edificio>();
+	private HashMap<Edificio, Posicion> posiciones = new HashMap<Edificio, Posicion>();
 
 	public FactoryEdificiosTerran(Color colorJugador) {
 		color = colorJugador;
 	}
 
 	@Override
-	public ArrayList<Edificio> pasarTurno() {
-		ArrayList<Edificio> edificiosCreados = new ArrayList<Edificio>();
+	public HashMap<Edificio, Posicion> pasarTurno() {
+		HashMap<Edificio, Posicion> edificiosCreados = new HashMap<Edificio, Posicion>();
 		for (Edificio edificio : edificiosEnCola) {
 			edificio.pasarTurno();
 			if (edificio.creado()) {
-				edificiosCreados.add(edificio);
+				edificiosCreados.put(edificio,posiciones.get(edificio));
 			}
 		}
 		return edificiosCreados;
 	}
 	@Override
-	public Boolean fabricarCreadorAereos(Jugador jugador) {
+	public Boolean fabricarCreadorAereos(Jugador jugador,Posicion pos) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>100)){
-			edificiosEnCola.add(new PuertoEstelarTerran(color));
+			Edificio ed= new PuertoEstelarTerran(color);
+			edificiosEnCola.add(ed);
+			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(100);
 			jugador.sacarMineral(150);
 			return true;
@@ -39,7 +44,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarCreadorTerrestres(Jugador jugador) {
+	public Boolean fabricarCreadorTerrestres(Jugador jugador,Posicion pos) {
 		if((jugador.Minerales()>200)&&(jugador.GasVespeno()>100)){
 			edificiosEnCola.add(new Fabrica(color));
 			jugador.sacarGasVespeno(100);
@@ -51,9 +56,11 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarCreadorSoldados(Jugador jugador) {
+	public Boolean fabricarCreadorSoldados(Jugador jugador,Posicion pos) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
-			edificiosEnCola.add(new Barraca(color));
+			Edificio ed= new Barraca(color);
+			edificiosEnCola.add(ed);
+			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(150);
 			return true;
@@ -62,9 +69,11 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarSumaPoblacion(Jugador jugador) {
+	public Boolean fabricarSumaPoblacion(Jugador jugador,Posicion pos) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
-			edificiosEnCola.add(new DepositoDeSuminisitros(color));
+			Edificio ed= new DepositoDeSuminisitros(color);
+			edificiosEnCola.add(ed);
+			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(100);
 			return true;
@@ -75,9 +84,11 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 
 	@Override
 	public Boolean fabricarRecolectableGas(VolcanGasVespeno volcan,
-			Jugador jugador) {
+			Jugador jugador,Posicion pos) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
-			edificiosEnCola.add(new Refineria(volcan, color));
+			Edificio ed= new Refineria(volcan, color);
+			edificiosEnCola.add(ed);
+			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(100);
 			return true;
@@ -87,9 +98,11 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 
 	@Override
 	public Boolean fabricarRecolectableMinerales(Mineral mineral,
-			Jugador jugador) {
+			Jugador jugador,Posicion pos) {
 		if((jugador.Minerales()>50)&&(jugador.GasVespeno()>0)){
-			edificiosEnCola.add(new CentroDeMineral(mineral, color));
+			Edificio ed= new CentroDeMineral(mineral, color);
+			edificiosEnCola.add(ed);
+			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(50);
 			return true;
