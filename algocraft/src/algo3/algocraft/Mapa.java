@@ -121,6 +121,7 @@ public class Mapa {
 			ponerTerrestre(pos,edificio);
 			agregarEdificioCreador(edificiosCreadores,edificio,edificio.color());
 		}
+		
 		else throw new LaCeldaTerrestreEstaOcupada();
 	}
 	
