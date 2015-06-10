@@ -198,25 +198,25 @@ public class Mapa {
 		return estaVacia;
 	}
 	
-	public Posicion PosicionLibre(Posicion pos){
-		ArrayList<Posicion> posiciones = adyacentes(pos);
-		ArrayList<Integer> visitados = new ArrayList<Integer>();
-		for (int i=0;posiciones.size()>i;i++){
-			/*si el valor en la posicion de la lista es 0, noe sta visitado*/
-			visitados.add(0);
-		}
-		for (int i=0;posiciones.size()>i;i++){
-			Posicion posicion = posiciones.get(i);
-			Celda celda = mapa.get(posicion);
-			if (!celda.ocupadoTerrestre()) return posicion;
-		}
-		for (int i=0;posiciones.size()>i;i++){
-			ArrayList<Posicion> adyacentes = adyacentes(posiciones.get(i));
-			return PosicionLibre(adyacentes.get(i));
-		}
-		
-		
+	public void ponerUnidadEnLaCeldaLibreMasCercana(EdificioCreador ed,Unidad unidad){
+		Posicion pos=this.buscarPosicionDeSer(ed);
+		ArrayList<Posicion> adyacentes = adyacentes(pos);
+		Posicion posicionVacia= this.buscarLibreMasCercanoRecursivo(pos, adyacentes);
+		this.ponerTerrestre(posicionVacia, unidad);
 	}
+	private Posicion buscarLibreMasCercanoRecursivo(Posicion pos,ArrayList<Posicion> adyacentes ){
+		for(Posicion ady:adyacentes){
+			if(this.estaVaciaTerrestre(pos)){
+				return ady;
+			}
+			
+		}
+		for(Posicion ady:adyacentes){
+			adyacentes.addAll(this.adyacentes(ady));
+		}
+		return this.buscarLibreMasCercanoRecursivo(pos, adyacentes);
+	}
+
 
 	private ArrayList<Posicion> adyacentes(Posicion pos) {
 		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
