@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import algo3.algocraft.edificios.CentroDeMineral;
+import algo3.algocraft.edificios.EdificioCreador;
 import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.edificios.Refineria;
 import algo3.algocraft.exceptions.*;
@@ -21,6 +21,7 @@ public class Mapa {
 	private Map<Color, ArrayList<Ser>> seres;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;
+	private Map<Color, ArrayList<EdificioCreador>> edificiosCreadores;
 	ArrayList<Jugador> jugadores;
 
 	private Mapa(int ancho, int largo, ArrayList<Jugador> jugadores) {
@@ -28,6 +29,7 @@ public class Mapa {
 		this.seres = new HashMap<Color, ArrayList<Ser>>();
 		this.edificiosDeGas = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
+		this.edificiosCreadores = new HashMap<Color, ArrayList<EdificioCreador>>();
 		this.jugadores = jugadores;
 		this.ancho = ancho;
 		this.alto = largo;
@@ -112,7 +114,28 @@ public class Mapa {
 			ponerTerrestre(pos, edificio);
 		}
 	}
-
+	
+	public void ponerEdificioCreador(Posicion pos, EdificioCreador edificio){
+		Celda celda = mapa.get(pos);
+		if (!celda.ocupadoTerrestre()){
+			ponerTerrestre(pos,edificio);
+			agregarEdificioCreador(edificiosCreadores,edificio,edificio.color());
+		}
+		
+		else throw new LaCeldaTerrestreEstaOcupada();
+	}
+	
+	private void agregarEdificioCreador(Map<Color, ArrayList<EdificioCreador>> edificios,
+			EdificioCreador edificio, Color color){
+		
+		if (edificios.get(color) != null) (edificios.get(color)).add(edificio);
+		else {
+			ArrayList<EdificioCreador> edificiosCreadores = new ArrayList<EdificioCreador>();
+			edificiosCreadores.add(edificio);
+			edificios.put(color, edificiosCreadores);
+		}	
+	}
+	
 	public void ponerEdificioGas(Posicion pos, EdificioDeRecurso edificio) {
 		ponerEdificioDeRecurso(pos, edificio);
 		agregarEdificioDeRecursosDeColor(edificiosDeGas, edificio,
@@ -174,7 +197,7 @@ public class Mapa {
 		Boolean estaVacia = !(celda.ocupadoAerea());
 		return estaVacia;
 	}
-
+	
 	private ArrayList<Posicion> adyacentes(Posicion pos) {
 		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
 		for (int i = -1; i < 2; i = i + 2) {
@@ -215,6 +238,11 @@ public class Mapa {
 	public ArrayList<EdificioDeRecurso> edificioDeMineral(Color color) {
 		return (edificiosDeMineral.get(color));
 	}
+	
+	public ArrayList<EdificioCreador> edificioCreador(Color color) {
+		return (edificiosCreadores.get(color));
+	}
+	
 
 	/* Metodos para mover */
 	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal) {
