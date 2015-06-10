@@ -118,7 +118,7 @@ public class Juego {
 			EdificioCreador ed=(EdificioCreador) tupla.serA();
 			if(jugadorActual.agregarPoblacion(unidad.suministro())){
 				mapa.ponerUnidadEnLaCeldaLibreMasCercana(ed, unidad);
-				unidadesEnEspera.remove(unidad);
+				unidadesEnEspera.remove(tupla);
 			}else{
 				break;
 			}

@@ -3,6 +3,8 @@ package algo3.algocraft;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,100 +16,124 @@ public class FactoryEdificiosProtossTest {
 
 	@Test
 	public void crearNexoTest() {
-		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(Color.ROJO);
-		Mineral mineral = new Mineral();
 		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);
-		factory.fabricarRecolectableMinerales(mineral, jugador);
+		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(jugador);
+		Posicion pos=new Posicion(1,1);
+		Mineral mineral = new Mineral();
+		factory.fabricarRecolectableMinerales(mineral,pos);
 		for(int i=4;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
-		ArrayList<Edificio> lista=factory.pasarTurno();
-		Assert.assertFalse(lista.isEmpty());
-		NexoMineral nexo = (NexoMineral) lista.remove(0);
-		Assert.assertTrue(lista.isEmpty());
+		HashMap<Edificio, Posicion> map=factory.pasarTurno();
+		Assert.assertFalse(map.isEmpty());
+		Iterator<Edificio> iter =map.keySet().iterator();
+		NexoMineral nexo = (NexoMineral) iter.next();
+		Assert.assertSame(pos, map.get(nexo));
+		map.remove(nexo);
+		Assert.assertTrue(map.isEmpty());
 		Assert.assertTrue(nexo.color()==Color.ROJO);
 	}
 	@Test
 	public void crearAsimilidorTest() {
-		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(Color.ROJO);
-		VolcanGasVespeno gas = new VolcanGasVespeno();
 		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);
-		factory.fabricarRecolectableGas(gas, jugador);
+		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(jugador);
+		Posicion pos=new Posicion(1,1);		
+		VolcanGasVespeno gas = new VolcanGasVespeno();
+		factory.fabricarRecolectableGas(gas, pos);
 		for(int i=6;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
-		ArrayList<Edificio> lista=factory.pasarTurno();
-		Assert.assertFalse(lista.isEmpty());
-		Asimilador asimilador = (Asimilador) lista.remove(0);
-		Assert.assertTrue(lista.isEmpty());
+		HashMap<Edificio, Posicion> map=factory.pasarTurno();
+		Assert.assertFalse(map.isEmpty());
+		Iterator<Edificio> iter =map.keySet().iterator();
+		Asimilador asimilador = (Asimilador) iter.next();
+		Assert.assertSame(pos, map.get(asimilador));
+		map.remove(asimilador);
+		Assert.assertTrue(map.isEmpty());
 		Assert.assertTrue(asimilador.color()==Color.ROJO);
 	}
 	@Test
 	public void crearDepositoTest() {
-		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(Color.ROJO);
 		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);
-		factory.fabricarSumaPoblacion(jugador);
+		Posicion pos=new Posicion(1,1);		
+		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(jugador);
+		factory.fabricarSumaPoblacion(pos);
 		for(int i=5;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
-		ArrayList<Edificio> lista=factory.pasarTurno();
-		Assert.assertFalse(lista.isEmpty());
-		Pilon pilon = (Pilon) lista.remove(0);
-		Assert.assertTrue(lista.isEmpty());
+		HashMap<Edificio, Posicion> map=factory.pasarTurno();
+		Assert.assertFalse(map.isEmpty());
+		Iterator<Edificio> iter =map.keySet().iterator();
+		Pilon pilon = (Pilon) iter.next();
+		Assert.assertSame(pos, map.get(pilon));
+		map.remove(pilon);
+		Assert.assertTrue(map.isEmpty());
 		Assert.assertTrue(pilon.color()==Color.ROJO);
 	}
 	@Test
 	public void crearAccesoTest() {
-		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(Color.ROJO);
 		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);
-		factory.fabricarCreadorSoldados(jugador);
+		Posicion pos=new Posicion(1,1);		
+		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(jugador);
+		factory.fabricarCreadorSoldados(pos);
 		for(int i=8;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
-		ArrayList<Edificio> lista=factory.pasarTurno();
-		Assert.assertFalse(lista.isEmpty());
-		Acceso acceso = (Acceso) lista.remove(0);
-		Assert.assertTrue(lista.isEmpty());
+		HashMap<Edificio, Posicion> map=factory.pasarTurno();
+		Assert.assertFalse(map.isEmpty());
+		Iterator<Edificio> iter =map.keySet().iterator();
+		Acceso acceso = (Acceso) iter.next();
+		Assert.assertSame(pos, map.get(acceso));
+		map.remove(acceso);
+		Assert.assertTrue(map.isEmpty());
 		Assert.assertTrue(acceso.color()==Color.ROJO);
 	}
 	@Test
 	public void crearPueroEstelarProtossTest() {
-		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(Color.ROJO);
 		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);
-		factory.fabricarCreadorAereos(jugador);
+		Posicion pos=new Posicion(1,1);		
+		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(jugador);
+		factory.fabricarCreadorAereos(pos);
 		for(int i=10;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
-		ArrayList<Edificio> lista=factory.pasarTurno();
-		Assert.assertFalse(lista.isEmpty());
-		PuertoEstelarProtoss puerto = (PuertoEstelarProtoss) lista.remove(0);
-		Assert.assertTrue(lista.isEmpty());
+		HashMap<Edificio, Posicion> map=factory.pasarTurno();
+		Assert.assertFalse(map.isEmpty());
+		Iterator<Edificio> iter =map.keySet().iterator();
+		PuertoEstelarProtoss puerto = (PuertoEstelarProtoss) iter.next();
+		Assert.assertSame(pos, map.get(puerto));
+		map.remove(puerto);
+		Assert.assertTrue(map.isEmpty());
 		Assert.assertTrue(puerto.color()==Color.ROJO);
 	}
 	@Test
 	public void crearArchivosTest() {
-		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(Color.ROJO);
 		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);
-		factory.fabricarCreadorTerrestres(jugador);
+		Posicion pos=new Posicion(1,1);		
+		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(jugador);
+		factory.fabricarCreadorTerrestres(pos);
 		for(int i=9;i>1;i--){
 			Assert.assertTrue(factory.pasarTurno().isEmpty());
 		}
-		ArrayList<Edificio> lista=factory.pasarTurno();
-		Assert.assertFalse(lista.isEmpty());
-		ArchivosTemplarios archivo = (ArchivosTemplarios) lista.remove(0);
-		Assert.assertTrue(lista.isEmpty());
+		HashMap<Edificio, Posicion> map=factory.pasarTurno();
+		Assert.assertFalse(map.isEmpty());
+		Iterator<Edificio> iter =map.keySet().iterator();
+		ArchivosTemplarios archivo = (ArchivosTemplarios) iter.next();
+		Assert.assertSame(pos, map.get(archivo));
+		map.remove(archivo);
+		Assert.assertTrue(map.isEmpty());
 		Assert.assertTrue(archivo.color()==Color.ROJO);
 	}
 	

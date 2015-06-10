@@ -46,7 +46,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	@Override
 	public Boolean fabricarCreadorTerrestres(Posicion pos) {
 		if((jugador.Minerales()>200)&&(jugador.GasVespeno()>100)){
-			edificiosEnCola.add(new Fabrica(jugador.color()));
+			Edificio ed= new Fabrica(jugador.color());
+			edificiosEnCola.add(ed);
+			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(100);
 			jugador.sacarMineral(200);
 			return true;
