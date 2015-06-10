@@ -32,18 +32,17 @@ public class JuegoTest {
 	@Test
 	public void testCrearUnidadSinEspacio(){
 		Juego juego = Juego.getInstance();
-		String[] errores = new String[tamanioErrores];
-		juego.agregarJugador("fede", Color.AMARILLO, TipoRaza.TERRAN, errores);
-		juego.agregarJugador("vader", Color.ROJO, TipoRaza.PROTOSS, errores);
+		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
+		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
 		
 		juego.iniciarJuego();
 		
 		boolean entro = false;
-		
+		/*
 		juego.crearEdificio("Barraca",0,0);
 		juego.crearEdificio("Nexo mineral",1,1);
 		juego.crearEdificio("Asimilador",2,2);
-			
+			*/
 		juego.pasarTurno();
 		juego.pasarTurno();
 		juego.pasarTurno();
@@ -54,6 +53,7 @@ public class JuegoTest {
 		juego.pasarTurno();
 		juego.pasarTurno();
 			
+		/*entro = entro & juego.crearUnidad("Marines");
 		entro = entro & juego.crearUnidad("Marines");
 		entro = entro & juego.crearUnidad("Marines");
 		entro = entro & juego.crearUnidad("Marines");
@@ -61,8 +61,7 @@ public class JuegoTest {
 		entro = entro & juego.crearUnidad("Marines");
 		entro = entro & juego.crearUnidad("Marines");
 		entro = entro & juego.crearUnidad("Marines");
-		entro = entro & juego.crearUnidad("Marines");
-			
+			*/
 			
 		assertEquals(false, entro);
 		
@@ -71,24 +70,38 @@ public class JuegoTest {
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
-
-		
 		juego.iniciarJuego();
-		
-		boolean entro = false;
-		
-		try{
-			juego.crearEdificio("Fabrica",0,0);
-
-		}catch(NoEstanLosRequisitosException e){
-			entro = true;
-		}catch(NoHayRecursosException e){
-			
+		for(int i=0;i<5;i++){
+			for(int j=0;j<5;j++){
+				if((i!=1)&&(j!=1)&&(juego.ContenidoFilaColumna(i, j).fuenteRecurso()!=null)){
+					juego.crearEdificio(TipoEdificio.RecolectableMinerales,i,j);
+				}
+			}
 		}
-		assertEquals(true, entro);
+		juego.crearEdificio(TipoEdificio.CreadorSoldados,6,6);
+		juego.pasarTurno();
+		Assert.assertTrue(juego.hayGanador());
+		for(int i=10;i<15;i++){
+			for(int j=10;j<15;j++){
+				if((i!=15)&&(j!=15)&&(juego.ContenidoFilaColumna(i, j).fuenteRecurso()!=null)){
+					juego.crearEdificio(TipoEdificio.RecolectableMinerales,i,j);
+				}
+			}
+		}
+		juego.crearEdificio(TipoEdificio.CreadorSoldados,9,9);
+		juego.pasarTurno();
+		Assert.assertTrue(juego.hayGanador());
+		
+		
+		
 		
 	}
-	
-	
+	@Test
+	public void testPartida(){
+		Juego juego =  Juego.getInstance();
+		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
+		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
+		
+	}
 
 }
