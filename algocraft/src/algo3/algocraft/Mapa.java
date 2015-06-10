@@ -198,6 +198,26 @@ public class Mapa {
 		return estaVacia;
 	}
 	
+	public Posicion PosicionLibre(Posicion pos){
+		ArrayList<Posicion> posiciones = adyacentes(pos);
+		ArrayList<Integer> visitados = new ArrayList<Integer>();
+		for (int i=0;posiciones.size()>i;i++){
+			/*si el valor en la posicion de la lista es 0, noe sta visitado*/
+			visitados.add(0);
+		}
+		for (int i=0;posiciones.size()>i;i++){
+			Posicion posicion = posiciones.get(i);
+			Celda celda = mapa.get(posicion);
+			if (!celda.ocupadoTerrestre()) return posicion;
+		}
+		for (int i=0;posiciones.size()>i;i++){
+			ArrayList<Posicion> adyacentes = adyacentes(posiciones.get(i));
+			return PosicionLibre(adyacentes.get(i));
+		}
+		
+		
+	}
+
 	private ArrayList<Posicion> adyacentes(Posicion pos) {
 		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
 		for (int i = -1; i < 2; i = i + 2) {
@@ -210,6 +230,7 @@ public class Mapa {
 		}
 		return adyacentes;
 	}
+	
 	public ArrayList<Unidad> calcularRadio(Posicion pos) {
 		ArrayList<Unidad> unidadesAlcanzadas = new ArrayList<Unidad>();
 		for (int i = -1; i <= 1; i++) {
