@@ -196,7 +196,7 @@ public class Mapa {
 		Boolean estaVacia = !(celda.ocupadoAerea());
 		return estaVacia;
 	}
-
+	
 	private ArrayList<Posicion> adyacentes(Posicion pos) {
 		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
 		for (int i = -1; i < 2; i = i + 2) {
