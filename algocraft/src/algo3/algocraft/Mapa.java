@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import algo3.algocraft.edificios.CentroDeMineral;
 import algo3.algocraft.edificios.EdificioDeRecurso;
+import algo3.algocraft.edificios.Refineria;
 import algo3.algocraft.exceptions.*;
 import algo3.algocraft.unidades.Unidad;
 
@@ -19,12 +21,14 @@ public class Mapa {
 	private Map<Color, ArrayList<Ser>> seres;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;
+	ArrayList<Jugador> jugadores;
 
 	private Mapa(int ancho, int largo, ArrayList<Jugador> jugadores) {
 		this.mapa = new HashMap<Posicion, Celda>();
 		this.seres = new HashMap<Color, ArrayList<Ser>>();
 		this.edificiosDeGas = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
+		this.jugadores = jugadores;
 		this.ancho = ancho;
 		this.alto = largo;
 		for (int i = 0; i <= this.ancho; i++) {
@@ -53,12 +57,19 @@ public class Mapa {
 		Celda celda4 = mapa.get(pos4);
 		celda1.agregarFuenteRecurso(volcan1);
 		celda2.agregarFuenteRecurso(volcan2);
+		
+		EdificioDeRecurso edificio1= new Refineria(null,jugadores.get(0).color());
+		EdificioDeRecurso edificio2= new Refineria(null,jugadores.get(1).color());
+		
+		ponerEdificioDeRecurso(pos1,edificio1);
+		ponerEdificioDeRecurso(pos2,edificio2);
 		celda3.agregarFuenteRecurso(volcan3);
 		celda4.agregarFuenteRecurso(volcan4);			
 		inicializarEsquina(0,5,0,5);
 		inicializarEsquina(this.ancho-5,this.ancho,0,5);
 		inicializarEsquina(0,5,this.alto-5,this.alto);
 		inicializarEsquina(this.ancho-5,this.ancho,this.alto-5,this.alto);
+		
 	}
 	private void inicializarEsquina(int inicioX,int finX,int inicioY,int finY){
 		for(int i=0;i<5;i++){
