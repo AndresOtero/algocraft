@@ -11,9 +11,23 @@ public class Jugador {
 	private TipoRaza raza;
 	private int GasVespeno = 0;
 	private int Minerales = 0;
+	private int poblacion=0;
+	private int limitePoblacion=10;
+	
 	public Color color(){
 		return this.color;
 	}
+	public void agregarEspacionParaPoblacion(){
+		limitePoblacion+=10;
+	}
+	public boolean agregarPoblacion(int suministro){	
+		if(poblacion+suministro>limitePoblacion){
+			return false;
+		}
+		poblacion+=suministro;
+		return true;
+	}
+	
 	
 	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador) {
 		 if(nombreJugador.length()<4){

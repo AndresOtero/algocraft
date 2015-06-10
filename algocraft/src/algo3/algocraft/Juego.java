@@ -1,6 +1,7 @@
 package algo3.algocraft;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -15,6 +16,7 @@ public class Juego {
 	private Turnos turnos;
 	private HashMap<Jugador, AbstractFactoryEdificios> fabricas = new HashMap<Jugador, AbstractFactoryEdificios>();
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+	private ArrayList<Unidad> unidadesEnEspera= new ArrayList<Unidad>();
 
 	//Metodos de Inicializacion
 	public void crearJugador(String nombre, Color color, TipoRaza raza) {
@@ -96,7 +98,7 @@ public class Juego {
 				if(ed instanceof RecolectableMinerales){
 					mapa.ponerEdificioMineral(pos,(EdificioDeRecurso) ed);
 				}
-				jugadorActual.agregarPoblacion();
+				jugadorActual.agregarEspacionParaPoblacion();
 				mapa.ponerTerrestre(pos, ed);
 			}
 		}
@@ -106,10 +108,14 @@ public class Juego {
 		ArrayList<EdificioCreador> edificiosCreadores=mapa.edificioCreador(jugadorActual.color());
 		for(EdificioCreador ed:edificiosCreadores ){
 			ed.pasarTurno();
-			ArrayList<Unidad> unidades=ed.unidadesCreadas();
-			for(Unidad unidad:unidades){
-				/*Deep Search*/
+			unidadesEnEspera.addAll(ed.unidadesCreadas());
+		}
+		for(Unidad unidad:unidadesEnEspera){
+			if(jugadorActual.agregarPoblacion(unidad.suministro())){
+				/*Pongo unidad DeepSearch*/
+				unidadesEnEspera.remove(unidad);
 			}
+			break;
 		}
 	}
 	public void pasarTurno() {
