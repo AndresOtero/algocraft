@@ -16,7 +16,7 @@ public class Juego {
 	private Turnos turnos;
 	private HashMap<Jugador, AbstractFactoryEdificios> fabricas = new HashMap<Jugador, AbstractFactoryEdificios>();
 	private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
-	private HashMap<Edificio,Unidad> unidadesEnEspera= new HashMap<Edificio,Unidad>();
+	private ArrayList<TuplaDeSeres> unidadesEnEspera= new ArrayList<TuplaDeSeres>();
 
 	//Metodos de Inicializacion
 	public void crearJugador(String nombre, Color color, TipoRaza raza) {
@@ -109,19 +109,20 @@ public class Juego {
 		for(EdificioCreador ed:edificiosCreadores ){
 			ed.pasarTurno();
 			for(Unidad unidad: ed.unidadesCreadas()){
-				unidadesEnEspera.put(ed, unidad)
+				TuplaDeSeres tupla=new TuplaDeSeres(ed,unidad);
+				unidadesEnEspera.add(tupla);
 			}
-			
 		}
-		Iterator it = unidadesEnEspera.keySet().iterator();
-		while(it.hasNext()){
-			Unidad unidad=unidadesEnEspera.get(it.next());
+		for(TuplaDeSeres tupla:unidadesEnEspera ){
+			Unidad unidad=(Unidad) tupla.serB();
+			EdificioCreador ed=(EdificioCreador) tupla.serA();
 			if(jugadorActual.agregarPoblacion(unidad.suministro())){
 				mapa.ponerUnidadEnLaCeldaLibreMasCercana(ed, unidad);
 				unidadesEnEspera.remove(unidad);
+			}else{
+				break;
 			}
-			break;
-		}
+		}			
 	}
 	public void pasarTurno() {
 		turnos.avanzarTurno();
