@@ -85,21 +85,5 @@ public class MapaTest {
 		Assert.assertSame(unidad2, mapa.ContenidoPosicion(new Posicion(10,10)).serEnLaCeldaTerrestre());
 
 	}
-	@Test
-	public void testMapaRecursos(){
-		/*NO VA A ANDAR AHROA QUE EL MAPA PONE LOS RECURSOS ALEATORIAMENTE*/
-		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
-		Mapa mapa = Mapa.getInstance(50,50,jugadores);
-		Celda celda = mapa.ContenidoPosicion(new Posicion(1, 1));
-		VolcanGasVespeno volcan = (VolcanGasVespeno) celda.fuenteRecurso();
-		Assert.assertTrue(volcan != null);
-		EdificioDeRecurso ref = new Refineria(volcan,Color.ROJO);
-		Posicion pos = new Posicion(1,1);
-		mapa.ponerEdificioGas(pos, ref);
-		ArrayList<EdificioDeRecurso> edificiosDeGas = mapa.edificioDeGas(Color.ROJO);
-		for (int i =0;i<(edificiosDeGas).size();i++){
-			Assert.assertTrue(edificiosDeGas.get(i) == edificiosDeGas.get(i));
-		}		
-	}
 	
 }

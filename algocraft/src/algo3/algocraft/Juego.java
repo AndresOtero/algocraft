@@ -173,18 +173,32 @@ public class Juego {
 		// verificar que haya edificio
 		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
-		if (unidad == Unidades.ALTOTEMPLARIO )  ((ArchivosTemplarios) ed).crearAltoTemplario(turnos.turnoActual());
-		if (unidad == Unidades.SCOUT )  ((PuertoEstelarProtoss) ed).crearScout(turnos.turnoActual());
-		if (unidad == Unidades.MARINE )  ((Barraca) ed).crearMarine(turnos.turnoActual());
-		if (unidad == Unidades.DRAGON )  ((Acceso) ed).crearDragon(turnos.turnoActual());
-		if (unidad == Unidades.NAVECIENCIA )  ((PuertoEstelarTerran) ed).crearNaveCiencia(turnos.turnoActual());
-		if (unidad == Unidades.NAVETRANSPORTEPROTOSS )  ((PuertoEstelarProtoss) ed).crearNaveTransporteProtoss(turnos.turnoActual());
-		if (unidad == Unidades.NAVETRANSPORTETERRAN )  ((PuertoEstelarTerran) ed).crearNaveTransporteTerran(turnos.turnoActual());
-		if (unidad == Unidades.ESPECTRO )  ((PuertoEstelarTerran) ed).crearEspectro(turnos.turnoActual());
-		if (unidad == Unidades.GOLLIAT )  ((Fabrica) ed).crearGolliat(turnos.turnoActual());
-		if (unidad == Unidades.ZEALOT )  ((Acceso) ed).crearZealot(turnos.turnoActual());
+		switch(unidad){
+			case ALTOTEMPLARIO:
+				((ArchivosTemplarios) ed).crearAltoTemplario(turnos.turnoActual());
+			case SCOUT:
+				((PuertoEstelarProtoss) ed).crearScout(turnos.turnoActual());
+			case MARINE:
+				((Barraca) ed).crearMarine(turnos.turnoActual());
+			case DRAGON:
+				((Acceso) ed).crearDragon(turnos.turnoActual());
+			case NAVECIENCIA:
+				((PuertoEstelarTerran) ed).crearNaveCiencia(turnos.turnoActual());
+			case NAVETRANSPORTEPROTOSS:
+				((PuertoEstelarProtoss) ed).crearNaveTransporteProtoss(turnos.turnoActual());
+			case NAVETRANSPORTETERRAN:
+				((PuertoEstelarTerran) ed).crearNaveTransporteTerran(turnos.turnoActual());
+			case ESPECTRO:
+				((PuertoEstelarTerran) ed).crearEspectro(turnos.turnoActual());
+			case GOLLIAT:
+				((Fabrica) ed).crearGolliat(turnos.turnoActual());
+			case ZEALOT:
+				((Acceso) ed).crearZealot(turnos.turnoActual());
+		}
+		 	
 		throw new NoHayEspacioException();
 	}
+	
 	//Metodos De Ataque
 
 	public boolean atacarAire(int filIni, int colIni , int filFinal , int colFinal) {
@@ -239,17 +253,12 @@ public class Juego {
 			return false;
 		}
 		return true;
+	}	
+	public void ataqueMagicoEnRadio(UnidadMagica unidad, Posicion pos){
+		ArrayList <Unidad> atacados = mapa.calcularRadio(pos);
+		unidad.ataqueRadio(atacados);
 	}
-	
-	
-public void ataqueMagicoEnRadio(UnidadMagica unidad, Posicion pos){
-	ArrayList <Unidad> atacados = mapa.calcularRadio(pos);
-	unidad.ataqueRadio(atacados);
-	
-}
-	
-	
-		// Singleton
+	// Singleton
 	private Juego() {
 		mapa = Mapa.getInstance(5,5,jugadores);
 	}
