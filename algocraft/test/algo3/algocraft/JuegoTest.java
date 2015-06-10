@@ -9,6 +9,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import algo3.algocraft.exceptions.LaCeldaAereaEstaOcupada;
+import algo3.algocraft.exceptions.LaCeldaTerrestreEstaOcupada;
 import algo3.algocraft.exceptions.NoEstanLosRequisitosException;
 import algo3.algocraft.exceptions.NoHayEspacioException;
 import algo3.algocraft.exceptions.NoHayRecursosException;
@@ -24,10 +26,41 @@ public class JuegoTest {
 		
 		juego.iniciarJuego();
 		juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
-		/*juego.crearUnidad("Marines");
-		juego.crearUnidad("Marines");*/
+		Unidades unidad = Unidades.MARINE;
 		
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
 		
+		boolean entro = true;
+		
+		entro = entro & juego.crearUnidad(0, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(2, 0, unidad);
+		entro = entro & juego.crearUnidad(3, 0, unidad);
+		entro = entro & juego.crearUnidad(4, 0, unidad);
+		entro = entro & juego.crearUnidad(5, 0, unidad);
+		
+		assertEquals(false, entro);
+	}
+	
+	@Test /*(expected = NoHayRecurso.class)*/
+	public void testCrearUnidadSinEdificio() {
+		Juego juego = Juego.getInstance();
+		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
+		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
+		
+		juego.iniciarJuego();
+		juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+		Unidades unidad = Unidades.MARINE;
+		boolean entro = true;
+		
+		entro = entro & juego.crearUnidad(0, 0, unidad);
+		
+		assertEquals(false, entro);
 	}
 	@Test
 	public void testCrearUnidadSinEspacio(){
@@ -37,12 +70,16 @@ public class JuegoTest {
 		
 		juego.iniciarJuego();
 		
-		boolean entro = false;
-		/*
-		juego.crearEdificio("Barraca",0,0);
-		juego.crearEdificio("Nexo mineral",1,1);
-		juego.crearEdificio("Asimilador",2,2);
-			*/
+		boolean entro = true;
+		
+		TipoEdificio tipo = TipoEdificio.CreadorSoldados;
+		juego.crearEdificio(tipo, 1, 0);
+		tipo = TipoEdificio.RecolectableGas;
+		juego.crearEdificio(tipo, 2, 2);
+		tipo = TipoEdificio.RecolectableMinerales;
+		juego.crearEdificio(tipo, 3, 3);
+
+			
 		juego.pasarTurno();
 		juego.pasarTurno();
 		juego.pasarTurno();
@@ -53,15 +90,16 @@ public class JuegoTest {
 		juego.pasarTurno();
 		juego.pasarTurno();
 			
-		/*entro = entro & juego.crearUnidad("Marines");
-		entro = entro & juego.crearUnidad("Marines");
-		entro = entro & juego.crearUnidad("Marines");
-		entro = entro & juego.crearUnidad("Marines");
-		entro = entro & juego.crearUnidad("Marines");
-		entro = entro & juego.crearUnidad("Marines");
-		entro = entro & juego.crearUnidad("Marines");
-		entro = entro & juego.crearUnidad("Marines");
-			*/
+		Unidades unidad = Unidades.MARINE;
+		entro = entro & juego.crearUnidad(0, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(2, 0, unidad);
+		entro = entro & juego.crearUnidad(3, 0, unidad);
+		entro = entro & juego.crearUnidad(4, 0, unidad);
+		entro = entro & juego.crearUnidad(5, 0, unidad);
+		entro = entro & juego.crearUnidad(6, 0, unidad);
+		entro = entro & juego.crearUnidad(7, 0, unidad);
+			
 			
 		assertEquals(false, entro);
 		
@@ -102,6 +140,53 @@ public class JuegoTest {
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
 		
+		
+		
 	}
+	
+
+	
+	@Test
+	public void testPonerDosObjetosEnElMismoEspacio(){
+		Juego juego =  Juego.getInstance();
+		boolean entro = false;
+		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
+		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
+		
+		juego.iniciarJuego();
+		juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+		try{
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+		}catch(LaCeldaTerrestreEstaOcupada e){
+			entro = true;
+		}
+		assertEquals(true, entro);
+		
+	}
+	
+	@Test /*(expected = NoHayRecurso.class)*/
+	public void testCrearEdificioSinRecurso() {
+		Juego juego = Juego.getInstance();
+		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
+		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
+		boolean entro = false;
+		
+		juego.iniciarJuego();
+		juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+		try{
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 26, 25);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 27, 25);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 28, 25);
+			
+		}catch(NoHayRecursosException e){
+			entro = true;
+		}
+		
+		assertEquals(true, entro);
+	}
+	
+
+	
+	
 
 }
