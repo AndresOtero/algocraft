@@ -2,6 +2,7 @@ package algo3.algocraft;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import algo3.algocraft.edificios.*;
 import algo3.algocraft.exceptions.*;
@@ -26,11 +27,11 @@ public class Juego {
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);
 		if (raza == TipoRaza.TERRAN) {
-			fabricas.put(jugador, new FactoryEdificiosTerran(color));
+			fabricas.put(jugador, new FactoryEdificiosTerran(jugador));
 		} else
 
 		{
-			fabricas.put(jugador, new FactoryEdificiosProtoss(color));
+			fabricas.put(jugador, new FactoryEdificiosProtoss(jugador));
 		}
 	}
 
@@ -62,6 +63,8 @@ public class Juego {
 		else return false;
 		return hayGanador;
 	}
+	
+	
 	private void administrarRecursos() {
 		Jugador jugadorActual = turnos.turnoActual();
 		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa
@@ -74,11 +77,49 @@ public class Juego {
 			jugadorActual.agregarMineral(edificio.recolectar());
 		}
 	}
-
+	private void administrarCreacionEdificios() {
+		Jugador jugadorActual = turnos.turnoActual();
+		AbstractFactoryEdificios factory=fabricas.get(jugadorActual);
+		HashMap<Edificio, Posicion> edificiosCreados = factory.pasarTurno();
+		Iterator it = edificiosCreados.keySet().iterator();
+		while(it.hasNext()){
+			Edificio ed=(Edificio) it.next();
+			Posicion pos= edificiosCreados.get(ed);
+			if(!mapa.estaVaciaTerrestre(pos)){
+				mapa.borrarSerTerrestre(mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre());	
+				if(ed instanceof EdificioCreador){
+					mapa.ponerEdificioCreador(pos,(EdificioCreador) ed);
+				}
+				if(ed instanceof RecolectableGas){
+					mapa.ponerEdificioGas(pos,(EdificioDeRecurso) ed);
+				}
+				if(ed instanceof RecolectableMinerales){
+					mapa.ponerEdificioMineral(pos,(EdificioDeRecurso) ed);
+				}
+				jugadorActual.agregarPoblacion();
+				mapa.ponerTerrestre(pos, ed);
+			}
+		}
+	}
+	private void administrarCreacionUnidades() {
+		Jugador jugadorActual = turnos.turnoActual();
+		ArrayList<EdificioCreador> edificiosCreadores=mapa.edificioCreador(jugadorActual.color());
+		for(EdificioCreador ed:edificiosCreadores ){
+			ed.pasarTurno();
+			ArrayList<Unidad> unidades=ed.unidadesCreadas();
+			for(Unidad unidad:unidades){
+				/*Deep Search*/
+			}
+		}
+	}
 	public void pasarTurno() {
 		turnos.avanzarTurno();
 		administrarRecursos();
+		administrarCreacionEdificios();
+		administrarCreacionUnidades();
 	}
+	
+
 	public Celda ContenidoFilaColumna(int fila, int columna) {
 		return mapa.ContenidoPosicion(new Posicion(fila, columna)); // Aereo o
 																	// Terrestre
@@ -149,17 +190,17 @@ public class Juego {
 		}
 		switch(tipoEdifico){
 			case CreadorAereos:
-				seCreo=factory.fabricarCreadorAereos(turnos.turnoActual(),pos);
+				seCreo=factory.fabricarCreadorAereos(pos);
 			case CreadorTerrestres:
-				seCreo=factory.fabricarCreadorTerrestres(turnos.turnoActual(),pos);
+				seCreo=factory.fabricarCreadorTerrestres(pos);
 			case CreadorSoldados:
-				seCreo=factory.fabricarCreadorSoldados(turnos.turnoActual(),pos);
+				seCreo=factory.fabricarCreadorSoldados(pos);
 			case SumaPoblacion:
-				seCreo=factory.fabricarSumaPoblacion(turnos.turnoActual(),pos);
+				seCreo=factory.fabricarSumaPoblacion(pos);
 			case RecolectableGas:
-				seCreo=factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(), turnos.turnoActual(),pos);
+				seCreo=factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(),pos);
 			case RecolectableMinerales:
-				seCreo=factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), turnos.turnoActual(),pos);
+				seCreo=factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), pos);
 		}
 		if(seCreo==false){
 			// throw new NoHayRecursosException();

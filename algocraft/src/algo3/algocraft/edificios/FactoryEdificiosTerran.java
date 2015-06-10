@@ -11,12 +11,12 @@ import algo3.algocraft.Posicion;
 import algo3.algocraft.VolcanGasVespeno;
 
 public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
-	private Color color;
+	private Jugador jugador;
 	private ArrayList<Edificio> edificiosEnCola = new ArrayList<Edificio>();
 	private HashMap<Edificio, Posicion> posiciones = new HashMap<Edificio, Posicion>();
 
-	public FactoryEdificiosTerran(Color colorJugador) {
-		color = colorJugador;
+	public FactoryEdificiosTerran(Jugador jugador) {
+		this.jugador = jugador;
 	}
 
 	@Override
@@ -31,9 +31,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 		return edificiosCreados;
 	}
 	@Override
-	public Boolean fabricarCreadorAereos(Jugador jugador,Posicion pos) {
+	public Boolean fabricarCreadorAereos(Posicion pos) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>100)){
-			Edificio ed= new PuertoEstelarTerran(color);
+			Edificio ed= new PuertoEstelarTerran(jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(100);
@@ -44,9 +44,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarCreadorTerrestres(Jugador jugador,Posicion pos) {
+	public Boolean fabricarCreadorTerrestres(Posicion pos) {
 		if((jugador.Minerales()>200)&&(jugador.GasVespeno()>100)){
-			edificiosEnCola.add(new Fabrica(color));
+			edificiosEnCola.add(new Fabrica(jugador.color()));
 			jugador.sacarGasVespeno(100);
 			jugador.sacarMineral(200);
 			return true;
@@ -56,9 +56,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarCreadorSoldados(Jugador jugador,Posicion pos) {
+	public Boolean fabricarCreadorSoldados(Posicion pos) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
-			Edificio ed= new Barraca(color);
+			Edificio ed= new Barraca(jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
@@ -69,9 +69,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarSumaPoblacion(Jugador jugador,Posicion pos) {
+	public Boolean fabricarSumaPoblacion(Posicion pos) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
-			Edificio ed= new DepositoDeSuminisitros(color);
+			Edificio ed= new DepositoDeSuminisitros(jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
@@ -83,10 +83,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarRecolectableGas(VolcanGasVespeno volcan,
-			Jugador jugador,Posicion pos) {
+	public Boolean fabricarRecolectableGas(VolcanGasVespeno volcan,Posicion pos) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
-			Edificio ed= new Refineria(volcan, color);
+			Edificio ed= new Refineria(volcan, jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
@@ -97,10 +96,9 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 
 	@Override
-	public Boolean fabricarRecolectableMinerales(Mineral mineral,
-			Jugador jugador,Posicion pos) {
+	public Boolean fabricarRecolectableMinerales(Mineral mineral,Posicion pos) {
 		if((jugador.Minerales()>50)&&(jugador.GasVespeno()>0)){
-			Edificio ed= new CentroDeMineral(mineral, color);
+			Edificio ed= new CentroDeMineral(mineral, jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);

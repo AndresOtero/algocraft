@@ -63,4 +63,9 @@ public class Jugador {
 	public int GasVespeno(){
 		return this.GasVespeno;
 	}
+
+	public void agregarPoblacion() {
+		// TODO Auto-generated method stub
+		
+	}
 }
