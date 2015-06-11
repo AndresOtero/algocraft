@@ -10,6 +10,10 @@ public abstract class Ser {
 	protected int tiempoDeConstruccion;
 	protected Color color;
 	protected Movimiento movimiento=null;
+	protected int suministro=0;
+	public int suministro() {
+		return suministro;
+	}
 	public Movimiento movimiento(){
 		return movimiento;
 	}

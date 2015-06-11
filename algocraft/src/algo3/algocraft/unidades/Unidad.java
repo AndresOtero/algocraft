@@ -4,17 +4,14 @@ import algo3.algocraft.Ser;
 
 public abstract class Unidad extends Ser {
 	protected int vision;
-	protected int suministro;
 	protected boolean contaminadoRadiacion = false;
 	
+
 	public int vision() {
 		return vision;
 	}
 
-	public int suministro() {
-		return suministro;
-	}
-
+	
 	/* danios magicos*/
 	public void recibirEmp() {
 		this.escudo = 0;

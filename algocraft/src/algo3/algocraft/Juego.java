@@ -295,11 +295,20 @@ public class Juego {
 			Posicion posini = new Posicion(filIni,colIni);
 			Posicion posfin = new Posicion(filFinal,colFinal);
 			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaTerrestre();
-			Ser serAtacado2 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
+			Ser serAtacado =  mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
 			verificarSiPuedeAtacarEnRango(unidadQAtaca,posini,posfin);
 			verificarPropiedadAtaque(unidadQAtaca);
-			if ( serAtacado2 != null) unidadQAtaca.atacarTierra(serAtacado2);
-			if ( serAtacado2.estaMuerto()) mapa.borrarSerTerrestre(serAtacado2);
+			if ( serAtacado != null) {
+				unidadQAtaca.atacarTierra(serAtacado);	
+				if ( serAtacado.estaMuerto()){ 
+					mapa.borrarSerTerrestre(serAtacado);
+					for(Jugador jugador: jugadores){
+						if(jugador.esColor(serAtacado.color())){
+							jugador.quitarPoblacion(serAtacado.suministro());
+						}
+					}
+				}
+			}	
 			turnos.agregarQueAtaco(unidadQAtaca);
 		}
 		catch (NoEsPosibleAtacarException e){

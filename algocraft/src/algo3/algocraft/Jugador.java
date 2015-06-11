@@ -27,6 +27,9 @@ public class Jugador {
 		poblacion+=suministro;
 		return true;
 	}
+	public void quitarPoblacion(int suministro){	
+		poblacion-=suministro;
+	}
 	
 	
 	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador) {
