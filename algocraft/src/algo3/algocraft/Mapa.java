@@ -6,7 +6,6 @@ import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.util.Map;
 
-import algo3.algocraft.edificios.CentroDeMineral;
 import algo3.algocraft.edificios.EdificioCreador;
 import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.edificios.Refineria;
@@ -23,7 +22,14 @@ public class Mapa {
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;
 	private Map<Color, ArrayList<EdificioCreador>> edificiosCreadores;
 	ArrayList<Jugador> jugadores;
-
+	
+	/******************************
+	 * 
+	 * 
+	 * Comienzo Inicializacion mapa
+	 * 
+	 * 
+	 ******************************/
 	private Mapa(int ancho, int largo, ArrayList<Jugador> jugadores) {
 		this.mapa = new HashMap<Posicion, Celda>();
 		this.seres = new HashMap<Color, ArrayList<Ser>>();
@@ -60,7 +66,7 @@ public class Mapa {
 		celda1.agregarFuenteRecurso(volcan1);
 		celda2.agregarFuenteRecurso(volcan2);
 		
-		EdificioDeRecurso edificio1= new Refineria(null,jugadores.get(0).color());
+		EdificioDeRecurso edificio1= new Refineria(volcan1,jugadores.get(0).color());
 		EdificioDeRecurso edificio2= new Refineria(null,jugadores.get(1).color());
 		
 		ponerEdificioDeRecurso(pos1,edificio1);
@@ -92,6 +98,13 @@ public class Mapa {
 		/*Devuelve un numero aleatorio entre dos recibidos por parametro*/
 		return (int)(Math.random()*(max-min))+min;		
 	}
+	/******************************
+	 * 
+	 * 
+	 * Comienzo Terrestre/Aereo
+	 * 
+	 * 
+	 ******************************/
 	
 	/* Metodos de ubicacion de unidades y edificios */
 	public void ponerTerrestre(Posicion pos, Ser ser) {
@@ -105,61 +118,6 @@ public class Mapa {
 		agregarSerDeColor(ser, color);
 	}
 
-	private void ponerEdificioDeRecurso(Posicion pos, EdificioDeRecurso edificio) {
-		Celda celda = mapa.get(pos);
-		if (celda.fuenteRecurso() == null) {
-			System.out.println("NO HAY RECURSO AHI");
-			throw new NoHayRecursoEnEsaPosicionException();
-		} else {
-			ponerTerrestre(pos, edificio);
-		}
-	}
-	
-	public void ponerEdificioCreador(Posicion pos, EdificioCreador edificio){
-		Celda celda = mapa.get(pos);
-		if (!celda.ocupadoTerrestre()){
-			ponerTerrestre(pos,edificio);
-			agregarEdificioCreador(edificiosCreadores,edificio,edificio.color());
-		}
-		
-		else throw new LaCeldaTerrestreEstaOcupada();
-	}
-	
-	private void agregarEdificioCreador(Map<Color, ArrayList<EdificioCreador>> edificios,
-			EdificioCreador edificio, Color color){
-		
-		if (edificios.get(color) != null) (edificios.get(color)).add(edificio);
-		else {
-			ArrayList<EdificioCreador> edificiosCreadores = new ArrayList<EdificioCreador>();
-			edificiosCreadores.add(edificio);
-			edificios.put(color, edificiosCreadores);
-		}	
-	}
-	
-	public void ponerEdificioGas(Posicion pos, EdificioDeRecurso edificio) {
-		ponerEdificioDeRecurso(pos, edificio);
-		agregarEdificioDeRecursosDeColor(edificiosDeGas, edificio,
-				edificio.color());
-	}
-
-	public void ponerEdificioMineral(Posicion pos, EdificioDeRecurso edificio) {
-		ponerEdificioDeRecurso(pos, edificio);
-		agregarEdificioDeRecursosDeColor(edificiosDeMineral, edificio,
-				edificio.color());
-	}
-
-	private void agregarEdificioDeRecursosDeColor(
-			Map<Color, ArrayList<EdificioDeRecurso>> edificios,
-			EdificioDeRecurso edificio, Color color) {
-		if (edificios.get(color) != null) {
-			(edificios.get(color)).add(edificio);
-		} else {
-			ArrayList<EdificioDeRecurso> edificiosDeRecursoDeColor = new ArrayList<EdificioDeRecurso>();
-			edificiosDeRecursoDeColor.add(edificio);
-			edificios.put(color, edificiosDeRecursoDeColor);
-		}
-	}
-
 	public void ponerAereo(Posicion pos, Ser ser) {
 		Celda celda = mapa.get(pos);
 		if (celda.ocupadoAerea()) {
@@ -170,7 +128,8 @@ public class Mapa {
 		Color color = ser.color();
 		agregarSerDeColor(ser, color);
 	}
-
+	
+	/*Agrega el ser a la lista de seres*/
 	private void agregarSerDeColor(Ser ser, Color color) {
 		if (seres.get(color) != null) {
 			(seres.get(color)).add(ser);
@@ -180,95 +139,9 @@ public class Mapa {
 			seres.put(color, seresDeColor);
 		}
 	}
-
-	/* Metodos de Busqueda */
-	public Celda ContenidoPosicion(Posicion pos) {
-		return mapa.get(pos);
-	}
-
-	public Boolean estaVaciaTerrestre(Posicion pos) {
-		Celda celda = this.ContenidoPosicion(pos);
-		Boolean estaVacia = !(celda.ocupadoTerrestre());
-		return estaVacia;
-	}
-
-	public Boolean estaVaciaAereo(Posicion pos) {
-		Celda celda = this.ContenidoPosicion(pos);
-		Boolean estaVacia = !(celda.ocupadoAerea());
-		return estaVacia;
-	}
 	
-	public void ponerUnidadEnLaCeldaLibreMasCercana(Ser ser,Unidad unidad){
-		Posicion pos=this.buscarPosicionDeSer(ser);
-		ArrayList<Posicion> adyacentes = adyacentes(pos);
-		Posicion posicionVacia= this.buscarLibreMasCercanoRecursivo(pos, adyacentes);
-		this.ponerTerrestre(posicionVacia, unidad);
-	}
-	private Posicion buscarLibreMasCercanoRecursivo(Posicion pos,ArrayList<Posicion> adyacentes ){
-		for(Posicion ady:adyacentes){
-			if(this.estaVaciaTerrestre(pos)){
-				return ady;
-			}
-			
-		}
-		for(Posicion ady:adyacentes){
-			adyacentes.addAll(this.adyacentes(ady));
-		}
-		return this.buscarLibreMasCercanoRecursivo(pos, adyacentes);
-	}
-
-
-	private ArrayList<Posicion> adyacentes(Posicion pos) {
-		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
-		for (int i = -1; i < 2; i = i + 2) {
-			if (this.ancho >= i + pos.abscisa()) {
-				adyacentes.add(new Posicion(pos.abscisa() + i, pos.ordenada()));
-			}
-			if (this.alto >= i + pos.ordenada()) {
-				adyacentes.add(new Posicion(pos.abscisa(), pos.ordenada() + i));
-			}
-		}
-		return adyacentes;
-	}
-	
-	public ArrayList<Unidad> calcularRadio(Posicion pos) {
-		ArrayList<Unidad> unidadesAlcanzadas = new ArrayList<Unidad>();
-		for (int i = -1; i <= 1; i++) {
-			for (int j = -1; j <= 1; j++) {
-				Celda celda = this.ContenidoPosicion(new Posicion(pos.abscisa()+i, pos.ordenada()+ j));
-				if (celda.ocupadoTerrestre()){
-					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaTerrestre());
-				}
-				if (celda.ocupadoAerea()){
-					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaAerea());
-				}
-			}
-		}
-		return unidadesAlcanzadas;
-	}
-
-
-	public ArrayList<Ser> seresDeJugador(Color color) {
-		return (seres.get(color));
-	}
-
-	public ArrayList<EdificioDeRecurso> edificioDeGas(Color color) {
-		return (edificiosDeGas.get(color));
-	}
-
-	public ArrayList<EdificioDeRecurso> edificioDeMineral(Color color) {
-		return (edificiosDeMineral.get(color));
-	}
-	
-	public ArrayList<EdificioCreador> edificioCreador(Color color) {
-		return (edificiosCreadores.get(color));
-	}
-	
-
-	/* Metodos para mover */
+	/* Metodos de movimiento de unidades*/
 	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal) {
-		// aca deberia mover una unidad a la fila y columna que le pasan
-		// si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
 		Celda celdaFinal = mapa.get(posicionFinal);
 		if (celdaFinal.ocupadoTerrestre()) {
 			System.out.println("ESTA OCUPADO Terrestre");
@@ -306,7 +179,185 @@ public class Mapa {
 		ponerAereo(posicionFinal, unidadAMover);
 		celdaInicial.desocuparAerea();
 	}
+	
+	 /*************************
+	 * 
+	 * 
+	 * Comienzo Edificio Recurso
+	 * 
+	 * 
+	 *****************************/
+	
+	private void ponerEdificioDeRecurso(Posicion pos, EdificioDeRecurso edificio) {
+		Celda celda = mapa.get(pos);
+		if (celda.fuenteRecurso() == null) {
+			System.out.println("NO HAY RECURSO AHI");
+			throw new NoHayRecursoEnEsaPosicionException();
+		} else {
+			ponerTerrestre(pos, edificio);
+		}
+	}
+	
+	public void ponerEdificioGas(Posicion pos, EdificioDeRecurso edificio) {
+		ponerEdificioDeRecurso(pos, edificio);
+		agregarEdificioDeRecursosDeColor(edificiosDeGas, edificio,
+				edificio.color());
+	}
 
+	public void ponerEdificioMineral(Posicion pos, EdificioDeRecurso edificio) {
+		ponerEdificioDeRecurso(pos, edificio);
+		agregarEdificioDeRecursosDeColor(edificiosDeMineral, edificio,
+				edificio.color());
+	}
+	
+	/*agrega edificio de recurso a las listasssss*/
+	private void agregarEdificioDeRecursosDeColor(
+			Map<Color, ArrayList<EdificioDeRecurso>> edificios,
+			EdificioDeRecurso edificio, Color color) {
+		
+		if (edificios.get(color) != null) {
+			(edificios.get(color)).add(edificio);
+		} else {
+			ArrayList<EdificioDeRecurso> edificiosDeRecursoDeColor = new ArrayList<EdificioDeRecurso>();
+			edificiosDeRecursoDeColor.add(edificio);
+			edificios.put(color, edificiosDeRecursoDeColor);
+		}
+		agregarSerDeColor(edificio,color);
+	}
+
+	
+	
+	/******************************
+	 * 
+	 * 
+	 * Comienzo EdificioCreador
+	 * 
+	 * 
+	 ******************************/
+	
+	public void ponerEdificioCreador(Posicion pos, EdificioCreador edificio){
+		Celda celda = mapa.get(pos);
+		if (!celda.ocupadoTerrestre()){
+			ponerTerrestre(pos,edificio);
+			agregarEdificioCreador(edificiosCreadores,edificio,edificio.color());
+		}
+		
+		else throw new LaCeldaTerrestreEstaOcupada();
+	}
+	
+	/*Agrega edificiocreador a las listas*/
+	private void agregarEdificioCreador(Map<Color, ArrayList<EdificioCreador>> edificios,
+			EdificioCreador edificio, Color color){
+		
+		if (edificios.get(color) != null) (edificios.get(color)).add(edificio);
+		else {
+			ArrayList<EdificioCreador> edificiosCreadores = new ArrayList<EdificioCreador>();
+			edificiosCreadores.add(edificio);
+			edificios.put(color, edificiosCreadores);
+		}	
+		agregarSerDeColor(edificio,color);
+	}
+
+	
+
+	/*************************
+	 * 
+	 *  
+	 *  Metodos de Busqueda
+	 *  
+	 *************************/
+	public Celda ContenidoPosicion(Posicion pos) {
+		return mapa.get(pos);
+	}
+
+	public Boolean estaVaciaTerrestre(Posicion pos) {
+		Celda celda = this.ContenidoPosicion(pos);
+		Boolean estaVacia = !(celda.ocupadoTerrestre());
+		return estaVacia;
+	}
+
+	public Boolean estaVaciaAereo(Posicion pos) {
+		Celda celda = this.ContenidoPosicion(pos);
+		Boolean estaVacia = !(celda.ocupadoAerea());
+		return estaVacia;
+	}
+	
+	public void ponerUnidadEnLaCeldaLibreMasCercana(EdificioCreador ed,Unidad unidad){
+		Posicion pos=this.buscarPosicionDeSer(ed);
+		ArrayList<Posicion> adyacentes = adyacentes(pos);
+		Posicion posicionVacia= this.buscarLibreMasCercanoRecursivo(pos, adyacentes);
+		this.ponerTerrestre(posicionVacia, unidad);
+	}
+	
+	private Posicion buscarLibreMasCercanoRecursivo(Posicion pos,ArrayList<Posicion> adyacentes ){
+		for(Posicion ady:adyacentes){
+			if(this.estaVaciaTerrestre(pos)){
+				return ady;
+			}
+			
+		}
+		for(Posicion ady:adyacentes){
+			adyacentes.addAll(this.adyacentes(ady));
+		}
+		return this.buscarLibreMasCercanoRecursivo(pos, adyacentes);
+	}
+
+	private ArrayList<Posicion> adyacentes(Posicion pos) {
+		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
+		for (int i = -1; i < 2; i = i + 2) {
+			if (this.ancho >= i + pos.abscisa()) {
+				adyacentes.add(new Posicion(pos.abscisa() + i, pos.ordenada()));
+			}
+			if (this.alto >= i + pos.ordenada()) {
+				adyacentes.add(new Posicion(pos.abscisa(), pos.ordenada() + i));
+			}
+		}
+		return adyacentes;
+	}
+	
+	public ArrayList<Unidad> calcularRadio(Posicion pos) {
+		ArrayList<Unidad> unidadesAlcanzadas = new ArrayList<Unidad>();
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				Celda celda = this.ContenidoPosicion(new Posicion(pos.abscisa()+i, pos.ordenada()+ j));
+				if (celda.ocupadoTerrestre()){
+					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaTerrestre());
+				}
+				if (celda.ocupadoAerea()){
+					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaAerea());
+				}
+			}
+		}
+		return unidadesAlcanzadas;
+	}
+
+	/******************************
+	 * 
+	 * 
+	 * DEVOLUCIONES
+	 * 
+	 * 
+	 ******************************/
+
+	public ArrayList<Ser> seresDeJugador(Color color) {
+		return (seres.get(color));
+	}
+
+	public ArrayList<EdificioDeRecurso> edificioDeGas(Color color) {
+		return (edificiosDeGas.get(color));
+	}
+
+	public ArrayList<EdificioDeRecurso> edificioDeMineral(Color color) {
+		return (edificiosDeMineral.get(color));
+	}
+	
+	public ArrayList<EdificioCreador> edificioCreador(Color color) {
+		return (edificiosCreadores.get(color));
+	}
+	
+	
+
+	
 	private ArrayList<Posicion> encontrarMinimoCamino(Posicion posicionInicial,
 			Posicion posicionFinal, Movimiento movimiento) {
 		/*
@@ -370,17 +421,18 @@ public class Mapa {
 		return (this.estaVaciaAereo(pos) || this.estaVaciaTerrestre(pos));
 	}
 
-	/* Metodos de Borrado */
+	/* ********************
+	 * 
+	 * 
+	 * BORRADO
+	 * 
+	 * 
+	 * *******************/
 	private Posicion borrarSer(Ser ser) {
-		Color color = ser.color();
-		ArrayList<Ser> seresDeColor = seres.get(color);
-		for (int i = 0; i < seresDeColor.size(); i++) {
-			Ser OtroSer = seresDeColor.get(i);
-			if (ser == OtroSer)
-				seresDeColor.remove(ser);
+		if (seres.get(ser.color()).contains(ser)){
+			seres.get(ser.color()).remove(ser);
 		}
 		return buscarPosicionDeSer(ser);
-
 	}
 
 	public void borrarSerAereo(Ser ser) {
@@ -389,11 +441,21 @@ public class Mapa {
 		celda.desocuparAerea();
 
 	}
-
+	
 	public void borrarSerTerrestre(Ser ser) {
 		Posicion pos = borrarSer(ser);
 		Celda celda = mapa.get(pos);
 		celda.desocuparTerrestre();
+		
+		if (edificiosCreadores.get(ser.color()).contains(ser))
+			edificiosCreadores.get(ser.color()).remove(ser);
+		
+		if (edificiosDeGas.get(ser.color()).contains(ser))
+			edificiosDeGas.get(ser.color()).remove(ser);
+		
+		if (edificiosDeMineral.get(ser.color()).contains(ser))
+			edificiosDeMineral.get(ser.color()).remove(ser);
+		
 	}
 
 	private Posicion buscarPosicionDeSer(Ser ser) {
@@ -411,7 +473,13 @@ public class Mapa {
 		return null;
 	}
 
-	/* Singleton */
+	/* *****************
+	 * 
+	 * 
+	 * Singleton 
+	 * 
+	 * 
+	 * ******************/
 	private synchronized static void createInstance(int fil, int col,
 			ArrayList<Jugador> jugadores) {
 		if (instancia == null) {
