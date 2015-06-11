@@ -27,4 +27,11 @@ public abstract class UnidadDeAtaque extends Unidad {
 		atacado.recibirDanio(danioAire);
 	}
 
+	public int rangoAtaqueAereo() {
+		return rangoAtaqueAire;
+	}
+	
+	public int rangoAtaqueTerrestre(){
+		return rangoAtaqueTierra;
+	}
 }
