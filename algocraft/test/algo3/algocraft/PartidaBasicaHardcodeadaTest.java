@@ -22,13 +22,18 @@ public class PartidaBasicaHardcodeadaTest {
 		Assert.assertFalse(juego.hayGanador());
 		Assert.assertEquals(juego.ContenidoFilaColumna(1, 1).serEnLaCeldaTerrestre().color(), Color.ROJO);
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 6);
 		for(int i=0;i<5;i++){
 			for(int j=0;j<5;j++){
 				Celda celda = juego.ContenidoFilaColumna(i, j);
 				if((celda.fuenteRecurso() != null)&&(i!=1)&&(j!=1))juego.crearEdificio(TipoEdificio.RecolectableMinerales, i, j);
 			}
 		}
+		juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 6);
+		juego.pasarTurno();
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		juego.pasarTurno();
+		juego.crearUnidad(6, 6, TipoUnidad)
+
 		// Inicializo
 		/*Jugador jugador1 = new Jugador("jugador1",Color.AZUL,TipoRaza.PROTOSS);
 		Jugador jugador2 = new Jugador("jugador2",Color.AMARILLO,TipoRaza.TERRAN);

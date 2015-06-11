@@ -69,7 +69,7 @@ public class Mapa {
 		celda2.agregarFuenteRecurso(volcan2);
 		
 		EdificioDeRecurso edificio1= new Refineria(volcan1,jugadores.get(0).color());
-		EdificioDeRecurso edificio2= new Refineria(null,jugadores.get(1).color());
+		EdificioDeRecurso edificio2= new Refineria(volcan2,jugadores.get(1).color());
 		
 		ponerEdificioGas(pos1,edificio1);
 		ponerEdificioGas(pos2,edificio2);

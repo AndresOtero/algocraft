@@ -25,7 +25,7 @@ public class JuegoTest {
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
 		
 		juego.iniciarJuego();
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+		juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 6);
 		Unidades unidad = Unidades.MARINE;
 		
 		juego.pasarTurno();
@@ -75,9 +75,13 @@ public class JuegoTest {
 		TipoEdificio tipo = TipoEdificio.CreadorSoldados;
 		juego.crearEdificio(tipo, 1, 0);
 		tipo = TipoEdificio.RecolectableGas;
-		juego.crearEdificio(tipo, 2, 2);
-		tipo = TipoEdificio.RecolectableMinerales;
-		juego.crearEdificio(tipo, 3, 3);
+		juego.crearEdificio(tipo, 1, 1);
+		for(int i=0;i<5;i++){
+			for(int j=0;j<5;j++){
+				Celda celda = juego.ContenidoFilaColumna(i, j);
+				if((celda.fuenteRecurso() != null)&&(i!=1)&&(j!=1))juego.crearEdificio(TipoEdificio.RecolectableMinerales, i, j);
+			}
+		}
 
 			
 		juego.pasarTurno();

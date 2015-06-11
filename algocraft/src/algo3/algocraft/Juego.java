@@ -42,8 +42,8 @@ public class Juego {
 
 	private void inicializarRecursos() {
 		for (Jugador juga : jugadores) {
-			juga.agregarGasVespeno(200);
-			juga.agregarMineral(200);
+			juga.agregarGasVespeno(800);
+			juga.agregarMineral(800);
 		}
 	}
 	
