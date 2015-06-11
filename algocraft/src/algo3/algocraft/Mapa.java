@@ -282,7 +282,7 @@ public class Mapa {
 		return estaVacia;
 	}
 	
-	public void ponerUnidadEnLaCeldaLibreMasCercana(EdificioCreador ed,Unidad unidad){
+	public void ponerUnidadEnLaCeldaLibreMasCercana(Ser ed,Unidad unidad){
 		Posicion pos=this.buscarPosicionDeSer(ed);
 		ArrayList<Posicion> adyacentes = adyacentes(pos);
 		Posicion posicionVacia= this.buscarLibreMasCercanoRecursivo(pos, adyacentes);

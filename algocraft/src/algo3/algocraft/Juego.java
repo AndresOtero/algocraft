@@ -202,9 +202,7 @@ public class Juego {
 				seCreo=factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), pos);
 		}
 		if(seCreo==false){
-			// throw new NoHayRecursosException();
-			// throw new NoEstanLosRequisitosException();
-			return;
+			throw new NoHayRecursosException();
 		}
 		mapa.ponerTerrestre(pos, new EdificioEnConstruccion(turnos.turnoActual().color()));
 
@@ -334,7 +332,7 @@ public class Juego {
 			// validar que pueda usarlo
 			ArrayList<AltoTemplarioInteface> copias =((AltoTemplario)unidadQAtaca).alucinacion();
 			for (int i = 0; i< copias.size(); i++){
-				mapa.ponerUnidadEnLaCeldaLibreMasCercana(unidadQAtaca,(Unidad)copias.get(i));
+				mapa.ponerUnidadEnLaCeldaLibreMasCercana((Ser)unidadQAtaca,(Unidad)copias.get(i));
 			}
 		}
 		

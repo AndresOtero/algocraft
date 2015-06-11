@@ -154,9 +154,9 @@ public class JuegoTest {
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
 		
 		juego.iniciarJuego();
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+		juego.crearEdificio(TipoEdificio.CreadorSoldados, 0, 0);
 		try{
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 0, 0);
 		}catch(LaCeldaTerrestreEstaOcupada e){
 			entro = true;
 		}
@@ -172,12 +172,13 @@ public class JuegoTest {
 		boolean entro = false;
 		
 		juego.iniciarJuego();
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+		juego.crearEdificio(TipoEdificio.CreadorSoldados, 5, 0);
 		try{
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 26, 25);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 27, 25);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 28, 25);
-			
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 7, 0);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 8, 0);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 4, 0);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 9, 0);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 10, 0);
 		}catch(NoHayRecursosException e){
 			entro = true;
 		}
