@@ -19,7 +19,9 @@ public class PartidaBasicaHardcodeadaTest {
 		Assert.assertFalse(juego.hayGanador());
 		String string=juego.JugadorActual();
 		Assert.assertEquals(juego.JugadorActual(), "Federico");
-		
+		juego.pasarTurno();
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+
 		// Inicializo
 		/*Jugador jugador1 = new Jugador("jugador1",Color.AZUL,TipoRaza.PROTOSS);
 		Jugador jugador2 = new Jugador("jugador2",Color.AMARILLO,TipoRaza.TERRAN);

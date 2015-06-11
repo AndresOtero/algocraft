@@ -58,8 +58,7 @@ public class Juego {
 
 	private void administrarRecursos() {
 		Jugador jugadorActual = turnos.turnoActual();
-		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa
-				.edificioDeGas(jugadorActual.color());
+		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa.edificioDeGas(jugadorActual.color());
 		for (EdificioDeRecurso edificio : edificiosDeRecursos) {
 			jugadorActual.agregarGasVespeno(edificio.recolectar());
 		}
