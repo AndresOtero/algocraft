@@ -33,9 +33,21 @@ public class PartidaBasicaHardcodeadaTest {
 			juego.pasarTurno();
 		}
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		Posicion posicion= buscarUnidad(juego);
 		Assert.assertTrue(juego.ContenidoFilaColumna(6, 6).ocupadoTerrestre());	
-		juego.moverPosicionTerrestre(6, 6, 9, 9);
+		//juego.moverPosicionTerrestre(posicion.abscisa(), posicion.ordenada(), 9, 9);
 	
+	}
+	private Posicion buscarUnidad(Juego juego) {
+		for(int i=5;i<8;i+=1){
+			for(int j=5;j<8;j+=1){
+				Celda celda=juego.ContenidoFilaColumna(i, j);
+				if(juego.ContenidoFilaColumna(i, j).ocupadoTerrestre()&&(i!=6&&j!=6)){
+					return new Posicion(i,j);
+				}
+			}
+		}
+		return null;
 	}
 	public void crearRecolectableMineral(Juego juego){
 		for(int i=0;i<5;i++){

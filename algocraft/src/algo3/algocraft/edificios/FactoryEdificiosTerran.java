@@ -27,8 +27,11 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 			edificio.pasarTurno();
 			if (edificio.creado()) {
 				edificiosCreados.put(edificio,posiciones.get(edificio));
-				edificiosEnCola.remove(edificio);
 			}
+		}
+		for(Edificio edificio:edificiosCreados.keySet()){
+			if (edificiosEnCola.contains(edificio))
+			edificiosEnCola.remove(edificio);
 		}
 		return edificiosCreados;
 	}

@@ -31,7 +31,7 @@ public class FactoryEdificiosTerranTest {
 
 	@Test
 	public void crearCentroTest() {
-		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
+		Jugador jugador = new Jugador("Andys", Color.ROJO, TipoRaza.TERRAN);
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);
 		Posicion pos=new Posicion(1,1);		
