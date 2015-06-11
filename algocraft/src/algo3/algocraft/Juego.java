@@ -20,18 +20,15 @@ public class Juego {
 
 	//Metodos de Inicializacion
 	public void crearJugador(String nombre, Color color, TipoRaza raza) {
-		
 		if(nombre.length() < 4){
 			throw new NombreIncorrectoException();
 		}
 		 this.chequearNombreYColorNoRepetidos(nombre, color);
-		
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);
 		if (raza == TipoRaza.TERRAN) {
 			fabricas.put(jugador, new FactoryEdificiosTerran(jugador));
 		} else
-
 		{
 			fabricas.put(jugador, new FactoryEdificiosProtoss(jugador));
 		}
@@ -55,18 +52,10 @@ public class Juego {
 		return turnos.turnoActual().nombre();
 	}
 
-	public boolean hayGanador(Color color){
-		boolean hayGanador = false;
-		if (mapa.seresDeJugador(color).isEmpty()) hayGanador = true;
-		else return false;
-		if (mapa.edificioDeGas(color).isEmpty()) hayGanador = true;
-		else return false;
-		if (mapa.edificioDeMineral(color).isEmpty()) hayGanador = true;
-		else return false;
-		return hayGanador;
+	public boolean hayGanador(){
+		return (mapa.seresDeJugador(turnos.turnoActual().color()).isEmpty());
 	}
-	
-	
+
 	private void administrarRecursos() {
 		Jugador jugadorActual = turnos.turnoActual();
 		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa
@@ -79,6 +68,7 @@ public class Juego {
 			jugadorActual.agregarMineral(edificio.recolectar());
 		}
 	}
+	
 	private void administrarCreacionEdificios() {
 		Jugador jugadorActual = turnos.turnoActual();
 		AbstractFactoryEdificios factory=fabricas.get(jugadorActual);
@@ -103,6 +93,7 @@ public class Juego {
 			}
 		}
 	}
+	
 	private void administrarCreacionUnidades() {
 		Jugador jugadorActual = turnos.turnoActual();
 		ArrayList<EdificioCreador> edificiosCreadores=mapa.edificioCreador(jugadorActual.color());
@@ -124,6 +115,7 @@ public class Juego {
 			}
 		}			
 	}
+	
 	public void pasarTurno() {
 		turnos.avanzarTurno();
 		administrarRecursos();
@@ -133,10 +125,9 @@ public class Juego {
 	
 
 	public Celda ContenidoFilaColumna(int fila, int columna) {
-		return mapa.ContenidoPosicion(new Posicion(fila, columna)); // Aereo o
-																	// Terrestre
-																	// ?
+		return mapa.ContenidoPosicion(new Posicion(fila, columna)); 
 	}
+	
 	//Metodos de movimiento
 	public boolean moverPosicionTerrestre(int filaInicio,
 			int columnaInicio, int filaDestino, int columnaDestino) {
@@ -154,8 +145,7 @@ public class Juego {
 		return true;
 	}
 
-	public boolean moverPosicionAereo(int filaInicio,
-			int columnaInicio, int filaDestino, int columnaDestino) {
+	public boolean moverPosicionAereo(int filaInicio,int columnaInicio, int filaDestino, int columnaDestino) {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
@@ -181,9 +171,6 @@ public class Juego {
 		if (!turnos.turnoActual().esColor(unidad.color) || turnos.yaSeMovio(unidad))
 			throw new NoEsPosibleMoverException();
 	}
-
-	
-
 	private void chequearNombreYColorNoRepetidos(String nombre, Color color)  {
 		for (Jugador jugador : jugadores) {
 			if (jugador.esNombre(nombre) || jugador.esColor(color)) {
@@ -191,6 +178,7 @@ public class Juego {
 			}
 		}
 	}
+	
 	//Metodos de Creacion
 	public void crearEdificio(TipoEdificio tipoEdifico, int fila, int columna) {
 		AbstractFactoryEdificios factory= fabricas.get(turnos.turnoActual()); 
@@ -316,6 +304,7 @@ public class Juego {
 		}
 		return true;
 	}	
+	
 	public void ataqueMagicoEnRadio(UnidadMagica unidad, Posicion pos){
 		ArrayList <Unidad> atacados = mapa.calcularRadio(pos);
 		unidad.ataqueRadio(atacados);

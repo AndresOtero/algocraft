@@ -11,7 +11,6 @@ import algo3.algocraft.unidades.*;
 
 public class PartidaBasicaHardcodeadaTest {
 	@Test
-	
 	public void HayGanador(){
 		// Inicializo
 		Jugador jugador1 = new Jugador("jugador1",Color.AZUL,TipoRaza.PROTOSS);
