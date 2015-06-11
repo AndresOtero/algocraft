@@ -5,6 +5,7 @@ import algo3.algocraft.Ser;
 public abstract class Unidad extends Ser {
 	protected int vision;
 	protected boolean contaminadoRadiacion = false;
+	private int meQuedaTormenta;
 	
 
 	public int vision() {
@@ -19,14 +20,39 @@ public abstract class Unidad extends Ser {
 	}
 
 	public void recibirTormenta() {
-		this.recibirDanio(100); // POR 2 TURNOS !!
+		meQuedaTormenta = 2;
+		
 	}
 	
 	public void recibirRadiacion(){
 		contaminadoRadiacion = true;
 	}
 	
-	public boolean estoyContaminado(){
+	public boolean estoyContaminadoPorTormenta(){
+		meQuedaTormenta-=1;
+		if(meQuedaTormenta>0) return true;
+		return false;
+	}
+	
+	public boolean estoyContaminadoPorRadiacion(){
 		return contaminadoRadiacion; // En cada turno si esta contaminado le bajas vida
+	}
+	
+	@Override
+	public void pasarTurno(){
+		this.revisarMagias();
+		if(this.tiempoDeConstruccion==0){
+			return;
+		}
+		this.tiempoDeConstruccion=this.tiempoDeConstruccion-1;
+		return;
+	}
+
+
+	private void revisarMagias() {
+		if (this.estoyContaminadoPorRadiacion())
+			this.recibirDanio(20);
+		if ( estoyContaminadoPorTormenta())
+			this.recibirDanio(100); 
 	}
 }

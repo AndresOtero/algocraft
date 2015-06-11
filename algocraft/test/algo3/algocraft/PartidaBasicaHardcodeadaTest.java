@@ -16,7 +16,9 @@ public class PartidaBasicaHardcodeadaTest {
 		juego.crearJugador("Andres", Color.ROJO, TipoRaza.PROTOSS);
 		juego.crearJugador("Federico", Color.AZUL, TipoRaza.TERRAN);
 		juego.iniciarJuego();
-		
+		Assert.assertFalse(juego.hayGanador());
+		String string=juego.JugadorActual();
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
 		
 		// Inicializo
 		/*Jugador jugador1 = new Jugador("jugador1",Color.AZUL,TipoRaza.PROTOSS);

@@ -252,7 +252,7 @@ public class Juego {
 			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaAerea();
 			Ser serAtacado1 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaAerea();
 			
-			verificarSiPuedeAtacarEnRango(unidadQAtaca,posini,posfin);
+			verificarSiPuedeAtacarEnRangoAereo(unidadQAtaca,posini,posfin);
 			verificarPropiedadAtaque(unidadQAtaca);
 			if ( serAtacado1 != null ) unidadQAtaca.atacarAire(serAtacado1);
 			
@@ -266,9 +266,17 @@ public class Juego {
 		return true;
 	}
 	
-	private void verificarSiPuedeAtacarEnRango(Unidad unidadAMover,
+	
+	private void verificarSiPuedeAtacarEnRangoAereo(UnidadDeAtaque unidadQAtaca, Posicion posicionInicial , Posicion posicionFinal){
+		if (unidadQAtaca.rangoAtaqueAereo()>posicionInicial.distancia(posicionFinal))
+			throw new NoEsPosibleAtacarException();
+	}
+	
+	
+
+	private void verificarSiPuedeAtacarEnRangoTerrestre(UnidadDeAtaque unidadQAtaca,
 			Posicion posicionInicial, Posicion posicionFinal) {
-		if (unidadAMover.vision()>posicionInicial.distancia(posicionFinal))
+		if (unidadQAtaca.rangoAtaqueTerrestre()>posicionInicial.distancia(posicionFinal))
 			throw new NoEsPosibleAtacarException();
 	}
 	
@@ -284,7 +292,7 @@ public class Juego {
 			Posicion posfin = new Posicion(filFinal,colFinal);
 			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaTerrestre();
 			Ser serAtacado =  mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
-			verificarSiPuedeAtacarEnRango(unidadQAtaca,posini,posfin);
+			verificarSiPuedeAtacarEnRangoTerrestre(unidadQAtaca,posini,posfin);
 			verificarPropiedadAtaque(unidadQAtaca);
 			if ( serAtacado != null) {
 				unidadQAtaca.atacarTierra(serAtacado);	
@@ -305,7 +313,36 @@ public class Juego {
 		return true;
 	}	
 	
-	public void ataqueMagicoEnRadio(UnidadMagica unidad, Posicion pos){
+
+	public void ataqueMagico(AtaqueMagico ataque , int filIni ,int colIni, int filFinal,int colFinal ){
+		Posicion posini = new Posicion(filIni,colIni);
+		Posicion posfin = new Posicion(filFinal,colFinal);
+		UnidadMagica unidadQAtaca = (UnidadMagica) mapa.ContenidoPosicion(posini).serEnLaCeldaTerrestre();
+		// si no puede aplicar magia -> lanzar error
+		// si no es su turno , -> error				
+		switch(ataque){
+		case RADIACION:
+			Unidad unidadAtacada = (Unidad) mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
+			// validar que sea un ser
+			((NaveCiencia) unidadQAtaca).radiacion(unidadAtacada);
+		case EMP:
+			ataqueMagicoEnRadio(unidadQAtaca,posfin);
+			
+		case TORMENTA:
+			ataqueMagicoEnRadio(unidadQAtaca,posfin);
+			
+		case ALUCINACION:
+			// validar que pueda usarlo
+			ArrayList<AltoTemplarioInteface> copias =((AltoTemplario)unidadQAtaca).alucinacion();
+			for (int i = 0; i< copias.size(); i++){
+				mapa.ponerUnidadEnLaCeldaLibreMasCercana(unidadQAtaca,(Unidad)copias.get(i));
+			}
+		}
+		
+	}
+	
+	
+	private void ataqueMagicoEnRadio(UnidadMagica unidad, Posicion pos){
 		ArrayList <Unidad> atacados = mapa.calcularRadio(pos);
 		unidad.ataqueRadio(atacados);
 	}
