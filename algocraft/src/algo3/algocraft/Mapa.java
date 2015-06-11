@@ -1,5 +1,8 @@
 package algo3.algocraft;
 
+import Color;
+import Ser;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.PriorityQueue;
@@ -340,18 +343,34 @@ public class Mapa {
 	 ******************************/
 
 	public ArrayList<Ser> seresDeJugador(Color color) {
+		if(seres.get(color)==null){
+			ArrayList<Ser> seresDeColor = new ArrayList<Ser>();
+			seres.put(color, seresDeColor);
+		}
 		return (seres.get(color));
 	}
 
 	public ArrayList<EdificioDeRecurso> edificioDeGas(Color color) {
+		if(edificiosDeGas.get(color)==null){
+			ArrayList<EdificioDeRecurso> edificios = new ArrayList<EdificioDeRecurso>();
+			edificiosDeGas.put(color, edificios);
+		}
 		return (edificiosDeGas.get(color));
 	}
 
 	public ArrayList<EdificioDeRecurso> edificioDeMineral(Color color) {
+		if(edificiosDeMineral.get(color)==null){
+			ArrayList<EdificioDeRecurso> edificios = new ArrayList<EdificioDeRecurso>();
+			edificiosDeMineral.put(color, edificios);
+		}
 		return (edificiosDeMineral.get(color));
 	}
 	
 	public ArrayList<EdificioCreador> edificioCreador(Color color) {
+		if(edificiosCreadores.get(color)==null){
+			ArrayList<EdificioCreador> edificios = new ArrayList<EdificioCreador>();
+			edificiosCreadores.put(color, edificios);
+		}
 		return (edificiosCreadores.get(color));
 	}
 	
