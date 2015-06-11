@@ -12,8 +12,14 @@ import algo3.algocraft.unidades.*;
 public class PartidaBasicaHardcodeadaTest {
 	@Test
 	public void HayGanador(){
+		Juego juego =Juego.getInstance();
+		juego.crearJugador("Andres", Color.ROJO, TipoRaza.PROTOSS);
+		juego.crearJugador("Federico", Color.AZUL, TipoRaza.TERRAN);
+		juego.iniciarJuego();
+		
+		
 		// Inicializo
-		Jugador jugador1 = new Jugador("jugador1",Color.AZUL,TipoRaza.PROTOSS);
+		/*Jugador jugador1 = new Jugador("jugador1",Color.AZUL,TipoRaza.PROTOSS);
 		Jugador jugador2 = new Jugador("jugador2",Color.AMARILLO,TipoRaza.TERRAN);
 		ArrayList <Jugador> jugadores = new ArrayList<Jugador>();
 		jugadores.add(jugador1);
@@ -74,7 +80,7 @@ public class PartidaBasicaHardcodeadaTest {
 		
 		 // mapa.borrarSerTerrestre(depj2); SE QUEJA DEL NULL . HAY QUE REVISAR ESO
 		
-		
+		*/
 	}
 	
 	

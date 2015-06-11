@@ -22,7 +22,7 @@ public class Celda {
 	}
 
 	public boolean ocupadoTerrestre() {
-		return (this.serTerrestre != null || this.recurso != null);
+		return (this.serTerrestre != null);
 	}
 
 	public boolean ocupadoAerea() {
