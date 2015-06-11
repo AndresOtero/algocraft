@@ -80,16 +80,18 @@ public class Juego {
 				mapa.borrarSerTerrestre(mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre());	
 				if(ed instanceof EdificioCreador){
 					mapa.ponerEdificioCreador(pos,(EdificioCreador) ed);
-				}
-				if(ed instanceof RecolectableGas){
+				} else if(ed instanceof RecolectableGas){
 					mapa.ponerEdificioGas(pos,(EdificioDeRecurso) ed);
-				}
-				if(ed instanceof RecolectableMinerales){
+					return;
+				}else if(ed instanceof RecolectableMinerales){
 					mapa.ponerEdificioMineral(pos,(EdificioDeRecurso) ed);
+					return;
+				}else{
+					jugadorActual.agregarEspacionParaPoblacion();
+					mapa.ponerTerrestre(pos, ed);
 				}
-				jugadorActual.agregarEspacionParaPoblacion();
-				mapa.ponerTerrestre(pos, ed);
 			}
+			
 		}
 	}
 	
@@ -133,6 +135,7 @@ public class Juego {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
+			Ser ser = mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();	
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();
 			verificarPropiedadUnidad(unidadAMover);
 			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
@@ -190,16 +193,22 @@ public class Juego {
 		switch(tipoEdifico){
 			case CreadorAereos:
 				seCreo=factory.fabricarCreadorAereos(pos);
+				break;
 			case CreadorTerrestres:
 				seCreo=factory.fabricarCreadorTerrestres(pos);
+				break;
 			case CreadorSoldados:
 				seCreo=factory.fabricarCreadorSoldados(pos);
+				break;
 			case SumaPoblacion:
 				seCreo=factory.fabricarSumaPoblacion(pos);
+				break;
 			case RecolectableGas:
 				seCreo=factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(),pos);
+				break;
 			case RecolectableMinerales:
 				seCreo=factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), pos);
+				break;
 		}
 		if(seCreo==false){
 			throw new NoHayRecursosException();
@@ -212,32 +221,45 @@ public class Juego {
 	public boolean crearUnidad(int fil, int col, Unidades unidad){
 		Posicion pos = new Posicion(fil,col);
 		// verificar que haya edificio
+		Edificio edificio =(Edificio) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
 		switch(unidad){
 			case ALTOTEMPLARIO:
 				((ArchivosTemplarios) ed).crearAltoTemplario(turnos.turnoActual());
+				break;
 			case SCOUT:
 				((PuertoEstelarProtoss) ed).crearScout(turnos.turnoActual());
+				break;
 			case MARINE:
 				((Barraca) ed).crearMarine(turnos.turnoActual());
+				break;
 			case DRAGON:
 				((Acceso) ed).crearDragon(turnos.turnoActual());
+				break;
 			case NAVECIENCIA:
 				((PuertoEstelarTerran) ed).crearNaveCiencia(turnos.turnoActual());
+				break;
 			case NAVETRANSPORTEPROTOSS:
 				((PuertoEstelarProtoss) ed).crearNaveTransporteProtoss(turnos.turnoActual());
+				break;
 			case NAVETRANSPORTETERRAN:
 				((PuertoEstelarTerran) ed).crearNaveTransporteTerran(turnos.turnoActual());
+				break;
 			case ESPECTRO:
 				((PuertoEstelarTerran) ed).crearEspectro(turnos.turnoActual());
+				break;
 			case GOLLIAT:
 				((Fabrica) ed).crearGolliat(turnos.turnoActual());
+				break;
 			case ZEALOT:
 				((Acceso) ed).crearZealot(turnos.turnoActual());
+				break;
+			default:
+				throw new NoHayEspacioException();
 		}
+		return true;
 		 	
-		throw new NoHayEspacioException();
 	}
 	
 	//Metodos De Ataque
@@ -322,11 +344,14 @@ public class Juego {
 			Unidad unidadAtacada = (Unidad) mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
 			// validar que sea un ser
 			((NaveCiencia) unidadQAtaca).radiacion(unidadAtacada);
+			break;
 		case EMP:
 			ataqueMagicoEnRadio(unidadQAtaca,posfin);
+			break;
 			
 		case TORMENTA:
 			ataqueMagicoEnRadio(unidadQAtaca,posfin);
+			break;
 			
 		case ALUCINACION:
 			// validar que pueda usarlo
@@ -334,6 +359,7 @@ public class Juego {
 			for (int i = 0; i< copias.size(); i++){
 				mapa.ponerUnidadEnLaCeldaLibreMasCercana((Ser)unidadQAtaca,(Unidad)copias.get(i));
 			}
+			break;
 		}
 		
 	}

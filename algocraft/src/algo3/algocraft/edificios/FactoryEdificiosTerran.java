@@ -14,6 +14,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	private Jugador jugador;
 	private ArrayList<Edificio> edificiosEnCola = new ArrayList<Edificio>();
 	private HashMap<Edificio, Posicion> posiciones = new HashMap<Edificio, Posicion>();
+	private HashMap<Edificio, Posicion> edificiosCreados = new HashMap<Edificio, Posicion>();
 
 	public FactoryEdificiosTerran(Jugador jugador) {
 		this.jugador = jugador;
@@ -21,12 +22,16 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 
 	@Override
 	public HashMap<Edificio, Posicion> pasarTurno() {
-		HashMap<Edificio, Posicion> edificiosCreados = new HashMap<Edificio, Posicion>();
+		edificiosCreados.clear();
 		for (Edificio edificio : edificiosEnCola) {
 			edificio.pasarTurno();
 			if (edificio.creado()) {
 				edificiosCreados.put(edificio,posiciones.get(edificio));
 			}
+		}
+		for(Edificio edificio:edificiosCreados.keySet()){
+			if (edificiosEnCola.contains(edificio))
+			edificiosEnCola.remove(edificio);
 		}
 		return edificiosCreados;
 	}

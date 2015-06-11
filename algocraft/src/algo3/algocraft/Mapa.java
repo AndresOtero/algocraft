@@ -374,8 +374,6 @@ public class Mapa {
 	}
 	
 	
-
-	
 	private ArrayList<Posicion> encontrarMinimoCamino(Posicion posicionInicial,
 			Posicion posicionFinal, Movimiento movimiento) {
 		/*
@@ -394,9 +392,9 @@ public class Mapa {
 		return camino;
 	}
 
-	private Boolean encontrarMinimoCaminoRecursivo(Posicion posicionInicial,
-			Posicion posicionFinal, Movimiento movimiento,
+	private Boolean encontrarMinimoCaminoRecursivo(Posicion posicionInicial,Posicion posicionFinal, Movimiento movimiento,
 			ArrayList<Posicion> camino, ArrayList<Posicion> visitados) {
+		/*Backtracking*/
 		if (posicionFinal.equals(posicionInicial)) {
 			return true;
 		}
@@ -406,9 +404,7 @@ public class Mapa {
 		Iterator<Posicion> iter = adyacentes.iterator();
 		while (iter.hasNext()) {
 			Posicion adyacente = iter.next();
-			if ((!this.sePuedeMover(adyacente, movimiento))
-					|| (visitados.contains(adyacente))) {// Si no se puede mover
-															// o fue visitado
+			if ((!this.sePuedeMover(adyacente, movimiento))|| (visitados.contains(adyacente))) {// Si no se puede mover o fue visitado											// o fue visitado
 				continue;
 			}
 			int distanciaAlFinal = adyacente.distancia(posicionFinal);
@@ -424,12 +420,10 @@ public class Mapa {
 		}
 		visitados.add(posicionDistanciaMinima);
 		camino.add(posicionDistanciaMinima);
-		if (this.encontrarMinimoCaminoRecursivo(posicionDistanciaMinima,
-				posicionFinal, movimiento, camino, visitados)) {
+		if (this.encontrarMinimoCaminoRecursivo(posicionDistanciaMinima,posicionFinal, movimiento, camino, visitados)) {
 			return true;
 		}
-		return this.encontrarMinimoCaminoRecursivo(posicionInicial,
-				posicionFinal, movimiento, camino, visitados);
+		return this.encontrarMinimoCaminoRecursivo(posicionInicial,posicionFinal, movimiento, camino, visitados);
 	}
 
 	private boolean sePuedeMover(Posicion pos, Movimiento movimiento) {
