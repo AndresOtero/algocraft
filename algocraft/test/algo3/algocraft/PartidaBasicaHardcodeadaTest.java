@@ -29,10 +29,10 @@ public class PartidaBasicaHardcodeadaTest {
 			}
 		}
 		juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 6);
-		juego.pasarTurno();
-		Assert.assertEquals(juego.JugadorActual(), "Federico");
-		juego.pasarTurno();
-		juego.crearUnidad(6, 6, TipoUnidad)
+		for(int i=0;i<12;i++){
+			juego.pasarTurno();
+		}
+		juego.crearUnidad(6, 6, Unidades.ZEALOT);
 
 		// Inicializo
 		/*Jugador jugador1 = new Jugador("jugador1",Color.AZUL,TipoRaza.PROTOSS);
