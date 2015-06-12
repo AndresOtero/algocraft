@@ -470,8 +470,8 @@ public class Mapa {
 	}
 
 	private Posicion buscarPosicionDeSer(Ser ser) {
-		for (int i = 0; i < this.ancho; i++) {
-			for (int j = 0; j < this.alto; j++) {
+		for (int i = 0; i <= this.ancho; i++) {
+			for (int j = 0; j <= this.alto; j++) {
 				Posicion p = new Posicion(i, j);
 				Celda celda = mapa.get(p);
 				if (ser == celda.serEnLaCeldaAerea())
