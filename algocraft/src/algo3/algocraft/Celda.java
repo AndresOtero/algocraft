@@ -46,7 +46,7 @@ public class Celda {
 	}
 
 	public boolean agregarSerTerrestre(Ser ser) {
-		if (this.serTerrestre == null) { /*
+		if (this.serTerrestre == null ) { /*
 										 * IMPORTANTE : PODRIAMOS ESTAR
 										 * AGREGANDO UN SER Y UN RECURSO EN LA
 										 * MISMA CELDA TENDRIAMOS QUE VALIDAR
