@@ -17,7 +17,11 @@ import algo3.algocraft.unidades.Unidad;
 public class MapaTest {
 	@Test
 	public void testMapaTerrestres() {
+		Jugador j1 = new Jugador("alberto",Color.ROJO,TipoRaza.PROTOSS);
+		Jugador j2 = new Jugador("alfredo", Color.AZUL, TipoRaza.TERRAN);
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+		jugadores.add(j1);
+		jugadores.add(j2);
 		ArrayList<Ser> UnidadesRojas = new ArrayList<Ser>();
 		Mapa mapa = Mapa.getInstance(50,50,jugadores);
 		ArrayList<Ser> UnidadesMapa = mapa.seresDeJugador(Color.ROJO);
@@ -61,9 +65,13 @@ public class MapaTest {
 	}
 	@Test
 	public void testMapaAereo() {
+		Jugador j1 = new Jugador("alberto",Color.ROJO,TipoRaza.PROTOSS);
+		Jugador j2 = new Jugador("alfredo", Color.AZUL, TipoRaza.TERRAN);
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+		jugadores.add(j1);
+		jugadores.add(j2);
 		ArrayList<Ser> UnidadesRojas = new ArrayList<Ser>();
-		Mapa mapa = Mapa.getInstance(50,49,jugadores);
+		Mapa mapa = Mapa.getInstance(50,50,jugadores);
 		Unidad unidad1=(Unidad) new Scout(Color.ROJO);
 		Unidad unidad2=(Unidad) new Scout(Color.ROJO);
 		Unidad unidad3=(Unidad) new Scout(Color.ROJO);

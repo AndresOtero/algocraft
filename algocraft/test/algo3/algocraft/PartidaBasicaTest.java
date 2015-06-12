@@ -14,14 +14,14 @@ public class PartidaBasicaTest {
 	@Test
 	public void HayGanador(){
 		Juego juego =Juego.getInstance();
-		juego.crearJugador("Andres", Color.ROJO, TipoRaza.PROTOSS);
+		juego.crearJugador("Andres", Color.VERDE, TipoRaza.PROTOSS);
 		juego.crearJugador("Federico", Color.AZUL, TipoRaza.TERRAN);
 		juego.iniciarJuego();
 		Assert.assertFalse(juego.hayGanador());
 		Assert.assertEquals(juego.JugadorActual(), "Federico");
 		juego.pasarTurno();
 		Assert.assertFalse(juego.hayGanador());
-		Assert.assertEquals(juego.ContenidoFilaColumna(1, 1).serEnLaCeldaTerrestre().color(), Color.ROJO);
+		Assert.assertEquals(juego.ContenidoFilaColumna(1, 1).serEnLaCeldaTerrestre().color(), Color.VERDE);
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
 		crearRecolectableMineral(juego);
 		juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 6);
@@ -60,14 +60,14 @@ public class PartidaBasicaTest {
 		Assert.assertTrue(juego.atacarTierra(14, 15, 15, 15));
 		Assert.assertTrue(juego.ContenidoFilaColumna(15,15).ocupadoTerrestre());		
 		Ser ser = juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre();	
-		Assert.assertEquals(ser.vida(),742);//daño en refineria
+		Assert.assertEquals(ser.vida(),742);//daï¿½o en refineria
 		juego.pasarTurno();
 		Assert.assertFalse(juego.hayGanador());
 		Assert.assertEquals(juego.JugadorActual(), "Federico");
 		juego.pasarTurno();
 		atacar(juego);
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
-		Assert.assertEquals(juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre().vida(),6);//daño en refineria		
+		Assert.assertEquals(juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre().vida(),6);//daï¿½o en refineria		
 		Assert.assertTrue(juego.atacarTierra(14, 15, 15, 15));
 		Assert.assertFalse(juego.ContenidoFilaColumna(15,15).ocupadoTerrestre());		
 		juego.pasarTurno();
@@ -82,7 +82,7 @@ public class PartidaBasicaTest {
 				Assert.assertEquals(juego.JugadorActual(), "Andres");
 				Assert.assertFalse(juego.hayGanador());
 				Assert.assertTrue(juego.atacarTierra(14, 15, 15, 15));
-				Assert.assertEquals(juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre().vida(),742-(1+i/2)*8);//daño en refineria		
+				Assert.assertEquals(juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre().vida(),742-(1+i/2)*8);//daï¿½o en refineria		
 			}
 			juego.pasarTurno();
 		}
