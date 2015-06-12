@@ -293,10 +293,9 @@ public class Mapa {
 	
 	private Posicion buscarLibreMasCercanoRecursivo(Posicion pos,ArrayList<Posicion> adyacentes ){
 		for(Posicion ady:adyacentes){
-			if(this.estaVaciaTerrestre(pos)){
+			if(this.estaVaciaTerrestre(ady)){
 				return ady;
 			}
-			
 		}
 		for(Posicion ady:adyacentes){
 			adyacentes.addAll(this.adyacentes(ady));

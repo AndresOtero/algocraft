@@ -29,20 +29,63 @@ public class PartidaBasicaHardcodeadaTest {
 		}
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
 		juego.crearUnidad(6, 6, Unidades.ZEALOT);
-		for(int i=0;i<6;i++){
+		for(int i=0;i<12;i++){
 			juego.pasarTurno();
 		}
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
-		Posicion posicion= buscarUnidad(juego);
-		Assert.assertTrue(juego.ContenidoFilaColumna(6, 6).ocupadoTerrestre());	
-		//juego.moverPosicionTerrestre(posicion.abscisa(), posicion.ordenada(), 9, 9);
-	
+		Posicion posicionZealot= buscarUnidad(juego);
+		Assert.assertTrue(juego.ContenidoFilaColumna(posicionZealot.abscisa(), posicionZealot.ordenada()).ocupadoTerrestre());	
+		Assert.assertTrue(juego.moverPosicionTerrestre(posicionZealot.abscisa(), posicionZealot.ordenada(), 9, 9));
+		Assert.assertTrue(juego.ContenidoFilaColumna(9,9).ocupadoTerrestre());		
+		Assert.assertFalse(juego.ContenidoFilaColumna(posicionZealot.abscisa(), posicionZealot.ordenada()).ocupadoTerrestre());	
+		juego.pasarTurno();
+		Assert.assertFalse(juego.hayGanador());
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		juego.pasarTurno();
+		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		Assert.assertFalse(juego.hayGanador());
+		Assert.assertTrue(juego.moverPosicionTerrestre(9, 9, 12, 12));
+		Assert.assertTrue(juego.ContenidoFilaColumna(12,12).ocupadoTerrestre());		
+		Assert.assertFalse(juego.ContenidoFilaColumna(9,9).ocupadoTerrestre());
+		juego.pasarTurno();
+		Assert.assertFalse(juego.hayGanador());
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		juego.pasarTurno();
+		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		Assert.assertFalse(juego.hayGanador());
+		Assert.assertTrue(juego.moverPosicionTerrestre(12, 12, 14, 15));
+		Assert.assertTrue(juego.ContenidoFilaColumna(14,15).ocupadoTerrestre());		
+		Assert.assertFalse(juego.ContenidoFilaColumna(12,12).ocupadoTerrestre());
+		Assert.assertTrue(juego.atacarTierra(14, 15, 15, 15));
+		Assert.assertTrue(juego.ContenidoFilaColumna(15,15).ocupadoTerrestre());		
+		Ser ser = juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre();	
+		Assert.assertEquals(ser.vida(),742);//daño en refineria
+		juego.pasarTurno();
+		Assert.assertFalse(juego.hayGanador());
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		juego.pasarTurno();
+		atacar(juego);
+		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		Assert.assertEquals(juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre().vida(),6);//daño en refineria		
+		Assert.assertTrue(juego.atacarTierra(14, 15, 15, 15));
+
+
+	}
+	private void atacar(Juego juego) {
+		for(int i=0;i<184;i++){
+			if(i%2==0){
+				Assert.assertEquals(juego.JugadorActual(), "Andres");
+				Assert.assertFalse(juego.hayGanador());
+				Assert.assertTrue(juego.atacarTierra(14, 15, 15, 15));
+				Assert.assertEquals(juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre().vida(),742-(1+i/2)*8);//daño en refineria		
+			}
+			juego.pasarTurno();
+		}
 	}
 	private Posicion buscarUnidad(Juego juego) {
 		for(int i=5;i<8;i+=1){
 			for(int j=5;j<8;j+=1){
-				Celda celda=juego.ContenidoFilaColumna(i, j);
-				if(juego.ContenidoFilaColumna(i, j).ocupadoTerrestre()&&(i!=6&&j!=6)){
+				if(juego.ContenidoFilaColumna(i, j).ocupadoTerrestre()&&!(i==6&&j==6)){
 					return new Posicion(i,j);
 				}
 			}

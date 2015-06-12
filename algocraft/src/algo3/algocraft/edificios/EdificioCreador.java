@@ -15,11 +15,15 @@ public abstract class EdificioCreador extends Edificio {
 
 	public void pasarTurno() {
 		super.pasarTurno();
+		unidadesCreadas.clear();
 		for (Unidad unidad : unidadesEnCola) {
 			unidad.pasarTurno();
 			if (unidad.creado()) {
 				this.unidadesCreadas.add(unidad);
 			}
+		}
+		for(Unidad unidad: unidadesCreadas){
+			if(unidadesEnCola.contains(unidad))unidadesEnCola.remove(unidad);
 		}
 	}
 

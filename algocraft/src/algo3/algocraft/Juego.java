@@ -105,16 +105,21 @@ public class Juego {
 				unidadesEnEspera.add(tupla);
 			}
 		}
+		ArrayList<TuplaDeSeres> tuplasCreadas= new ArrayList<TuplaDeSeres>();
 		for(TuplaDeSeres tupla:unidadesEnEspera ){
 			Unidad unidad=(Unidad) tupla.serB();
 			EdificioCreador ed=(EdificioCreador) tupla.serA();
 			if(jugadorActual.agregarPoblacion(unidad.suministro())){
 				mapa.ponerUnidadEnLaCeldaLibreMasCercana(ed, unidad);
-				unidadesEnEspera.remove(tupla);
+				tuplasCreadas.add(tupla);
 			}else{
 				break;
 			}
-		}			
+		}
+		for (TuplaDeSeres tupla:tuplasCreadas){
+			if (unidadesEnEspera.contains(tupla)) unidadesEnEspera.remove(tupla);
+			
+		}
 	}
 	
 	public void pasarTurno() {
@@ -135,7 +140,7 @@ public class Juego {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
-			Ser ser = mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();	
+			//Ser ser = mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();	
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();
 			verificarPropiedadUnidad(unidadAMover);
 			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
@@ -165,7 +170,7 @@ public class Juego {
 	//Verificaciones
 	private void verificarMovimientoUnidad(Unidad unidadAMover,
 			Posicion posicionInicial, Posicion posicionFinal)  {
-		if (unidadAMover.vision()>posicionInicial.distancia(posicionFinal))
+		if (unidadAMover.vision()<posicionInicial.distancia(posicionFinal))
 			throw new NoEsPosibleMoverException();
 	}
 
