@@ -387,7 +387,12 @@ public class Juego {
 	public static Juego getInstance() {
 		if (instancia == null)
 			createInstance();
+		else reiniciarJuego();
 		return instancia;
+	}
+
+	private static void reiniciarJuego() {
+		instancia = new Juego();		
 	}
 
 
