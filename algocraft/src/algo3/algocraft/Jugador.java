@@ -17,6 +17,10 @@ public class Jugador {
 	public Color color(){
 		return this.color;
 	}
+	
+	public TipoRaza tipoRaza(){
+		return this.raza;
+	}
 	public void agregarEspacionParaPoblacion(){
 		limitePoblacion+=10;
 	}

@@ -8,6 +8,7 @@ import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.util.Map;
 
+import algo3.algocraft.edificios.Asimilador;
 import algo3.algocraft.edificios.EdificioCreador;
 import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.edificios.Refineria;
@@ -68,7 +69,38 @@ public class Mapa {
 		celda1.agregarFuenteRecurso(volcan1);
 		celda2.agregarFuenteRecurso(volcan2);
 		celda3.agregarFuenteRecurso(volcan3);
-		celda4.agregarFuenteRecurso(volcan4);			
+		celda4.agregarFuenteRecurso(volcan4);
+		
+		
+		/*DESDE ACA HASTA ALLA HAY QUE REFACTORIZAR BIEN PIOLA*/
+		Jugador jugador1 = jugadores.get(0);
+		TipoRaza tipo = jugador1.tipoRaza();
+		Ser edificioDeVolcan;
+		if (tipo == TipoRaza.PROTOSS){
+			edificioDeVolcan = new Asimilador(volcan1, jugador1.color());
+		}
+		else {
+			edificioDeVolcan = new Refineria(volcan2, jugador1.color());
+		}
+		ponerTerrestre(pos1,edificioDeVolcan);
+		
+		Jugador jugador2 = jugadores.get(1);
+		TipoRaza tipo2 = jugador2.tipoRaza();
+		Ser edificioDeVolcan2;
+		if (tipo2 == TipoRaza.PROTOSS){
+			edificioDeVolcan2 = new Asimilador(volcan2, jugador2.color());
+		}
+		else {
+			edificioDeVolcan2 = new Refineria(volcan2, jugador2.color());
+		}
+		ponerTerrestre(pos2,edificioDeVolcan2);
+		/*
+		 * 
+		 *HASTA ACA HAY QUE REFACTORIZAR BIEN PIOLA
+		 * 
+		 * 
+		 */
+		
 		inicializarEsquina(0,5,0,5);
 		inicializarEsquina(this.ancho-5,this.ancho,0,5);
 		inicializarEsquina(0,5,this.alto-5,this.alto);
