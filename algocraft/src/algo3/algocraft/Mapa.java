@@ -126,6 +126,11 @@ public class Mapa {
 		/*Devuelve un numero aleatorio entre dos recibidos por parametro*/
 		return (int)(Math.random()*(max-min))+min;		
 	}
+	
+	
+	private static void reiniciarMapa(int fil,int col, ArrayList<Jugador> jugadores2){
+		instancia = new Mapa(fil, col, jugadores2);					
+	}
 	/******************************
 	 * 
 	 * 
@@ -528,6 +533,7 @@ public class Mapa {
 			ArrayList<Jugador> jugadores) {
 		if (instancia == null)
 			createInstance(fil, col, jugadores);
+		else reiniciarMapa(fil,col,jugadores);
 		return instancia;
 	}
 
