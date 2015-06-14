@@ -18,7 +18,7 @@ import algo3.algocraft.exceptions.NoHayRecursosException;
 @SuppressWarnings("unused")
 public class JuegoTest {
 
-	@Test /*(expected = NoHayRecurso.class)*/
+	//@Test /*(expected = NoHayRecurso.class)*/
 	public void testCrearUnidadSinRecurso() {
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -57,7 +57,7 @@ public class JuegoTest {
 		assertEquals(false, entro);
 	}
 	
-	@Test /*(expected = NoHayRecurso.class)*/
+	//@Test /*(expected = NoHayRecurso.class)*/
 	
 	public void testCrearUnidadSinEdificio() {
 		Juego juego = Juego.getInstance();
@@ -81,11 +81,14 @@ public class JuegoTest {
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
 		
 		juego.iniciarJuego();
+		String a = juego.JugadorActual();
+		System.out.print(a);
 		
 		boolean entro = true;
 		
 		TipoEdificio tipo = TipoEdificio.CreadorSoldados;
 		juego.crearEdificio(tipo, 1, 0);
+		System.out.print("aaa"+ juego.ContenidoFilaColumna(1,0).serEnLaCeldaTerrestre()+"\n");
 		
 		for(int i=0;i<5;i++){
 			for(int j=0;j<5;j++){
@@ -98,8 +101,9 @@ public class JuegoTest {
 		for(int i=0;i<20;i++){
 			juego.pasarTurno();
 		}
-			
-		Unidades unidad = Unidades.MARINE;
+		System.out.print("bbb"+ juego.ContenidoFilaColumna(1,0).serEnLaCeldaTerrestre()+"\n");
+		
+		Unidades unidad = Unidades.ZEALOT;
 		entro = entro & juego.crearUnidad(1, 0, unidad);
 		entro = entro & juego.crearUnidad(1, 0, unidad);
 		entro = entro & juego.crearUnidad(1, 0, unidad);
@@ -113,7 +117,7 @@ public class JuegoTest {
 		assertEquals(false, entro);
 		
 	}
-	
+	//@Test
 	public void testCrearEdificioSinRequisito(){
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -144,7 +148,7 @@ public class JuegoTest {
 		
 		
 	}
-	@Test
+	//@Test
 	public void testPartida(){
 		Juego juego =  Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -156,7 +160,7 @@ public class JuegoTest {
 	
 
 	
-	@Test
+	//@Test
 	public void testPonerDosObjetosEnElMismoEspacio(){
 		Juego juego =  Juego.getInstance();
 		boolean entro = false;
@@ -174,7 +178,7 @@ public class JuegoTest {
 		
 	}
 	
-	@Test /*(expected = NoHayRecurso.class)*/
+	//@Test /*(expected = NoHayRecurso.class)*/
 	
 	public void testCrearEdificioSinRecurso() {
 		Juego juego = Juego.getInstance();
