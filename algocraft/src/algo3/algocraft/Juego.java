@@ -204,6 +204,7 @@ public class Juego {
 				break;
 			case CreadorSoldados:
 				seCreo=factory.fabricarCreadorSoldados(pos);
+	
 				break;
 			case SumaPoblacion:
 				seCreo=factory.fabricarSumaPoblacion(pos);
@@ -226,7 +227,6 @@ public class Juego {
 	public boolean crearUnidad(int fil, int col, Unidades unidad){
 		Posicion pos = new Posicion(fil,col);
 		// verificar que haya edificio
-		Edificio edificio =(Edificio) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
 		if (ed == null) return false;
