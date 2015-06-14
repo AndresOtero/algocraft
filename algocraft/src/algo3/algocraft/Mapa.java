@@ -159,6 +159,7 @@ public class Mapa {
 		} else
 			celda.agregarSerAereo(ser);
 		Color color = ser.color();
+		
 		agregarSerDeColor(ser, color);
 	}
 	
@@ -534,5 +535,6 @@ public class Mapa {
 		else reiniciarMapa(fil,col,jugadores);
 		return instancia;
 	}
+	
 
 }

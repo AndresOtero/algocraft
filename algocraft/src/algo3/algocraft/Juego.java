@@ -36,7 +36,7 @@ public class Juego {
 
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
-		mapa = Mapa.getInstance(15,15,jugadores); // puse 5x5 modificar si se quiere
+		mapa = Mapa.getInstance(15,15,jugadores); 
 		inicializarRecursos();
 	}
 
@@ -226,7 +226,7 @@ public class Juego {
 
 	public boolean crearUnidad(int fil, int col, Unidades unidad){
 		Posicion pos = new Posicion(fil,col);
-		// verificar que haya edificio
+		
 		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
 		if (ed == null) return false;
