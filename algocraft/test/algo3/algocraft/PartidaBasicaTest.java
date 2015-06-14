@@ -71,7 +71,7 @@ public class PartidaBasicaTest {
 		Assert.assertTrue(juego.atacarTierra(14, 15, 15, 15));
 		Assert.assertFalse(juego.ContenidoFilaColumna(15,15).ocupadoTerrestre());		
 		juego.pasarTurno();
-		Assert.assertFalse(juego.hayGanador());
+		Assert.assertTrue(juego.hayGanador());
 
 
 
