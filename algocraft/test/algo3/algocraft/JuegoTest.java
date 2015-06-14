@@ -28,41 +28,53 @@ public class JuegoTest {
 		juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 6);
 		Unidades unidad = Unidades.MARINE;
 		
+		Assert.assertEquals(juego.JugadorActual(), "vader");
+		
+		/*juego.pasarTurno();
 		juego.pasarTurno();
 		juego.pasarTurno();
 		juego.pasarTurno();
 		juego.pasarTurno();
 		juego.pasarTurno();
 		juego.pasarTurno();
+		juego.pasarTurno();*/
+		for(int i=0;i<20;i++){
+			juego.pasarTurno();
+		}
+		
+		
+		Assert.assertEquals(juego.JugadorActual(), "vader");
 		
 		boolean entro = true;
 		
-		entro = entro & juego.crearUnidad(0, 0, unidad);
-		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(9, 6, unidad);
+		/*entro = entro & juego.crearUnidad(1, 0, unidad);
 		entro = entro & juego.crearUnidad(2, 0, unidad);
 		entro = entro & juego.crearUnidad(3, 0, unidad);
 		entro = entro & juego.crearUnidad(4, 0, unidad);
-		entro = entro & juego.crearUnidad(5, 0, unidad);
+		entro = entro & juego.crearUnidad(5, 0, unidad);*/
 		
 		assertEquals(false, entro);
 	}
 	
 	@Test /*(expected = NoHayRecurso.class)*/
+	
 	public void testCrearUnidadSinEdificio() {
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
 		
 		juego.iniciarJuego();
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 25, 25);
+		//juego.crearEdificio(TipoEdificio.CreadorSoldados, 7, 7);
 		Unidades unidad = Unidades.MARINE;
 		boolean entro = true;
 		
-		entro = entro & juego.crearUnidad(0, 0, unidad);
+		entro = entro & juego.crearUnidad(7, 7, unidad);
 		
 		assertEquals(false, entro);
 	}
 	@Test
+	
 	public void testCrearUnidadSinEspacio(){
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -74,8 +86,7 @@ public class JuegoTest {
 		
 		TipoEdificio tipo = TipoEdificio.CreadorSoldados;
 		juego.crearEdificio(tipo, 1, 0);
-		tipo = TipoEdificio.RecolectableGas;
-		juego.crearEdificio(tipo, 1, 1);
+		
 		for(int i=0;i<5;i++){
 			for(int j=0;j<5;j++){
 				Celda celda = juego.ContenidoFilaColumna(i, j);
@@ -84,30 +95,25 @@ public class JuegoTest {
 		}
 
 			
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
+		for(int i=0;i<20;i++){
+			juego.pasarTurno();
+		}
 			
 		Unidades unidad = Unidades.MARINE;
-		entro = entro & juego.crearUnidad(0, 0, unidad);
 		entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(2, 0, unidad);
-		entro = entro & juego.crearUnidad(3, 0, unidad);
-		entro = entro & juego.crearUnidad(4, 0, unidad);
-		entro = entro & juego.crearUnidad(5, 0, unidad);
-		entro = entro & juego.crearUnidad(6, 0, unidad);
-		entro = entro & juego.crearUnidad(7, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
+		entro = entro & juego.crearUnidad(1, 0, unidad);
 			
 			
 		assertEquals(false, entro);
 		
 	}
+	
 	public void testCrearEdificioSinRequisito(){
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -169,6 +175,7 @@ public class JuegoTest {
 	}
 	
 	@Test /*(expected = NoHayRecurso.class)*/
+	
 	public void testCrearEdificioSinRecurso() {
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -183,15 +190,17 @@ public class JuegoTest {
 			juego.crearEdificio(TipoEdificio.CreadorSoldados, 4, 0);
 			juego.crearEdificio(TipoEdificio.CreadorSoldados, 9, 0);
 			juego.crearEdificio(TipoEdificio.CreadorSoldados, 10, 0);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 0);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 9, 7);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 4, 8);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 9, 9);
+			juego.crearEdificio(TipoEdificio.CreadorSoldados, 10, 9);
 		}catch(NoHayRecursosException e){
 			entro = true;
 		}
 		
 		assertEquals(true, entro);
 	}
-	
-
-	
 	
 
 }
