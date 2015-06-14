@@ -229,6 +229,7 @@ public class Juego {
 		Edificio edificio =(Edificio) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
+		if (ed == null) return false;
 		switch(unidad){
 			case ALTOTEMPLARIO:
 				((ArchivosTemplarios) ed).crearAltoTemplario(turnos.turnoActual());

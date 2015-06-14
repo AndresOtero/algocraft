@@ -255,7 +255,6 @@ public class Mapa {
 			edificiosDeRecursoDeColor.add(edificio);
 			edificios.put(color, edificiosDeRecursoDeColor);
 		}
-		agregarSerDeColor(edificio,color);
 	}
 
 	
@@ -288,7 +287,6 @@ public class Mapa {
 			edificiosCreadores.add(edificio);
 			edificios.put(color, edificiosCreadores);
 		}	
-		agregarSerDeColor(edificio,color);
 	}
 
 	
