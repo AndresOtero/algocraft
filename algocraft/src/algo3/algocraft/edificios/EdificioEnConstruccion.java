@@ -9,9 +9,6 @@ public class EdificioEnConstruccion extends Edificio {
 		this.vida = 50;
 		this.color=colorJugador;
 	}
-
-	@Override
-	public void agregarseAMapa(Mapa mapa) {
-		return;
-	}
 }
+
+
