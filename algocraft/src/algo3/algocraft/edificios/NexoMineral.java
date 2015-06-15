@@ -12,6 +12,6 @@ public class NexoMineral extends EdificioDeRecurso implements RecolectableMinera
 		this.color=colorJugador;	
 	}
 	public void agregarseAMapa(Mapa mapa){
-		mapa.ponerSumaPoblacion(this.posicion(), this);
+		mapa.ponerEdificioSumaPoblacion(this.posicion(), this);
 	}
 }

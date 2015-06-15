@@ -21,7 +21,7 @@ public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 		this.unidadesCreadas=new ArrayList<Unidad>();	
 		}
 	public void crearGolliat(){
-		this.agregarACola( new Golliat(this.color));
+		this.agregarACola( new Golliat(this.color,this.posicion));
 		this.costoGasGolliat = 100;
 		this.costoMineralGolliat = 50;
 		this.unidadesEnCola = new ArrayList<Unidad>();
@@ -31,7 +31,7 @@ public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 	public boolean crearGolliat(Jugador jug) {
 		if (jug.GasVespeno() > this.costoGasGolliat
 				&& jug.Minerales() > this.costoMineralGolliat) {
-			this.agregarACola(new Golliat(this.color));
+			this.agregarACola(new Golliat(this.color,this.posicion));
 			jug.sacarGasVespeno(this.costoGasGolliat);
 			jug.sacarMineral(this.costoMineralGolliat);
 			return true;

@@ -26,7 +26,7 @@ public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAere
 	
 	public boolean crearScout(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasScout && jug.Minerales()> this.costoMineralScout){	
-		this.agregarACola( new Scout ( this.color));
+		this.agregarACola( new Scout ( this.color,this.posicion));
 		jug.sacarGasVespeno(this.costoGasScout);
 		jug.sacarMineral(this.costoMineralScout);
 		return true;
@@ -36,7 +36,7 @@ public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAere
 	
 	public boolean crearNaveTransporteProtoss(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasNave && jug.Minerales()> this.costoMineralNave){	
-		this.agregarACola( new NaveTransporteProtoss ( this.color));
+		this.agregarACola( new NaveTransporteProtoss ( this.color,this.posicion));
 		jug.sacarGasVespeno(this.costoGasNave);
 		jug.sacarMineral(this.costoMineralNave);
 		return true;

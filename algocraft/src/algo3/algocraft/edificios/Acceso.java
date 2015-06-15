@@ -40,7 +40,7 @@ public class Acceso extends EdificioCreador implements CreadorSoldados {
 
 	public boolean crearZealot(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasZealot && jug.Minerales()> this.costoMineralZealot){	
-		this.agregarACola( new Zealot ( this.color));
+		this.agregarACola( new Zealot ( this.color, this.posicion));
 		jug.sacarGasVespeno(this.costoGasZealot);
 		jug.sacarMineral(this.costoMineralZealot);
 		return true;

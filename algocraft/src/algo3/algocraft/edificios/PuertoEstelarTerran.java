@@ -29,7 +29,7 @@ public class PuertoEstelarTerran extends EdificioCreador implements CreadorAereo
 	
 	public boolean crearEspectro(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasEspectro && jug.Minerales()> this.costoMineralEspectro){	
-		this.agregarACola( new Espectro ( this.color));
+		this.agregarACola( new Espectro ( this.color,this.posicion));
 		jug.sacarGasVespeno(this.costoGasEspectro);
 		jug.sacarMineral(this.costoMineralEspectro);
 		return true;
@@ -39,7 +39,7 @@ public class PuertoEstelarTerran extends EdificioCreador implements CreadorAereo
 	
 	public boolean crearNaveCiencia(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasNaveCiencia && jug.Minerales()> this.costoMineralNaveCiencia){	
-		this.agregarACola( new NaveCiencia ( this.color));
+		this.agregarACola( new NaveCiencia ( this.color,this.posicion));
 		jug.sacarGasVespeno(this.costoGasNaveCiencia);
 		jug.sacarMineral(this.costoMineralNaveCiencia);
 		return true;
@@ -49,7 +49,7 @@ public class PuertoEstelarTerran extends EdificioCreador implements CreadorAereo
 	
 	public boolean crearNaveTransporteTerran(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasNaveDeTransporte && jug.Minerales()> this.costoMineralNaveDeTransporte){	
-		this.agregarACola( new NaveTransporteTerran ( this.color));
+		this.agregarACola( new NaveTransporteTerran ( this.color,this.posicion));
 		jug.sacarGasVespeno(this.costoGasNaveDeTransporte);
 		jug.sacarMineral(this.costoMineralNaveDeTransporte);
 		return true;
