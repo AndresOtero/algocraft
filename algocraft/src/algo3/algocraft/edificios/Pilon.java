@@ -10,7 +10,9 @@ public class Pilon extends Edificio implements SumaPoblacion {
 		this.escudo = 300;
 		this.tiempoDeConstruccion = 5;
 		this.color = colorJugador;
-
+	}
+	public void agregarseAMapa(Mapa mapa){
+		mapa.ponerTerrestre(this.posicion(), this);
 	}
 
 }

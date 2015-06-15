@@ -75,23 +75,11 @@ public class Juego {
 		Iterator it = edificiosCreados.keySet().iterator();
 		while(it.hasNext()){
 			Edificio ed=(Edificio) it.next();
-			Posicion pos= edificiosCreados.get(ed);
+			Posicion pos= ed.posicion();
 			if(!mapa.estaVaciaTerrestre(pos)){
 				mapa.borrarSerTerrestre(mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre());	
-				if(ed instanceof EdificioCreador){
-					mapa.ponerEdificioCreador(pos,(EdificioCreador) ed);
-				} else if(ed instanceof RecolectableGas){
-					mapa.ponerEdificioGas(pos,(EdificioDeRecurso) ed);
-					return;
-				}else if(ed instanceof RecolectableMinerales){
-					mapa.ponerEdificioMineral(pos,(EdificioDeRecurso) ed);
-					return;
-				}else{
-					jugadorActual.agregarEspacionParaPoblacion();
-					mapa.ponerTerrestre(pos, ed);
-				}
+				ed.agregarseAMapa(this.mapa);
 			}
-			
 		}
 	}
 	

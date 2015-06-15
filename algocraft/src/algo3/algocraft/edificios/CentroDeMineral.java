@@ -10,4 +10,7 @@ public class CentroDeMineral extends EdificioDeRecurso implements RecolectableMi
 		this.fuenteRecurso = mineral;
 		this.color=colorJugador;
 	}
+	public void agregarseAMapa(Mapa mapa){
+		mapa.ponerEdificioMineral(this.posicion(), this);
+	}
 }

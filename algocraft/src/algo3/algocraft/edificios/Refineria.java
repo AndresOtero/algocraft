@@ -10,7 +10,9 @@ public class Refineria extends EdificioDeRecurso implements RecolectableGas {
 		this.tiempoDeConstruccion = 6;
 		this.fuenteRecurso = volcan;
 		this.color = colorJugador;
-
+	}
+	public void agregarseAMapa(Mapa mapa){
+		mapa.ponerEdificioGas(this.posicion(), this);
 	}
 
 }

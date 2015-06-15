@@ -12,5 +12,8 @@ public class Asimilador extends EdificioDeRecurso implements RecolectableGas {
 		this.fuenteRecurso = volcan;
 		this.color = colorJugador;
 	}
+	public void agregarseAMapa(Mapa mapa){
+		mapa.ponerEdificioGas(this.posicion(), this);
+	}
 
 }

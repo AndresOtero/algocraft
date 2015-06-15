@@ -8,5 +8,6 @@ public abstract class EdificioDeRecurso extends Edificio {
 	public int recolectar() {
 		return fuenteRecurso.devolverRecurso();
 	}
+	
 
 }

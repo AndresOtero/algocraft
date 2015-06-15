@@ -3,11 +3,16 @@ package algo3.algocraft.edificios;
 import java.util.ArrayList;
 
 import algo3.algocraft.Edificio;
+import algo3.algocraft.Mapa;
 import algo3.algocraft.unidades.*;
 
 public abstract class EdificioCreador extends Edificio {
 	protected ArrayList<Unidad> unidadesCreadas;
 	protected ArrayList<Unidad> unidadesEnCola;
+	
+	public void agregarseAMapa(Mapa mapa){
+		mapa.ponerEdificioCreador(posicion, this);
+	}
 
 	public ArrayList<Unidad> unidadesCreadas() {
 		return unidadesCreadas;
