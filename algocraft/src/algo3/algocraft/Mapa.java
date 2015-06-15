@@ -51,25 +51,23 @@ public class Mapa {
 		}
 		inicializarMapa();
 	}
-
+	private VolcanGasVespeno inicializarVolcanEnMapa(Posicion pos){
+		VolcanGasVespeno volcan = new VolcanGasVespeno();
+		Celda celda = mapa.get(pos);
+		celda.agregarFuenteRecurso(volcan);
+		return volcan;
+	}
 	/* Metodos de Inicializacion */
 	private void inicializarMapa() {
-		VolcanGasVespeno volcan1 = new VolcanGasVespeno();
-		VolcanGasVespeno volcan2 = new VolcanGasVespeno();
-		VolcanGasVespeno volcan3 = new VolcanGasVespeno();
-		VolcanGasVespeno volcan4 = new VolcanGasVespeno();
+
 		Posicion pos1 = new Posicion(1, 1);
+		VolcanGasVespeno volcan1 = inicializarVolcanEnMapa(pos1);
 		Posicion pos2 = new Posicion(this.ancho, this.alto);
+		VolcanGasVespeno volcan2 = inicializarVolcanEnMapa(pos2);
 		Posicion pos3 = new Posicion(1, this.alto);
+		inicializarVolcanEnMapa(pos3);
 		Posicion pos4 = new Posicion(this.ancho, 1);
-		Celda celda1 = mapa.get(pos1);
-		Celda celda2 = mapa.get(pos2);
-		Celda celda3 = mapa.get(pos3);
-		Celda celda4 = mapa.get(pos4);
-		celda1.agregarFuenteRecurso(volcan1);
-		celda2.agregarFuenteRecurso(volcan2);
-		celda3.agregarFuenteRecurso(volcan3);
-		celda4.agregarFuenteRecurso(volcan4);
+		inicializarVolcanEnMapa(pos4);
 		
 		
 		/*DESDE ACA HASTA ALLA HAY QUE REFACTORIZAR BIEN PIOLA*/
@@ -80,7 +78,7 @@ public class Mapa {
 			edificioDeVolcan = new Asimilador(volcan1, jugador1.color());
 		}
 		else {
-			edificioDeVolcan = new Refineria(volcan2, jugador1.color());
+			edificioDeVolcan = new Refineria(volcan1, jugador1.color());
 		}
 		ponerTerrestre(pos1,edificioDeVolcan);
 		
