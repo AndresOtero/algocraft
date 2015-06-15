@@ -1,5 +1,6 @@
 package algo3.algocraft.unidades;
 
+import algo3.algocraft.Posicion;
 import algo3.algocraft.Ser;
 
 public abstract class Unidad extends Ser {
@@ -8,6 +9,9 @@ public abstract class Unidad extends Ser {
 	private int meQuedaTormenta;
 	
 
+	public void cambiarPosicion(Posicion pos){
+		this.posicion = pos;
+	}
 	public int vision() {
 		return vision;
 	}

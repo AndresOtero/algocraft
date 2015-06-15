@@ -12,6 +12,7 @@ import algo3.algocraft.edificios.Asimilador;
 import algo3.algocraft.edificios.EdificioCreador;
 import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.edificios.Refineria;
+import algo3.algocraft.edificios.SumaPoblacion;
 import algo3.algocraft.exceptions.*;
 import algo3.algocraft.unidades.Unidad;
 
@@ -24,6 +25,7 @@ public class Mapa {
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;
 	private Map<Color, ArrayList<EdificioCreador>> edificiosCreadores;
+	private Map<Color, ArrayList<SumaPoblacion>> edificiosSumaPoblacion;
 	ArrayList<Jugador> jugadores;
 	
 	/******************************
@@ -256,9 +258,41 @@ public class Mapa {
 			edificios.put(color, edificiosDeRecursoDeColor);
 		}
 	}
-
+	 /********************************
+	 * 
+	 * 
+	 * Comienzo Edificio SumaPoblacion
+	 * 
+	 * 
+	 ********************************/
+	public void ponerEdificioSumaPoblacion(Posicion pos, Edificio edificio){
+		Celda celda = mapa.get(pos);
+		if (!celda.ocupadoTerrestre()){
+			ponerTerrestre(pos,edificio);
+			agregarSumaPoblacion(edificiosSumaPoblacion,edificio,edificio.color());
+		}
+		
+		else throw new LaCeldaTerrestreEstaOcupada();
+		
+		for (Jugador jugador : jugadores){
+			if (jugador.color() == edificio.color()) 
+				jugador.agregarEspacionParaPoblacion();
+		}
+	}
 	
 	
+	private void agregarSumaPoblacion(
+			Map<Color, ArrayList<SumaPoblacion>> edificios,
+			Edificio edificio, Color color) {
+		if (edificios.get(color) != null) (edificios.get(color)).add((SumaPoblacion) edificio);
+		else {
+			ArrayList<SumaPoblacion> edificiosSumaPoblacion = new ArrayList<SumaPoblacion>();
+			edificiosSumaPoblacion.add((SumaPoblacion) edificio);
+			edificios.put(color, edificiosSumaPoblacion);
+		}
+		
+		
+	}
 	/******************************
 	 * 
 	 * 

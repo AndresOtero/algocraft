@@ -29,7 +29,7 @@ public class Acceso extends EdificioCreador implements CreadorSoldados {
 	
 	public boolean crearDragon(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasDragon && jug.Minerales()> this.costoMineralDragon){	
-		this.agregarACola( new Dragon ( this.color));
+		this.agregarACola( new Dragon ( this.color,this.posicion));
 		jug.sacarGasVespeno(this.costoGasDragon);
 		jug.sacarMineral(this.costoMineralDragon);
 		return true;

@@ -5,7 +5,8 @@ import algo3.algocraft.*;
 public class Dragon extends UnidadDeAtaque implements Terrestre, Transportable {
 	private int transporte = 4;
 
-	public Dragon(Color colorJugador) {
+	public Dragon(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		danioTierra = 20;
 		danioAire = 20;
 		rangoAtaqueTierra = 4;

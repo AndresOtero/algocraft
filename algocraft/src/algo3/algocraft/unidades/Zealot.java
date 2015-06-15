@@ -5,7 +5,8 @@ import algo3.algocraft.*;
 public class Zealot extends UnidadDeAtaque implements Terrestre, Transportable {
 	private int transporte = 2;
 
-	public Zealot(Color colorJugador) {
+	public Zealot(Color colorJugador, Posicion pos) {
+		this.posicion=pos;
 		danioTierra = 8;
 		danioAire = 0;
 		rangoAtaqueTierra = 1;

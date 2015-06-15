@@ -5,7 +5,8 @@ import algo3.algocraft.*;
 public class Marine extends UnidadDeAtaque implements Terrestre, Transportable {
 	private int transporte = 1;
 
-	public Marine(Color colorJugador) {
+	public Marine(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		danioTierra = 6;
 		danioAire = 6;
 		rangoAtaqueTierra = 4;

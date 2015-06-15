@@ -11,7 +11,7 @@ public class ZealotTest {
 
 	@Test
 	public void setTest() {
-		Unidad unidad=(Unidad) new Zealot(Color.ROJO);
+		Unidad unidad=(Unidad) new Zealot(Color.ROJO,new Posicion(10,5));
 		Assert.assertTrue(Color.ROJO==unidad.color());
 		Assert.assertEquals( 7,unidad.vision());
 		Assert.assertEquals( 2,unidad.suministro());
@@ -19,15 +19,15 @@ public class ZealotTest {
 	}
 	@Test
 	public void ataque(){
-		UnidadDeAtaque unidad=(UnidadDeAtaque) new Zealot(Color.AMARILLO);
-		Unidad atacado = new Marine(Color.ROJO);		
+		UnidadDeAtaque unidad=(UnidadDeAtaque) new Zealot(Color.AMARILLO,new Posicion(10,5));
+		Unidad atacado = new Marine(Color.ROJO,new Posicion(10,6));		
 		for ( int i = 0 ; i< 10 ; i++ )
 		unidad.atacarTierra(atacado);
 		Assert.assertTrue(atacado.estaMuerto());
 	}
 	@Test
 	public void recibirdanio(){
-		Unidad unidad=(Unidad) new Zealot(Color.AMARILLO);
+		Unidad unidad=(Unidad) new Zealot(Color.AMARILLO,new Posicion(10,5));
 		unidad.recibirDanio(10);
 		Assert.assertFalse(unidad.estaMuerto());
 		unidad.recibirDanio(1000);
@@ -35,12 +35,12 @@ public class ZealotTest {
 	}
 	@Test
 	public void transportable() {
-		Transportable transportable = new Zealot(Color.AZUL);
+		Transportable transportable = new Zealot(Color.AZUL,new Posicion(10,5));
 		Assert.assertEquals(2, transportable.transporte());
 	}
 	@Test
 	public void pasarTurno() {
-		Ser ser = new Dragon(Color.AZUL);
+		Ser ser = new Dragon(Color.AZUL,new Posicion(10,5));
 		int tiempoDeConstruccion=ser.tiempoDeConstruccion();
 		for(;tiempoDeConstruccion>1;tiempoDeConstruccion--){
 			ser.pasarTurno();

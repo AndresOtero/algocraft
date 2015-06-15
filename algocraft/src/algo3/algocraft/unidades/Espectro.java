@@ -4,7 +4,8 @@ import algo3.algocraft.*;
 
 public class Espectro extends UnidadDeAtaque implements Terrestre, Aerea {
 
-	public Espectro(Color colorJugador) {
+	public Espectro(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		danioTierra = 8;
 		danioAire = 20;
 		rangoAtaqueTierra = 5;

@@ -2,9 +2,11 @@ package algo3.algocraft.unidades;
 
 import algo3.algocraft.Color;
 import algo3.algocraft.Movimiento;
+import algo3.algocraft.Posicion;
 
 public class NaveTransporteTerran extends UnidadDeTransporte {
-	public NaveTransporteTerran(Color colorJugador) {
+	public NaveTransporteTerran(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		ocupado = 0;
 		capacidad = 8;
 		

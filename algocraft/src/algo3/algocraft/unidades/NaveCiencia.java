@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import algo3.algocraft.Color;
 import algo3.algocraft.Movimiento;
+import algo3.algocraft.Posicion;
 
 public class NaveCiencia extends UnidadMagica implements Aerea {
 
-	public NaveCiencia(Color colorJugador) {
+	public NaveCiencia(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		vision = 10;
 		suministro = 2;
 		vida = 200;

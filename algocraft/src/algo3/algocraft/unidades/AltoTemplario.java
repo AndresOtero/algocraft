@@ -7,7 +7,8 @@ import algo3.algocraft.*;
 public class AltoTemplario extends UnidadMagica implements AltoTemplarioInteface {
 	private int transporte = 2;
 
-	public AltoTemplario(Color colorJugador) {
+	public AltoTemplario(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		vida = 40;
 		escudo = 40;
 		suministro = 2;
@@ -50,7 +51,7 @@ public class AltoTemplario extends UnidadMagica implements AltoTemplarioInteface
 	public ArrayList<AltoTemplarioInteface> alucinacion() {
 		ArrayList<AltoTemplarioInteface> listaDeProxys=new ArrayList<AltoTemplarioInteface>();
 		for(int i=0;i<2;i++){
-			AltoTemplarioProxy proxy=new AltoTemplarioProxy(this.color);
+			AltoTemplarioProxy proxy=new AltoTemplarioProxy(this.color,this.posicion);
 			listaDeProxys.add(proxy);
 		}
 		return listaDeProxys;		

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import algo3.algocraft.Color;
 import algo3.algocraft.Movimiento;
+import algo3.algocraft.Posicion;
 
 public class AltoTemplarioProxy extends AltoTemplario implements AltoTemplarioInteface{
 
-	public AltoTemplarioProxy(Color colorJugador) {
-		super(colorJugador);
+	public AltoTemplarioProxy(Color colorJugador,Posicion pos) {
+		super(colorJugador, pos);
+		this.posicion=pos;
 		vida = 40;
 		tiempoDeConstruccion=0;
 		energia=0;

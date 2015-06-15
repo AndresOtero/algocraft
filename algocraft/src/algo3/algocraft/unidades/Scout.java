@@ -3,7 +3,8 @@ package algo3.algocraft.unidades;
 import algo3.algocraft.*;
 
 public class Scout extends UnidadDeAtaque implements Terrestre, Aerea {
-	public Scout(Color colorJugador) {
+	public Scout(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		danioTierra = 8;
 		danioAire = 14;
 		rangoAtaqueTierra = 4;

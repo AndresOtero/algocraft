@@ -5,7 +5,8 @@ import algo3.algocraft.*;
 public class Golliat extends UnidadDeAtaque implements Terrestre, Transportable {
 	private int transporte = 2;
 
-	public Golliat(Color colorJugador) {
+	public Golliat(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		danioTierra = 12;
 		danioAire = 10;
 		rangoAtaqueTierra = 6;

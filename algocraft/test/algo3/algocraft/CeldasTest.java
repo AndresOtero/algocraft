@@ -14,8 +14,8 @@ public class CeldasTest {
 	@Test
 	public void test() {
 		Celda celda = new Celda();
-		Unidad serTerrestre=(Unidad) new Marine(Color.ROJO);
-		Unidad serAereo=(Unidad) new Scout(Color.ROJO);
+		Unidad serTerrestre=(Unidad) new Marine(Color.ROJO,new Posicion(10,5));
+		Unidad serAereo=(Unidad) new Scout(Color.ROJO,new Posicion(10,5));
 		Assert.assertTrue(celda.agregarSerAereo(serAereo));
 		Assert.assertTrue(celda.agregarSerTerrestre(serTerrestre));
 		Assert.assertTrue(celda.ocupadoAerea());
