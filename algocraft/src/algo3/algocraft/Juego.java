@@ -187,36 +187,6 @@ public class Juego {
 	}
 	
 	//Metodos de Creacion
-	public void crearEdificio(TipoEdificio tipoEdifico, int fila, int columna) {
-		AbstractFactoryEdificios factory= fabricas.get(turnos.turnoActual()); 
-		Posicion pos=new Posicion(fila,columna);
-		Celda celda= mapa.ContenidoPosicion(pos);
-		if(celda.ocupadoTerrestre()){
-			throw new LaCeldaTerrestreEstaOcupada();
-		}
-		switch(tipoEdifico){
-			case CreadorAereos:
-				factory.fabricarCreadorAereos(pos);
-				break;
-			case CreadorTerrestres:
-				factory.fabricarCreadorTerrestres(pos);
-				break;
-			case CreadorSoldados:
-				factory.fabricarCreadorSoldados(pos);
-				break;
-			case SumaPoblacion:
-				factory.fabricarSumaPoblacion(pos);
-				break;
-			case RecolectableGas:
-				factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(),pos);
-				break;
-			case RecolectableMinerales:
-				factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), pos);
-				break;
-		}
-		
-		mapa.ponerTerrestre(pos, new EdificioEnConstruccion(turnos.turnoActual().color()));
-	}
 	private void verificarSiCeldaEstaOcupado(int fil, int col) {
 		if(mapa.ContenidoPosicion(new Posicion(fil,col)).ocupadoTerrestre()){
 			throw new LaCeldaTerrestreEstaOcupada();

@@ -102,7 +102,7 @@ public class PartidaBasicaTest {
 			for(int j=0;j<5;j++){
 				Celda celda = juego.ContenidoFilaColumna(i, j);
 				if((celda.fuenteRecurso() != null)&&(i!=1)&&(j!=1)){
-					juego.crearEdificio(TipoEdificio.RecolectableMinerales, i, j);
+					juego.crearRecolectableMinerales(i, j);
 					return;
 				}
 			}

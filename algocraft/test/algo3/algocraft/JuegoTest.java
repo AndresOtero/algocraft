@@ -71,21 +71,21 @@ public class JuegoTest {
 		for(int i=0;i<5;i++){
 			for(int j=0;j<5;j++){
 				if((i!=1)&&(j!=1)&&(juego.ContenidoFilaColumna(i, j).fuenteRecurso()!=null)){
-					juego.crearEdificio(TipoEdificio.RecolectableMinerales,i,j);
+					juego.crearRecolectableMinerales(i,j);
 				}
 			}
 		}
-		juego.crearEdificio(TipoEdificio.CreadorSoldados,6,6);
+		juego.crearCreadorSoldados(6, 6);
 		juego.pasarTurno();
 		Assert.assertFalse(juego.hayGanador());
 		for(int i=10;i<15;i++){
 			for(int j=10;j<15;j++){
 				if((i!=15)&&(j!=15)&&(juego.ContenidoFilaColumna(i, j).fuenteRecurso()!=null)){
-					juego.crearEdificio(TipoEdificio.RecolectableMinerales,i,j);
+					juego.crearRecolectableMinerales(i, j);
 				}
 			}
 		}
-		juego.crearEdificio(TipoEdificio.CreadorSoldados,9,9);
+		juego.crearCreadorSoldados(9,9);
 		juego.pasarTurno();
 		Assert.assertFalse(juego.hayGanador());
 		
@@ -113,9 +113,9 @@ public class JuegoTest {
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
 		
 		juego.iniciarJuego();
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 0, 0);
+		juego.crearCreadorSoldados(0,0);
 		try{
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 0, 0);
+			juego.crearCreadorSoldados(0,0);
 		}catch(LaCeldaTerrestreEstaOcupada e){
 			entro = true;
 		}
@@ -132,18 +132,16 @@ public class JuegoTest {
 		boolean entro = false;
 		
 		juego.iniciarJuego();
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 5, 0);
+		juego.crearCreadorSoldados(5,0);
 		try{
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 7, 0);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 8, 0);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 4, 0);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 9, 0);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 10, 0);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 0);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 9, 7);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 4, 8);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 9, 9);
-			juego.crearEdificio(TipoEdificio.CreadorSoldados, 10, 9);
+			juego.crearCreadorSoldados(6, 0);
+			juego.crearCreadorSoldados(7, 0);
+			juego.crearCreadorSoldados(8, 0);
+			juego.crearCreadorSoldados(9, 0);
+			juego.crearCreadorSoldados(10, 0);
+			juego.crearCreadorSoldados(11, 0);
+			juego.crearCreadorSoldados(12, 0);
+
 		}catch(NoHayRecursosException e){
 			entro = true;
 		}
