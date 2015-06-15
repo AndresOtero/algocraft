@@ -41,11 +41,7 @@ public class Mapa {
 		this.edificiosDeGas = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosCreadores = new HashMap<Color, ArrayList<EdificioCreador>>();
-<<<<<<< HEAD
 		this.edificiosSumaPoblacion = new HashMap<Color, ArrayList<SumaPoblacion>>();
-=======
-		this.edificiosSumaPoblacion = new HashMap<Color, ArrayList<SumaPoblacion>>(); 
->>>>>>> refs/remotes/origin/master
 		this.jugadores = jugadores;
 		this.ancho = ancho;
 		this.alto = largo;
