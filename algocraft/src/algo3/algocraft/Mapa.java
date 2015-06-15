@@ -41,6 +41,7 @@ public class Mapa {
 		this.edificiosDeGas = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosCreadores = new HashMap<Color, ArrayList<EdificioCreador>>();
+		this.edificiosSumaPoblacion = new HashMap<Color, ArrayList<SumaPoblacion>>();
 		this.jugadores = jugadores;
 		this.ancho = ancho;
 		this.alto = largo;
@@ -183,15 +184,16 @@ public class Mapa {
 			throw new NoEsPosibleMoverException();
 		}
 		Celda celdaInicial = mapa.get(posicionInicial);
-		Ser unidadAMover = celdaInicial.serEnLaCeldaTerrestre();
+		Unidad unidadAMover = (Unidad) celdaInicial.serEnLaCeldaTerrestre();
 		ArrayList<Posicion> camino = this.encontrarMinimoCamino(
 				posicionInicial, posicionFinal, unidadAMover.movimiento());
-		if (camino.isEmpty()) {
+		if (camino.isEmpty() || unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
 			System.out.println("No se pudo mover ");
 			throw new NoEsPosibleMoverException();
-
 		}
+		
 		ponerTerrestre(posicionFinal, unidadAMover);
+		unidadAMover.cambiarPosicion(posicionFinal);
 		celdaInicial.desocuparTerrestre();
 	}
 
@@ -203,15 +205,18 @@ public class Mapa {
 			System.out.println("ESTA OCUPADO Aerea");
 			throw new NoEsPosibleMoverException();
 		}
+		
 		Celda celdaInicial = mapa.get(posicionInicial);
-		Ser unidadAMover = celdaInicial.serEnLaCeldaAerea();
+		Unidad unidadAMover = (Unidad) celdaInicial.serEnLaCeldaAerea();
 		ArrayList<Posicion> camino = this.encontrarMinimoCamino(
 				posicionInicial, posicionFinal, unidadAMover.movimiento());
-		if (camino.isEmpty()) {
+		
+		if (camino.isEmpty() || unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
 			System.out.println("No se pudo mover ");
 			throw new NoEsPosibleMoverException();
 		}
 		ponerAereo(posicionFinal, unidadAMover);
+		unidadAMover.cambiarPosicion(posicionFinal);
 		celdaInicial.desocuparAerea();
 	}
 	

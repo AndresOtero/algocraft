@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.edificios.Refineria;
+import algo3.algocraft.exceptions.NoEsPosibleMoverException;
 import algo3.algocraft.unidades.Dragon;
 import algo3.algocraft.unidades.Marine;
 import algo3.algocraft.unidades.Scout;
@@ -46,11 +47,16 @@ public class MapaTest {
 		}*/
 		Assert.assertTrue( mapa.estaVaciaTerrestre(new Posicion(20,20)));
 		Assert.assertFalse( mapa.estaVaciaTerrestre(new Posicion(15,15)));
-		mapa.moverTerrestre(new Posicion(15,15),new Posicion(20,20));
-		Assert.assertTrue( mapa.estaVaciaTerrestre(new Posicion(15,15)));
-		Assert.assertFalse( mapa.estaVaciaTerrestre(new Posicion(20,20)));
-		Assert.assertSame(unidad1, mapa.ContenidoPosicion(new Posicion(20,20)).serEnLaCeldaTerrestre());
+		try{
+			mapa.moverTerrestre(new Posicion(15,15),new Posicion(20,20));
+		} catch(NoEsPosibleMoverException e){
+			
+		}
+		Assert.assertFalse( mapa.estaVaciaTerrestre(new Posicion(15,15)));
+		Assert.assertTrue( mapa.estaVaciaTerrestre(new Posicion(20,20)));
+		try{
 		mapa.moverTerrestre(new Posicion(20,20), new Posicion (15,15)); 
+		}catch(NoEsPosibleMoverException e){}
 		Assert.assertTrue( mapa.estaVaciaTerrestre(new Posicion(20,20)));
 		Assert.assertFalse( mapa.estaVaciaTerrestre(new Posicion(15,15)));
 		Assert.assertSame(unidad1, mapa.ContenidoPosicion(new Posicion(15,15)).serEnLaCeldaTerrestre());
@@ -81,15 +87,13 @@ public class MapaTest {
 		mapa.ponerAereo(new Posicion(10,5), unidad3);
 		mapa.ponerTerrestre(new Posicion(10,4), unidad4);
 		Assert.assertTrue( mapa.estaVaciaAereo(new Posicion(10,4)));
-		mapa.moverAerea(new Posicion(10,10),new Posicion(10,4));
+		mapa.moverAerea(new Posicion(10,10),new Posicion(10,8));
 		Assert.assertTrue( mapa.estaVaciaAereo(new Posicion(10,10)));
-		Assert.assertFalse( mapa.estaVaciaAereo(new Posicion(10,4)));
-		Assert.assertSame(unidad1, mapa.ContenidoPosicion(new Posicion(10,4)).serEnLaCeldaAerea());
 		Assert.assertSame(unidad4, mapa.ContenidoPosicion(new Posicion(10,4)).serEnLaCeldaTerrestre());
-		mapa.moverAerea(new Posicion(10,4),new Posicion(10,10));
+
 		Assert.assertTrue( mapa.estaVaciaAereo(new Posicion(10,4)));
-		Assert.assertFalse( mapa.estaVaciaAereo(new Posicion(10,10)));
-		Assert.assertSame(unidad1, mapa.ContenidoPosicion(new Posicion(10,10)).serEnLaCeldaAerea());
+		Assert.assertTrue( mapa.estaVaciaAereo(new Posicion(10,10)));
+		Assert.assertSame(unidad1, mapa.ContenidoPosicion(new Posicion(10,8)).serEnLaCeldaAerea());
 		Assert.assertSame(unidad2, mapa.ContenidoPosicion(new Posicion(10,10)).serEnLaCeldaTerrestre());
 
 	}

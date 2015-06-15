@@ -131,7 +131,7 @@ public class Juego {
 			//Ser ser = mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();	
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();
 			verificarPropiedadUnidad(unidadAMover);
-			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
+			
 			mapa.moverTerrestre(posicionInicial,posicionFinal );
 			turnos.agregarMovido(unidadAMover);
 		} catch (NoEsPosibleMoverException e) {
@@ -146,7 +146,7 @@ public class Juego {
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaAerea();
 			verificarPropiedadUnidad(unidadAMover);
-			verificarMovimientoUnidad(unidadAMover,posicionInicial,posicionFinal);
+
 			mapa.moverAerea(posicionInicial,posicionFinal);
 			turnos.agregarMovido(unidadAMover);
 		} catch (NoEsPosibleMoverException e) {
@@ -156,12 +156,6 @@ public class Juego {
 	}
 	
 	//Verificaciones
-	private void verificarMovimientoUnidad(Unidad unidadAMover,
-			Posicion posicionInicial, Posicion posicionFinal)  {
-		if (unidadAMover.vision()<posicionInicial.distancia(posicionFinal))
-			throw new NoEsPosibleMoverException();
-	}
-
 	private void verificarPropiedadUnidad(Unidad unidad){
 		if (!turnos.turnoActual().esColor(unidad.color) || turnos.yaSeMovio(unidad))
 			throw new NoEsPosibleMoverException();
