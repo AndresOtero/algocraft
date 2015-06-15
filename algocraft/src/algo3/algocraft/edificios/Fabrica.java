@@ -12,7 +12,8 @@ public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 	private int costoGasGolliat;
 	private int costoMineralGolliat;
 
-	public Fabrica(Color colorJugador) {
+	public Fabrica(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		this.vida = 1250;
 		this.tiempoDeConstruccion = 12;
 		this.color=colorJugador;

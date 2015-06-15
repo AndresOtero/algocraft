@@ -11,7 +11,8 @@ public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAere
 	private int costoMineralNave;
 	private int costoGasNave;
 
-	public PuertoEstelarProtoss(Color colorJugador){
+	public PuertoEstelarProtoss(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		this.vida = 600;
 		this.escudo = 600;
 		this.tiempoDeConstruccion = 10;

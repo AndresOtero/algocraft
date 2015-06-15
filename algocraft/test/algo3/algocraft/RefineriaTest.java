@@ -14,13 +14,13 @@ public class RefineriaTest {
 
 	@Test
 	public void setTest() {
-		Ser edificio=(Ser) new Refineria(null, Color.ROJO);
+		Ser edificio=(Ser) new Refineria(null, Color.ROJO, null);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 6,edificio.tiempoDeConstruccion());
 	}
 	@Test
 	public void recibirdanio(){
-		Ser edificio=(Ser) new Refineria(null, Color.ROJO);
+		Ser edificio=(Ser) new Refineria(null, Color.ROJO, null);
 		edificio.recibirDanio(10);
 		Assert.assertFalse(edificio.estaMuerto());
 		edificio.recibirDanio(1000);
@@ -29,7 +29,7 @@ public class RefineriaTest {
 	@Test
 	public void recolectarRecursio(){
 		VolcanGasVespeno volcan=new VolcanGasVespeno();
-		EdificioDeRecurso edificio=(EdificioDeRecurso) new Refineria(volcan, Color.ROJO);
+		EdificioDeRecurso edificio=(EdificioDeRecurso) new Refineria(volcan, Color.ROJO, null);
 		Assert.assertEquals(10, edificio.recolectar());
 	}
 	

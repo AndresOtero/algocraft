@@ -12,13 +12,13 @@ public class NexoMineralTest {
 
 	@Test
 	public void setTest() {
-		Ser edificio=(Ser) new NexoMineral(null, Color.ROJO);
+		Ser edificio=(Ser) new NexoMineral(null, Color.ROJO, null);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 4,edificio.tiempoDeConstruccion());
 	}
 	@Test
 	public void recibirdanio(){
-		Ser edificio=(Ser) new NexoMineral(null, Color.ROJO);
+		Ser edificio=(Ser) new NexoMineral(null, Color.ROJO, null);
 		edificio.recibirDanio(10);
 		Assert.assertFalse(edificio.estaMuerto());
 		edificio.recibirDanio(1000);
@@ -27,7 +27,7 @@ public class NexoMineralTest {
 	@Test
 	public void recolectarRecursio(){
 		Mineral mineral=new Mineral();
-		NexoMineral edificio=(NexoMineral) new NexoMineral(mineral, Color.ROJO);
+		NexoMineral edificio=(NexoMineral) new NexoMineral(mineral, Color.ROJO, null);
 		Assert.assertEquals(10, edificio.recolectar());
 	}
 	

@@ -12,7 +12,8 @@ public class Acceso extends EdificioCreador implements CreadorSoldados {
 	private int costoMineralDragon;
 	private int costoGasDragon;
 
-	public Acceso(Color colorJugador) {
+	public Acceso(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		this.tiempoDeConstruccion = 8;
 		this.costoMineralZealot = 100;
 		this.costoGasZealot = 0;

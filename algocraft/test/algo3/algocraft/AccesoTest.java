@@ -15,13 +15,13 @@ import algo3.algocraft.unidades.Zealot;
 public class AccesoTest {
 	@Test
 	public void setTest() {
-		Ser unidad=(Ser) new Acceso(Color.ROJO);
+		Ser unidad=(Ser) new Acceso(Color.ROJO, null);
 		Assert.assertTrue(Color.ROJO==unidad.color());
 		Assert.assertEquals( 8,unidad.tiempoDeConstruccion());
 	}
 	@Test
 	public void recibirdanio(){
-		Ser unidad=(Ser) new Acceso(Color.AMARILLO);
+		Ser unidad=(Ser) new Acceso(Color.AMARILLO, null);
 		unidad.recibirDanio(10);
 		Assert.assertFalse(unidad.estaMuerto());
 		unidad.recibirDanio(1000);
@@ -32,7 +32,7 @@ public class AccesoTest {
 		Jugador j1 = new Jugador("pedrito", Color.AMARILLO, TipoRaza.PROTOSS);
 		j1.agregarGasVespeno(1000);
 		j1.agregarMineral(1000);
-		Acceso acceso=(Acceso) new Acceso(Color.AMARILLO);
+		Acceso acceso=(Acceso) new Acceso(Color.AMARILLO, null);
 		acceso.crearDragon(j1);
 		for(int i=6;i>1;i--){
 			acceso.pasarTurno();
@@ -49,7 +49,7 @@ public class AccesoTest {
 		Jugador j1 = new Jugador("pedrito", Color.AMARILLO, TipoRaza.PROTOSS);
 		j1.agregarGasVespeno(1000);
 		j1.agregarMineral(1000);
-		Acceso acceso=(Acceso) new Acceso(Color.AMARILLO);
+		Acceso acceso=(Acceso) new Acceso(Color.AMARILLO, null);
 		acceso.crearZealot(j1);
 		for(int i=4;i>1;i--){
 			acceso.pasarTurno();

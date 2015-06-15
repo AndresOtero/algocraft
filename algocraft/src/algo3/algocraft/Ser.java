@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import algo3.algocraft.unidades.Unidad;
 
 public abstract class Ser {
+	protected Posicion posicion;
 	protected int vida;
 	protected int escudo = 0;
 	protected int tiempoDeConstruccion;

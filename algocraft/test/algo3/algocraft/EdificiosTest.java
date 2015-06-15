@@ -11,7 +11,7 @@ public class EdificiosTest {
 	@Test
 	public void edificioAtacado() {
 		Mineral min = new Mineral();
-		CentroDeMineral ed = new CentroDeMineral(min, null);
+		CentroDeMineral ed = new CentroDeMineral(min, null, null);
 		ed.recibirDanio(450);
 		Assert.assertTrue(ed.vida() == 50);
 
@@ -20,7 +20,7 @@ public class EdificiosTest {
 	@Test
 	public void edificioAtacadoYdestruido() {
 		Mineral min = new Mineral();
-		Edificio ed = new CentroDeMineral(min, Color.ROJO);
+		Edificio ed = new CentroDeMineral(min, Color.ROJO, null);
 		ed.recibirDanio(500);
 		Assert.assertTrue(ed.vida() == 0);
 
@@ -29,7 +29,7 @@ public class EdificiosTest {
 	@Test
 	public void edificioProtossAtaqueYVidaRestante() {
 		Mineral min = new Mineral();
-		Edificio ed = new NexoMineral(min, Color.ROJO);
+		Edificio ed = new NexoMineral(min, Color.ROJO, null);
 		ed.recibirDanio(450);
 		Assert.assertTrue(ed.vida() == 50);
 
@@ -38,7 +38,7 @@ public class EdificiosTest {
 	@Test
 	public void edificioProtossAtaqueYRegeneracionDeEscudo() {
 		Mineral min = new Mineral();
-		Edificio ed = new NexoMineral(min, Color.ROJO);
+		Edificio ed = new NexoMineral(min, Color.ROJO, null);
 		ed.recibirDanio(400);
 		Assert.assertTrue(ed.estaMuerto() == false);
 
@@ -47,7 +47,7 @@ public class EdificiosTest {
 	@Test
 	public void edificioProtossAtaqueYDestruccion() {
 		Mineral min = new Mineral();
-		Edificio ed = new NexoMineral(min,Color.ROJO);
+		Edificio ed = new NexoMineral(min,Color.ROJO, null);
 		ed.recibirDanio(1000);
 		Assert.assertTrue(ed.estaMuerto() == true);
 

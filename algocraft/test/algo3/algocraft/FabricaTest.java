@@ -16,13 +16,13 @@ public class FabricaTest {
 
 	@Test
 	public void setTest() {
-		Ser edificio=(Ser) new Fabrica(Color.ROJO);
+		Ser edificio=(Ser) new Fabrica(Color.ROJO, null);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 12,edificio.tiempoDeConstruccion());
 	}
 	@Test
 	public void recibirdanio(){
-		Ser edificio=(Ser) new Fabrica(Color.ROJO);
+		Ser edificio=(Ser) new Fabrica(Color.ROJO, null);
 		edificio.recibirDanio(10);
 		Assert.assertFalse(edificio.estaMuerto());
 		edificio.recibirDanio(1300);
@@ -30,7 +30,7 @@ public class FabricaTest {
 	}
 	@Test 
 	public void crearGoliat(){
-		Fabrica fabrica=(Fabrica) new Fabrica(Color.ROJO);
+		Fabrica fabrica=(Fabrica) new Fabrica(Color.ROJO, null);
 		Jugador jugador=new Jugador("Andy",Color.ROJO,null);
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);

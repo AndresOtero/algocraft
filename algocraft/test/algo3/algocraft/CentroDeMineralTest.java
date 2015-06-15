@@ -13,13 +13,13 @@ public class CentroDeMineralTest {
 
 	@Test
 	public void setTest() {
-		Ser edificio=(Ser) new CentroDeMineral(null, Color.ROJO);
+		Ser edificio=(Ser) new CentroDeMineral(null, Color.ROJO, null);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 4,edificio.tiempoDeConstruccion());
 	}
 	@Test
 	public void recibirdanio(){
-		Ser edificio=(Ser) new CentroDeMineral(null, Color.ROJO);
+		Ser edificio=(Ser) new CentroDeMineral(null, Color.ROJO, null);
 		edificio.recibirDanio(10);
 		Assert.assertFalse(edificio.estaMuerto());
 		edificio.recibirDanio(1000);
@@ -28,7 +28,7 @@ public class CentroDeMineralTest {
 	@Test
 	public void recolectarRecursio(){
 		Mineral mineral=new Mineral();
-		CentroDeMineral edificio=(CentroDeMineral) new CentroDeMineral(mineral, Color.ROJO);
+		CentroDeMineral edificio=(CentroDeMineral) new CentroDeMineral(mineral, Color.ROJO, null);
 		Assert.assertEquals(10, edificio.recolectar());
 	}
 	

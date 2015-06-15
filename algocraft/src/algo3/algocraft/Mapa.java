@@ -77,10 +77,10 @@ public class Mapa {
 		TipoRaza tipo = jugador1.tipoRaza();
 		Ser edificioDeVolcan;
 		if (tipo == TipoRaza.PROTOSS){
-			edificioDeVolcan = new Asimilador(volcan1, jugador1.color());
+			edificioDeVolcan = new Asimilador(volcan1, jugador1.color(),pos1);
 		}
 		else {
-			edificioDeVolcan = new Refineria(volcan2, jugador1.color());
+			edificioDeVolcan = new Refineria(volcan1, jugador1.color(),pos1);
 		}
 		ponerTerrestre(pos1,edificioDeVolcan);
 		
@@ -88,10 +88,10 @@ public class Mapa {
 		TipoRaza tipo2 = jugador2.tipoRaza();
 		Ser edificioDeVolcan2;
 		if (tipo2 == TipoRaza.PROTOSS){
-			edificioDeVolcan2 = new Asimilador(volcan2, jugador2.color());
+			edificioDeVolcan2 = new Asimilador(volcan2, jugador2.color(),pos2);
 		}
 		else {
-			edificioDeVolcan2 = new Refineria(volcan2, jugador2.color());
+			edificioDeVolcan2 = new Refineria(volcan2, jugador2.color(),pos2);
 		}
 		ponerTerrestre(pos2,edificioDeVolcan2);
 		/*

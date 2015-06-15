@@ -13,13 +13,13 @@ public class AsimiladorTest {
 
 	@Test
 	public void setTest() {
-		Ser edificio=(Ser) new Asimilador(null, Color.ROJO);
+		Ser edificio=(Ser) new Asimilador(null, Color.ROJO, null);
 		Assert.assertTrue(Color.ROJO==edificio.color());
 		Assert.assertEquals( 6,edificio.tiempoDeConstruccion());
 	}
 	@Test
 	public void recibirdanio(){
-		Ser edificio=(Ser) new Asimilador(null, Color.ROJO);
+		Ser edificio=(Ser) new Asimilador(null, Color.ROJO, null);
 		edificio.recibirDanio(10);
 		Assert.assertFalse(edificio.estaMuerto());
 		edificio.recibirDanio(1000);
@@ -28,7 +28,7 @@ public class AsimiladorTest {
 	@Test
 	public void recolectarRecursio(){
 		VolcanGasVespeno volcan=new VolcanGasVespeno();
-		EdificioDeRecurso edificio=(EdificioDeRecurso) new Asimilador(volcan, Color.ROJO);
+		EdificioDeRecurso edificio=(EdificioDeRecurso) new Asimilador(volcan, Color.ROJO, null);
 		Assert.assertEquals(10, edificio.recolectar());
 	}
 	

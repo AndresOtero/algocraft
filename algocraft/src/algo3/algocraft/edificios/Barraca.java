@@ -10,7 +10,8 @@ public class Barraca extends EdificioCreador implements CreadorSoldados {
 	private int costoMineralMarine;
 
 
-	public Barraca(Color colorJugador) {
+	public Barraca(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		this.vida = 1000;
 		this.tiempoDeConstruccion = 12;
 		this.costoMineralMarine =50;

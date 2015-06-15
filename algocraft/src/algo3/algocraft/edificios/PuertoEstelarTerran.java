@@ -12,7 +12,8 @@ public class PuertoEstelarTerran extends EdificioCreador implements CreadorAereo
 	private int costoGasNaveDeTransporte;
 	private int costoGasNaveCiencia;
 	private int costoMineralNaveCiencia;
-	public PuertoEstelarTerran(Color colorJugador) {
+	public PuertoEstelarTerran(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		this.vida = 1300;
 		this.tiempoDeConstruccion = 10;
 		this.costoGasEspectro = 100;

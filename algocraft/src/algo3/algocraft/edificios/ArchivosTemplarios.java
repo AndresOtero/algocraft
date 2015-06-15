@@ -9,7 +9,8 @@ public class ArchivosTemplarios extends EdificioCreador implements CreadorTerres
 	private int costoMineralTemplario;
 	private int costoGasTemplario;
 
-	public ArchivosTemplarios(Color colorJugador) {
+	public ArchivosTemplarios(Color colorJugador,Posicion pos) {
+		this.posicion=pos;
 		this.vida = 500;
 		this.escudo = 500;
 		this.tiempoDeConstruccion = 9;
