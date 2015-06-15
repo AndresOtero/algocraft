@@ -12,6 +12,9 @@ public abstract class Ser {
 	protected Color color;
 	protected Movimiento movimiento=null;
 	protected int suministro=0;
+	public Posicion posicion() {
+		return posicion;
+	}
 	public int suministro() {
 		return suministro;
 	}
