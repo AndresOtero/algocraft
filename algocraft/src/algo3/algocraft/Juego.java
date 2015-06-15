@@ -36,7 +36,7 @@ public class Juego {
 
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
-		mapa = Mapa.getInstance(15,15,jugadores); // puse 5x5 modificar si se quiere
+		mapa = Mapa.getInstance(15,15,jugadores); 
 		inicializarRecursos();
 	}
 
@@ -220,13 +220,50 @@ public class Juego {
 			throw new NoHayRecursosException();
 		}
 		mapa.ponerTerrestre(pos, new EdificioEnConstruccion(turnos.turnoActual().color()));
-
-		
 	}
+	private void verificarSiCeldaEstaOcupado(int fil, int col) {
+		if(mapa.ContenidoPosicion(new Posicion(fil,col)).ocupadoTerrestre()){
+			throw new LaCeldaTerrestreEstaOcupada();
+		}		
+	}
+	
+	public Boolean crearCreadorAereos(int fil,int col){
+		verificarSiCeldaEstaOcupado(fil,col);
+		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
+		return fabricas.get(turnos.turnoActual()).fabricarCreadorAereos(new Posicion(fil,col)); 
+	}
+	public Boolean crearCreadorTerrestres(int fil,int col){
+		verificarSiCeldaEstaOcupado(fil,col);
+		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
+		return fabricas.get(turnos.turnoActual()).fabricarCreadorTerrestres(new Posicion(fil,col)); 
+	}
+	public Boolean crearSoldados(int fil,int col){
+		verificarSiCeldaEstaOcupado(fil,col);
+		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
+		return fabricas.get(turnos.turnoActual()).fabricarCreadorSoldados(new Posicion(fil,col)); 
+	}
+	public Boolean crearSumaPoblacion(int fil,int col){
+		verificarSiCeldaEstaOcupado(fil,col);
+		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
+		return fabricas.get(turnos.turnoActual()).fabricarSumaPoblacion(new Posicion(fil,col)); 		
+	}
+	public Boolean crearRecolectableGas(int fil,int col) {
+		verificarSiCeldaEstaOcupado(fil,col);
+		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
+		VolcanGasVespeno volcan=(VolcanGasVespeno) mapa.ContenidoPosicion(new Posicion(fil,col)).fuenteRecurso();
+		return fabricas.get(turnos.turnoActual()).fabricarRecolectableGas(volcan,new Posicion(fil,col)); 		
+	}
+	public Boolean crearRecolectableMinerales(int fil,int col) {
+		verificarSiCeldaEstaOcupado(fil,col);
+		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
+		Mineral mineral=(Mineral) mapa.ContenidoPosicion(new Posicion(fil,col)).fuenteRecurso();
+		return fabricas.get(turnos.turnoActual()).fabricarRecolectableMinerales(mineral,new Posicion(fil,col)); 		
+	}
+	
 
 	public boolean crearUnidad(int fil, int col, Unidades unidad){
 		Posicion pos = new Posicion(fil,col);
-		// verificar que haya edificio
+		
 		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
 		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
 		if (ed == null) return false;
@@ -267,9 +304,38 @@ public class Juego {
 		return true;
 		 	
 	}
+	public void crearAltoTemplario(int fil, int col){
+		((ArchivosTemplarios) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearAltoTemplario(turnos.turnoActual());
+	}
+	public void crearScout(int fil, int col){
+		((PuertoEstelarProtoss) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearScout(turnos.turnoActual());
+	}
+	public void crearMarine(int fil, int col){
+		((Barraca) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearMarine(turnos.turnoActual());
+	}
+	public void crearDragon(int fil,int col){
+		((Acceso) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearDragon(turnos.turnoActual());
+	}
+	public void crearNaveCiencia(int fil,int col){
+		((PuertoEstelarTerran)  mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveCiencia(turnos.turnoActual());
+	}
+	public void crearNaveTransporteProtoss(int fil,int col){
+		((PuertoEstelarProtoss) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteProtoss(turnos.turnoActual());
+	}
+	public void crearNaveTransporteTerran(int fil,int col){
+		((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteTerran(turnos.turnoActual());
+	}
+	public void crearEspectro(int fil,int col){
+		((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearEspectro(turnos.turnoActual());
+	}
+	public void crearGolliat(int fil,int col){
+		((Fabrica) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearGolliat(turnos.turnoActual());
+	}
+	public void crearZealot(int fil ,int col){
+		((Acceso) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearZealot(turnos.turnoActual());		
+	}
 	
 	//Metodos De Ataque
-
 	public boolean atacarAire(int filIni, int colIni , int filFinal , int colFinal) {
 		try{
 			Posicion posini = new Posicion(filIni,colIni);

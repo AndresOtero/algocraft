@@ -18,7 +18,7 @@ import algo3.algocraft.exceptions.NoHayRecursosException;
 @SuppressWarnings("unused")
 public class JuegoTest {
 
-	//@Test /*(expected = NoHayRecurso.class)*/
+	@Test /*(expected = NoHayRecurso.class)*/
 	public void testCrearUnidadSinRecurso() {
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -30,14 +30,6 @@ public class JuegoTest {
 		
 		Assert.assertEquals(juego.JugadorActual(), "vader");
 		
-		/*juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();
-		juego.pasarTurno();*/
 		for(int i=0;i<20;i++){
 			juego.pasarTurno();
 		}
@@ -48,16 +40,11 @@ public class JuegoTest {
 		boolean entro = true;
 		
 		entro = entro & juego.crearUnidad(9, 6, unidad);
-		/*entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(2, 0, unidad);
-		entro = entro & juego.crearUnidad(3, 0, unidad);
-		entro = entro & juego.crearUnidad(4, 0, unidad);
-		entro = entro & juego.crearUnidad(5, 0, unidad);*/
 		
 		assertEquals(false, entro);
 	}
 	
-	//@Test /*(expected = NoHayRecurso.class)*/
+	@Test /*(expected = NoHayRecurso.class)*/
 	
 	public void testCrearUnidadSinEdificio() {
 		Juego juego = Juego.getInstance();
@@ -73,50 +60,9 @@ public class JuegoTest {
 		
 		assertEquals(false, entro);
 	}
-	@Test
 	
-	public void testCrearUnidadSinEspacio(){
-		Juego juego = Juego.getInstance();
-		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
-		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
-		
-		juego.iniciarJuego();
-		String a = juego.JugadorActual();
-		System.out.print(a);
-		
-		boolean entro = true;
-		
-		TipoEdificio tipo = TipoEdificio.CreadorSoldados;
-		juego.crearEdificio(tipo, 1, 0);
-		System.out.print("aaa"+ juego.ContenidoFilaColumna(1,0).serEnLaCeldaTerrestre()+"\n");
-		
-		for(int i=0;i<5;i++){
-			for(int j=0;j<5;j++){
-				Celda celda = juego.ContenidoFilaColumna(i, j);
-				if((celda.fuenteRecurso() != null)&&(i!=1)&&(j!=1))juego.crearEdificio(TipoEdificio.RecolectableMinerales, i, j);
-			}
-		}
 
-			
-		for(int i=0;i<20;i++){
-			juego.pasarTurno();
-		}
-		
-		Unidades unidad = Unidades.ZEALOT;
-		entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(1, 0, unidad);
-		entro = entro & juego.crearUnidad(1, 0, unidad);
-			
-			
-		assertEquals(false, entro);
-		
-	}
-	//@Test
+	@Test
 	public void testCrearEdificioSinRequisito(){
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -131,7 +77,7 @@ public class JuegoTest {
 		}
 		juego.crearEdificio(TipoEdificio.CreadorSoldados,6,6);
 		juego.pasarTurno();
-		Assert.assertTrue(juego.hayGanador());
+		Assert.assertFalse(juego.hayGanador());
 		for(int i=10;i<15;i++){
 			for(int j=10;j<15;j++){
 				if((i!=15)&&(j!=15)&&(juego.ContenidoFilaColumna(i, j).fuenteRecurso()!=null)){
@@ -141,13 +87,13 @@ public class JuegoTest {
 		}
 		juego.crearEdificio(TipoEdificio.CreadorSoldados,9,9);
 		juego.pasarTurno();
-		Assert.assertTrue(juego.hayGanador());
+		Assert.assertFalse(juego.hayGanador());
 		
 		
 		
 		
 	}
-	//@Test
+	@Test
 	public void testPartida(){
 		Juego juego =  Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
@@ -159,7 +105,7 @@ public class JuegoTest {
 	
 
 	
-	//@Test
+	@Test
 	public void testPonerDosObjetosEnElMismoEspacio(){
 		Juego juego =  Juego.getInstance();
 		boolean entro = false;
@@ -177,7 +123,7 @@ public class JuegoTest {
 		
 	}
 	
-	//@Test /*(expected = NoHayRecurso.class)*/
+	@Test /*(expected = NoHayRecurso.class)*/
 	
 	public void testCrearEdificioSinRecurso() {
 		Juego juego = Juego.getInstance();
@@ -207,3 +153,4 @@ public class JuegoTest {
 	
 
 }
+

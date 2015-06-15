@@ -38,7 +38,7 @@ public class Jugador {
 	
 	 Jugador(String nombreJugador, Color colorJugador, TipoRaza razaJugador) {
 		 if(nombreJugador.length()<4){
-			 // throw new  NombreIncorrectoException();
+			 throw new  NombreIncorrectoException();
 		 }
 		 this.color=colorJugador;
 		 this.nombre=nombreJugador;
@@ -85,8 +85,5 @@ public class Jugador {
 		return this.GasVespeno;
 	}
 
-	public void agregarPoblacion() {
-		// TODO Auto-generated method stub
-		
-	}
+
 }
