@@ -26,18 +26,20 @@ public class Juego {
 		 this.chequearNombreYColorNoRepetidos(nombre, color);
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);
-		if (raza == TipoRaza.TERRAN) {
-			fabricas.put(jugador, new FactoryEdificiosTerran(jugador,mapa));
-		} else
-		{
-			fabricas.put(jugador, new FactoryEdificiosProtoss(jugador,mapa));
-		}
 	}
 
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
 		mapa = Mapa.getInstance(15,15,jugadores); 
 		inicializarRecursos();
+		for (Jugador jugador: jugadores){
+			if (jugador.tipoRaza() == TipoRaza.TERRAN) {
+				fabricas.put(jugador, new FactoryEdificiosTerran(jugador,mapa));
+			} else
+			{
+				fabricas.put(jugador, new FactoryEdificiosProtoss(jugador,mapa));
+			}
+		}
 	}
 
 	private void inicializarRecursos() {

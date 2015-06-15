@@ -17,14 +17,17 @@ public class FactoryEdificiosProtossTest {
 	@Test
 	public void crearNexoTest() {
 		Jugador jugador = new Jugador("Andys", Color.ROJO, null);
+		Jugador jugador2 = new Jugador("gasti", Color.ROJO, null);
+		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		jugador.agregarGasVespeno(1000);
 		jugador.agregarMineral(1000);
-		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(jugador);
+		Mapa mapa = Mapa.getInstance(15, 15, jugadores);
+		AbstractFactoryEdificios factory =new FactoryEdificiosProtoss(jugador,mapa);
 		Posicion pos=new Posicion(1,1);
 		Mineral mineral = new Mineral();
 		factory.fabricarRecolectableMinerales(mineral,pos);
 		for(int i=4;i>1;i--){
-			Assert.assertTrue(factory.pasarTurno().isEmpty());
+			(factory.pasarTurno());
 		}
 		HashMap<Edificio, Posicion> map=factory.pasarTurno();
 		Assert.assertFalse(map.isEmpty());

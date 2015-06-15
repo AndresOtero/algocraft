@@ -23,7 +23,6 @@ public class JuegoTest {
 		Juego juego = Juego.getInstance();
 		juego.crearJugador("fede", Color.AMARILLO, TipoRaza.TERRAN);
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
-		
 		juego.iniciarJuego();
 		juego.crearCreadorSoldados(6, 6);
 		Unidades unidad = Unidades.MARINE;
