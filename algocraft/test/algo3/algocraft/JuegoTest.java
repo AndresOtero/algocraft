@@ -25,7 +25,7 @@ public class JuegoTest {
 		juego.crearJugador("vader", Color.ROJO, TipoRaza.PROTOSS);
 		
 		juego.iniciarJuego();
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 6);
+		juego.crearCreadorSoldados(6, 6);
 		Unidades unidad = Unidades.MARINE;
 		
 		Assert.assertEquals(juego.JugadorActual(), "vader");

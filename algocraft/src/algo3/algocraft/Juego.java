@@ -191,34 +191,30 @@ public class Juego {
 		AbstractFactoryEdificios factory= fabricas.get(turnos.turnoActual()); 
 		Posicion pos=new Posicion(fila,columna);
 		Celda celda= mapa.ContenidoPosicion(pos);
-		Boolean seCreo=false;
 		if(celda.ocupadoTerrestre()){
 			throw new LaCeldaTerrestreEstaOcupada();
 		}
 		switch(tipoEdifico){
 			case CreadorAereos:
-				seCreo=factory.fabricarCreadorAereos(pos);
+				factory.fabricarCreadorAereos(pos);
 				break;
 			case CreadorTerrestres:
-				seCreo=factory.fabricarCreadorTerrestres(pos);
+				factory.fabricarCreadorTerrestres(pos);
 				break;
 			case CreadorSoldados:
-				seCreo=factory.fabricarCreadorSoldados(pos);
-	
+				factory.fabricarCreadorSoldados(pos);
 				break;
 			case SumaPoblacion:
-				seCreo=factory.fabricarSumaPoblacion(pos);
+				factory.fabricarSumaPoblacion(pos);
 				break;
 			case RecolectableGas:
-				seCreo=factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(),pos);
+				factory.fabricarRecolectableGas((VolcanGasVespeno)celda.fuenteRecurso(),pos);
 				break;
 			case RecolectableMinerales:
-				seCreo=factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), pos);
+				factory.fabricarRecolectableMinerales((Mineral)celda.fuenteRecurso(), pos);
 				break;
 		}
-		if(seCreo==false){
-			throw new NoHayRecursosException();
-		}
+		
 		mapa.ponerTerrestre(pos, new EdificioEnConstruccion(turnos.turnoActual().color()));
 	}
 	private void verificarSiCeldaEstaOcupado(int fil, int col) {
@@ -227,37 +223,37 @@ public class Juego {
 		}		
 	}
 	
-	public Boolean crearCreadorAereos(int fil,int col){
+	public void crearCreadorAereos(int fil,int col){
 		verificarSiCeldaEstaOcupado(fil,col);
+		fabricas.get(turnos.turnoActual()).fabricarCreadorAereos(new Posicion(fil,col)); 
 		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
-		return fabricas.get(turnos.turnoActual()).fabricarCreadorAereos(new Posicion(fil,col)); 
 	}
-	public Boolean crearCreadorTerrestres(int fil,int col){
+	public void crearCreadorTerrestres(int fil,int col){
 		verificarSiCeldaEstaOcupado(fil,col);
+		fabricas.get(turnos.turnoActual()).fabricarCreadorTerrestres(new Posicion(fil,col)); 
 		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
-		return fabricas.get(turnos.turnoActual()).fabricarCreadorTerrestres(new Posicion(fil,col)); 
 	}
-	public Boolean crearSoldados(int fil,int col){
+	public void crearCreadorSoldados(int fil,int col){
 		verificarSiCeldaEstaOcupado(fil,col);
+		fabricas.get(turnos.turnoActual()).fabricarCreadorSoldados(new Posicion(fil,col)); 
 		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
-		return fabricas.get(turnos.turnoActual()).fabricarCreadorSoldados(new Posicion(fil,col)); 
 	}
-	public Boolean crearSumaPoblacion(int fil,int col){
+	public void crearSumaPoblacion(int fil,int col){
 		verificarSiCeldaEstaOcupado(fil,col);
+		fabricas.get(turnos.turnoActual()).fabricarSumaPoblacion(new Posicion(fil,col)); 		
 		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
-		return fabricas.get(turnos.turnoActual()).fabricarSumaPoblacion(new Posicion(fil,col)); 		
 	}
-	public Boolean crearRecolectableGas(int fil,int col) {
+	public void crearRecolectableGas(int fil,int col) {
 		verificarSiCeldaEstaOcupado(fil,col);
-		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
 		VolcanGasVespeno volcan=(VolcanGasVespeno) mapa.ContenidoPosicion(new Posicion(fil,col)).fuenteRecurso();
-		return fabricas.get(turnos.turnoActual()).fabricarRecolectableGas(volcan,new Posicion(fil,col)); 		
-	}
-	public Boolean crearRecolectableMinerales(int fil,int col) {
-		verificarSiCeldaEstaOcupado(fil,col);
+		fabricas.get(turnos.turnoActual()).fabricarRecolectableGas(volcan,new Posicion(fil,col)); 		
 		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
+	}
+	public void crearRecolectableMinerales(int fil,int col) {
+		verificarSiCeldaEstaOcupado(fil,col);
 		Mineral mineral=(Mineral) mapa.ContenidoPosicion(new Posicion(fil,col)).fuenteRecurso();
-		return fabricas.get(turnos.turnoActual()).fabricarRecolectableMinerales(mineral,new Posicion(fil,col)); 		
+		fabricas.get(turnos.turnoActual()).fabricarRecolectableMinerales(mineral,new Posicion(fil,col)); 		
+		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
 	}
 	
 

@@ -24,12 +24,12 @@ public class PartidaBasicaTest {
 		Assert.assertEquals(juego.ContenidoFilaColumna(1, 1).serEnLaCeldaTerrestre().color(), Color.VERDE);
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
 		crearRecolectableMineral(juego);
-		juego.crearEdificio(TipoEdificio.CreadorSoldados, 6, 6);
+		juego.crearCreadorSoldados(6,6);
 		for(int i=0;i<20;i++){
 			juego.pasarTurno();
 		}
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
-		juego.crearUnidad(6, 6, Unidades.ZEALOT);
+		juego.crearZealot(6,6);
 		for(int i=0;i<12;i++){
 			juego.pasarTurno();
 		}

@@ -8,11 +8,11 @@ import algo3.algocraft.unidades.Unidad;
 
 
 public interface AbstractFactoryEdificios {
-	public Boolean fabricarCreadorAereos(Posicion pos);
-	public Boolean fabricarCreadorTerrestres(Posicion pos);
-	public Boolean fabricarCreadorSoldados(Posicion pos);
-	public Boolean fabricarSumaPoblacion(Posicion pos);
-	public Boolean fabricarRecolectableGas(VolcanGasVespeno volcan,Posicion pos);
-	public Boolean fabricarRecolectableMinerales(Mineral mineral,Posicion pos);
+	public void fabricarCreadorAereos(Posicion pos);
+	public void fabricarCreadorTerrestres(Posicion pos);
+	public void fabricarCreadorSoldados(Posicion pos);
+	public void fabricarSumaPoblacion(Posicion pos);
+	public void fabricarRecolectableGas(VolcanGasVespeno volcan,Posicion pos);
+	public void fabricarRecolectableMinerales(Mineral mineral,Posicion pos);
 	public HashMap<Edificio, Posicion> pasarTurno();
 }

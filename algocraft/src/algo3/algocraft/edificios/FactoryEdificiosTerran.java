@@ -9,6 +9,7 @@ import algo3.algocraft.Jugador;
 import algo3.algocraft.Mineral;
 import algo3.algocraft.Posicion;
 import algo3.algocraft.VolcanGasVespeno;
+import algo3.algocraft.exceptions.NoHayRecursosException;
 
 public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	private Jugador jugador;
@@ -36,83 +37,81 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 		return edificiosCreados;
 	}
 	@Override
-	public Boolean fabricarCreadorAereos(Posicion pos) {
+	public void fabricarCreadorAereos(Posicion pos) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>100)){
 			Edificio ed= new PuertoEstelarTerran(jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(100);
 			jugador.sacarMineral(150);
-			return true;
+			return;
 		}
-		return false;
+		throw new NoHayRecursosException();
 	}
 
 	@Override
-	public Boolean fabricarCreadorTerrestres(Posicion pos) {
+	public void fabricarCreadorTerrestres(Posicion pos) {
 		if((jugador.Minerales()>200)&&(jugador.GasVespeno()>100)){
 			Edificio ed= new Fabrica(jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(100);
 			jugador.sacarMineral(200);
-			return true;
+			return;
 		}
-		
-		return false;
+		throw new NoHayRecursosException();
 	}
 
 	@Override
-	public Boolean fabricarCreadorSoldados(Posicion pos) {
+	public void fabricarCreadorSoldados(Posicion pos) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
 			Edificio ed= new Barraca(jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(150);
-			return true;
+			return;
 		}
-		return false;
+		throw new NoHayRecursosException();
 	}
 
 	@Override
-	public Boolean fabricarSumaPoblacion(Posicion pos) {
+	public void fabricarSumaPoblacion(Posicion pos) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
 			Edificio ed= new DepositoDeSuminisitros(jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(100);
-			return true;
-			
+			return;
 		}
-		return false;
+		throw new NoHayRecursosException();
 	}
 
 	@Override
-	public Boolean fabricarRecolectableGas(VolcanGasVespeno volcan,Posicion pos) {
+	public void fabricarRecolectableGas(VolcanGasVespeno volcan,Posicion pos) {
 		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
 			Edificio ed= new Refineria(volcan, jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(100);
-			return true;
+			return;
 		}
-		return false;
+		throw new NoHayRecursosException();
 	}
 
 	@Override
-	public Boolean fabricarRecolectableMinerales(Mineral mineral,Posicion pos) {
+	public void fabricarRecolectableMinerales(Mineral mineral,Posicion pos) {
 		if((jugador.Minerales()>50)&&(jugador.GasVespeno()>0)){
 			Edificio ed= new CentroDeMineral(mineral, jugador.color());
 			edificiosEnCola.add(ed);
 			posiciones.put(ed, pos);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(50);
-			return true;
+			return;
 		}
-		return false;
+		throw new NoHayRecursosException();
 	}
 
 }
