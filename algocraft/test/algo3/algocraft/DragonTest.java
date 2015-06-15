@@ -11,7 +11,7 @@ import algo3.algocraft.unidades.*;
 public class DragonTest {
 	@Test
 	public void setTest() {
-		Unidad unidad=(Unidad) new Dragon(Color.ROJO);
+		Unidad unidad=(Unidad) new Dragon(Color.ROJO,new Posicion(10,9));
 		Assert.assertTrue(Color.ROJO==unidad.color());
 		Assert.assertEquals( 8,unidad.vision());
 		Assert.assertEquals( 2,unidad.suministro());
@@ -19,8 +19,8 @@ public class DragonTest {
 	}
 	@Test
 	public void ataque(){
-		UnidadDeAtaque unidad=(UnidadDeAtaque) new Dragon(Color.AMARILLO);
-		Unidad atacado = new Marine(Color.ROJO);		
+		UnidadDeAtaque unidad=(UnidadDeAtaque) new Dragon(Color.AMARILLO,new Posicion(10,9));
+		Unidad atacado = new Marine(Color.ROJO,new Posicion(10,8));		
 		for ( int i = 0 ; i< 10 ; i++ )
 		unidad.atacarTierra(atacado);
 		Assert.assertTrue(atacado.estaMuerto());
@@ -30,7 +30,7 @@ public class DragonTest {
 	}
 	@Test
 	public void recibirdanio(){
-		Unidad unidad=(Unidad) new Dragon(Color.AMARILLO);
+		Unidad unidad=(Unidad) new Dragon(Color.AMARILLO,new Posicion(10,9));
 		unidad.recibirDanio(10);
 		Assert.assertFalse(unidad.estaMuerto());
 		unidad.recibirDanio(1000);
@@ -38,12 +38,12 @@ public class DragonTest {
 	}
 	@Test
 	public void transportable() {
-		Transportable transportable = new Dragon(Color.AZUL);
+		Transportable transportable = new Dragon(Color.AZUL,new Posicion(10,9));
 		Assert.assertEquals(4, transportable.transporte());
 	}
 	@Test
 	public void pasarTurno() {
-		Ser ser = new Dragon(Color.AZUL);
+		Ser ser = new Dragon(Color.AZUL,new Posicion(10,9));
 		int tiempoDeConstruccion=ser.tiempoDeConstruccion();
 		for(;tiempoDeConstruccion>1;tiempoDeConstruccion--){
 			ser.pasarTurno();

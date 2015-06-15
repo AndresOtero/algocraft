@@ -23,7 +23,7 @@ public class ArchivosTemplarios extends EdificioCreador implements CreadorTerres
 
 	public boolean crearAltoTemplario(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasTemplario && jug.Minerales()> this.costoMineralTemplario){	
-		this.agregarACola( new AltoTemplario ( this.color));
+		this.agregarACola( new AltoTemplario ( this.color,this.posicion));
 		jug.sacarGasVespeno(this.costoGasTemplario);
 		jug.sacarMineral(this.costoMineralTemplario);
 		return true;

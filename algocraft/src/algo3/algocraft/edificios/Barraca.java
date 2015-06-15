@@ -24,7 +24,7 @@ public class Barraca extends EdificioCreador implements CreadorSoldados {
 	
 	public boolean crearMarine(Jugador jug) {
 		if ( jug.GasVespeno() > this.costoGasMarine && jug.Minerales()> this.costoMineralMarine){	
-		this.agregarACola( new Marine ( this.color));
+		this.agregarACola( new Marine ( this.color,this.posicion));
 		jug.sacarGasVespeno(this.costoGasMarine);
 		jug.sacarMineral(this.costoMineralMarine);
 		return true;

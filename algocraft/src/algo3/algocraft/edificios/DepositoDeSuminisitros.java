@@ -13,6 +13,6 @@ public class DepositoDeSuminisitros extends Edificio implements SumaPoblacion {
 		this.color = colorJugador;
 	}
 	public void agregarseAMapa(Mapa mapa){
-		mapa.ponerSumaPoblacion(this.posicion(), this);
+		mapa.ponerEdificioSumaPoblacion(this.posicion(), this);
 	}
 }
