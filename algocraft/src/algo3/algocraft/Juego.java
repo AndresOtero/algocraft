@@ -26,18 +26,20 @@ public class Juego {
 		 this.chequearNombreYColorNoRepetidos(nombre, color);
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);
-		if (raza == TipoRaza.TERRAN) {
-			fabricas.put(jugador, new FactoryEdificiosTerran(jugador));
-		} else
-		{
-			fabricas.put(jugador, new FactoryEdificiosProtoss(jugador));
-		}
 	}
 
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
 		mapa = Mapa.getInstance(15,15,jugadores); 
 		inicializarRecursos();
+		for (Jugador jugador: jugadores){
+			if (jugador.tipoRaza() == TipoRaza.TERRAN) {
+				fabricas.put(jugador, new FactoryEdificiosTerran(jugador,mapa));
+			} else
+			{
+				fabricas.put(jugador, new FactoryEdificiosProtoss(jugador,mapa));
+			}
+		}
 	}
 
 	private void inicializarRecursos() {
@@ -71,16 +73,7 @@ public class Juego {
 	private void administrarCreacionEdificios() {
 		Jugador jugadorActual = turnos.turnoActual();
 		AbstractFactoryEdificios factory=fabricas.get(jugadorActual);
-		HashMap<Edificio, Posicion> edificiosCreados = factory.pasarTurno();
-		Iterator it = edificiosCreados.keySet().iterator();
-		while(it.hasNext()){
-			Edificio ed=(Edificio) it.next();
-			Posicion pos= ed.posicion();
-			if(!mapa.estaVaciaTerrestre(pos)){
-				mapa.borrarSerTerrestre(mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre());	
-				ed.agregarseAMapa(this.mapa);
-			}
-		}
+		factory.pasarTurno();
 	}
 	
 	private void administrarCreacionUnidades() {

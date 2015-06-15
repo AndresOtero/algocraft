@@ -6,6 +6,7 @@ import java.util.HashMap;
 import algo3.algocraft.Color;
 import algo3.algocraft.Edificio;
 import algo3.algocraft.Jugador;
+import algo3.algocraft.Mapa;
 import algo3.algocraft.Mineral;
 import algo3.algocraft.Posicion;
 import algo3.algocraft.VolcanGasVespeno;
@@ -14,26 +15,32 @@ import algo3.algocraft.exceptions.NoHayRecursosException;
 public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	private Jugador jugador;
 	private ArrayList<Edificio> edificiosEnCola = new ArrayList<Edificio>();
-	private HashMap<Edificio, Posicion> edificiosCreados = new HashMap<Edificio, Posicion>();
+	private ArrayList<Edificio> edificiosCreados = new ArrayList<Edificio> ();
+	private Mapa mapa;
 	
-	public FactoryEdificiosTerran(Jugador jugador) {
+	public FactoryEdificiosTerran(Jugador jugador,Mapa mapa) {
 		this.jugador = jugador;
+		this.mapa =mapa;
 	}
 
+	
 	@Override
-	public HashMap<Edificio, Posicion> pasarTurno() {
+	public void pasarTurno() {
 		edificiosCreados.clear();
 		for (Edificio edificio : edificiosEnCola) {
 			edificio.pasarTurno();
 			if (edificio.creado()) {
-				edificiosCreados.put(edificio,edificio.posicion());
+				edificiosCreados.add(edificio);
+				if(!mapa.estaVaciaTerrestre(edificio.posicion())){
+					mapa.borrarSerTerrestre(mapa.ContenidoPosicion(edificio.posicion()).serEnLaCeldaTerrestre());	
+					edificio.agregarseAMapa(this.mapa);
+				}
 			}
 		}
-		for(Edificio edificio:edificiosCreados.keySet()){
+		for(Edificio edificio:edificiosCreados){
 			if (edificiosEnCola.contains(edificio))
 			edificiosEnCola.remove(edificio);
 		}
-		return edificiosCreados;
 	}
 	@Override
 	public void fabricarCreadorAereos(Posicion pos) {

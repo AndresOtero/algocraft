@@ -14,5 +14,5 @@ public interface AbstractFactoryEdificios {
 	public void fabricarSumaPoblacion(Posicion pos);
 	public void fabricarRecolectableGas(VolcanGasVespeno volcan,Posicion pos);
 	public void fabricarRecolectableMinerales(Mineral mineral,Posicion pos);
-	public HashMap<Edificio, Posicion> pasarTurno();
+	public void pasarTurno();
 }
