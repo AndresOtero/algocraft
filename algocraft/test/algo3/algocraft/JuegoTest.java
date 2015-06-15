@@ -101,7 +101,6 @@ public class JuegoTest {
 		for(int i=0;i<20;i++){
 			juego.pasarTurno();
 		}
-		System.out.print("bbb"+ juego.ContenidoFilaColumna(1,0).serEnLaCeldaTerrestre()+"\n");
 		
 		Unidades unidad = Unidades.ZEALOT;
 		entro = entro & juego.crearUnidad(1, 0, unidad);
