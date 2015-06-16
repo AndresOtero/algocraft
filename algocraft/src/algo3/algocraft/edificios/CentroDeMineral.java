@@ -13,4 +13,8 @@ public class CentroDeMineral extends EdificioDeRecurso implements RecolectableMi
 	public void agregarseAMapa(Mapa mapa){
 		mapa.ponerEdificioMineral(this.posicion(), this);
 	}
+	@Override
+	public void recolectar(Jugador jugador) {
+		jugador.agregarMineral(fuenteRecurso.devolverRecurso());
+	}
 }

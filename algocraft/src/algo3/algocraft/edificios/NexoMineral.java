@@ -14,4 +14,8 @@ public class NexoMineral extends EdificioDeRecurso implements RecolectableMinera
 	public void agregarseAMapa(Mapa mapa){
 		mapa.ponerEdificioMineral(this.posicion(), this);
 	}
+	@Override
+	public void recolectar(Jugador jugador) {
+		jugador.agregarMineral(fuenteRecurso.devolverRecurso());
+	}
 }

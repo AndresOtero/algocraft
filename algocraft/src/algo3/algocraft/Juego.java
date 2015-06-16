@@ -62,17 +62,16 @@ public class Juego {
 		Jugador jugadorActual = turnos.turnoActual();
 		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa.edificioDeGas(jugadorActual.color());
 		for (EdificioDeRecurso edificio : edificiosDeRecursos) {
-			jugadorActual.agregarGasVespeno(edificio.recolectar());
+				edificio.recolectar(jugadorActual);
 		}
 		edificiosDeRecursos = mapa.edificioDeMineral(jugadorActual.color());
 		for (EdificioDeRecurso edificio : edificiosDeRecursos) {
-			jugadorActual.agregarMineral(edificio.recolectar());
+			edificio.recolectar(jugadorActual);
 		}
 	}
 	
 	private void administrarCreacionEdificios() {
-		Jugador jugadorActual = turnos.turnoActual();
-		AbstractFactoryEdificios factory=fabricas.get(jugadorActual);
+		AbstractFactoryEdificios factory=fabricas.get(turnos.turnoActual());
 		factory.pasarTurno();
 	}
 	
@@ -121,10 +120,8 @@ public class Juego {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
-			//Ser ser = mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();	
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();
 			verificarPropiedadUnidad(unidadAMover);
-			
 			mapa.moverTerrestre(posicionInicial,posicionFinal );
 			turnos.agregarMovido(unidadAMover);
 		} catch (NoEsPosibleMoverException e) {

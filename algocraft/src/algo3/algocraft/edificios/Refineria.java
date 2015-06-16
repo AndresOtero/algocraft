@@ -14,5 +14,10 @@ public class Refineria extends EdificioDeRecurso implements RecolectableGas {
 	public void agregarseAMapa(Mapa mapa){
 		mapa.ponerEdificioGas(this.posicion(), this);
 	}
+	@Override
+	public void recolectar(Jugador jugador) {
+		jugador.agregarGasVespeno(fuenteRecurso.devolverRecurso());
+	}
+	
 
 }

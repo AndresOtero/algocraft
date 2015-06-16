@@ -28,7 +28,9 @@ public class NexoMineralTest {
 	public void recolectarRecursio(){
 		Mineral mineral=new Mineral();
 		NexoMineral edificio=(NexoMineral) new NexoMineral(mineral, Color.ROJO, null);
-		Assert.assertEquals(10, edificio.recolectar());
+		Jugador jugador =new Jugador("andres", Color.AMARILLO, TipoRaza.PROTOSS);
+		edificio.recolectar(jugador);
+		Assert.assertEquals(10,jugador.Minerales() );
 	}
 	
 

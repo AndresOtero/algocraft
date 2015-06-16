@@ -29,7 +29,9 @@ public class CentroDeMineralTest {
 	public void recolectarRecursio(){
 		Mineral mineral=new Mineral();
 		CentroDeMineral edificio=(CentroDeMineral) new CentroDeMineral(mineral, Color.ROJO, null);
-		Assert.assertEquals(10, edificio.recolectar());
+		Jugador jugador =new Jugador("andres", Color.AMARILLO, TipoRaza.PROTOSS);
+		edificio.recolectar(jugador);
+		Assert.assertEquals(10,jugador.Minerales() );
 	}
 	
 

@@ -5,9 +5,7 @@ import algo3.algocraft.*;
 public abstract class EdificioDeRecurso extends Edificio {
 	FuenteRecurso fuenteRecurso;
 
-	public int recolectar() {
-		return fuenteRecurso.devolverRecurso();
-	}
+	public abstract void recolectar(Jugador jugador) ;
 	
 
 }

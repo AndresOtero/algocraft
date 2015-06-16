@@ -29,8 +29,10 @@ public class AsimiladorTest {
 	public void recolectarRecursio(){
 		VolcanGasVespeno volcan=new VolcanGasVespeno();
 		EdificioDeRecurso edificio=(EdificioDeRecurso) new Asimilador(volcan, Color.ROJO, null);
-		Assert.assertEquals(10, edificio.recolectar());
-	}
+		Jugador jugador =new Jugador("andres", Color.AMARILLO, TipoRaza.PROTOSS);
+		edificio.recolectar(jugador);
+		Assert.assertEquals(10,jugador.GasVespeno() );	
+		}
 	
 
 }

@@ -24,6 +24,7 @@ public class Mapa {
 	private Map<Color, ArrayList<Ser>> seres;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;
+	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeRecursos;
 	private Map<Color, ArrayList<EdificioCreador>> edificiosCreadores;
 	private Map<Color, ArrayList<SumaPoblacion>> edificiosSumaPoblacion;
 	ArrayList<Jugador> jugadores;
