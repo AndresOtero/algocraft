@@ -22,8 +22,8 @@ public class Mapa {
 	private int ancho;
 	private int alto;
 	private Map<Color, ArrayList<Ser>> seres;
-	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
-	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;
+	/*private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
+	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;*/
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeRecursos;
 	private Map<Color, ArrayList<EdificioCreador>> edificiosCreadores;
 	private Map<Color, ArrayList<SumaPoblacion>> edificiosSumaPoblacion;
@@ -39,8 +39,9 @@ public class Mapa {
 	private Mapa(int ancho, int largo, ArrayList<Jugador> jugadores) {
 		this.mapa = new HashMap<Posicion, Celda>();
 		this.seres = new HashMap<Color, ArrayList<Ser>>();
-		this.edificiosDeGas = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
-		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
+		/*this.edificiosDeGas = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
+		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();*/
+		this.edificiosDeRecursos = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosCreadores = new HashMap<Color, ArrayList<EdificioCreador>>();
 		this.edificiosSumaPoblacion = new HashMap<Color, ArrayList<SumaPoblacion>>();
 		this.jugadores = jugadores;
@@ -229,17 +230,18 @@ public class Mapa {
 	 * 
 	 *****************************/
 	
-	private void ponerEdificioDeRecurso(Posicion pos, EdificioDeRecurso edificio) {
+	public void ponerEdificioDeRecurso(Posicion pos, EdificioDeRecurso edificio) {
 		Celda celda = mapa.get(pos);
 		if (celda.fuenteRecurso() == null) {
 			System.out.println("NO HAY RECURSO AHI");
 			throw new NoHayRecursoEnEsaPosicionException();
 		} else {
 			ponerTerrestre(pos, edificio);
+			agregarEdificioDeRecursosDeColor(edificio,edificio.color());
 		}
 	}
 	
-	public void ponerEdificioGas(Posicion pos, EdificioDeRecurso edificio) {
+	/*public void ponerEdificioGas(Posicion pos, EdificioDeRecurso edificio) {
 		ponerEdificioDeRecurso(pos, edificio);
 		agregarEdificioDeRecursosDeColor(edificiosDeGas, edificio,
 				edificio.color());
@@ -249,19 +251,18 @@ public class Mapa {
 		ponerEdificioDeRecurso(pos, edificio);
 		agregarEdificioDeRecursosDeColor(edificiosDeMineral, edificio,
 				edificio.color());
-	}
+	}*/
 	
 	/*agrega edificio de recurso a las listasssss*/
 	private void agregarEdificioDeRecursosDeColor(
-			Map<Color, ArrayList<EdificioDeRecurso>> edificios,
 			EdificioDeRecurso edificio, Color color) {
 		
-		if (edificios.get(color) != null) {
-			(edificios.get(color)).add(edificio);
+		if (edificiosDeRecursos.get(color) != null) {
+			(edificiosDeRecursos.get(color)).add(edificio);
 		} else {
 			ArrayList<EdificioDeRecurso> edificiosDeRecursoDeColor = new ArrayList<EdificioDeRecurso>();
 			edificiosDeRecursoDeColor.add(edificio);
-			edificios.put(color, edificiosDeRecursoDeColor);
+			edificiosDeRecursos.put(color, edificiosDeRecursoDeColor);
 		}
 	}
 	 /********************************
@@ -418,7 +419,7 @@ public class Mapa {
 		return (seres.get(color));
 	}
 
-	public ArrayList<EdificioDeRecurso> edificioDeGas(Color color) {
+	/*public ArrayList<EdificioDeRecurso> edificioDeGas(Color color) {
 		if(edificiosDeGas.get(color)==null){
 			ArrayList<EdificioDeRecurso> edificios = new ArrayList<EdificioDeRecurso>();
 			edificiosDeGas.put(color, edificios);
@@ -432,6 +433,14 @@ public class Mapa {
 			edificiosDeMineral.put(color, edificios);
 		}
 		return (edificiosDeMineral.get(color));
+	}*/
+	
+	public ArrayList<EdificioDeRecurso> edificiosDeRecursos(Color color) {
+		if(edificiosDeRecursos.get(color)==null){
+			ArrayList<EdificioDeRecurso> edificios = new ArrayList<EdificioDeRecurso>();
+			edificiosDeRecursos.put(color, edificios);
+		}
+		return (edificiosDeRecursos.get(color));
 	}
 	
 	public ArrayList<EdificioCreador> edificioCreador(Color color) {
@@ -531,11 +540,14 @@ public class Mapa {
 		if (edificiosCreadores.get(ser.color()).contains(ser))
 			edificiosCreadores.get(ser.color()).remove(ser);
 		
-		if (edificiosDeGas.get(ser.color()).contains(ser))
+		if (edificiosDeRecursos.get(ser.color()).contains(ser))
+			edificiosDeRecursos.get(ser.color()).remove(ser);
+		
+		/*if (edificiosDeGas.get(ser.color()).contains(ser))
 			edificiosDeGas.get(ser.color()).remove(ser);
 		
 		if (edificiosDeMineral.get(ser.color()).contains(ser))
-			edificiosDeMineral.get(ser.color()).remove(ser);
+			edificiosDeMineral.get(ser.color()).remove(ser);*/
 		
 	}
 
