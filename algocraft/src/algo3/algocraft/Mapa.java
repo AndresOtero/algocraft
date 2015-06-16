@@ -359,6 +359,7 @@ public class Mapa {
 		Posicion pos=this.buscarPosicionDeSer(ed);
 		ArrayList<Posicion> adyacentes = adyacentes(pos);
 		Posicion posicionVacia= this.buscarLibreMasCercanoRecursivo(pos, adyacentes);
+		unidad.cambiarPosicion(posicionVacia);
 		this.ponerTerrestre(posicionVacia, unidad);
 	}
 	
