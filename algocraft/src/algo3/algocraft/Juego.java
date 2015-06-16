@@ -60,12 +60,9 @@ public class Juego {
 
 	private void administrarRecursos() {
 		Jugador jugadorActual = turnos.turnoActual();
-		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa.edificioDeGas(jugadorActual.color());
-		for (EdificioDeRecurso edificio : edificiosDeRecursos) {
-				edificio.recolectar(jugadorActual);
-		}
-		edificiosDeRecursos = mapa.edificioDeMineral(jugadorActual.color());
-		for (EdificioDeRecurso edificio : edificiosDeRecursos) {
+		ArrayList<EdificioDeRecurso> edificiosDeRecursos = mapa.edificiosDeRecursos(jugadorActual.color());
+		
+		for (EdificioDeRecurso edificio : edificiosDeRecursos){
 			edificio.recolectar(jugadorActual);
 		}
 	}

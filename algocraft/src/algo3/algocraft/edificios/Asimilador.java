@@ -13,7 +13,7 @@ public class Asimilador extends EdificioDeRecurso implements RecolectableGas {
 		this.color = colorJugador;
 	}
 	public void agregarseAMapa(Mapa mapa){
-		mapa.ponerEdificioGas(this.posicion(), this);
+		mapa.ponerEdificioDeRecurso(this.posicion(), this);
 	}
 	@Override
 	public void recolectar(Jugador jugador) {
