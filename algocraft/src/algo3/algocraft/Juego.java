@@ -294,43 +294,40 @@ public class Juego {
 		return true;
 	}	
 	
+	public void ataqueRadiacion(int filIni, int colIni, int filFinal,
+			int colFinal) {
+		Posicion posini = new Posicion(filIni, colIni);
+		Posicion posfin = new Posicion(filFinal, colFinal);
+		NaveCiencia unidadQAtaca = (NaveCiencia) mapa.ContenidoPosicion(posini)
+				.serEnLaCeldaTerrestre();
+		Unidad unidadAtacada = (Unidad) mapa.ContenidoPosicion(posfin)
+				.serEnLaCeldaTerrestre();
+		unidadQAtaca.radiacion(unidadAtacada);
+	}
 
-	public void ataqueMagico(AtaqueMagico ataque , int filIni ,int colIni, int filFinal,int colFinal ){
-		Posicion posini = new Posicion(filIni,colIni);
-		Posicion posfin = new Posicion(filFinal,colFinal);
-		UnidadMagica unidadQAtaca = (UnidadMagica) mapa.ContenidoPosicion(posini).serEnLaCeldaTerrestre();
-		// si no puede aplicar magia -> lanzar error
-		// si no es su turno , -> error				
-		switch(ataque){
-		case RADIACION:
-			Unidad unidadAtacada = (Unidad) mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
-			// validar que sea un ser
-			((NaveCiencia) unidadQAtaca).radiacion(unidadAtacada);
-			break;
-		case EMP:
-			ataqueMagicoEnRadio(unidadQAtaca,posfin);
-			break;
-			
-		case TORMENTA:
-			ataqueMagicoEnRadio(unidadQAtaca,posfin);
-			break;
-			
-		case ALUCINACION:
-			// validar que pueda usarlo
-			ArrayList<AltoTemplarioInteface> copias =((AltoTemplario)unidadQAtaca).alucinacion();
-			for (int i = 0; i< copias.size(); i++){
-				mapa.ponerUnidadEnLaCeldaLibreMasCercana((Ser)unidadQAtaca,(Unidad)copias.get(i));
-			}
-			break;
+	public void ataqueAlucinacion(int filIni, int colIni) {
+		Posicion posini = new Posicion(filIni, colIni);
+		AltoTemplario unidadQAtaca = (AltoTemplario) mapa.ContenidoPosicion(
+				posini).serEnLaCeldaTerrestre();
+		ArrayList<AltoTemplarioInteface> copias = unidadQAtaca.alucinacion();
+		for (int i = 0; i < copias.size(); i++) {
+			mapa.ponerUnidadEnLaCeldaLibreMasCercana((Ser) unidadQAtaca,
+					(Unidad) copias.get(i));
 		}
-		
+
 	}
-	
-	
-	private void ataqueMagicoEnRadio(UnidadMagica unidad, Posicion pos){
-		ArrayList <Unidad> atacados = mapa.calcularRadio(pos);
-		unidad.ataqueRadio(atacados);
+
+	/* sirve para EMP y para Tormenta */
+	public void ataqueMagicoEnRadio(int filIni, int colIni, int filFinal,
+			int colFinal) {
+		Posicion posini = new Posicion(filIni, colIni);
+		Posicion posfin = new Posicion(filFinal, colFinal);
+		UnidadMagica unidadQAtaca = (UnidadMagica) mapa.ContenidoPosicion(
+				posini).serEnLaCeldaTerrestre();
+		ArrayList<Unidad> atacados = mapa.calcularRadio(posfin);
+		unidadQAtaca.ataqueRadio(atacados);
 	}
+
 	// Singleton
 	private Juego() {
 	}
