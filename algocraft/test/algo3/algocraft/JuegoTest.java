@@ -26,21 +26,18 @@ public class JuegoTest {
 		juego.iniciarJuego();
 		juego.crearCreadorSoldados(6, 6);
 		Unidades unidad = Unidades.MARINE;
-		
 		Assert.assertEquals(juego.JugadorActual(), "vader");
-		
-		for(int i=0;i<20;i++){
+		for(int i=0;i<16;i++){
 			juego.pasarTurno();
 		}
-		
-		
 		Assert.assertEquals(juego.JugadorActual(), "vader");
+		for(int i=0;i<8;i++){
+			juego.crearZealot(6,6);
+		}		
+		Assert.assertFalse(juego.crearZealot(6,6));
 		
-		boolean entro = true;
 		
-		entro = entro & juego.crearUnidad(9, 6, unidad);
 		
-		assertEquals(false, entro);
 	}
 	
 	@Test /*(expected = NoHayRecurso.class)*/
@@ -54,8 +51,11 @@ public class JuegoTest {
 		//juego.crearEdificio(TipoEdificio.CreadorSoldados, 7, 7);
 		Unidades unidad = Unidades.MARINE;
 		boolean entro = true;
-		
-		entro = entro & juego.crearUnidad(7, 7, unidad);
+		try{
+		juego.crearMarine(7, 7);
+		}catch(NullPointerException e){
+			entro=false;
+		}
 		
 		assertEquals(false, entro);
 	}

@@ -98,7 +98,6 @@ public class Juego {
 		}
 		for (TuplaDeSeres tupla:tuplasCreadas){
 			if (unidadesEnEspera.contains(tupla)) unidadesEnEspera.remove(tupla);
-			
 		}
 	}
 	
@@ -194,83 +193,39 @@ public class Juego {
 	public void crearRecolectableMinerales(int fil,int col) {
 		verificarSiCeldaEstaOcupado(fil,col);
 		Mineral mineral=(Mineral) mapa.ContenidoPosicion(new Posicion(fil,col)).fuenteRecurso();
-		fabricas.get(turnos.turnoActual()).fabricarRecolectableMinerales(mineral,new Posicion(fil,col)); 		
+		fabricas.get(turnos.turnoActual()).fabricarRecolectableMinerales(mineral,new Posicion(fil,col)); 
 		mapa.ponerTerrestre(new Posicion(fil,col), new EdificioEnConstruccion(turnos.turnoActual().color()));
 	}
-	
 
-	public boolean crearUnidad(int fil, int col, Unidades unidad){
-		Posicion pos = new Posicion(fil,col);
-		
-		EdificioCreador ed = (EdificioCreador) mapa.ContenidoPosicion(pos).serEnLaCeldaTerrestre();
-		/*Horrible, refactorizar  - excepcion EDIFICIO NO CREA A X UNIDAD*/
-		if (ed == null) return false;
-		switch(unidad){
-			case ALTOTEMPLARIO:
-				((ArchivosTemplarios) ed).crearAltoTemplario(turnos.turnoActual());
-				break;
-			case SCOUT:
-				((PuertoEstelarProtoss) ed).crearScout(turnos.turnoActual());
-				break;
-			case MARINE:
-				((Barraca) ed).crearMarine(turnos.turnoActual());
-				break;
-			case DRAGON:
-				((Acceso) ed).crearDragon(turnos.turnoActual());
-				break;
-			case NAVECIENCIA:
-				((PuertoEstelarTerran) ed).crearNaveCiencia(turnos.turnoActual());
-				break;
-			case NAVETRANSPORTEPROTOSS:
-				((PuertoEstelarProtoss) ed).crearNaveTransporteProtoss(turnos.turnoActual());
-				break;
-			case NAVETRANSPORTETERRAN:
-				((PuertoEstelarTerran) ed).crearNaveTransporteTerran(turnos.turnoActual());
-				break;
-			case ESPECTRO:
-				((PuertoEstelarTerran) ed).crearEspectro(turnos.turnoActual());
-				break;
-			case GOLLIAT:
-				((Fabrica) ed).crearGolliat(turnos.turnoActual());
-				break;
-			case ZEALOT:
-				((Acceso) ed).crearZealot(turnos.turnoActual());
-				break;
-			default:
-				throw new NoHayEspacioException();
-		}
-		return true;
-		 	
+	public Boolean crearAltoTemplario(int fil, int col){
+		return ((ArchivosTemplarios) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearAltoTemplario(turnos.turnoActual());
 	}
-	public void crearAltoTemplario(int fil, int col){
-		((ArchivosTemplarios) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearAltoTemplario(turnos.turnoActual());
+	public Boolean crearScout(int fil, int col){
+		return ((PuertoEstelarProtoss) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearScout(turnos.turnoActual());
 	}
-	public void crearScout(int fil, int col){
-		((PuertoEstelarProtoss) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearScout(turnos.turnoActual());
+	public Boolean crearMarine(int fil, int col){
+		return ((Barraca) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearMarine(turnos.turnoActual());
 	}
-	public void crearMarine(int fil, int col){
-		((Barraca) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearMarine(turnos.turnoActual());
+	public Boolean crearDragon(int fil,int col){
+		return ((Acceso) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearDragon(turnos.turnoActual());
 	}
-	public void crearDragon(int fil,int col){
-		((Acceso) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearDragon(turnos.turnoActual());
+	public Boolean crearNaveCiencia(int fil,int col){
+		return ((PuertoEstelarTerran)  mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveCiencia(turnos.turnoActual());
 	}
-	public void crearNaveCiencia(int fil,int col){
-		((PuertoEstelarTerran)  mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveCiencia(turnos.turnoActual());
+	public Boolean crearNaveTransporteProtoss(int fil,int col){
+		return ((PuertoEstelarProtoss) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteProtoss(turnos.turnoActual());
 	}
-	public void crearNaveTransporteProtoss(int fil,int col){
-		((PuertoEstelarProtoss) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteProtoss(turnos.turnoActual());
+	public Boolean crearNaveTransporteTerran(int fil,int col){
+		return ((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteTerran(turnos.turnoActual());
 	}
-	public void crearNaveTransporteTerran(int fil,int col){
-		((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteTerran(turnos.turnoActual());
+	public Boolean crearEspectro(int fil,int col){
+		return ((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearEspectro(turnos.turnoActual());
 	}
-	public void crearEspectro(int fil,int col){
-		((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearEspectro(turnos.turnoActual());
+	public Boolean crearGolliat(int fil,int col){
+		return ((Fabrica) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearGolliat(turnos.turnoActual());
 	}
-	public void crearGolliat(int fil,int col){
-		((Fabrica) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearGolliat(turnos.turnoActual());
-	}
-	public void crearZealot(int fil ,int col){
-		((Acceso) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearZealot(turnos.turnoActual());		
+	public Boolean crearZealot(int fil ,int col){
+		return ((Acceso) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearZealot(turnos.turnoActual());		
 	}
 	
 	//Metodos De Ataque
