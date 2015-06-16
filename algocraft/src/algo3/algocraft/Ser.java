@@ -64,5 +64,7 @@ public abstract class Ser {
 	public int escudo() {
 		return this.escudo;
 	}
+	
+	
 
 }
