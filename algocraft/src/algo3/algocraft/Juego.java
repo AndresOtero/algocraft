@@ -368,6 +368,14 @@ public class Juego {
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
 					
 				}
+				else {
+					colorUnidad[0]=4;
+					colorUnidad[1]= 24;
+					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+					
+					
+				}
+
 			}
 		}
 		return posicionYDibujable;
@@ -389,9 +397,18 @@ public class Juego {
 					colorUnidad[1] = ser.devolverID();
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
 					
+					
+				}
+				else {
+					colorUnidad[0]=4;
+					colorUnidad[1]= 25;
+					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+					
+					
 				}
 			}
-		}
+}
+	
 		return posicionYDibujable;
 	
 	}
