@@ -20,11 +20,16 @@ public class Zealot extends UnidadDeAtaque implements Terrestre, Transportable {
 
 		color = colorJugador;
 		movimiento=Movimiento.Terrestre;
+		this.id = 17;
 	}
 
 	@Override
 	public int transporte() {
 		return transporte;
 	}
-
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

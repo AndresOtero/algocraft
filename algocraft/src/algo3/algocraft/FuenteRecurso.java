@@ -1,8 +1,9 @@
 
 package algo3.algocraft;
 
-public class FuenteRecurso {
+public abstract  class FuenteRecurso implements Dibujable {
 	public int cantidad;
+	protected int id;
 	public int devolverRecurso (){
 		return 10;//magicNumber
 	}

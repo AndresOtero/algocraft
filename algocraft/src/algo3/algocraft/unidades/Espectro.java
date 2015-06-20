@@ -17,7 +17,13 @@ public class Espectro extends UnidadDeAtaque implements Terrestre, Aerea {
 		vision = 7;
 		color = colorJugador;
 		movimiento=Movimiento.Aereo;
+		this.id = 14;
 
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 
 }

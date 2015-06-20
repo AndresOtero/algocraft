@@ -17,6 +17,7 @@ public class AltoTemplario extends UnidadMagica implements AltoTemplarioInteface
 		this.color = colorJugador;
 		movimiento = Movimiento.Terrestre;
 		energia = energiaInicial;
+		this.id = 20;
 	}
 
 	public boolean tormenta(ArrayList<Unidad> atacados) {
@@ -56,4 +57,9 @@ public class AltoTemplario extends UnidadMagica implements AltoTemplarioInteface
 		}
 		return listaDeProxys;		
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

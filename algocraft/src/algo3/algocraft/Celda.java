@@ -58,6 +58,10 @@ public class Celda {
 		return recurso;
 	}
 
+	public boolean hayFuenteRecurso(){
+		if ( recurso != null ) return true;
+		return false;
+	}
 	public void agregarFuenteRecurso(FuenteRecurso fuenteRecurso) {
 		recurso = fuenteRecurso;
 	}

@@ -24,6 +24,7 @@ public class Acceso extends EdificioCreador implements CreadorSoldados {
 		this.color = colorJugador;
 		this.unidadesEnCola = new ArrayList<Unidad>();
 		this.unidadesCreadas = new ArrayList<Unidad>();
+		this.id = 9;
 	}
 
 	
@@ -48,4 +49,13 @@ public class Acceso extends EdificioCreador implements CreadorSoldados {
 		return false;
 	}
 
+
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+	}
+	
+	
+	
 }

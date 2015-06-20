@@ -9,7 +9,8 @@ public class NexoMineral extends EdificioDeRecurso implements RecolectableMinera
 		this.escudo = 250;
 		this.tiempoDeConstruccion = 4;
 		this.fuenteRecurso = mineral;
-		this.color=colorJugador;	
+		this.color=colorJugador;
+		this.id = 6;
 	}
 	public void agregarseAMapa(Mapa mapa){
 		mapa.ponerEdificioDeRecurso(this.posicion(), this);
@@ -18,4 +19,9 @@ public class NexoMineral extends EdificioDeRecurso implements RecolectableMinera
 	public void recolectar(Jugador jugador) {
 		jugador.agregarMineral(fuenteRecurso.devolverRecurso());
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

@@ -18,11 +18,17 @@ public class Golliat extends UnidadDeAtaque implements Terrestre, Transportable 
 		vision = 8;
 		color = colorJugador;
 		movimiento=Movimiento.Terrestre;
+		this.id = 13;
 	}
 
 	@Override
 	public int transporte() {
 		return transporte;
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 
 }

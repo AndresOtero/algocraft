@@ -18,7 +18,8 @@ public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 		this.tiempoDeConstruccion = 12;
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
-		this.unidadesCreadas=new ArrayList<Unidad>();	
+		this.unidadesCreadas=new ArrayList<Unidad>();
+		this.id = 4;
 		}
 	public void crearGolliat(){
 		this.agregarACola( new Golliat(this.color,this.posicion));
@@ -38,5 +39,10 @@ public class Fabrica extends EdificioCreador implements CreadorTerrestres {
 		}
 		return false;
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 
 }

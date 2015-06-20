@@ -17,6 +17,7 @@ public class NaveCiencia extends UnidadMagica implements Aerea {
 		energia = energiaInicial;
 		this.tiempoDeConstruccion = 10;
 		movimiento=Movimiento.Aereo;
+		this.id = 15;
 	}
 
 	@Override
@@ -45,4 +46,10 @@ public class NaveCiencia extends UnidadMagica implements Aerea {
 	public boolean ataqueRadio(ArrayList<Unidad> atacados){
 		return emp(atacados);
 	}
+	
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

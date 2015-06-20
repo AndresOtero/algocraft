@@ -17,6 +17,12 @@ public class NaveTransporteProtoss extends UnidadDeTransporte {
 		escudo = 80;
 		this.color = colorJugador;
 		movimiento=Movimiento.Aereo;
+		this.id = 21;
 
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

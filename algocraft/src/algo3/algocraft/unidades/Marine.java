@@ -18,11 +18,16 @@ public class Marine extends UnidadDeAtaque implements Terrestre, Transportable {
 		vision = 7;
 		color = colorJugador;
 		movimiento=Movimiento.Terrestre;
+		this.id = 12;
 	}
 
 	@Override
 	public int transporte() {
 		return transporte;
 	}
-
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

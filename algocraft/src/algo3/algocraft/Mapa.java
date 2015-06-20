@@ -62,6 +62,14 @@ public class Mapa {
 		celda.agregarFuenteRecurso(volcan);
 		return volcan;
 	}
+	
+	public int ancho (){
+		return ancho;
+	}
+	
+	public int alto(){
+		return alto;
+	}
 	/* Metodos de Inicializacion */
 	private void inicializarMapa() {
 
@@ -566,6 +574,7 @@ public class Mapa {
 
 		return null;
 	}
+	
 
 	/* *****************
 	 * 

@@ -17,7 +17,13 @@ public class Scout extends UnidadDeAtaque implements Terrestre, Aerea {
 		vision = 7;
 		this.color = colorJugador;
 		movimiento=Movimiento.Aereo;
-
+		this.id = 19;
 	}
+	
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 
 }

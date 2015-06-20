@@ -11,6 +11,7 @@ public class Asimilador extends EdificioDeRecurso implements RecolectableGas {
 		this.tiempoDeConstruccion = 6;
 		this.fuenteRecurso = volcan;
 		this.color = colorJugador;
+		this.id = 8;
 	}
 	public void agregarseAMapa(Mapa mapa){
 		mapa.ponerEdificioDeRecurso(this.posicion(), this);
@@ -19,5 +20,10 @@ public class Asimilador extends EdificioDeRecurso implements RecolectableGas {
 	public void recolectar(Jugador jugador) {
 		jugador.agregarGasVespeno(fuenteRecurso.devolverRecurso());
 	}
-
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
+	
 }

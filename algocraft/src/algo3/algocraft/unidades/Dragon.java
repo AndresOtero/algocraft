@@ -19,6 +19,7 @@ public class Dragon extends UnidadDeAtaque implements Terrestre, Transportable {
 		vision = 8;
 		this.color = colorJugador;
 		movimiento=Movimiento.Terrestre;
+		this.id = 18;
 	}
 
 	@Override
@@ -26,4 +27,9 @@ public class Dragon extends UnidadDeAtaque implements Terrestre, Transportable {
 		return transporte;
 	}
 
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

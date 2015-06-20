@@ -17,6 +17,12 @@ public class NaveTransporteTerran extends UnidadDeTransporte {
 		escudo = 0;
 		this.color = colorJugador;
 		movimiento=Movimiento.Aereo;
+		this.id = 16;
 
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

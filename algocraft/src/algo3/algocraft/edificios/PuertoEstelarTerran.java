@@ -24,7 +24,8 @@ public class PuertoEstelarTerran extends EdificioCreador implements CreadorAereo
 		this.costoMineralNaveCiencia = 100;
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
-		this.unidadesCreadas=new ArrayList<Unidad>();	
+		this.unidadesCreadas=new ArrayList<Unidad>();
+		this.id = 5;
 		}	
 	
 	public boolean crearEspectro(Jugador jug){
@@ -56,5 +57,10 @@ public class PuertoEstelarTerran extends EdificioCreador implements CreadorAereo
 		}
 		return false;
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 
 }

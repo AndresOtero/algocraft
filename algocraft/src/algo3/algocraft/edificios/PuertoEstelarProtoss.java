@@ -22,7 +22,9 @@ public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAere
 		this.costoGasNave = 0;
 		this.color=colorJugador;
 		this.unidadesEnCola=new ArrayList<Unidad>();
-		this.unidadesCreadas=new ArrayList<Unidad>();	}
+		this.unidadesCreadas=new ArrayList<Unidad>();
+		this.id = 10; 
+		}
 	
 	public boolean crearScout(Jugador jug){
 		if ( jug.GasVespeno() > this.costoGasScout && jug.Minerales()> this.costoMineralScout){	
@@ -43,4 +45,9 @@ public class PuertoEstelarProtoss extends EdificioCreador implements CreadorAere
 		}
 		return false;
 	}
+	@Override
+	public int devolverID() {
+		
+		return this.id;
+		}
 }

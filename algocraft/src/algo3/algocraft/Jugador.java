@@ -84,6 +84,4 @@ public class Jugador {
 	public int GasVespeno(){
 		return this.GasVespeno;
 	}
-
-
 }

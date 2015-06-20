@@ -1,10 +1,7 @@
 package algo3.algocraft;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-
 import algo3.algocraft.edificios.*;
 import algo3.algocraft.exceptions.*;
 import algo3.algocraft.unidades.*;
@@ -348,6 +345,55 @@ public class Juego {
 	private static void reiniciarJuego() {
 		instancia = new Juego();		
 	}
-
-
+	
+	/* Devuelve un hasmap - clave posicion - valor un array int [color , ser]*/ 
+	public HashMap<Posicion,int[]> grillaColorUnidadTerrestre(){
+		HashMap<Posicion,int[]> posicionYDibujable =  new HashMap<Posicion,int[]>();
+		int ancho = mapa.ancho();
+		int alto = mapa.alto();
+		int colorUnidad[] = new int[2];
+		for ( int i = 0; i< ancho ; i++){
+			for ( int j = 0 ; i< alto ; j++){
+				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
+				if (celda.hayFuenteRecurso()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
+					FuenteRecurso rec = celda.fuenteRecurso();
+					colorUnidad[0]= 4;
+					colorUnidad[1]= rec.devolverID();
+					posicionYDibujable.put(new Posicion (i,j), colorUnidad);
+				}
+				else if( celda.ocupadoTerrestre()){
+					Ser ser = celda.serEnLaCeldaTerrestre();
+					colorUnidad[0]=  ser.numeroColor();
+					colorUnidad[1] = ser.devolverID();
+					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+					
+				}
+			}
+		}
+		return posicionYDibujable;
+	
+	}
+	
+	/* Devuelve un hasmap - clave posicion - valor un array int [color , ser]*/ 
+	public HashMap<Posicion,int[]> grillaColorUnidadAerea(){
+		HashMap<Posicion,int[]> posicionYDibujable =  new HashMap<Posicion,int[]>();
+		int ancho = mapa.ancho();
+		int alto = mapa.alto();
+		int colorUnidad[] = new int[2];
+		for ( int i = 0; i< ancho ; i++){
+			for ( int j = 0 ; i< alto ; j++){
+				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
+				if( celda.ocupadoAerea()){
+					Ser ser = celda.serEnLaCeldaAerea();
+					colorUnidad[0]=  ser.numeroColor();
+					colorUnidad[1] = ser.devolverID();
+					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+					
+				}
+			}
+		}
+		return posicionYDibujable;
+	
+	}
+	
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import algo3.algocraft.unidades.Unidad;
 
-public abstract class Ser {
+public abstract class Ser implements Dibujable{
 	protected Posicion posicion;
 	protected int vida;
 	protected int escudo = 0;
@@ -12,6 +12,7 @@ public abstract class Ser {
 	protected Color color;
 	protected Movimiento movimiento=null;
 	protected int suministro=0;
+	protected int id;
 	public Posicion posicion() {
 		return posicion;
 	}
@@ -65,6 +66,23 @@ public abstract class Ser {
 		return this.escudo;
 	}
 	
-	
+
+	public int numeroColor(){
+		if (color == Color.AMARILLO){
+			return 2;
+		}
+		if (color == Color.ROJO){
+			return 0;
+		}
+		if (color == Color.AZUL){
+			return 1;
+		}
+		if (color == Color.VERDE){
+			return 3;
+		}
+		
+		return -1 ;
+	}
+
 
 }
