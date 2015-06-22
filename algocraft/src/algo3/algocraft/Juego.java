@@ -2,6 +2,7 @@ package algo3.algocraft;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import algo3.algocraft.edificios.*;
 import algo3.algocraft.exceptions.*;
 import algo3.algocraft.unidades.*;
@@ -49,6 +50,10 @@ public class Juego {
 	//Metodos de logica de juego
 	public String JugadorActual() {
 		return turnos.turnoActual().nombre();
+	}
+	
+	public Color ColorActual() {
+		return turnos.turnoActual().color();
 	}
 
 	public boolean hayGanador(){
@@ -375,6 +380,7 @@ public class Juego {
 					
 					
 				}
+
 
 			}
 		}
