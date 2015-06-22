@@ -358,7 +358,7 @@ public class Juego {
 		int alto = mapa.alto();
 		int colorUnidad[] = new int[2];
 		for ( int i = 0; i< ancho ; i++){
-			for ( int j = 0 ; i< alto ; j++){
+			for ( int j = 0 ; j< alto ; j++){
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
 				if (celda.hayFuenteRecurso()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
 					FuenteRecurso rec = celda.fuenteRecurso();
@@ -393,11 +393,15 @@ public class Juego {
 		HashMap<Posicion,int[]> posicionYDibujable =  new HashMap<Posicion,int[]>();
 		int ancho = mapa.ancho();
 		int alto = mapa.alto();
+		System.out.println(ancho);
+		System.out.println(alto);
+		
 		int colorUnidad[] = new int[2];
 		for ( int i = 0; i< ancho ; i++){
-			for ( int j = 0 ; i< alto ; j++){
+			for ( int j = 0 ; j< alto ; j++){
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
-				if( celda.ocupadoAerea()){
+				if(celda == null) System.out.println("celda mal");
+				else if( celda.ocupadoAerea()){
 					Ser ser = celda.serEnLaCeldaAerea();
 					colorUnidad[0]=  ser.numeroColor();
 					colorUnidad[1] = ser.devolverID();

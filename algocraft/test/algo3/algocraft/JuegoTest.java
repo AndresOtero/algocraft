@@ -3,6 +3,7 @@ package algo3.algocraft;
 import static org.junit.Assert.*;
 
 import java.awt.font.NumericShaper.Range;
+import java.util.HashMap;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -132,6 +133,8 @@ public class JuegoTest {
 		
 		juego.iniciarJuego();
 		juego.crearCreadorSoldados(5,0);
+		
+		
 		try{
 			juego.crearCreadorSoldados(6, 0);
 			juego.crearCreadorSoldados(7, 0);
