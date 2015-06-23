@@ -18,17 +18,18 @@ public class Controlador {
 		altoPantalla = alto;
 		anchoPantalla = ancho;
 		juego = Juego.getInstance();
-		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
 		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
+		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
 		juego.iniciarJuego();
+		juego.crearCreadorSoldados(3, 3);
+		juego.pasarTurno();
+		juego.pasarTurno();
 	}
+		
 	
-	public HashMap<Posicion, String> GrillaADibujar(){
-		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
-		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
-		juego.iniciarJuego();
-		HashMap<Posicion, String> grillaResuelta =  Codificador.grillaResuelta(juego.grillaColorUnidadTerrestre());
-		HashMap<Posicion, String> grillaFinal = new HashMap<Posicion, String>();
+	public HashMap<Posicion, Elemento> GrillaADibujar(){
+		HashMap<Posicion, Elemento> grillaResuelta =  Codificador.grillaResuelta(juego.grillaColorUnidadTerrestre());
+		HashMap<Posicion, Elemento> grillaFinal = new HashMap<Posicion, Elemento>();
 		double largo = (double)Math.sqrt(grillaResuelta.keySet().size());
 		double anchoCuadrado = anchoPantalla / largo;
 		double altoCuadrado = altoPantalla / largo;
@@ -38,12 +39,12 @@ public class Controlador {
 		return grillaFinal;
 	}
 	
-	public algo3.algocraft.Color ColorActual(){
-		return juego.ColorActual();
+	
+	public ColorDibujable ColorActual(){
+		return Codificador.obtenerColor(juego.ColorActual());
 	}
 	
-	public void prueba(){
 	
-	}
+	
 	
 }

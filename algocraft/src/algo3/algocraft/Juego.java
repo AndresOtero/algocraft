@@ -357,9 +357,10 @@ public class Juego {
 		int ancho = mapa.ancho();
 		int alto = mapa.alto();
 		int colorUnidad[] = new int[2];
-		for ( int i = 0; i< ancho ; i++){
+		for ( int i = 0; i< ancho; i++){
 			for ( int j = 0 ; j< alto ; j++){
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
+				colorUnidad = new int[2];
 				if (celda.hayFuenteRecurso()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
 					FuenteRecurso rec = celda.fuenteRecurso();
 					colorUnidad[0]= 4;
@@ -399,6 +400,7 @@ public class Juego {
 		int colorUnidad[] = new int[2];
 		for ( int i = 0; i< ancho ; i++){
 			for ( int j = 0 ; j< alto ; j++){
+				colorUnidad = new int[2];
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
 				if(celda == null) System.out.println("celda mal");
 				else if( celda.ocupadoAerea()){

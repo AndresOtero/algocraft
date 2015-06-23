@@ -2,87 +2,138 @@ package algo3.algocraft.controlador;
 
 import java.util.HashMap;
 
+import algo3.algocraft.Color;
 import algo3.algocraft.Posicion;
 
 public class Codificador {
-	public static HashMap<Posicion,String> grillaResuelta(HashMap<Posicion,int[]> grillaSinResolver){
-		HashMap<Posicion,String> resuelta = new HashMap<Posicion, String>();
+	public static HashMap<Posicion,Elemento> grillaResuelta(HashMap<Posicion,int[]> grillaSinResolver){
+		HashMap<Posicion,Elemento> resuelta = new HashMap<Posicion, Elemento>();
 		for(Posicion pos : grillaSinResolver.keySet()){
-			String elemento = null;
-			switch (grillaSinResolver.get(pos)[0]) {
+			Elemento elemento = null;
+			//System.out.println(grillaSinResolver.get(pos)[1]);
+			switch (grillaSinResolver.get(pos)[1]) {
 			case 0:
-				elemento = "CentroMineral";
+				elemento = new Elemento("CentroMineral");
+				break;
 			case 1:
-				elemento = "Barraca";
+				elemento = new Elemento("Barraca");
+				break;
 			case 2:
-				elemento = "DepositoSuministro";
+				elemento = new Elemento("DepositoSuministro");
+				break;
 			case 3:
-				elemento = "Refineria";
+				elemento = new Elemento("Refineria");
+				break;
 			case 4:
-				elemento = "Fabrica";
+				elemento = new Elemento("Fabrica");
+				break;
 			case 5:
-				elemento = "PuertoEstelarTerran";
+				elemento = new Elemento("PuertoEstelarTerran");
+				break;
 			case 6:
-				elemento = "NexoMineral";
+				elemento = new Elemento("NexoMineral");
+				break;
 			case 7:
-				elemento = "Pilon";
+				elemento = new Elemento("Pilon");
+				break;
 			case 8:
-				elemento = "Asimilador";
+				elemento = new Elemento("Asimilador");
+				break;
 			case 9:
-				elemento = "Acesso";
+				elemento = new Elemento("Acesso");
+				break;
 			case 10:
-				elemento = "PuertoEstelarProtoss";
+				elemento = new Elemento("PuertoEstelarProtoss");
+				break;
 			case 11:
-				elemento = "ArchivoTemplario";
+				elemento = new Elemento("ArchivoTemplario");
+				break;
 			case 12:
-				elemento = "Marine";
+				elemento = new Elemento("Marine");
+				break;
 			case 13:
-				elemento = "Golliat";
+				elemento = new Elemento("Golliat");
+				break;
 			case 14:
-				elemento = "Espectro";
+				elemento = new Elemento("Espectro");
+				break;
 			case 15:
-				elemento = "NaveCiencia";
+				elemento = new Elemento("NaveCiencia");
+				break;
 			case 16:
-				elemento = "NaveTransporteTerran";
+				elemento = new Elemento("NaveTransporteTerran");
+				break;
 			case 17:
-				elemento = "Zealot";
+				elemento = new Elemento("Zealot");
+				break;
 			case 18:
-				elemento = "Dragon";
+				elemento = new Elemento("Dragon");
+				break;
 			case 19:
-				elemento = "Scout";
+				elemento = new Elemento("Scout");
+				break;
 			case 20:
-				elemento = "AltoTemplario";
+				elemento = new Elemento("AltoTemplario");
+				break;
 			case 21:
-				elemento = "NaveTransporteProtoss";
+				elemento = new Elemento("NaveTransporteProtoss");
+				break;
 			case 22:
-				elemento = "Mineral";
+				elemento = new Elemento("Mineral");
+				break;
 			case 23:
-				elemento = "Gas";
+				elemento = new Elemento("Gas");
+				break;
 			case 24:
-				elemento = "EdificioEnConstruccion";
+				elemento = new Elemento("EdificioEnConstruccion");
+				break;
 			case 25:
-				elemento = "Pasto";
+				elemento = new Elemento("Pasto");
+				break;
 			case 26:
-				elemento = "Aire";
+				elemento = new Elemento("Pasto");
+				break;
+
 				
 			}
-			switch (grillaSinResolver.get(pos)[1]) {
+			switch (grillaSinResolver.get(pos)[0]) {
 			case 0 :
-				elemento += "Rojo";
+				elemento.setColorDibujable(obtenerColor(Color.ROJO));
 			case 1 :
-				elemento += "Azul";
+				elemento.setColorDibujable(obtenerColor(Color.AZUL));
 			case 2 :
-				elemento += "Amarillo";
+				elemento.setColorDibujable(obtenerColor(Color.VERDE));
 			case 3 :
-				elemento += "Verde";
-			case 4 :
-				elemento += "Recurso";
+				elemento.setColorDibujable(obtenerColor(Color.AMARILLO));
+			//case 4 :
+				//elemento.setColorDibujable(new ColorDibujable(1, 1, 1));
 			}
+			
 			resuelta.put(pos, elemento);
 		}
 		return resuelta;
 			
 
+	}
+	
+	public static ColorDibujable obtenerColor(Color color){
+		ColorDibujable colorDibujar = null;
+		switch (color) {
+		case ROJO:
+			colorDibujar = new ColorDibujable(1, 0, 0);
+			break;
+		case AMARILLO:
+			colorDibujar = new ColorDibujable(1, 0, 1);
+			break;
+		case VERDE:
+			colorDibujar = new ColorDibujable(0, 0, 1);
+			break;
+		case AZUL:
+			colorDibujar = new ColorDibujable(0, 1, 0);
+			break;
+		}
+		
+		return colorDibujar;
 	}
 
 }
