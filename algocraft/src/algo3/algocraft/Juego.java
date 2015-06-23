@@ -375,7 +375,7 @@ public class Juego {
 				}
 				else {
 					colorUnidad[0]=4;
-					colorUnidad[1]= 24;
+					colorUnidad[1]= 26;
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
 					
 					
