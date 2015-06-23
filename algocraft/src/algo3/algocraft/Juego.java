@@ -423,4 +423,11 @@ public class Juego {
 	
 	}
 	
+	public String[] queEdificioPuedeConstruirJugadorActual(){
+		return turnos.turnoActual().edificiosPuedeConstruir();
+	}
+	
+	public String[] queUnidadesPuedeConstruirJugadorActual(){
+		return turnos.turnoActual().unidadesPuedeConstruir();
+	}
 }
