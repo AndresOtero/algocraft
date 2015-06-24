@@ -13,6 +13,7 @@ public abstract class Ser implements Dibujable{
 	protected Movimiento movimiento=null;
 	protected int suministro=0;
 	protected int id;
+	
 	public Posicion posicion() {
 		return posicion;
 	}

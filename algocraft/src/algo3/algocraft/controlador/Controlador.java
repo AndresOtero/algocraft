@@ -61,7 +61,6 @@ public class Controlador {
 				boolean resultado = juego.moverPosicionTerrestre(filaAnterior, columnaAnterior, fila, columna);
 				filaAnterior = -1;
 				columnaAnterior = -1;
-				System.out.println(resultado);
 			}
 		}
 		
