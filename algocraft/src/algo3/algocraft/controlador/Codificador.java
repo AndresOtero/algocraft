@@ -10,110 +10,117 @@ public class Codificador {
 		HashMap<Posicion,Elemento> resuelta = new HashMap<Posicion, Elemento>();
 		for(Posicion pos : grillaSinResolver.keySet()){
 			Elemento elemento = null;
-			//System.out.println(grillaSinResolver.get(pos)[1]);
-			switch (grillaSinResolver.get(pos)[1]) {
-			case 0:
-				elemento = new Elemento("CentroMineral");
-				break;
-			case 1:
-				elemento = new Elemento("Barraca");
-				break;
-			case 2:
-				elemento = new Elemento("DepositoSuministro");
-				break;
-			case 3:
-				elemento = new Elemento("Refineria");
-				break;
-			case 4:
-				elemento = new Elemento("Fabrica");
-				break;
-			case 5:
-				elemento = new Elemento("PuertoEstelarTerran");
-				break;
-			case 6:
-				elemento = new Elemento("NexoMineral");
-				break;
-			case 7:
-				elemento = new Elemento("Pilon");
-				break;
-			case 8:
-				elemento = new Elemento("Asimilador");
-				break;
-			case 9:
-				elemento = new Elemento("Acesso");
-				break;
-			case 10:
-				elemento = new Elemento("PuertoEstelarProtoss");
-				break;
-			case 11:
-				elemento = new Elemento("ArchivoTemplario");
-				break;
-			case 12:
-				elemento = new Elemento("Marine");
-				break;
-			case 13:
-				elemento = new Elemento("Golliat");
-				break;
-			case 14:
-				elemento = new Elemento("Espectro");
-				break;
-			case 15:
-				elemento = new Elemento("NaveCiencia");
-				break;
-			case 16:
-				elemento = new Elemento("NaveTransporteTerran");
-				break;
-			case 17:
-				elemento = new Elemento("Zealot");
-				break;
-			case 18:
-				elemento = new Elemento("Dragon");
-				break;
-			case 19:
-				elemento = new Elemento("Scout");
-				break;
-			case 20:
-				elemento = new Elemento("AltoTemplario");
-				break;
-			case 21:
-				elemento = new Elemento("NaveTransporteProtoss");
-				break;
-			case 22:
-				elemento = new Elemento("Mineral");
-				break;
-			case 23:
-				elemento = new Elemento("Gas");
-				break;
-			case 24:
-				elemento = new Elemento("EdificioEnConstruccion");
-				break;
-			case 25:
-				elemento = new Elemento("Pasto");
-				break;
-			case 26:
-				elemento = new Elemento("Pasto");
-				break;
-
-				
-			}
-			switch (grillaSinResolver.get(pos)[0]) {
-			case 0 :
-				elemento.setColorDibujable(obtenerColor(Color.ROJO));
-			case 1 :
-				elemento.setColorDibujable(obtenerColor(Color.AZUL));
-			case 2 :
-				elemento.setColorDibujable(obtenerColor(Color.VERDE));
-			case 3 :
-				elemento.setColorDibujable(obtenerColor(Color.AMARILLO));
-			//case 4 :
-				//elemento.setColorDibujable(new ColorDibujable(1, 1, 1));
-			}
+			int ID = grillaSinResolver.get(pos)[1];
+			int IDColor = grillaSinResolver.get(pos)[0];
+			elemento = obtenerElemento(ID, IDColor);
 			
 			resuelta.put(pos, elemento);
 		}
 		return resuelta;
 			
 
+	}
+
+	public  static Elemento obtenerElemento(int ID, int IDColor) {
+		Elemento elemento = null;
+		switch (ID) {
+		case 0:
+			elemento = new Elemento("CentroMineral");
+			break;
+		case 1:
+			elemento = new Elemento("Barraca");
+			break;
+		case 2:
+			elemento = new Elemento("DepositoSuministro");
+			break;
+		case 3:
+			elemento = new Elemento("Refineria");
+			break;
+		case 4:
+			elemento = new Elemento("Fabrica");
+			break;
+		case 5:
+			elemento = new Elemento("PuertoEstelarTerran");
+			break;
+		case 6:
+			elemento = new Elemento("NexoMineral");
+			break;
+		case 7:
+			elemento = new Elemento("Pilon");
+			break;
+		case 8:
+			elemento = new Elemento("Asimilador");
+			break;
+		case 9:
+			elemento = new Elemento("Acceso");
+			break;
+		case 10:
+			elemento = new Elemento("PuertoEstelarProtoss");
+			break;
+		case 11:
+			elemento = new Elemento("ArchivoTemplario");
+			break;
+		case 12:
+			elemento = new Elemento("Marine");
+			break;
+		case 13:
+			elemento = new Elemento("Golliat");
+			break;
+		case 14:
+			elemento = new Elemento("Espectro");
+			break;
+		case 15:
+			elemento = new Elemento("NaveCiencia");
+			break;
+		case 16:
+			elemento = new Elemento("NaveTransporteTerran");
+			break;
+		case 17:
+			elemento = new Elemento("Zealot");
+			break;
+		case 18:
+			elemento = new Elemento("Dragon");
+			break;
+		case 19:
+			elemento = new Elemento("Scout");
+			break;
+		case 20:
+			elemento = new Elemento("AltoTemplario");
+			break;
+		case 21:
+			elemento = new Elemento("NaveTransporteProtoss");
+			break;
+		case 22:
+			elemento = new Elemento("Mineral");
+			break;
+		case 23:
+			elemento = new Elemento("Gas");
+			break;
+		case 24:
+			elemento = new Elemento("EdificioEnConstruccion");
+			break;
+		case 25:
+			elemento = new Elemento("Pasto");
+			break;
+		case 26:
+			elemento = new Elemento("Pasto");
+			break;
+
+			
+		}
+		switch (IDColor) {
+		case 0 :
+			elemento.setColorDibujable(obtenerColor(Color.ROJO));
+		case 1 :
+			elemento.setColorDibujable(obtenerColor(Color.AZUL));
+		case 2 :
+			elemento.setColorDibujable(obtenerColor(Color.VERDE));
+		case 3 :
+			elemento.setColorDibujable(obtenerColor(Color.AMARILLO));
+		//case 4 :
+			//elemento.setColorDibujable(new ColorDibujable(1, 1, 1));
+		}
+		return elemento;
 	}
 	
 	public static ColorDibujable obtenerColor(Color color){

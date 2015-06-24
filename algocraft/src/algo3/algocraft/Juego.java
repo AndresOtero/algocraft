@@ -118,6 +118,7 @@ public class Juego {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
+			System.out.println(filaInicio);
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();
 			verificarPropiedadUnidad(unidadAMover);
 			mapa.moverTerrestre(posicionInicial,posicionFinal );
@@ -394,15 +395,13 @@ public class Juego {
 		HashMap<Posicion,int[]> posicionYDibujable =  new HashMap<Posicion,int[]>();
 		int ancho = mapa.ancho();
 		int alto = mapa.alto();
-		System.out.println(ancho);
-		System.out.println(alto);
 		
 		int colorUnidad[] = new int[2];
 		for ( int i = 0; i< ancho ; i++){
 			for ( int j = 0 ; j< alto ; j++){
 				colorUnidad = new int[2];
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
-				if(celda == null) System.out.println("celda mal");
+				if(celda == null) System.out.println("");
 				else if( celda.ocupadoAerea()){
 					Ser ser = celda.serEnLaCeldaAerea();
 					colorUnidad[0]=  ser.numeroColor();
@@ -431,5 +430,9 @@ public class Juego {
 	
 	public String[] queUnidadesPuedeConstruirJugadorActual(){
 		return turnos.turnoActual().unidadesPuedeConstruir();
+	}
+	
+	public Ser queHayEnCeldaTerrestre(int fila, int columna){
+		return mapa.ContenidoPosicion(new Posicion(fila,columna)).serEnLaCeldaTerrestre();
 	}
 }
