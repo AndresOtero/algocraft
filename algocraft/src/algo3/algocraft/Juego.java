@@ -453,6 +453,9 @@ public class Juego {
 		return posicionYDibujable;
 
 	}
+	public ArrayList<Posicion>VisionJugadorActual(){
+		return mapa.visible(turnos.turnoActual().color());
+	}
 	
 	public String[] queEdificioPuedeConstruirJugadorActual(){
 		return turnos.turnoActual().edificiosPuedeConstruir();
