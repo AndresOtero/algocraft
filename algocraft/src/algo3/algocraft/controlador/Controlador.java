@@ -88,6 +88,9 @@ public class Controlador {
 				}if(edificioCrear == "Refineria"){
 					juego.crearRecolectableGas(fila, columna);
 				}
+				if(edificioCrear == "CentroMineral"){
+					juego.crearRecolectableMinerales(fila, columna);
+				}
 				
 				edificioCrear = "";
 			}
@@ -118,6 +121,10 @@ public class Controlador {
 			Posicion refineriaPosicion = botones.get("Refineria");
 			if( x >= refineriaPosicion.x() && x <= refineriaPosicion.x() + anchoCuadrado && y >=altoPantalla -refineriaPosicion.y() - altoCuadrado && y <= altoPantalla -refineriaPosicion.y()){//crearBarraca
 				edificioCrear = "Refineria";
+			}
+			Posicion centroPosicion = botones.get("Centro de Mineral");
+			if( x >= centroPosicion.x() && x <= centroPosicion.x() + anchoCuadrado && y >=altoPantalla -centroPosicion.y() - altoCuadrado && y <= altoPantalla -centroPosicion.y()){//crearBarraca
+				edificioCrear = "CentroMineral";
 			}
 		}
 		
@@ -214,7 +221,6 @@ public class Controlador {
 			columnaAnterior = columna;
 		}else{
 			if(unSer == null && filaAnterior != 50){
-				System.out.println("Fila Anterior: " + filaAnterior +", Columna Anterior: "+columnaAnterior + ", Fila: " + fila + ", Columna: "+ columna);
 				juego.moverPosicionTerrestre(filaAnterior, columnaAnterior, fila, columna);
 			}
 			filaAnterior = 50;

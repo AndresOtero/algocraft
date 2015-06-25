@@ -113,9 +113,9 @@ public class Codificador {
 			elemento.setColorDibujable(obtenerColor(Color.ROJO));
 		case 1 :
 			elemento.setColorDibujable(obtenerColor(Color.AZUL));
-		case 2 :
-			elemento.setColorDibujable(obtenerColor(Color.VERDE));
 		case 3 :
+			elemento.setColorDibujable(obtenerColor(Color.VERDE));
+		case 2 :
 			elemento.setColorDibujable(obtenerColor(Color.AMARILLO));
 		case 4 :
 			elemento.setColorDibujable(new ColorDibujable(1, 1, 1));
