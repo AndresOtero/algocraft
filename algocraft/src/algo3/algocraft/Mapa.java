@@ -22,8 +22,6 @@ public class Mapa {
 	private int ancho;
 	private int alto;
 	private Map<Color, ArrayList<Ser>> seres;
-	/*private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeGas;
-	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeMineral;*/
 	private Map<Color, ArrayList<EdificioDeRecurso>> edificiosDeRecursos;
 	private Map<Color, ArrayList<EdificioCreador>> edificiosCreadores;
 	private Map<Color, ArrayList<SumaPoblacion>> edificiosSumaPoblacion;
@@ -39,8 +37,6 @@ public class Mapa {
 	private Mapa(int ancho, int largo, ArrayList<Jugador> jugadores) {
 		this.mapa = new HashMap<Posicion, Celda>();
 		this.seres = new HashMap<Color, ArrayList<Ser>>();
-		/*this.edificiosDeGas = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
-		this.edificiosDeMineral = new HashMap<Color, ArrayList<EdificioDeRecurso>>();*/
 		this.edificiosDeRecursos = new HashMap<Color, ArrayList<EdificioDeRecurso>>();
 		this.edificiosCreadores = new HashMap<Color, ArrayList<EdificioCreador>>();
 		this.edificiosSumaPoblacion = new HashMap<Color, ArrayList<SumaPoblacion>>();
@@ -81,38 +77,22 @@ public class Mapa {
 		inicializarVolcanEnMapa(pos3);
 		Posicion pos4 = new Posicion(this.ancho, 1);
 		inicializarVolcanEnMapa(pos4);
-		
-		
-		
-		/*DESDE ACA HASTA ALLA HAY QUE REFACTORIZAR BIEN PIOLA*/
-		Jugador jugador1 = jugadores.get(0);
-		TipoRaza tipo = jugador1.tipoRaza();
-		Ser edificioDeVolcan;
-		if (tipo == TipoRaza.PROTOSS){
-			edificioDeVolcan = new Asimilador(volcan1, jugador1.color(),pos1);
+		Posicion posicionesDeInicio[]={pos1,pos2};
+		VolcanGasVespeno volcanesDeInicio[]={volcan1,volcan2};
+	
+		for (int i = 0; i < 2; i++) {
+			Jugador jugador = jugadores.get(i);
+			TipoRaza tipo = jugador.tipoRaza();
+			Ser edificioDeVolcan;
+			if (tipo == TipoRaza.PROTOSS) {
+				
+				edificioDeVolcan = new Asimilador(volcanesDeInicio[i], jugador.color(),posicionesDeInicio[i]);
+			} else {
+				edificioDeVolcan = new Refineria(volcanesDeInicio[i], jugador.color(),posicionesDeInicio[i]);
+			}
+			ponerEdificioDeRecurso(posicionesDeInicio[i], (EdificioDeRecurso) edificioDeVolcan);
 		}
-		else {
-			edificioDeVolcan = new Refineria(volcan1, jugador1.color(),pos1);
-		}
-		ponerTerrestre(pos1,edificioDeVolcan);
-		
-		Jugador jugador2 = jugadores.get(1);
-		TipoRaza tipo2 = jugador2.tipoRaza();
-		Ser edificioDeVolcan2;
-		if (tipo2 == TipoRaza.PROTOSS){
-			edificioDeVolcan2 = new Asimilador(volcan2, jugador2.color(),pos2);
-		}
-		else {
-			edificioDeVolcan2 = new Refineria(volcan2, jugador2.color(),pos2);
-		}
-		ponerTerrestre(pos2,edificioDeVolcan2);
-		/*
-		 * 
-		 *HASTA ACA HAY QUE REFACTORIZAR BIEN PIOLA
-		 * 
-		 * 
-		 */
-		
+
 		inicializarEsquina(0,5,0,5);
 		inicializarEsquina(this.ancho-5,this.ancho,0,5);
 		inicializarEsquina(0,5,this.alto-5,this.alto);
@@ -155,7 +135,6 @@ public class Mapa {
 	public void ponerTerrestre(Posicion pos, Ser ser) {
 		Celda celda = mapa.get(pos);
 		if (celda.ocupadoTerrestre()) {
-			System.out.println("La celda esta ocupada");
 			throw new LaCeldaTerrestreEstaOcupada();
 		} else
 			celda.agregarSerTerrestre(ser);
@@ -166,7 +145,6 @@ public class Mapa {
 	public void ponerAereo(Posicion pos, Ser ser) {
 		Celda celda = mapa.get(pos);
 		if (celda.ocupadoAerea()) {
-			System.out.println("La celda esta ocupada");
 			throw new LaCeldaAereaEstaOcupada();
 		} else
 			celda.agregarSerAereo(ser);
@@ -190,7 +168,6 @@ public class Mapa {
 	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal) {
 		Celda celdaFinal = mapa.get(posicionFinal);
 		if (celdaFinal.ocupadoTerrestre()) {
-			System.out.println("ESTA OCUPADO Terrestre");
 			throw new NoEsPosibleMoverException();
 		}
 		Celda celdaInicial = mapa.get(posicionInicial);
@@ -198,7 +175,6 @@ public class Mapa {
 		ArrayList<Posicion> camino = this.encontrarMinimoCamino(
 				posicionInicial, posicionFinal, unidadAMover.movimiento());
 		if (camino.isEmpty() || unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
-			System.out.println("No se pudo mover ");
 			throw new NoEsPosibleMoverException();
 		}
 		
@@ -208,11 +184,8 @@ public class Mapa {
 	}
 
 	public void moverAerea(Posicion posicionInicial, Posicion posicionFinal) {
-		// aca deberia mover una unidad a la fila y columna que le pasan
-		// si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
 		Celda celdaFinal = mapa.get(posicionFinal);
 		if (celdaFinal.ocupadoAerea()) {
-			System.out.println("ESTA OCUPADO Aerea");
 			throw new NoEsPosibleMoverException();
 		}
 		
@@ -222,7 +195,6 @@ public class Mapa {
 				posicionInicial, posicionFinal, unidadAMover.movimiento());
 		
 		if (camino.isEmpty() || unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
-			System.out.println("No se pudo mover ");
 			throw new NoEsPosibleMoverException();
 		}
 		ponerAereo(posicionFinal, unidadAMover);
@@ -241,25 +213,12 @@ public class Mapa {
 	public void ponerEdificioDeRecurso(Posicion pos, EdificioDeRecurso edificio) {
 		Celda celda = mapa.get(pos);
 		if (celda.fuenteRecurso() == null) {
-			System.out.println("NO HAY RECURSO AHI");
 			throw new NoHayRecursoEnEsaPosicionException();
 		} else {
 			ponerTerrestre(pos, edificio);
 			agregarEdificioDeRecursosDeColor(edificio,edificio.color());
 		}
 	}
-	
-	/*public void ponerEdificioGas(Posicion pos, EdificioDeRecurso edificio) {
-		ponerEdificioDeRecurso(pos, edificio);
-		agregarEdificioDeRecursosDeColor(edificiosDeGas, edificio,
-				edificio.color());
-	}
-
-	public void ponerEdificioMineral(Posicion pos, EdificioDeRecurso edificio) {
-		ponerEdificioDeRecurso(pos, edificio);
-		agregarEdificioDeRecursosDeColor(edificiosDeMineral, edificio,
-				edificio.color());
-	}*/
 	
 	/*agrega edificio de recurso a las listasssss*/
 	private void agregarEdificioDeRecursosDeColor(
@@ -427,22 +386,6 @@ public class Mapa {
 		}
 		return (seres.get(color));
 	}
-
-	/*public ArrayList<EdificioDeRecurso> edificioDeGas(Color color) {
-		if(edificiosDeGas.get(color)==null){
-			ArrayList<EdificioDeRecurso> edificios = new ArrayList<EdificioDeRecurso>();
-			edificiosDeGas.put(color, edificios);
-		}
-		return (edificiosDeGas.get(color));
-	}
-
-	public ArrayList<EdificioDeRecurso> edificioDeMineral(Color color) {
-		if(edificiosDeMineral.get(color)==null){
-			ArrayList<EdificioDeRecurso> edificios = new ArrayList<EdificioDeRecurso>();
-			edificiosDeMineral.put(color, edificios);
-		}
-		return (edificiosDeMineral.get(color));
-	}*/
 	
 	public ArrayList<EdificioDeRecurso> edificiosDeRecursos(Color color) {
 		if(edificiosDeRecursos.get(color)==null){
@@ -550,14 +493,7 @@ public class Mapa {
 			edificiosCreadores.get(ser.color()).remove(ser);
 		
 		if (edificiosDeRecursos.get(ser.color()).contains(ser))
-			edificiosDeRecursos.get(ser.color()).remove(ser);
-		
-		/*if (edificiosDeGas.get(ser.color()).contains(ser))
-			edificiosDeGas.get(ser.color()).remove(ser);
-		
-		if (edificiosDeMineral.get(ser.color()).contains(ser))
-			edificiosDeMineral.get(ser.color()).remove(ser);*/
-		
+			edificiosDeRecursos.get(ser.color()).remove(ser);		
 	}
 
 	private Posicion buscarPosicionDeSer(Ser ser) {

@@ -19,7 +19,13 @@ public class PartidaBasicaTest {
 		juego.iniciarJuego();
 		Assert.assertFalse(juego.hayGanador());
 		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		Assert.assertEquals(juego.gasJugadorActual(),800);
 		juego.pasarTurno();
+		Assert.assertEquals(juego.gasJugadorActual(),810);
+		juego.pasarTurno();
+		Assert.assertEquals(juego.gasJugadorActual(),810);
+		juego.pasarTurno();
+
 		Assert.assertFalse(juego.hayGanador());
 		Assert.assertEquals(juego.ContenidoFilaColumna(1, 1).serEnLaCeldaTerrestre().color(), Color.VERDE);
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
