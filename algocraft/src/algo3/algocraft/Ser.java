@@ -69,19 +69,9 @@ public abstract class Ser implements Dibujable{
 	
 
 	public int numeroColor(){
-		if (color == Color.AMARILLO){
-			return 2;
+		if ((color == Color.AMARILLO)||(color == Color.ROJO)||(color == Color.AZUL)||(color == Color.VERDE)){
+			return color.numero();
 		}
-		if (color == Color.ROJO){
-			return 0;
-		}
-		if (color == Color.AZUL){
-			return 1;
-		}
-		if (color == Color.VERDE){
-			return 3;
-		}
-		
 		return -1 ;
 	}
 
