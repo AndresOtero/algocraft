@@ -170,7 +170,7 @@ public class Juego {
 			throw new LaCeldaTerrestreEstaOcupada();
 		}		
 	}
-	private void verificaElEdificioPuedeCreaeEstaUnidad(int id,int idEdificio) {
+	private void verificaElEdificioPuedeCrearEstaUnidad(int id,int idEdificio) {
 		if(id!=idEdificio){
 			throw new ElEdificioNoPuedeCrearEstaUnidad();
 		}		
@@ -214,52 +214,52 @@ public class Juego {
 
 	public Boolean crearAltoTemplario(int fil, int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.ArchivoTemplario.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.ArchivoTemplario.numero(),ed.devolverID());
 		return ((ArchivosTemplarios) ed).crearAltoTemplario(turnos.turnoActual());
 	}
 	public Boolean crearScout(int fil, int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.PuertoEstelarProtoss.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.PuertoEstelarProtoss.numero(),ed.devolverID());
 		return ((PuertoEstelarProtoss) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearScout(turnos.turnoActual());
 	}
 	public Boolean crearMarine(int fil, int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.Barraca.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.Barraca.numero(),ed.devolverID());
 		return ((Barraca) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearMarine(turnos.turnoActual());
 	}
 	public Boolean crearDragon(int fil,int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.Acceso.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.Acceso.numero(),ed.devolverID());
 		return ((Acceso) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearDragon(turnos.turnoActual());
 	}
 	public Boolean crearNaveCiencia(int fil,int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.PuertoEstelarTerran.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.PuertoEstelarTerran.numero(),ed.devolverID());
 		return ((PuertoEstelarTerran)  mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveCiencia(turnos.turnoActual());
 	}
 	public Boolean crearNaveTransporteProtoss(int fil,int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.PuertoEstelarProtoss.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.PuertoEstelarProtoss.numero(),ed.devolverID());
 		return ((PuertoEstelarProtoss) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteProtoss(turnos.turnoActual());
 	}
 	public Boolean crearNaveTransporteTerran(int fil,int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.PuertoEstelarProtoss.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.PuertoEstelarProtoss.numero(),ed.devolverID());
 		return ((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteTerran(turnos.turnoActual());
 	}
 	public Boolean crearEspectro(int fil,int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.PuertoEstelarTerran.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.PuertoEstelarTerran.numero(),ed.devolverID());
 		return ((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearEspectro(turnos.turnoActual());
 	}
 	public Boolean crearGolliat(int fil,int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.Fabrica.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.Fabrica.numero(),ed.devolverID());
 		return ((Fabrica) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearGolliat(turnos.turnoActual());
 	}
 	public Boolean crearZealot(int fil ,int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCreaeEstaUnidad(Id.Acceso.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.Acceso.numero(),ed.devolverID());
 		return ((Acceso) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearZealot(turnos.turnoActual());		
 	}
 	
@@ -301,7 +301,7 @@ public class Juego {
 	
 	private void verificarPropiedadAtaque(Unidad unidad) {
 		if (!turnos.turnoActual().esColor(unidad.color) || turnos.yaAtaco(unidad))
-			throw new NoEsPosibleMoverException();
+			throw new NoEsPosibleAtacarException();
 	}
 
 

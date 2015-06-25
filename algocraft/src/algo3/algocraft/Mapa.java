@@ -300,14 +300,14 @@ public class Mapa {
 	
 
 	/*************************
-	 * 
+	 *  
 	 *  
 	 *  Metodos de Busqueda
 	 *  
 	 *************************/
 	public Celda ContenidoPosicion(Posicion pos) {
 		return mapa.get(pos);
-	}
+	}  
 
 	public Boolean estaVaciaTerrestre(Posicion pos) {
 		Celda celda = this.ContenidoPosicion(pos);
@@ -384,6 +384,25 @@ public class Mapa {
 			seres.put(color, seresDeColor);
 		}
 		return (seres.get(color));
+	}
+	
+	public ArrayList<Posicion> visible(Color color) {
+		ArrayList<Ser> seresDeJugador=seresDeJugador(color);
+		ArrayList<Posicion> visible=new ArrayList<Posicion>();
+		for(Ser ser:seresDeJugador){
+			Posicion pos=ser.posicion();
+			if((ser.devolverID()<22)&&(11<ser.devolverID())){/*Es una unidad*/
+				Unidad unidad=(Unidad)ser;
+				int vision=unidad.vision();
+				for(int i=pos.x()-vision;i<=pos.x()+vision;i++){
+					for(int j=pos.y()-vision;j<=pos.y()+vision;j++){
+						visible.add(new Posicion(i,j));
+					}
+				}
+			}
+			visible.add(pos);
+		}
+		return visible;
 	}
 	
 	public ArrayList<EdificioDeRecurso> edificiosDeRecursos(Color color) {
@@ -532,6 +551,5 @@ public class Mapa {
 		else reiniciarMapa(fil,col,jugadores);
 		return instancia;
 	}
-	
 
 }
