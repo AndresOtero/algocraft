@@ -295,7 +295,7 @@ public class Juego {
 
 	private void verificarSiPuedeAtacarEnRangoTerrestre(UnidadDeAtaque unidadQAtaca,
 			Posicion posicionInicial, Posicion posicionFinal) {
-		if (unidadQAtaca.rangoAtaqueTerrestre()>posicionInicial.distancia(posicionFinal))
+		if (unidadQAtaca.rangoAtaqueTerrestre()<posicionInicial.distancia(posicionFinal))
 			throw new NoEsPosibleAtacarException();
 	}
 	

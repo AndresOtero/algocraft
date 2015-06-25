@@ -45,8 +45,10 @@ public abstract class Ser implements Dibujable{
 	private int recibirDanioConEscudo(int danio) {
 		int escudoAtacado = escudo - danio;
 		if ((escudoAtacado) > 0) {
+			escudo=escudoAtacado;
 			return 0;
 		}
+		
 		return escudoAtacado;
 	}
 
