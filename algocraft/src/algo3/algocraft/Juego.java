@@ -460,4 +460,11 @@ public class Juego {
 	public Ser queHayEnCeldaTerrestre(int fila, int columna){
 		return mapa.ContenidoPosicion(new Posicion(fila,columna)).serEnLaCeldaTerrestre();
 	}
+	public int gasJugadorActual(){
+		return turnos.turnoActual().GasVespeno();
+	}
+	
+	public int mineralJugadorActual(){
+		return turnos.turnoActual().Minerales();
+	}
 }
