@@ -11,10 +11,10 @@ public class Posicion {
 		this.x = x;
 		this.y = y;
 	}
-	public int abscisa(){
+	public int x(){
 		return x;
 	}
-	public int ordenada(){
+	public int y(){
 		return y;
 	}
 

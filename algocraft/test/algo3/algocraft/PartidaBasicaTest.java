@@ -35,10 +35,10 @@ public class PartidaBasicaTest {
 		}
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
 		Posicion posicionZealot= buscarUnidad(juego);
-		Assert.assertTrue(juego.ContenidoFilaColumna(posicionZealot.abscisa(), posicionZealot.ordenada()).ocupadoTerrestre());	
-		Assert.assertTrue(juego.moverPosicionTerrestre(posicionZealot.abscisa(), posicionZealot.ordenada(), 9, 9));
+		Assert.assertTrue(juego.ContenidoFilaColumna(posicionZealot.x(), posicionZealot.y()).ocupadoTerrestre());	
+		Assert.assertTrue(juego.moverPosicionTerrestre(posicionZealot.x(), posicionZealot.y(), 9, 9));
 		Assert.assertTrue(juego.ContenidoFilaColumna(9,9).ocupadoTerrestre());		
-		Assert.assertFalse(juego.ContenidoFilaColumna(posicionZealot.abscisa(), posicionZealot.ordenada()).ocupadoTerrestre());	
+		Assert.assertFalse(juego.ContenidoFilaColumna(posicionZealot.x(), posicionZealot.y()).ocupadoTerrestre());	
 		juego.pasarTurno();
 		Assert.assertFalse(juego.hayGanador());
 		Assert.assertEquals(juego.JugadorActual(), "Federico");

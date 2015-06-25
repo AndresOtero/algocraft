@@ -386,11 +386,11 @@ public class Mapa {
 	private ArrayList<Posicion> adyacentes(Posicion pos) {
 		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
 		for (int i = -1; i < 2; i = i + 2) {
-			if (this.ancho >= i + pos.abscisa()) {
-				adyacentes.add(new Posicion(pos.abscisa() + i, pos.ordenada()));
+			if (this.ancho >= i + pos.x()) {
+				adyacentes.add(new Posicion(pos.x() + i, pos.y()));
 			}
-			if (this.alto >= i + pos.ordenada()) {
-				adyacentes.add(new Posicion(pos.abscisa(), pos.ordenada() + i));
+			if (this.alto >= i + pos.y()) {
+				adyacentes.add(new Posicion(pos.x(), pos.y() + i));
 			}
 		}
 		return adyacentes;
@@ -400,7 +400,7 @@ public class Mapa {
 		ArrayList<Unidad> unidadesAlcanzadas = new ArrayList<Unidad>();
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
-				Celda celda = this.ContenidoPosicion(new Posicion(pos.abscisa()+i, pos.ordenada()+ j));
+				Celda celda = this.ContenidoPosicion(new Posicion(pos.x()+i, pos.y()+ j));
 				if (celda.ocupadoTerrestre()){
 					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaTerrestre());
 				}

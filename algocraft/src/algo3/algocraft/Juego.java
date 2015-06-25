@@ -25,6 +25,14 @@ public class Juego {
 		Jugador jugador = new Jugador(nombre, color, raza);
 		jugadores.add(jugador);
 	}
+	
+	public int gasJugadorActual(){
+		return turnos.turnoActual().GasVespeno();
+	}
+	
+	public int mineralJugadorActual(){
+		return turnos.turnoActual().Minerales();
+	}
 
 	public void iniciarJuego() {
 		turnos = new Turnos(jugadores);
@@ -118,7 +126,7 @@ public class Juego {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
-			System.out.println(filaInicio);
+			System.out.println("FilaInicio " + filaInicio +" , ColumnaInicio " + columnaInicio );
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();
 			verificarPropiedadUnidad(unidadAMover);
 			mapa.moverTerrestre(posicionInicial,posicionFinal );
@@ -358,8 +366,8 @@ public class Juego {
 		int ancho = mapa.ancho();
 		int alto = mapa.alto();
 		int colorUnidad[] = new int[2];
-		for ( int i = 0; i< ancho; i++){
-			for ( int j = 0 ; j< alto ; j++){
+		for ( int i = 0; i< ancho+1; i++){
+			for ( int j = 0 ; j< alto+1 ; j++){
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
 				colorUnidad = new int[2];
 				if (celda.hayFuenteRecurso()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
@@ -401,8 +409,8 @@ public class Juego {
 			for ( int j = 0 ; j< alto ; j++){
 				colorUnidad = new int[2];
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
-				if(celda == null) System.out.println("");
-				else if( celda.ocupadoAerea()){
+				
+				if( celda.ocupadoAerea()){
 					Ser ser = celda.serEnLaCeldaAerea();
 					colorUnidad[0]=  ser.numeroColor();
 					colorUnidad[1] = ser.devolverID();
