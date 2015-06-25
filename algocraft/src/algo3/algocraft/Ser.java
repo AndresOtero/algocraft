@@ -13,6 +13,7 @@ public abstract class Ser implements Dibujable{
 	protected Movimiento movimiento=null;
 	protected int suministro=0;
 	protected int id;
+	
 	public Posicion posicion() {
 		return posicion;
 	}
@@ -68,20 +69,7 @@ public abstract class Ser implements Dibujable{
 	
 
 	public int numeroColor(){
-		if (color == Color.AMARILLO){
-			return 2;
-		}
-		if (color == Color.ROJO){
-			return 0;
-		}
-		if (color == Color.AZUL){
-			return 1;
-		}
-		if (color == Color.VERDE){
-			return 3;
-		}
-		
-		return -1 ;
+			return color.numero();
 	}
 
 

@@ -155,7 +155,6 @@ public class Mapa {
 	public void ponerTerrestre(Posicion pos, Ser ser) {
 		Celda celda = mapa.get(pos);
 		if (celda.ocupadoTerrestre()) {
-			System.out.println("La celda esta ocupada");
 			throw new LaCeldaTerrestreEstaOcupada();
 		} else
 			celda.agregarSerTerrestre(ser);
@@ -166,7 +165,6 @@ public class Mapa {
 	public void ponerAereo(Posicion pos, Ser ser) {
 		Celda celda = mapa.get(pos);
 		if (celda.ocupadoAerea()) {
-			System.out.println("La celda esta ocupada");
 			throw new LaCeldaAereaEstaOcupada();
 		} else
 			celda.agregarSerAereo(ser);
@@ -190,7 +188,6 @@ public class Mapa {
 	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal) {
 		Celda celdaFinal = mapa.get(posicionFinal);
 		if (celdaFinal.ocupadoTerrestre()) {
-			System.out.println("ESTA OCUPADO Terrestre");
 			throw new NoEsPosibleMoverException();
 		}
 		Celda celdaInicial = mapa.get(posicionInicial);
@@ -198,7 +195,6 @@ public class Mapa {
 		ArrayList<Posicion> camino = this.encontrarMinimoCamino(
 				posicionInicial, posicionFinal, unidadAMover.movimiento());
 		if (camino.isEmpty() || unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
-			System.out.println("No se pudo mover ");
 			throw new NoEsPosibleMoverException();
 		}
 		
@@ -212,7 +208,6 @@ public class Mapa {
 		// si no se puede (ocupado) deberia lanzar NoEsPosibleMoverException.
 		Celda celdaFinal = mapa.get(posicionFinal);
 		if (celdaFinal.ocupadoAerea()) {
-			System.out.println("ESTA OCUPADO Aerea");
 			throw new NoEsPosibleMoverException();
 		}
 		
@@ -222,7 +217,6 @@ public class Mapa {
 				posicionInicial, posicionFinal, unidadAMover.movimiento());
 		
 		if (camino.isEmpty() || unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
-			System.out.println("No se pudo mover ");
 			throw new NoEsPosibleMoverException();
 		}
 		ponerAereo(posicionFinal, unidadAMover);
@@ -241,7 +235,6 @@ public class Mapa {
 	public void ponerEdificioDeRecurso(Posicion pos, EdificioDeRecurso edificio) {
 		Celda celda = mapa.get(pos);
 		if (celda.fuenteRecurso() == null) {
-			System.out.println("NO HAY RECURSO AHI");
 			throw new NoHayRecursoEnEsaPosicionException();
 		} else {
 			ponerTerrestre(pos, edificio);

@@ -59,7 +59,6 @@ public class AltoTemplario extends UnidadMagica implements AltoTemplarioInteface
 	}
 	@Override
 	public int devolverID() {
-		
 		return this.id;
 		}
 }
