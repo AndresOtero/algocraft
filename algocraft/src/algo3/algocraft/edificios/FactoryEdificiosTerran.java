@@ -10,6 +10,7 @@ import algo3.algocraft.Mapa;
 import algo3.algocraft.Mineral;
 import algo3.algocraft.Posicion;
 import algo3.algocraft.VolcanGasVespeno;
+import algo3.algocraft.exceptions.EdificiosAnterioresNoCreadosException;
 import algo3.algocraft.exceptions.NoHayRecursosException;
 
 public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
@@ -17,6 +18,8 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	private ArrayList<Edificio> edificiosEnCola = new ArrayList<Edificio>();
 	private ArrayList<Edificio> edificiosCreados = new ArrayList<Edificio> ();
 	private Mapa mapa;
+	private Boolean barracaCreada;
+	private Boolean fabricaCreada;
 	
 	public FactoryEdificiosTerran(Jugador jugador,Mapa mapa) {
 		this.jugador = jugador;
@@ -44,6 +47,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	}
 	@Override
 	public void fabricarCreadorAereos(Posicion pos) {
+		if(!fabricaCreada)throw new EdificiosAnterioresNoCreadosException();
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>100)){
 			Edificio ed= new PuertoEstelarTerran(jugador.color(),pos);
 			edificiosEnCola.add(ed);
@@ -56,8 +60,10 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarCreadorTerrestres(Posicion pos) {
+		if(!barracaCreada)throw new EdificiosAnterioresNoCreadosException();
 		if((jugador.Minerales()>200)&&(jugador.GasVespeno()>100)){
 			Edificio ed= new Fabrica(jugador.color(),pos);
+			fabricaCreada=true;
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(100);
 			jugador.sacarMineral(200);
@@ -70,6 +76,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	public void fabricarCreadorSoldados(Posicion pos) {
 		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
 			Edificio ed= new Barraca(jugador.color(),pos);
+			barracaCreada=true;
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(0);
 			jugador.sacarMineral(150);
