@@ -119,7 +119,6 @@ public class Juego {
 		try {
 			Posicion posicionInicial=new Posicion(filaInicio, columnaInicio);
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
-			System.out.println(filaInicio);
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaTerrestre();
 			verificarPropiedadUnidad(unidadAMover);
 			mapa.moverTerrestre(posicionInicial,posicionFinal );
@@ -408,11 +407,7 @@ public class Juego {
 					colorUnidad[0]=Color.RECURSO.numero();;
 					colorUnidad[1]= Id.Pasto2.numero();
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
-					
-					
 				}
-
-
 			}
 		}
 		return posicionYDibujable;
@@ -430,7 +425,7 @@ public class Juego {
 			for ( int j = 0 ; j< alto ; j++){
 				colorUnidad = new int[2];
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
-				if(celda == null) System.out.println("");
+				if(celda == null) {}
 				else if( celda.ocupadoAerea()){
 					Ser ser = celda.serEnLaCeldaAerea();
 					colorUnidad[0]=  ser.numeroColor();
