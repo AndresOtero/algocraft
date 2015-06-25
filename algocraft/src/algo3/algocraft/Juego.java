@@ -397,7 +397,7 @@ public class Juego {
 			for ( int j = 0 ; j< alto+1 ; j++){
 				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
 				colorUnidad = new int[2];
-				if (celda.hayFuenteRecurso()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
+				if (celda.hayFuenteRecurso() && !celda.ocupadoTerrestre()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
 					FuenteRecurso rec = celda.fuenteRecurso();
 					colorUnidad[0]= Color.RECURSO.numero();
 					colorUnidad[1]= rec.devolverID();
@@ -451,6 +451,7 @@ public class Juego {
 	
 		}
 		return posicionYDibujable;
+
 	}
 	
 	public String[] queEdificioPuedeConstruirJugadorActual(){

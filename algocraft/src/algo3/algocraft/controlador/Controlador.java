@@ -85,7 +85,10 @@ public class Controlador {
 					juego.crearCreadorAereos(fila,columna);
 				}if(edificioCrear == "Deposito Suministro"){
 					juego.crearSumaPoblacion(fila, columna);
+				}if(edificioCrear == "Refineria"){
+					juego.crearRecolectableGas(fila, columna);
 				}
+				
 				edificioCrear = "";
 			}
 		}else{ // hizo click en un menu
@@ -111,6 +114,10 @@ public class Controlador {
 			Posicion depositoPosicion = botones.get("Deposito Suministro");
 			if( x >= depositoPosicion.x() && x <= depositoPosicion.x() + anchoCuadrado && y >=altoPantalla -depositoPosicion.y() - altoCuadrado && y <= altoPantalla -depositoPosicion.y()){//crearBarraca
 				edificioCrear = "Deposito Suministro";
+			}
+			Posicion refineriaPosicion = botones.get("Refineria");
+			if( x >= refineriaPosicion.x() && x <= refineriaPosicion.x() + anchoCuadrado && y >=altoPantalla -refineriaPosicion.y() - altoCuadrado && y <= altoPantalla -refineriaPosicion.y()){//crearBarraca
+				edificioCrear = "Refineria";
 			}
 		}
 		

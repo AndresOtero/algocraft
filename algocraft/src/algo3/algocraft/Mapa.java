@@ -252,7 +252,6 @@ public class Mapa {
 			if (jugador.color() == edificio.color()) 
 				jugador.agregarEspacionParaPoblacion();
 		}
-		ponerTerrestre(pos,edificio);
 	}
 	
 	
