@@ -393,7 +393,7 @@ public class Juego {
 				colorUnidad = new int[2];
 				if (celda.hayFuenteRecurso()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
 					FuenteRecurso rec = celda.fuenteRecurso();
-					colorUnidad[0]= 4;
+					colorUnidad[0]= Color.RECURSO.numero();
 					colorUnidad[1]= rec.devolverID();
 					posicionYDibujable.put(new Posicion (i,j), colorUnidad);
 				}
@@ -405,8 +405,8 @@ public class Juego {
 					
 				}
 				else {
-					colorUnidad[0]=4;
-					colorUnidad[1]= 26;
+					colorUnidad[0]=Color.RECURSO.numero();;
+					colorUnidad[1]= Id.Pasto2.numero();
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
 					
 					
@@ -436,15 +436,11 @@ public class Juego {
 					colorUnidad[0]=  ser.numeroColor();
 					colorUnidad[1] = ser.devolverID();
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
-					
-					
 				}
 				else {
-					colorUnidad[0]=4;
-					colorUnidad[1]= 25;
+					colorUnidad[0]=Color.RECURSO.numero();;
+					colorUnidad[1]= Id.Pasto1.numero();
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
-					
-					
 				}
 			}
 }
