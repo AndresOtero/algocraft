@@ -449,8 +449,9 @@ public class Juego {
 			}
 			}
 	
-		return posicionYDibujable;
 		}
+		return posicionYDibujable;
+
 	}
 	
 	public String[] queEdificioPuedeConstruirJugadorActual(){
