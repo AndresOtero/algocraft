@@ -111,14 +111,19 @@ public class Codificador {
 		switch (IDColor) {
 		case 0 :
 			elemento.setColorDibujable(obtenerColor(Color.ROJO));
+			break;
 		case 1 :
 			elemento.setColorDibujable(obtenerColor(Color.AZUL));
+			break;
 		case 3 :
 			elemento.setColorDibujable(obtenerColor(Color.VERDE));
+			break;
 		case 2 :
 			elemento.setColorDibujable(obtenerColor(Color.AMARILLO));
+			break;
 		case 4 :
-			elemento.setColorDibujable(new ColorDibujable(1, 1, 1));
+			elemento.setColorDibujable(obtenerColor(Color.RECURSO));
+			break;
 		}
 		return elemento;
 	}
@@ -137,6 +142,9 @@ public class Codificador {
 			break;
 		case AZUL:
 			colorDibujar = new ColorDibujable(0, 1, 0);
+			break;
+		case RECURSO:
+			colorDibujar = new ColorDibujable(1, 1, 1);
 			break;
 		}
 		
