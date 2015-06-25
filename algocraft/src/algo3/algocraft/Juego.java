@@ -135,7 +135,6 @@ public class Juego {
 			Posicion posicionFinal=new Posicion(filaDestino, columnaDestino);
 			Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionInicial).serEnLaCeldaAerea();
 			verificarPropiedadUnidad(unidadAMover);
-
 			mapa.moverAerea(posicionInicial,posicionFinal);
 			turnos.agregarMovido(unidadAMover);
 		} catch (NoEsPosibleMoverException e) {
