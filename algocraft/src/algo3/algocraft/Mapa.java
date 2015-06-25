@@ -85,11 +85,12 @@ public class Mapa {
 			TipoRaza tipo = jugador.tipoRaza();
 			Ser edificioDeVolcan;
 			if (tipo == TipoRaza.PROTOSS) {
+				
 				edificioDeVolcan = new Asimilador(volcanesDeInicio[i], jugador.color(),posicionesDeInicio[i]);
 			} else {
 				edificioDeVolcan = new Refineria(volcanesDeInicio[i], jugador.color(),posicionesDeInicio[i]);
 			}
-			ponerTerrestre(posicionesDeInicio[i], edificioDeVolcan);
+			ponerEdificioDeRecurso(posicionesDeInicio[i], (EdificioDeRecurso) edificioDeVolcan);
 		}
 
 		inicializarEsquina(0,5,0,5);
