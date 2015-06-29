@@ -100,10 +100,13 @@ public class Codificador {
 			elemento = new Elemento("EdificioEnConstruccion");
 			break;
 		case 25:
-			elemento = new Elemento("Pasto");
+			elemento = new Elemento("Aire");
 			break;
 		case 26:
 			elemento = new Elemento("Pasto");
+			break;
+		case 27:
+			elemento = new Elemento("Negro");
 			break;
 
 			

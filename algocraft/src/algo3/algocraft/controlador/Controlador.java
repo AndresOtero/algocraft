@@ -1,5 +1,6 @@
 package algo3.algocraft.controlador;
 
+import java.awt.Font;
 import java.util.HashMap;
 
 import javax.management.RuntimeErrorException;
@@ -29,16 +30,23 @@ public class Controlador {
 	String ganador = "";
 
 	private void cargarBotones() {
-		botones.put("Mover", new Posicion(10, 570));
-		botones.put("PasarTurno", new Posicion(800, 600));
-		botones.put("Atacar", new Posicion(90,570));
-		botones.put("Cancelar", new Posicion(200,570));
+		botones.put("Mover", new Posicion((int)anchoPantalla/100, (int)(altoPantalla - altoPantalla/5)));
+		botones.put("PasarTurno", new Posicion((int)altoMenu, (int)(altoPantalla - altoPantalla/5)));
+		botones.put("Atacar", new Posicion((int)(2*(anchoPantalla/100)+anchoCuadrado*2), (int)(altoPantalla - altoPantalla/5)));
+		botones.put("Cancelar", new Posicion((int)(botones.get("PasarTurno").x() + anchoCuadrado*2 + altoPantalla/100),botones.get("PasarTurno").y()));
+	}
+	
+	public Posicion posicionMenu(){
+		return new Posicion(0,(int)(altoPantalla-altoMenu-altoPantalla/50));
+	}
+	public Posicion medidasMenu(){
+		return new Posicion((int)altoMenu,(int)altoPantalla);
 	}
 
 	public Controlador(double ancho, double alto) {
+		
 		altoPantalla = alto;
 		anchoPantalla = ancho;
-		cargarBotones();
 		altoMapa = altoPantalla - altoMenu;
 		juego = Juego.getInstance();
 		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
@@ -65,8 +73,11 @@ public class Controlador {
 
 			int fila = (int) (x / (anchoCuadrado));
 			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
-
-			serActual = juego.queHayEnCeldaTerrestre(fila, columna);
+			if(columna <= 15){
+				serActual = juego.queHayEnCeldaTerrestre(fila, columna);
+			}else{
+				serActual = juego.que(fila, columna);
+			}
 			if(serActual != null && apretoAtacar){
 				apretoAtacar = false;
 				atacar(fila,columna);
@@ -308,7 +319,7 @@ public class Controlador {
 	}
 
 	public String queHay(int x, int y) {
-		if (y > altoPantalla - altoMapa) {
+		/*if (y > altoPantalla - altoMapa) {
 			int fila = (int) (x / (anchoCuadrado));
 			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
 
@@ -318,7 +329,7 @@ public class Controlador {
 				return Codificador.obtenerElemento(unSer.devolverID(), 4)
 						.nombre();
 			return "Pasto";
-		}
+		}*/
 		return "";
 	}
 
@@ -361,44 +372,42 @@ public class Controlador {
 
 	private void agregarConstruibles(HashMap<Posicion, Elemento> menu) {
 		String[] edificios = juego.queEdificioPuedeConstruirJugadorActual();
-		int xInicial = 200;
+		int xInicial = (int) altoMenu;
 		int YInicial = (int) (altoPantalla - 20 - altoCuadrado);
 		for (String palabra : edificios) {
 			Elemento ele = new Elemento(palabra);
 			ele.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(new Posicion(xInicial, YInicial), ele);
 			botones.put(palabra, new Posicion(xInicial, YInicial));
-			xInicial += anchoCuadrado + 10;
+			xInicial += anchoCuadrado*2 + 10;
 		}
 	}
 
 	private void agregarCreables(HashMap<Posicion, Elemento> menu) {
 		String[] unidades = juego.queUnidadesPuedeConstruirJugadorActual();
-		int xInicial = 200;
-		int YInicial = (int) (altoPantalla - 50 - altoCuadrado * 2);
+		int xInicial = (int) altoMenu;
+		int YInicial = (int) (altoPantalla - altoCuadrado*2 - altoPantalla/30);
 		for (String palabra : unidades) {
 			Elemento ele = new Elemento(palabra);
 			ele.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(new Posicion(xInicial, YInicial), ele);
 			botones.put(palabra, new Posicion(xInicial, YInicial));
-			xInicial += anchoCuadrado + 10;
+			xInicial += anchoCuadrado*2 + 10;
 		}
 	}
 
 	public HashMap<Posicion, String> palabrasDibujar() {
 		HashMap<Posicion, String> palabras = new HashMap<Posicion, String>();
 		if (serActual != null) {
-			palabras.put(new Posicion(10, 750),
-					Codificador.obtenerElemento(serActual.devolverID(), 4)
-							.nombre());
-			palabras.put(new Posicion(10, 730), "Vida: " + serActual.vida());
-			palabras.put(new Posicion(10, 710), "Escudo: " + serActual.escudo());
-			palabras.put(new Posicion(10, 690), "Color: " + serActual.color());
+			palabras.put(new Posicion((int)anchoPantalla/100, (int)(altoPantalla - altoPantalla/100)),Codificador.obtenerElemento(serActual.devolverID(), 4).nombre());
+			palabras.put(new Posicion((int)anchoPantalla/100, (int)(altoPantalla - altoPantalla/25)), "Vida: " + serActual.vida());
+			palabras.put(new Posicion((int)anchoPantalla/100, (int)(altoPantalla - 2*altoPantalla/30)), "Escudo: " + serActual.escudo());
+			palabras.put(new Posicion((int)anchoPantalla/100, (int)(altoPantalla - 2*altoPantalla/20)), "Color: " + serActual.color());
 		}
-		palabras.put(new Posicion(900, 700),"Jugador Actual: " + juego.JugadorActual());
-		palabras.put(new Posicion(900, 680), "Gas: " + juego.gasJugadorActual());
-		palabras.put(new Posicion(900, 660),"Mineral: " + juego.mineralJugadorActual());
-		palabras.put(new Posicion(900, 640),"Raza: " + juego.razaActual());
+		palabras.put(new Posicion((int)(anchoPantalla - anchoPantalla/4),  (int)(altoPantalla - altoPantalla/100)),"Jugador Actual: " + juego.JugadorActual());
+		palabras.put(new Posicion((int)(anchoPantalla - anchoPantalla/4), (int)(altoPantalla - altoPantalla/25)), "Gas: " + juego.gasJugadorActual());
+		palabras.put(new Posicion((int)(anchoPantalla - anchoPantalla/4),  (int)(altoPantalla - 2*altoPantalla/30)),"Mineral: " + juego.mineralJugadorActual());
+		palabras.put(new Posicion((int)(anchoPantalla - anchoPantalla/4), (int)(altoPantalla - 2*altoPantalla/20)),"Raza: " + juego.razaActual());
 		if (apretoMover) {
 			palabras.put(new Posicion(500, 500), "Seleccione posicion final");
 		}
@@ -420,9 +429,11 @@ public class Controlador {
 		return palabras;
 	}
 
-	private Ser mover(int fila, int columna) {
+	private void mover(int fila, int columna) {
 		Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
-
+		if(columna > 15){
+			return;
+		}
 		if (unSer != null && filaAnterior == 50) {
 			filaAnterior = fila;
 			columnaAnterior = columna;
@@ -435,7 +446,7 @@ public class Controlador {
 			columnaAnterior = 50;
 
 		}
-		return unSer;
+		
 	}
 	
 	private Ser atacar(int fila, int columna) {
@@ -454,17 +465,22 @@ public class Controlador {
 		}
 		return unSer;
 	}
-
+	
 	public HashMap<Posicion, Elemento> GrillaADibujar() {
-		HashMap<Posicion, Elemento> grillaResuelta = Codificador
-				.grillaResuelta(juego.grillaColorUnidadTerrestre());
+		cargarBotones();
+		HashMap<Posicion, Elemento> grillaResueltaTerrestre = Codificador.grillaResuelta(juego.grillaColorUnidadTerrestre());
+		HashMap<Posicion, Elemento> grillaResueltaAereo = Codificador.grillaResuelta(juego.grillaColorUnidadAerea());
 		HashMap<Posicion, Elemento> grillaFinal = new HashMap<Posicion, Elemento>();
-		double largo = (double) Math.sqrt(grillaResuelta.keySet().size());
-		anchoCuadrado = (anchoPantalla) / largo;
-		altoCuadrado = (altoPantalla - 200) / largo;
-		for (Posicion pos : grillaResuelta.keySet()) {
+		double largo = (double) Math.sqrt(grillaResueltaTerrestre.keySet().size());
+		anchoCuadrado = (anchoPantalla) / largo/2;
+		altoCuadrado = (altoPantalla - altoMenu) / largo;
+		for (Posicion pos : grillaResueltaTerrestre.keySet()) {
 			grillaFinal.put(new Posicion((int) anchoCuadrado * pos.x(),
-					(int) altoCuadrado * pos.y()), grillaResuelta.get(pos));
+					(int) altoCuadrado * pos.y()), grillaResueltaTerrestre.get(pos));
+		}
+		for (Posicion pos : grillaResueltaAereo.keySet()) {
+			grillaFinal.put(new Posicion((int) ((anchoCuadrado * pos.x()) + anchoPantalla/2),
+					(int) altoCuadrado * pos.y()), grillaResueltaAereo.get(pos));
 		}
 		if(juego.hayGanador()) ganador = juego.JugadorActual();
 		return grillaFinal;
