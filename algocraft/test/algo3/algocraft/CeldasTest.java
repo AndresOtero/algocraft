@@ -21,9 +21,7 @@ public class CeldasTest {
 		Assert.assertTrue(celda.ocupadoAerea());
 		Assert.assertTrue(celda.ocupadoTerrestre());
 		
-		Assert.assertFalse(celda.esVisible());
-		celda.cambiarVisibilidad(true);
-		Assert.assertTrue(celda.esVisible());
+
 		
 		Assert.assertTrue(celda.serEnLaCeldaAerea() == serAereo);
 		Assert.assertTrue(celda.serEnLaCeldaTerrestre() == serTerrestre);

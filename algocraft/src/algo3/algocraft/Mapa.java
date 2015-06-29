@@ -264,7 +264,6 @@ public class Mapa {
 		}
 	}
 	
-	
 	private void agregarSumaPoblacion(
 			Map<Color, ArrayList<SumaPoblacion>> edificios,
 			Edificio edificio, Color color) {

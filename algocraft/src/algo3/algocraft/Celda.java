@@ -5,20 +5,11 @@ public class Celda {
 	private FuenteRecurso recurso;
 	private Ser serTerrestre;
 	private Ser serAereo;
-	private boolean visible;
 
 	public Celda() {
 		this.recurso = null;
 		this.serAereo = null;
 		this.serTerrestre = null;
-	}
-
-	public boolean esVisible() {
-		return visible;
-	}
-
-	public void cambiarVisibilidad(boolean nuevaVisibilidad) {
-		visible = nuevaVisibilidad;
 	}
 
 	public boolean ocupadoTerrestre() {

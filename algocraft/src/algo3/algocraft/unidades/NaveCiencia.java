@@ -28,7 +28,7 @@ public class NaveCiencia extends UnidadMagica implements Aerea {
 	}
 
 	private boolean emp(ArrayList<Unidad> atacados) {
-		if (energia > 100) {
+		if (energia >= 100) {
 			energia -= 100;
 			for (int i = 0; i < atacados.size(); i++) {
 				atacados.get(i).recibirEmp();
