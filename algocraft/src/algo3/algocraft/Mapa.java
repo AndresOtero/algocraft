@@ -287,7 +287,7 @@ public class Mapa {
 	 ********************************/
 	public void ponerEdificioSumaPoblacion(Posicion pos, Edificio edificio){
 		Celda celda = mapa.get(pos);
-		if (!celda.ocupadoTerrestre()){
+		if (!celda.ocupadoTerrestre()&&!celda.hayFuenteRecurso()){
 			ponerTerrestre(pos,edificio);
 			agregarSumaPoblacion(edificiosSumaPoblacion,edificio,edificio.color());
 		}
@@ -322,7 +322,7 @@ public class Mapa {
 	
 	public void ponerEdificioCreador(Posicion pos, EdificioCreador edificio){
 		Celda celda = mapa.get(pos);
-		if (!celda.ocupadoTerrestre()){
+		if (!celda.ocupadoTerrestre()&&!celda.hayFuenteRecurso()){
 			ponerTerrestre(pos,edificio);
 			agregarEdificioCreador(edificiosCreadores,edificio,edificio.color());
 		}
