@@ -2,6 +2,8 @@ package algo3.algocraft.unidades;
 
 import java.util.ArrayList;
 
+import algo3.algocraft.AtaqueMagico;
+
 
 public abstract class UnidadMagica extends Unidad {
 	protected int energia;
@@ -16,5 +18,7 @@ public abstract class UnidadMagica extends Unidad {
 		this.energia = 0;
 		
 	}
+
+	public abstract AtaqueMagico[] devolverAtaques();
 
 }

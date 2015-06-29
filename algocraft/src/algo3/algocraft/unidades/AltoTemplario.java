@@ -61,4 +61,12 @@ public class AltoTemplario extends UnidadMagica implements AltoTemplarioInteface
 	public int devolverID() {
 		return this.id;
 		}
+	
+	@Override
+	
+	public AtaqueMagico[] devolverAtaques(){
+		AtaqueMagico[] ataques = {AtaqueMagico.TORMENTA,AtaqueMagico.ALUCINACION};
+		return ataques;
+	
+	}
 }
