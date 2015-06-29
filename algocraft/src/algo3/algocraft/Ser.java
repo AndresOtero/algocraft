@@ -8,6 +8,7 @@ public abstract class Ser implements Dibujable{
 	protected Posicion posicion;
 	protected int vida;
 	protected int escudo = 0;
+	protected int escudoIntacto = 0;
 	protected int tiempoDeConstruccion;
 	protected Color color;
 	protected Movimiento movimiento=null;

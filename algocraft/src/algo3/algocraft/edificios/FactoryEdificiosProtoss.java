@@ -12,8 +12,8 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	private ArrayList<Edificio> edificiosEnCola = new ArrayList<Edificio>();
 	private ArrayList<Edificio> edificiosCreados = new ArrayList<Edificio> ();
 	private Mapa mapa;
-	private Boolean accesoCreado;
-	private Boolean puertoEstelarCreado;
+	private Boolean accesoCreado = false;
+	private Boolean puertoEstelarCreado = false;
 	
 	public FactoryEdificiosProtoss(Jugador jugador, Mapa mapa) {
 		this.jugador = jugador;

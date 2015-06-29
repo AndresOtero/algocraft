@@ -18,8 +18,8 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	private ArrayList<Edificio> edificiosEnCola = new ArrayList<Edificio>();
 	private ArrayList<Edificio> edificiosCreados = new ArrayList<Edificio> ();
 	private Mapa mapa;
-	private Boolean barracaCreada;
-	private Boolean fabricaCreada;
+	private Boolean barracaCreada = false;
+	private Boolean fabricaCreada = false;
 	
 	public FactoryEdificiosTerran(Jugador jugador,Mapa mapa) {
 		this.jugador = jugador;

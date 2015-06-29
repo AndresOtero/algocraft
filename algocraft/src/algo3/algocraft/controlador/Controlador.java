@@ -10,6 +10,7 @@ import algo3.algocraft.Juego;
 import algo3.algocraft.Posicion;
 import algo3.algocraft.Ser;
 import algo3.algocraft.TipoRaza;
+import algo3.algocraft.exceptions.ElEdificioNoPuedeCrearEstaUnidad;
 
 public class Controlador {
 	private double altoPantalla;
@@ -25,12 +26,13 @@ public class Controlador {
 	private boolean apretoMover = false;
 	private String apretoCrear = "";
 	private HashMap<String, Posicion> botones = new HashMap<String, Posicion>();
+	String ganador = "";
 
 	private void cargarBotones() {
-		botones.put("Mover", new Posicion(10, 840));
-		botones.put("PasarTurno", new Posicion(800, 870));
-		botones.put("Atacar", new Posicion(90,840));
-		botones.put("Cancelar", new Posicion(500,840));
+		botones.put("Mover", new Posicion(10, 570));
+		botones.put("PasarTurno", new Posicion(800, 600));
+		botones.put("Atacar", new Posicion(90,570));
+		botones.put("Cancelar", new Posicion(200,570));
 	}
 
 	public Controlador(double ancho, double alto) {
@@ -42,15 +44,21 @@ public class Controlador {
 		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
 		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
 		juego.iniciarJuego();
-		juego.crearCreadorSoldados(7, 7);
-		juego.pasarTurno();
 		juego.crearCreadorSoldados(5, 7);
-		for(int a = 0; a<20;a++)
+		for(int a = 0; a<30;a++)
+			juego.pasarTurno();
+		juego.crearCreadorAereos(8, 8);
+		for(int a = 0; a<30;a++)
+			juego.pasarTurno();
+		juego.crearCreadorTerrestres(9, 9);
+		for(int a = 0; a<30;a++)
 			juego.pasarTurno();
 	}
 
 	private String edificioCrear = "";
 	private boolean apretoAtacar = false;
+	private String mensaje = "";
+	private int contMensaje = 0;
 
 	public void hicieronClick(int x, int y) {
 		if (y > altoPantalla - altoMapa) { // esta en el mapa
@@ -92,11 +100,34 @@ public class Controlador {
 				edificioCrear = "";
 			}
 			if (apretoCrear != "") {
+				try{
 				if (apretoCrear == "Marine") {
 					juego.crearMarine(fila, columna);
 				}
 				else if (apretoCrear == "Zealot") {
 					juego.crearZealot(fila, columna);
+				}
+				else if (apretoCrear == "Golliat") {
+					juego.crearGolliat(fila, columna);
+				}
+				else if (apretoCrear == "Espectro") {
+					juego.crearEspectro(fila, columna);
+				}else if(apretoCrear == "NaveCiencia"){
+					juego.crearNaveCiencia(fila, columna);
+				}else if(apretoCrear == "NaveTransporteProtoss"){
+					juego.crearNaveTransporteProtoss(fila, columna);
+				}else if(apretoCrear == "NaveTransporteTerran"){
+					juego.crearNaveTransporteTerran(fila, columna);
+				}else if(apretoCrear == "Dragon"){
+					juego.crearDragon(fila, columna);
+				}else if(apretoCrear == "Scout"){
+					juego.crearScout(fila, columna);
+				}else if(apretoCrear == "AltoTemplario"){
+					juego.crearAltoTemplario(fila, columna);
+				}
+				}catch(ElEdificioNoPuedeCrearEstaUnidad e){
+					mensaje  = "No se puede crear esa unidad en ese edificio";
+					contMensaje = 100;
 				}
 				apretoCrear = "";
 			}
@@ -208,6 +239,70 @@ public class Controlador {
 				apretoCrear = "Zealot";
 			
 			}
+			Posicion golliatPosicion = botones.get("Golliat");
+			if (golliatPosicion != null && x >= golliatPosicion.x()
+					&& x <= golliatPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - golliatPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - golliatPosicion.y()) {
+				apretoCrear = "Golliat";
+			
+			}
+			Posicion espectroPosicion = botones.get("Espectro");
+			if (espectroPosicion != null && x >= espectroPosicion.x()
+					&& x <= espectroPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - espectroPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - espectroPosicion.y()) {
+				apretoCrear = "Espectro";
+			
+			}
+			Posicion naveCienciaPosicion = botones.get("Nave Ciencia");
+			if (naveCienciaPosicion != null && x >= naveCienciaPosicion.x()
+					&& x <= naveCienciaPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - naveCienciaPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - naveCienciaPosicion.y()) {
+				apretoCrear = "NaveCiencia";
+			
+			}
+			Posicion naveTransportePosicion = botones.get("Nave Transporte Terran");
+			if (naveTransportePosicion != null && x >= naveTransportePosicion.x()
+					&& x <= naveTransportePosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - naveTransportePosicion.y() - altoCuadrado
+					&& y <= altoPantalla - naveTransportePosicion.y()) {
+				apretoCrear = "NaveTransporteTerran";
+			
+			}
+			naveTransportePosicion = botones.get("Nave Transporte Protoss");
+			if (naveTransportePosicion != null && x >= naveTransportePosicion.x()
+					&& x <= naveTransportePosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - naveTransportePosicion.y() - altoCuadrado
+					&& y <= altoPantalla - naveTransportePosicion.y()) {
+				apretoCrear = "NaveTransporteProtoss";
+			
+			}
+			Posicion dragonPosicion = botones.get("Dragon");
+			if (dragonPosicion != null && x >= dragonPosicion.x()
+					&& x <= dragonPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - dragonPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - dragonPosicion.y()) {
+				apretoCrear = "Dragon";
+			
+			}
+			Posicion scoutPosicion = botones.get("Scout");
+			if (scoutPosicion != null && x >= scoutPosicion.x()
+					&& x <= scoutPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - scoutPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - scoutPosicion.y()) {
+				apretoCrear = "Scout";
+			
+			}
+			Posicion templarioPosicion = botones.get("Alto Templario");
+			if (templarioPosicion != null && x >= templarioPosicion.x()
+					&& x <= templarioPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - templarioPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - templarioPosicion.y()) {
+				apretoCrear = "AltoTemplario";
+			
+			}
 		}
 
 	}
@@ -267,7 +362,7 @@ public class Controlador {
 	private void agregarConstruibles(HashMap<Posicion, Elemento> menu) {
 		String[] edificios = juego.queEdificioPuedeConstruirJugadorActual();
 		int xInicial = 200;
-		int YInicial = (int) (altoPantalla - 10 - altoCuadrado);
+		int YInicial = (int) (altoPantalla - 20 - altoCuadrado);
 		for (String palabra : edificios) {
 			Elemento ele = new Elemento(palabra);
 			ele.setColorDibujable(new ColorDibujable(1, 1, 1));
@@ -280,7 +375,7 @@ public class Controlador {
 	private void agregarCreables(HashMap<Posicion, Elemento> menu) {
 		String[] unidades = juego.queUnidadesPuedeConstruirJugadorActual();
 		int xInicial = 200;
-		int YInicial = (int) (altoPantalla - 20 - altoCuadrado * 2);
+		int YInicial = (int) (altoPantalla - 50 - altoCuadrado * 2);
 		for (String palabra : unidades) {
 			Elemento ele = new Elemento(palabra);
 			ele.setColorDibujable(new ColorDibujable(1, 1, 1));
@@ -293,18 +388,17 @@ public class Controlador {
 	public HashMap<Posicion, String> palabrasDibujar() {
 		HashMap<Posicion, String> palabras = new HashMap<Posicion, String>();
 		if (serActual != null) {
-			palabras.put(new Posicion(10, 1000),
+			palabras.put(new Posicion(10, 750),
 					Codificador.obtenerElemento(serActual.devolverID(), 4)
 							.nombre());
-			palabras.put(new Posicion(10, 980), "Vida: " + serActual.vida());
-			palabras.put(new Posicion(10, 950), "Escudo: " + serActual.escudo());
-			palabras.put(new Posicion(10, 920), "Color: " + serActual.color());
+			palabras.put(new Posicion(10, 730), "Vida: " + serActual.vida());
+			palabras.put(new Posicion(10, 710), "Escudo: " + serActual.escudo());
+			palabras.put(new Posicion(10, 690), "Color: " + serActual.color());
 		}
-		palabras.put(new Posicion(900, 920),
-				"Jugador Actual: " + juego.JugadorActual());
-		palabras.put(new Posicion(900, 900), "Gas: " + juego.gasJugadorActual());
-		palabras.put(new Posicion(900, 880),
-				"Mineral: " + juego.mineralJugadorActual());
+		palabras.put(new Posicion(900, 700),"Jugador Actual: " + juego.JugadorActual());
+		palabras.put(new Posicion(900, 680), "Gas: " + juego.gasJugadorActual());
+		palabras.put(new Posicion(900, 660),"Mineral: " + juego.mineralJugadorActual());
+		palabras.put(new Posicion(900, 640),"Raza: " + juego.razaActual());
 		if (apretoMover) {
 			palabras.put(new Posicion(500, 500), "Seleccione posicion final");
 		}
@@ -315,8 +409,13 @@ public class Controlador {
 			palabras.put(new Posicion(500, 500), "Seleccione posicion a crear");
 		}
 		if (apretoCrear != "") {
-			palabras.put(new Posicion(500, 500),
-					"Seleccione edificio donde  crear");
+			palabras.put(new Posicion(500, 500),"Seleccione edificio donde  crear");
+		}
+		if (ganador != "") {
+			palabras.put(new Posicion(500, 500), "Gano " + ganador);
+		}if (contMensaje > 0) {
+			palabras.put(new Posicion(500, 500), mensaje);
+			contMensaje--;
 		}
 		return palabras;
 	}
@@ -367,6 +466,7 @@ public class Controlador {
 			grillaFinal.put(new Posicion((int) anchoCuadrado * pos.x(),
 					(int) altoCuadrado * pos.y()), grillaResuelta.get(pos));
 		}
+		if(juego.hayGanador()) ganador = juego.JugadorActual();
 		return grillaFinal;
 	}
 

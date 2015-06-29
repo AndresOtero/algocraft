@@ -76,7 +76,7 @@ public class PartidaBasicaTest {
 		Assert.assertEquals(juego.ContenidoFilaColumna(15,15).serEnLaCeldaTerrestre().vida(),6);//da�o en refineria		
 		Assert.assertTrue(juego.atacarTierra(14, 15, 15, 15));
 		Assert.assertFalse(juego.ContenidoFilaColumna(15,15).ocupadoTerrestre());		
-		juego.pasarTurno();
+
 		Assert.assertTrue(juego.hayGanador());
 
 

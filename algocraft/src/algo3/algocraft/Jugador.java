@@ -15,8 +15,8 @@ public class Jugador {
 	private int limitePoblacion=10;
 	private String edificiosTerran[] = {"Centro de Mineral","Barraca","Deposito Suministro","Refineria","Fabrica","Puerto Estelar"};
 	private String edificiosProtoss[] = {"Nexo Mineral","Pilon","Asimilador","Acesso","Puerto Estelar","Archivos Templarios"};
-	private String unidadesTerran[] = {"Marine","Golliat","Espectro","Nave Ciencia", "Nave Transporte"};
-	private String unidadesProtos[] ={"Zealot","Dragon","Scout","Alto Templario","Nave Transporte"};
+	private String unidadesTerran[] = {"Marine","Golliat","Espectro","Nave Ciencia", "Nave Transporte Terran"};
+	private String unidadesProtos[] ={"Zealot","Dragon","Scout","Alto Templario","Nave Transporte Protoss"};
 	
 	public Color color(){
 		return this.color;

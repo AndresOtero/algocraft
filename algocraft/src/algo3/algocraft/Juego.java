@@ -66,7 +66,13 @@ public class Juego {
 	}
 
 	public boolean hayGanador(){
-		return (mapa.seresDeJugador(turnos.turnoActual().color()).isEmpty());
+		//return (mapa.seresDeJugador(turnos.turnoActual().color()).isEmpty());
+		for(Jugador juga :  jugadores){
+			if(juga.color() != turnos.turnoActual().color()){
+				if(!mapa.seresDeJugador(juga.color()).isEmpty()) return false;
+			}
+		}
+		return true;
 	}
 
 	private void administrarRecursos() {
@@ -244,7 +250,7 @@ public class Juego {
 	}
 	public Boolean crearNaveTransporteTerran(int fil,int col){
 		Ser ed=(Ser) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre();
-		verificaElEdificioPuedeCrearEstaUnidad(Id.PuertoEstelarProtoss.numero(),ed.devolverID());
+		verificaElEdificioPuedeCrearEstaUnidad(Id.PuertoEstelarTerran.numero(),ed.devolverID());
 		return ((PuertoEstelarTerran) mapa.ContenidoPosicion(new Posicion(fil,col)).serEnLaCeldaTerrestre()).crearNaveTransporteTerran(turnos.turnoActual());
 	}
 	public Boolean crearEspectro(int fil,int col){
@@ -467,6 +473,10 @@ public class Juego {
 	
 	public Ser queHayEnCeldaTerrestre(int fila, int columna){
 		return mapa.ContenidoPosicion(new Posicion(fila,columna)).serEnLaCeldaTerrestre();
+	}
+
+	public String razaActual() {
+		return turnos.turnoActual().tipoRaza().toString();
 	}
 
 }
