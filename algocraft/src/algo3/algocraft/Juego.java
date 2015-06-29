@@ -131,6 +131,9 @@ public class Juego {
 	public void elevar(int fila,int columna){
 		mapa.elevar(new Posicion(fila,columna));
 	}
+	public void descender(int fila,int columna){
+		mapa.descender(new Posicion(fila,columna));
+	}
 	public boolean moverPosicionTerrestre(int filaInicio,
 			int columnaInicio, int filaDestino, int columnaDestino) {
 		try {

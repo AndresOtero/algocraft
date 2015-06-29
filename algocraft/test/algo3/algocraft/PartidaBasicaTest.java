@@ -48,7 +48,14 @@ public class PartidaBasicaTest {
 		juego.elevar(posicionNave.x(), posicionNave.y());
 		Assert.assertFalse(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoTerrestre());	
 		Assert.assertTrue(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoAerea());	
-
+		juego.descender(posicionNave.x(), posicionNave.y());
+		Assert.assertTrue(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoTerrestre());	
+		Assert.assertFalse(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoAerea());	
+		juego.elevar(posicionNave.x(), posicionNave.y());
+		Assert.assertFalse(juego.ContenidoFilaColumna(0, 9).ocupadoAerea());	
+		juego.moverPosicionAereo(posicionNave.x(), posicionNave.y(), 0, 9);
+		Assert.assertFalse(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoAerea());	
+		Assert.assertTrue(juego.ContenidoFilaColumna(0, 9).ocupadoAerea());	
 		Posicion posicionZealot= buscarUnidad(juego);
 		Assert.assertTrue(juego.ContenidoFilaColumna(posicionZealot.x(), posicionZealot.y()).ocupadoTerrestre());	
 		Assert.assertTrue(juego.moverPosicionTerrestre(posicionZealot.x(), posicionZealot.y(), 9, 9));

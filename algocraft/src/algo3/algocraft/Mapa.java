@@ -178,7 +178,19 @@ public class Mapa {
 		catch(ClassCastException e){
 			throw new NoEsPosibleMoverException();
 		}
-		
+	}
+	public void descender(Posicion posicion) {
+		Celda celda = mapa.get(posicion);
+		if (celda.ocupadoTerrestre()) {
+			throw new NoEsPosibleMoverException();
+		} try{
+			Aerea unidadAMover = (Aerea) celda.serEnLaCeldaAerea();
+			ponerTerrestre(posicion,(Ser) unidadAMover);
+			celda.desocuparAerea();
+		}
+		catch(ClassCastException e){
+			throw new NoEsPosibleMoverException();
+		}
 	}
 	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal) {
 		Celda celdaFinal = mapa.get(posicionFinal);
