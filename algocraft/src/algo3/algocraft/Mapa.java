@@ -170,10 +170,15 @@ public class Mapa {
 		Celda celda = mapa.get(posicion);
 		if (celda.ocupadoAerea()) {
 			throw new NoEsPosibleMoverException();
+		} try{
+			Aerea unidadAMover = (Aerea) celda.serEnLaCeldaTerrestre();
+			ponerAereo(posicion,(Ser) unidadAMover);
+			celda.desocuparTerrestre();
 		}
-		Aerea unidadAMover = (Aerea) celda.serEnLaCeldaTerrestre();
-		ponerAereo(posicion,(Ser) unidadAMover);
-		celda.desocuparTerrestre();
+		catch(ClassCastException e){
+			throw new NoEsPosibleMoverException();
+		}
+		
 	}
 	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal) {
 		Celda celdaFinal = mapa.get(posicionFinal);
