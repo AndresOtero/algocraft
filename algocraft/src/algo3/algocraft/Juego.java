@@ -439,37 +439,35 @@ public class Juego {
 		HashMap<Posicion,int[]> posicionYDibujable =  new HashMap<Posicion,int[]>();
 		int ancho = mapa.ancho();
 		int alto = mapa.alto();
-		ArrayList<Posicion>visionJugadorActual =this.visionJugadorActual();
-		for ( int i = 0; i< ancho ; i++){
-			for ( int j = 0 ; j< alto ; j++){
-				Posicion pos= new Posicion(i,j);
+		ArrayList<Posicion> visionJugadorActual = this.visionJugadorActual();
+		for (int i = 0; i < ancho; i++) {
+			for (int j = 0; j < alto; j++) {
+				Posicion pos = new Posicion(i, j);
 				int[] colorUnidad = new int[2];
-				if(visionJugadorActual.contains(pos)){
-					Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
-					if( celda.ocupadoAerea()){
-						if(celda == null) {}
-						else if( celda.ocupadoAerea()){
-							Ser ser = celda.serEnLaCeldaAerea();
-							colorUnidad[0]=  ser.numeroColor();
-							colorUnidad[1] = ser.devolverID();
-							posicionYDibujable.put(new Posicion(i,j),colorUnidad);
-						}
-						else {
-							colorUnidad[0]=Color.RECURSO.numero();;
-							colorUnidad[1]= Id.Pasto1.numero();
-							posicionYDibujable.put(new Posicion(i,j),colorUnidad);
-						}
+				if (visionJugadorActual.contains(pos)) {
+					Celda celda = mapa.ContenidoPosicion(new Posicion(i, j));
+					if (celda.ocupadoAerea()) {
+						Ser ser = celda.serEnLaCeldaAerea();
+						colorUnidad[0] = ser.numeroColor();
+						colorUnidad[1] = ser.devolverID();
+						posicionYDibujable.put(new Posicion(i, j), colorUnidad);
+					} else {
+						colorUnidad[0] = Color.RECURSO.numero();
+						colorUnidad[1] = Id.Pasto1.numero();
+						posicionYDibujable.put(new Posicion(i, j), colorUnidad);
 					}
-				}else{
-					colorUnidad[0]=Color.RECURSO.numero();;
-					colorUnidad[1]= Id.Negro.numero();
-					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+
+				} else {
+					colorUnidad[0] = Color.RECURSO.numero();
+					;
+					colorUnidad[1] = Id.Negro.numero();
+					posicionYDibujable.put(new Posicion(i, j), colorUnidad);
 				}
-			}	
+			}
 		}
 		return posicionYDibujable;
-
 	}
+
 	private ArrayList<Posicion>visionJugadorActual(){
 		return mapa.visible(turnos.turnoActual().color());
 	}

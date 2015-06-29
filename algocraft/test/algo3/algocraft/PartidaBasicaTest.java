@@ -18,7 +18,7 @@ public class PartidaBasicaTest {
 		juego.crearJugador("Federico", Color.AZUL, TipoRaza.TERRAN);
 		juego.iniciarJuego();
 		Assert.assertFalse(juego.hayGanador());
-		juego.grillaColorUnidadTerrestre();
+		juego.grillaColorUnidadAerea();
 		Assert.assertEquals(juego.JugadorActual(), "Federico");
 		Assert.assertEquals(juego.gasJugadorActual(),800);
 		juego.pasarTurno();
