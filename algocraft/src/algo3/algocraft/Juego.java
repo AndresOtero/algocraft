@@ -443,15 +443,13 @@ public class Juego {
 		int ancho = mapa.ancho();
 		int alto = mapa.alto();
 		ArrayList<Posicion>visionJugadorActual =this.visionJugadorActual();
-		for ( int i = 0; i< ancho ; i++){
-			for ( int j = 0 ; j< alto ; j++){
+		for ( int i = 0; i< ancho+1 ; i++){
+			for ( int j = 0 ; j< alto+1 ; j++){
 				Posicion pos= new Posicion(i,j);
 				int[] colorUnidad = new int[2];
 				if(visionJugadorActual.contains(pos)){
 					Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
-					if( celda.ocupadoAerea()){
-						if(celda == null) {}
-						else if( celda.ocupadoAerea()){
+						 if( celda.ocupadoAerea()){
 							Ser ser = celda.serEnLaCeldaAerea();
 							colorUnidad[0]=  ser.numeroColor();
 							colorUnidad[1] = ser.devolverID();
@@ -462,7 +460,6 @@ public class Juego {
 							colorUnidad[1]= Id.Pasto1.numero();
 							posicionYDibujable.put(new Posicion(i,j),colorUnidad);
 						}
-					}
 				}else{
 					colorUnidad[0]=Color.RECURSO.numero();;
 					colorUnidad[1]= Id.Negro.numero();
