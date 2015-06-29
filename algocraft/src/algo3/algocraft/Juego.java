@@ -128,6 +128,9 @@ public class Juego {
 	}
 	
 	//Metodos de movimiento
+	public void elevar(int fila,int columna){
+		mapa.elevar(new Posicion(fila,columna));
+	}
 	public boolean moverPosicionTerrestre(int filaInicio,
 			int columnaInicio, int filaDestino, int columnaDestino) {
 		try {
