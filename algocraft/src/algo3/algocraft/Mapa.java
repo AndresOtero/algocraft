@@ -14,6 +14,7 @@ import algo3.algocraft.edificios.EdificioDeRecurso;
 import algo3.algocraft.edificios.Refineria;
 import algo3.algocraft.edificios.SumaPoblacion;
 import algo3.algocraft.exceptions.*;
+import algo3.algocraft.unidades.Aerea;
 import algo3.algocraft.unidades.Unidad;
 
 public class Mapa {
@@ -170,8 +171,8 @@ public class Mapa {
 		if (celda.ocupadoAerea()) {
 			throw new NoEsPosibleMoverException();
 		}
-		Unidad unidadAMover = (Unidad) celda.serEnLaCeldaTerrestre();
-		ponerAereo(posicion, unidadAMover);
+		Aerea unidadAMover = (Aerea) celda.serEnLaCeldaTerrestre();
+		ponerAereo(posicion,(Ser) unidadAMover);
 		celda.desocuparTerrestre();
 	}
 	public void moverTerrestre(Posicion posicionInicial, Posicion posicionFinal) {
