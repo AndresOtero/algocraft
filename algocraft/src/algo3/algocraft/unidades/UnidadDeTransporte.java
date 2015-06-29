@@ -1,20 +1,33 @@
 package algo3.algocraft.unidades;
 
-import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Queue;
+
+import algo3.algocraft.exceptions.NoHayUnidadesEnElTransporte;
 
 public abstract class UnidadDeTransporte extends Unidad implements Aerea{
 	protected int capacidad;
 	protected int ocupado;
-	protected ArrayList<Transportable> transporte;
+	protected Queue<Transportable> transporte;
 
 	public Boolean subirUnidad(Transportable transportable) {
 		if ((ocupado + transportable.transporte()) < capacidad) {
+			transporte.add(transportable);
+			ocupado+=transportable.transporte();
 			return true;
 		}
 		return false;
 	}
 
-	public void bajarUnidad(Transportable transportable) {
-
+	public Transportable bajarUnidad() throws NoHayUnidadesEnElTransporte {
+		try{
+			Transportable transportable = transporte.remove();
+			ocupado-=transportable.transporte();
+			return transportable;
+		}catch(NoSuchElementException e){
+			throw new NoHayUnidadesEnElTransporte();
+		}
+		
+		
 	}
 }

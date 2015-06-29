@@ -15,7 +15,9 @@ import algo3.algocraft.edificios.Refineria;
 import algo3.algocraft.edificios.SumaPoblacion;
 import algo3.algocraft.exceptions.*;
 import algo3.algocraft.unidades.Aerea;
+import algo3.algocraft.unidades.Transportable;
 import algo3.algocraft.unidades.Unidad;
+import algo3.algocraft.unidades.UnidadDeTransporte;
 
 public class Mapa {
 	private static Mapa instancia = null;
@@ -166,6 +168,23 @@ public class Mapa {
 	}
 	
 	/* Metodos de movimiento de unidades*/
+	public void subirAUnidadDeTransporte(Posicion posicionTransportable,Posicion posicionTransporte) throws NoEsPosibleSubirException{
+		Transportable transportable = (Transportable) mapa.get(posicionTransportable).serEnLaCeldaTerrestre();
+		UnidadDeTransporte transporte = (UnidadDeTransporte)  mapa.get(posicionTransporte).serEnLaCeldaTerrestre();
+		if(!((Unidad)transportable).movimientoPosible(posicionTransportable, posicionTransporte)){
+			throw new NoEsPosibleMoverException();
+		}
+		if(!transporte.subirUnidad(transportable)){
+			throw new NoEsPosibleSubirException();
+		}
+		((Unidad)transportable).cambiarPosicion(posicionTransporte);
+		mapa.get(posicionTransportable).desocuparTerrestre();
+	}
+	public void bajarDeUnidadDeTransporte(Posicion posicionTransporte) throws NoHayUnidadesEnElTransporte{
+		UnidadDeTransporte transporte = (UnidadDeTransporte)  mapa.get(posicionTransporte).serEnLaCeldaTerrestre();
+		Transportable transportable = (Transportable)transporte.bajarUnidad();
+		ponerUnidadEnLaCeldaLibreMasCercana(transporte, (Unidad)transportable);
+	}
 	public void elevar(Posicion posicion) {
 		Celda celda = mapa.get(posicion);
 		if (celda.ocupadoAerea()) {

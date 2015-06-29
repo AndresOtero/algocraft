@@ -128,10 +128,32 @@ public class Juego {
 	}
 	
 	//Metodos de movimiento
+	public void subirAlTransporte(int filaTransportable , int columnaTransportable, int filaTransportador,int columnaTransportador) throws NoEsPosibleSubirException{
+		Posicion posicionTransportable=new Posicion(filaTransportable, columnaTransportable);
+		Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
+		Transportable transportable = (Transportable) mapa.ContenidoPosicion(posicionTransportable).serEnLaCeldaTerrestre();
+		UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
+		verificarPropiedadUnidad((Unidad)transporte);
+		verificarPropiedadUnidad((Unidad)transportable);
+		mapa.subirAUnidadDeTransporte(posicionTransportable, posicionTransportador);
+		turnos.agregarMovido((Unidad)transportable);
+	}
+	public void bajarDelTransporte(int filaTransportable , int columnaTransportable, int filaTransportador,int columnaTransportador) throws NoHayUnidadesEnElTransporte{
+		Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
+		UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
+		verificarPropiedadUnidad((Unidad)transporte);
+		mapa.bajarDeUnidadDeTransporte(posicionTransportador);
+	}
 	public void elevar(int fila,int columna){
+		Posicion posicionFinal=new Posicion(fila, columna);
+		Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionFinal).serEnLaCeldaTerrestre();
+		verificarPropiedadUnidad(unidadAMover);
 		mapa.elevar(new Posicion(fila,columna));
 	}
 	public void descender(int fila,int columna){
+		Posicion posicionFinal=new Posicion(fila, columna);
+		Unidad unidadAMover = (Unidad) mapa.ContenidoPosicion(posicionFinal).serEnLaCeldaAerea();
+		verificarPropiedadUnidad(unidadAMover);
 		mapa.descender(new Posicion(fila,columna));
 	}
 	public boolean moverPosicionTerrestre(int filaInicio,
