@@ -4,7 +4,7 @@ import algo3.algocraft.Posicion;
 import algo3.algocraft.Ser;
 
 public abstract class Unidad extends Ser {
-	protected int vision;
+
 	protected boolean contaminadoRadiacion = false;
 	private int meQuedaTormenta;
 	
@@ -12,9 +12,7 @@ public abstract class Unidad extends Ser {
 	public void cambiarPosicion(Posicion pos){
 		this.posicion = pos;
 	}
-	public int vision() {
-		return vision;
-	}
+	
 	public boolean movimientoPosible(Posicion pInicial, Posicion pFinal){
 		if (this.vision < pInicial.distancia(pFinal)){
 			return true;

@@ -7,6 +7,7 @@ import algo3.algocraft.unidades.Unidad;
 public abstract class Ser implements Dibujable{
 	protected Posicion posicion;
 	protected int vida;
+	protected int vision=3;//supuesto que los edificios tienen 3 de vision
 	protected int escudo = 0;
 	protected int escudoIntacto = 0;
 	protected int tiempoDeConstruccion;
@@ -14,7 +15,9 @@ public abstract class Ser implements Dibujable{
 	protected Movimiento movimiento=null;
 	protected int suministro=0;
 	protected int id;
-	
+	public int vision() {
+		return vision;
+	}
 	public Posicion posicion() {
 		return posicion;
 	}

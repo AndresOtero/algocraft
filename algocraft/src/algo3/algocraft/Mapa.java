@@ -391,9 +391,8 @@ public class Mapa {
 		ArrayList<Posicion> visible=new ArrayList<Posicion>();
 		for(Ser ser:seresDeJugador){
 			Posicion pos=ser.posicion();
-			if((ser.devolverID()<22)&&(11<ser.devolverID())){/*Es una unidad*/
-				Unidad unidad=(Unidad)ser;
-				int vision=unidad.vision();
+			if((ser.devolverID()<22)){/*Es una unidad*/
+				int vision=ser.vision();
 				for(int i=pos.x()-vision;i<=pos.x()+vision;i++){
 					for(int j=pos.y()-vision;j<=pos.y()+vision;j++){
 						visible.add(new Posicion(i,j));
