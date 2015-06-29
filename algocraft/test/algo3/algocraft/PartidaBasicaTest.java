@@ -8,6 +8,8 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import algo3.algocraft.edificios.*;
+import algo3.algocraft.exceptions.NoEsPosibleSubirException;
+import algo3.algocraft.exceptions.NoHayUnidadesEnElTransporte;
 import algo3.algocraft.unidades.*;
 
 public class PartidaBasicaTest {
@@ -53,13 +55,29 @@ public class PartidaBasicaTest {
 		Assert.assertFalse(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoAerea());	
 		juego.elevar(posicionNave.x(), posicionNave.y());
 		Assert.assertFalse(juego.ContenidoFilaColumna(0, 9).ocupadoAerea());	
-		juego.moverPosicionAereo(posicionNave.x(), posicionNave.y(), 0, 9);
+		juego.moverPosicionAereo(posicionNave.x(), posicionNave.y(), 6, 5);
 		Assert.assertFalse(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoAerea());	
-		Assert.assertTrue(juego.ContenidoFilaColumna(0, 9).ocupadoAerea());	
-		Posicion posicionZealot= buscarUnidad(juego);
+		Assert.assertTrue(juego.ContenidoFilaColumna(6, 5).ocupadoAerea());	
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.descender(6, 5);//Bajo la nave
+		Posicion posicionZealot = buscarUnidad(juego);
+		try {
+			juego.subirAlTransporte(posicionZealot.x(), posicionZealot.y(), 6,5);
+		} catch (NoEsPosibleSubirException e) {
+		}
+		Assert.assertFalse(juego.ContenidoFilaColumna(posicionZealot.x(), posicionZealot.y()).ocupadoTerrestre());	
+		juego.pasarTurno();
+		juego.pasarTurno();
+		try {
+			juego.bajarDelTransporte(6, 5);
+		} catch (NoHayUnidadesEnElTransporte e) {
+		}
+		juego.moverPosicionTerrestre(6, 5, posicionNave.x(), posicionNave.y());
+		 posicionZealot = buscarUnidad(juego);
 		Assert.assertTrue(juego.ContenidoFilaColumna(posicionZealot.x(), posicionZealot.y()).ocupadoTerrestre());	
-		Assert.assertTrue(juego.moverPosicionTerrestre(posicionZealot.x(), posicionZealot.y(), 9, 9));
-		Assert.assertTrue(juego.ContenidoFilaColumna(9,9).ocupadoTerrestre());		
+		Assert.assertTrue(juego.moverPosicionTerrestre(posicionZealot.x(), posicionZealot.y(), 8, 9));
+		Assert.assertTrue(juego.ContenidoFilaColumna(8,9).ocupadoTerrestre());		
 		Assert.assertFalse(juego.ContenidoFilaColumna(posicionZealot.x(), posicionZealot.y()).ocupadoTerrestre());	
 		juego.pasarTurno();
 		Assert.assertFalse(juego.hayGanador());
@@ -67,9 +85,9 @@ public class PartidaBasicaTest {
 		juego.pasarTurno();
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
 		Assert.assertFalse(juego.hayGanador());
-		Assert.assertTrue(juego.moverPosicionTerrestre(9, 9, 12, 12));
+		Assert.assertTrue(juego.moverPosicionTerrestre(8, 9, 12, 12));
 		Assert.assertTrue(juego.ContenidoFilaColumna(12,12).ocupadoTerrestre());		
-		Assert.assertFalse(juego.ContenidoFilaColumna(9,9).ocupadoTerrestre());
+		Assert.assertFalse(juego.ContenidoFilaColumna(8,9).ocupadoTerrestre());
 		juego.pasarTurno();
 		Assert.assertFalse(juego.hayGanador());
 		Assert.assertEquals(juego.JugadorActual(), "Federico");

@@ -14,7 +14,7 @@ public abstract class Unidad extends Ser {
 	}
 	
 	public boolean movimientoPosible(Posicion pInicial, Posicion pFinal){
-		if (this.vision < pInicial.distancia(pFinal)){
+		if (this.vision >= pInicial.distancia(pFinal)){
 			return true;
 		}
 		return false;

@@ -138,7 +138,7 @@ public class Juego {
 		mapa.subirAUnidadDeTransporte(posicionTransportable, posicionTransportador);
 		turnos.agregarMovido((Unidad)transportable);
 	}
-	public void bajarDelTransporte(int filaTransportable , int columnaTransportable, int filaTransportador,int columnaTransportador) throws NoHayUnidadesEnElTransporte{
+	public void bajarDelTransporte(int filaTransportador,int columnaTransportador) throws NoHayUnidadesEnElTransporte{
 		Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
 		UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
 		verificarPropiedadUnidad((Unidad)transporte);

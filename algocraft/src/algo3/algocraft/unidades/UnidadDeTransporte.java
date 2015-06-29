@@ -2,13 +2,14 @@ package algo3.algocraft.unidades;
 
 import java.util.NoSuchElementException;
 import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import algo3.algocraft.exceptions.NoHayUnidadesEnElTransporte;
 
 public abstract class UnidadDeTransporte extends Unidad implements Aerea{
 	protected int capacidad;
 	protected int ocupado;
-	protected Queue<Transportable> transporte;
+	protected Queue<Transportable> transporte= new LinkedBlockingQueue<Transportable>() ;
 
 	public Boolean subirUnidad(Transportable transportable) {
 		if ((ocupado + transportable.transporte()) < capacidad) {

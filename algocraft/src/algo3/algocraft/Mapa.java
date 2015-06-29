@@ -220,7 +220,7 @@ public class Mapa {
 		Unidad unidadAMover = (Unidad) celdaInicial.serEnLaCeldaTerrestre();
 		ArrayList<Posicion> camino = this.encontrarMinimoCamino(
 				posicionInicial, posicionFinal, unidadAMover.movimiento());
-		if (camino.isEmpty() || unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
+		if (camino.isEmpty() || !unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
 			throw new NoEsPosibleMoverException();
 		}
 		
@@ -240,7 +240,7 @@ public class Mapa {
 		ArrayList<Posicion> camino = this.encontrarMinimoCamino(
 				posicionInicial, posicionFinal, unidadAMover.movimiento());
 		
-		if (camino.isEmpty() || unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
+		if (camino.isEmpty() || !unidadAMover.movimientoPosible(posicionInicial, posicionFinal)) {
 			throw new NoEsPosibleMoverException();
 		}
 		ponerAereo(posicionFinal, unidadAMover);
