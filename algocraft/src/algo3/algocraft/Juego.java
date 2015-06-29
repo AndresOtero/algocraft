@@ -518,4 +518,16 @@ public class Juego {
 		return mapa.ContenidoPosicion(new Posicion(fila,columna)).serEnLaCeldaAerea();
 	}
 
+	
+	public AtaqueMagico[] ataquesMagicosQueTieneAire(int fil, int col){
+	UnidadMagica unidad = (UnidadMagica) this.ContenidoFilaColumna(fil, col).serEnLaCeldaAerea();
+	return unidad.devolverAtaques();
+	}
+	
+
+	public AtaqueMagico[] ataquesMagicosQueTieneTierra(int fil, int col){
+	UnidadMagica unidad = (UnidadMagica) this.ContenidoFilaColumna(fil, col).serEnLaCeldaTerrestre();
+	return unidad.devolverAtaques();
+	}
+		
 }
