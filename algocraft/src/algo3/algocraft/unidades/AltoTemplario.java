@@ -21,7 +21,7 @@ public class AltoTemplario extends UnidadMagica implements AltoTemplarioInteface
 	}
 
 	public boolean tormenta(ArrayList<Unidad> atacados) {
-		if (energia > 75) {
+		if (energia >= 75) {
 			energia -= 75;
 			for (int i = 0; i < atacados.size(); i++) {
 				atacados.get(i).recibirTormenta();
