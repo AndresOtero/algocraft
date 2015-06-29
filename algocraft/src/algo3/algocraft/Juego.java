@@ -398,27 +398,34 @@ public class Juego {
 		HashMap<Posicion,int[]> posicionYDibujable =  new HashMap<Posicion,int[]>();
 		int ancho = mapa.ancho();
 		int alto = mapa.alto();
-		int colorUnidad[] = new int[2];
+		ArrayList<Posicion>visionJugadorActual =this.visionJugadorActual();
 		for ( int i = 0; i< ancho+1; i++){
 			for ( int j = 0 ; j< alto+1 ; j++){
-				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
-				colorUnidad = new int[2];
-				if (celda.hayFuenteRecurso() && !celda.ocupadoTerrestre()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
-					FuenteRecurso rec = celda.fuenteRecurso();
-					colorUnidad[0]= Color.RECURSO.numero();
-					colorUnidad[1]= rec.devolverID();
-					posicionYDibujable.put(new Posicion (i,j), colorUnidad);
-				}
-				else if( celda.ocupadoTerrestre()){
-					Ser ser = celda.serEnLaCeldaTerrestre();
-					colorUnidad[0]=  ser.numeroColor();
-					colorUnidad[1] = ser.devolverID();
-					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
-					
-				}
-				else {
+				Posicion pos= new Posicion(i,j);
+				int[] colorUnidad = new int[2];
+				if(visionJugadorActual.contains(pos)){
+					Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
+					if (celda.hayFuenteRecurso() && !celda.ocupadoTerrestre()){ /* si hay un recurso, no se fija si hay seres parados ahi. no puede dibujar 2 cosas en 1 mismo lugar*/
+						FuenteRecurso rec = celda.fuenteRecurso();
+						colorUnidad[0]= Color.RECURSO.numero();
+						colorUnidad[1]= rec.devolverID();
+						posicionYDibujable.put(new Posicion (i,j), colorUnidad);
+					}
+					else if( celda.ocupadoTerrestre()){
+						Ser ser = celda.serEnLaCeldaTerrestre();
+						colorUnidad[0]=  ser.numeroColor();
+						colorUnidad[1] = ser.devolverID();
+						posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+						
+					}
+					else {
+						colorUnidad[0]=Color.RECURSO.numero();;
+						colorUnidad[1]= Id.Pasto2.numero();
+						posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+					}
+				}else{
 					colorUnidad[0]=Color.RECURSO.numero();;
-					colorUnidad[1]= Id.Pasto2.numero();
+					colorUnidad[1]= Id.Negro.numero();
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
 				}
 			}
@@ -432,34 +439,38 @@ public class Juego {
 		HashMap<Posicion,int[]> posicionYDibujable =  new HashMap<Posicion,int[]>();
 		int ancho = mapa.ancho();
 		int alto = mapa.alto();
-		
-		int colorUnidad[] = new int[2];
+		ArrayList<Posicion>visionJugadorActual =this.visionJugadorActual();
 		for ( int i = 0; i< ancho ; i++){
 			for ( int j = 0 ; j< alto ; j++){
-				colorUnidad = new int[2];
-				Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
-				
-				if( celda.ocupadoAerea()){
-				if(celda == null) {}
-				else if( celda.ocupadoAerea()){
-					Ser ser = celda.serEnLaCeldaAerea();
-					colorUnidad[0]=  ser.numeroColor();
-					colorUnidad[1] = ser.devolverID();
-					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
-				}
-				else {
+				Posicion pos= new Posicion(i,j);
+				int[] colorUnidad = new int[2];
+				if(visionJugadorActual.contains(pos)){
+					Celda celda = mapa.ContenidoPosicion(new Posicion(i,j));
+					if( celda.ocupadoAerea()){
+						if(celda == null) {}
+						else if( celda.ocupadoAerea()){
+							Ser ser = celda.serEnLaCeldaAerea();
+							colorUnidad[0]=  ser.numeroColor();
+							colorUnidad[1] = ser.devolverID();
+							posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+						}
+						else {
+							colorUnidad[0]=Color.RECURSO.numero();;
+							colorUnidad[1]= Id.Pasto1.numero();
+							posicionYDibujable.put(new Posicion(i,j),colorUnidad);
+						}
+					}
+				}else{
 					colorUnidad[0]=Color.RECURSO.numero();;
-					colorUnidad[1]= Id.Pasto1.numero();
+					colorUnidad[1]= Id.Negro.numero();
 					posicionYDibujable.put(new Posicion(i,j),colorUnidad);
 				}
-			}
-			}
-	
+			}	
 		}
 		return posicionYDibujable;
 
 	}
-	public ArrayList<Posicion>VisionJugadorActual(){
+	private ArrayList<Posicion>visionJugadorActual(){
 		return mapa.visible(turnos.turnoActual().color());
 	}
 	
