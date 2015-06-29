@@ -31,15 +31,24 @@ public class PartidaBasicaTest {
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
 		crearRecolectableMineral(juego);
 		juego.crearCreadorSoldados(6,6);
+		juego.crearCreadorAereos(0,7);
 		for(int i=0;i<20;i++){
 			juego.pasarTurno();
 		}
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
 		juego.crearZealot(6,6);
-		for(int i=0;i<12;i++){
+		juego.crearNaveTransporteProtoss(0, 7);
+		for(int i=0;i<20;i++){
 			juego.pasarTurno();
 		}
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		Posicion posicionNave= buscarUnidadAerea(juego);
+		Assert.assertTrue(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoTerrestre());	
+		Assert.assertFalse(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoAerea());	
+		juego.elevar(posicionNave.x(), posicionNave.y());
+		Assert.assertFalse(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoTerrestre());	
+		Assert.assertTrue(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoAerea());	
+
 		Posicion posicionZealot= buscarUnidad(juego);
 		Assert.assertTrue(juego.ContenidoFilaColumna(posicionZealot.x(), posicionZealot.y()).ocupadoTerrestre());	
 		Assert.assertTrue(juego.moverPosicionTerrestre(posicionZealot.x(), posicionZealot.y(), 9, 9));
@@ -97,6 +106,16 @@ public class PartidaBasicaTest {
 		for(int i=5;i<8;i+=1){
 			for(int j=5;j<8;j+=1){
 				if(juego.ContenidoFilaColumna(i, j).ocupadoTerrestre()&&!(i==6&&j==6)){
+					return new Posicion(i,j);
+				}
+			}
+		}
+		return null;
+	}
+	private Posicion buscarUnidadAerea(Juego juego) {
+		for(int i=0;i<2;i+=1){
+			for(int j=6;j<9;j+=1){
+				if(juego.ContenidoFilaColumna(i, j).ocupadoTerrestre()&&!(i==0&&j==7)){
 					return new Posicion(i,j);
 				}
 			}

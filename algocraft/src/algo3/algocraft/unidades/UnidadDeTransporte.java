@@ -2,7 +2,7 @@ package algo3.algocraft.unidades;
 
 import java.util.ArrayList;
 
-public abstract class UnidadDeTransporte extends Unidad {
+public abstract class UnidadDeTransporte extends Unidad implements Aerea{
 	protected int capacidad;
 	protected int ocupado;
 	protected ArrayList<Transportable> transporte;

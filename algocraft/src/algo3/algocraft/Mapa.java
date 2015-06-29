@@ -353,10 +353,10 @@ public class Mapa {
 	private ArrayList<Posicion> adyacentes(Posicion pos) {
 		ArrayList<Posicion> adyacentes = new ArrayList<Posicion>();
 		for (int i = -1; i < 2; i = i + 2) {
-			if (this.ancho >= i + pos.x()) {
+			if ((this.ancho >= i + pos.x())&&(i + pos.x()>=0)) {
 				adyacentes.add(new Posicion(pos.x() + i, pos.y()));
 			}
-			if (this.alto >= i + pos.y()) {
+			if ((this.alto >= i + pos.y())&&(i + pos.y()>=0)) {
 				adyacentes.add(new Posicion(pos.x(), pos.y() + i));
 			}
 		}
