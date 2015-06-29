@@ -73,21 +73,29 @@ public class Controlador {
 
 			int fila = (int) (x / (anchoCuadrado));
 			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
+			boolean terrestre;
 			if(columna <= 15){
 				serActual = juego.queHayEnCeldaTerrestre(fila, columna);
+				terrestre = true;
 			}else{
-				serActual = juego.que(fila, columna);
+				serActual = juego.queHayEnCeldaAerea(fila, columna-15);
+				terrestre = false;
 			}
+			//quizo atacar
 			if(serActual != null && apretoAtacar){
 				apretoAtacar = false;
 				atacar(fila,columna);
-			}else if (serActual != null) {
+			}else if (serActual != null) {//quizo seleccionar
 				apretoMover = false;
 				filaAnterior = fila;
 				columnaAnterior = columna;
-			} else if (apretoMover) {
-				apretoMover = false;
+			} else if (apretoMover) {//quizo crear
+				if(!terrestre){
+					mensaje = "No se puede mover al cielo";
+				}else{
 				mover(fila, columna);
+				}
+				apretoMover = false;
 			} else if (edificioCrear != "") {
 				if (edificioCrear == "Barraca") {
 					juego.crearCreadorSoldados(fila, columna);
