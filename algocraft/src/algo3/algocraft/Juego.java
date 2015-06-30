@@ -120,8 +120,32 @@ public class Juego {
 		administrarRecursos();
 		administrarCreacionEdificios();
 		administrarCreacionUnidades();
+		pasarTurnoUnidades();
 	}
 	
+
+	private void pasarTurnoUnidades() {
+		ArrayList<Ser>seres=mapa.seresDeJugador(this.ColorActual());
+		ArrayList<EdificioCreador> edificiosCreadores=mapa.edificioCreador(this.ColorActual());
+		ArrayList<Ser>seresARemover=new ArrayList<Ser>();
+		for(Ser ser: seres){
+			if(!edificiosCreadores.contains(ser)){
+				ser.pasarTurno();
+				if ( ser.estaMuerto()){
+					seresARemover.add(ser);
+				}
+			}
+		}
+		for(Ser ser: seresARemover){
+			mapa.borrarSerTerrestre(ser);
+			for(Jugador jugador: jugadores){
+				if(jugador.esColor(ser.color())){
+					jugador.quitarPoblacion(ser.suministro());
+				}
+			}
+		}
+		
+	}
 
 	public Celda ContenidoFilaColumna(int fila, int columna) {
 		return mapa.ContenidoPosicion(new Posicion(fila, columna)); 

@@ -31,7 +31,6 @@ public abstract class Unidad extends Ser {
 	}
 	
 	public void recibirRadiacion(){
-		System.out.println("B");
 		this.contaminadoRadiacion = true;
 
 	}
@@ -56,7 +55,6 @@ public abstract class Unidad extends Ser {
 	private void revisarMagias() {
 		if (this.contaminadoRadiacion){
 			this.recibirDanio(20);
-			System.out.println("a");
 		}
 		if ( estoyContaminadoPorTormenta())
 			this.recibirDanio(100); 
