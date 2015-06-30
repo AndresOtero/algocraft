@@ -157,6 +157,47 @@ public class PartidaBasicaTest {
 	
 		
 	}
+
+	@Test
+	public void andanLasMagiasTerran(){
+		Juego juego =Juego.getInstance();
+		juego.crearJugador("Andres", Color.VERDE, TipoRaza.TERRAN);
+		juego.crearJugador("Federico", Color.AZUL, TipoRaza.TERRAN);
+		juego.iniciarJuego();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		crearRecolectableMineral(juego);
+		juego.crearCreadorSoldados(6,6);
+		juego.crearCreadorTerrestres(0,5);
+		juego.crearCreadorAereos(0,7);
+	
+		
+		for(int i=0;i<20;i++){
+			juego.pasarTurno();
+		}
+		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		juego.crearNaveCiencia(0, 7);
+		for(int i=0;i<19;i++){
+			juego.pasarTurno();
+		}
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		juego.crearCreadorSoldados(9,9);
+		for(int i=0 ; i< 500 ;i++) juego.pasarTurno();
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		juego.crearMarine(9,9);
+		for(int i = 0; i< 201 ; i++) juego.pasarTurno();
+		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		
+		juego.ataqueRadiacion(0, 6, 8, 9);
+		for(int i = 0; i< 1000; i++){
+			juego.pasarTurno();
+		}
+		
+		Assert.assertTrue(juego.ContenidoFilaColumna(8, 9).ocupadoTerrestre());
+	
+		
+	}
 		
 		
 
