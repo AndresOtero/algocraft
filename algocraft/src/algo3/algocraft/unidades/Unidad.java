@@ -28,7 +28,6 @@ public abstract class Unidad extends Ser {
 
 	public void recibirTormenta() {
 		meQuedaTormenta = 2;
-		
 	}
 	
 	public void recibirRadiacion(){
