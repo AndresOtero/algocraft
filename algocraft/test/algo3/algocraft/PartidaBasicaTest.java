@@ -154,7 +154,9 @@ public class PartidaBasicaTest {
 		Posicion posicionTemplario = this.buscarTemplario(juego);
 		ArrayList<Unidad> atacados = juego.ataqueMagicoEnRadio(posicionTemplario.x(), posicionTemplario.y(), 8, 9);
 		Assert.assertTrue(atacados.size() == 1);
-	
+		Assert.assertTrue(atacados.get(0).estoyContaminadoPorTormenta());
+		juego.pasarTurno();
+
 		
 	}
 
@@ -171,8 +173,6 @@ public class PartidaBasicaTest {
 		juego.crearCreadorSoldados(6,6);
 		juego.crearCreadorTerrestres(0,5);
 		juego.crearCreadorAereos(0,7);
-	
-		
 		for(int i=0;i<20;i++){
 			juego.pasarTurno();
 		}

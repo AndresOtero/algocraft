@@ -1,5 +1,5 @@
 package algo3.algocraft.exceptions;
 
-public class NoEsPosibleSubirException extends Exception {
+public class NoEsPosibleSubirException extends RuntimeException {
 
 }

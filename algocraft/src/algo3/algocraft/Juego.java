@@ -152,7 +152,7 @@ public class Juego {
 	}
 	
 	//Metodos de movimiento
-	public void subirAlTransporte(int filaTransportable , int columnaTransportable, int filaTransportador,int columnaTransportador) throws NoEsPosibleSubirException{
+	public void subirAlTransporte(int filaTransportable , int columnaTransportable, int filaTransportador,int columnaTransportador){
 		Posicion posicionTransportable=new Posicion(filaTransportable, columnaTransportable);
 		Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
 		Transportable transportable = (Transportable) mapa.ContenidoPosicion(posicionTransportable).serEnLaCeldaTerrestre();
@@ -162,7 +162,7 @@ public class Juego {
 		mapa.subirAUnidadDeTransporte(posicionTransportable, posicionTransportador);
 		turnos.agregarMovido((Unidad)transportable);
 	}
-	public void bajarDelTransporte(int filaTransportador,int columnaTransportador) throws NoHayUnidadesEnElTransporte{
+	public void bajarDelTransporte(int filaTransportador,int columnaTransportador){
 		Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
 		UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
 		verificarPropiedadUnidad((Unidad)transporte);

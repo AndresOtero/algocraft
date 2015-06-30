@@ -1,5 +1,5 @@
 package algo3.algocraft.exceptions;
 
-public class NoHayUnidadesEnElTransporte extends Exception {
+public class NoHayUnidadesEnElTransporte extends RuntimeException {
 
 }
