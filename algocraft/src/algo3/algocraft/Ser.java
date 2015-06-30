@@ -77,6 +77,7 @@ public abstract class Ser implements Dibujable{
 	public int numeroColor(){
 			return color.numero();
 	}
+	public abstract boolean esInfectablePorMagia();
 
 
 }

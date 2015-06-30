@@ -62,4 +62,11 @@ public abstract class Unidad extends Ser {
 		if ( estoyContaminadoPorTormenta())
 			this.recibirDanio(100); 
 	}
+	
+	@Override
+	public boolean esInfectablePorMagia(){
+		return true;
+	}
+
+	
 }

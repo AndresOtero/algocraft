@@ -404,7 +404,7 @@ public class Mapa {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				Celda celda = this.ContenidoPosicion(new Posicion(pos.x()+i, pos.y()+ j));
-				if (celda.ocupadoTerrestre()){
+				if (celda.ocupadoTerrestre() && celda.serEnLaCeldaTerrestre().esInfectablePorMagia()){
 					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaTerrestre());
 				}
 				if (celda.ocupadoAerea()){

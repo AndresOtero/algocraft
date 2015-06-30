@@ -43,6 +43,7 @@ public class PartidaBasicaTest {
 		for(int i=0;i<20;i++){
 			juego.pasarTurno();
 		}
+		
 		Assert.assertEquals(juego.JugadorActual(), "Andres");
 		Posicion posicionNave= buscarUnidadAerea(juego);
 		Assert.assertTrue(juego.ContenidoFilaColumna(posicionNave.x(), posicionNave.y()).ocupadoTerrestre());	
@@ -112,10 +113,54 @@ public class PartidaBasicaTest {
 		Assert.assertFalse(juego.ContenidoFilaColumna(15,15).ocupadoTerrestre());		
 
 		Assert.assertTrue(juego.hayGanador());
-
+		
+		
+		
+		
+		
 
 
 	}
+	@Test
+	public void andanLasMagiasProtoss(){
+		Juego juego =Juego.getInstance();
+		juego.crearJugador("Andres", Color.VERDE, TipoRaza.PROTOSS);
+		juego.crearJugador("Federico", Color.AZUL, TipoRaza.TERRAN);
+		juego.iniciarJuego();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		juego.pasarTurno();
+		crearRecolectableMineral(juego);
+		juego.crearCreadorSoldados(6,6);
+		juego.crearCreadorAereos(0,5);
+		juego.crearCreadorTerrestres(0,7);
+		
+		for(int i=0;i<20;i++){
+			juego.pasarTurno();
+		}
+		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		juego.crearAltoTemplario(0, 7);
+		for(int i=0;i<19;i++){
+			juego.pasarTurno();
+		}
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		juego.crearCreadorSoldados(9,9);
+		for(int i=0 ; i< 500 ;i++) juego.pasarTurno();
+		Assert.assertEquals(juego.JugadorActual(), "Federico");
+		juego.crearMarine(9,9);
+		for(int i = 0; i< 201 ; i++) juego.pasarTurno();
+		Assert.assertEquals(juego.JugadorActual(), "Andres");
+		
+		Posicion posicionTemplario = this.buscarTemplario(juego);
+		ArrayList<Unidad> atacados = juego.ataqueMagicoEnRadio(posicionTemplario.x(), posicionTemplario.y(), 8, 9);
+		Assert.assertTrue(atacados.size() == 1);
+	
+		
+	}
+		
+		
+
+	
 	private void atacar(Juego juego) {
 		for(int i=0;i<184;i++){
 			if(i%2==0){
@@ -159,6 +204,17 @@ public class PartidaBasicaTest {
 		}
 	}
 	
+	private Posicion buscarTemplario(Juego juego){
+			for(int i=0;i<15;i+=1){
+				for(int j=2;j<15;j+=1){
+					
+					if(juego.ContenidoFilaColumna(i, j).ocupadoTerrestre()&& juego.ContenidoFilaColumna(i, j).serEnLaCeldaTerrestre().getClass().getName() == "algo3.algocraft.unidades.AltoTemplario"){
+						return new Posicion(i,j); 
+					}
+				}
+			}
+			return null;
+	}
 	
 
 }
