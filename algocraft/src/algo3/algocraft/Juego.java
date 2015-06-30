@@ -155,17 +155,27 @@ public class Juego {
 	public void subirAlTransporte(int filaTransportable , int columnaTransportable, int filaTransportador,int columnaTransportador){
 		Posicion posicionTransportable=new Posicion(filaTransportable, columnaTransportable);
 		Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
-		Transportable transportable = (Transportable) mapa.ContenidoPosicion(posicionTransportable).serEnLaCeldaTerrestre();
-		UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
-		verificarPropiedadUnidad((Unidad)transporte);
-		verificarPropiedadUnidad((Unidad)transportable);
-		mapa.subirAUnidadDeTransporte(posicionTransportable, posicionTransportador);
-		turnos.agregarMovido((Unidad)transportable);
+		try{
+			Transportable transportable = (Transportable) mapa.ContenidoPosicion(posicionTransportable).serEnLaCeldaTerrestre();
+			UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
+			verificarPropiedadUnidad((Unidad)transporte);
+			verificarPropiedadUnidad((Unidad)transportable);
+			mapa.subirAUnidadDeTransporte(posicionTransportable, posicionTransportador);
+			turnos.agregarMovido((Unidad)transportable);
+		}
+		catch(ClassCastException e){
+			throw new NoSePuedeTransportarException();
+		}
+		
 	}
 	public void bajarDelTransporte(int filaTransportador,int columnaTransportador){
-		Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
-		UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
-		mapa.bajarDeUnidadDeTransporte(posicionTransportador);
+		try{
+			Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
+			UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
+			mapa.bajarDeUnidadDeTransporte(posicionTransportador);
+		}catch(ClassCastException e){
+			throw new NoSePuedeBajarException();
+		}
 	}
 	public void elevar(int fila,int columna){
 		Posicion posicionFinal=new Posicion(fila, columna);
@@ -256,12 +266,14 @@ public class Juego {
 	public void crearRecolectableGas(int fil,int col) {
 		verificarSiCeldaEstaOcupado(fil,col);
 		VolcanGasVespeno volcan=(VolcanGasVespeno) mapa.ContenidoPosicion(new Posicion(fil,col)).fuenteRecurso();
+		if(volcan==null)throw new NoHayRecursoEnEsaPosicionException();
 		fabricas.get(turnos.turnoActual()).fabricarRecolectableGas(volcan,new Posicion(fil,col)); 		
 		ponerEdificioEnConstruccion(fil,col);
 	}
 	public void crearRecolectableMinerales(int fil,int col) {
 		verificarSiCeldaEstaOcupado(fil,col);
 		Mineral mineral=(Mineral) mapa.ContenidoPosicion(new Posicion(fil,col)).fuenteRecurso();
+		if(mineral==null)throw new NoHayRecursoEnEsaPosicionException();
 		fabricas.get(turnos.turnoActual()).fabricarRecolectableMinerales(mineral,new Posicion(fil,col)); 
 		ponerEdificioEnConstruccion(fil,col);
 	}
