@@ -545,8 +545,8 @@ public class Juego {
 
 	
 	public AtaqueMagico[] ataquesMagicosQueTieneAire(int fil, int col){
-	UnidadMagica unidad = (UnidadMagica) this.ContenidoFilaColumna(fil, col).serEnLaCeldaAerea();
-	return unidad.devolverAtaques();
+	Ser ser= this.ContenidoFilaColumna(fil, col).serEnLaCeldaAerea();
+	return ser.devolverAtaques();
 	}
 	
 
