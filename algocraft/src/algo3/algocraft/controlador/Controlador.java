@@ -15,6 +15,7 @@ import algo3.algocraft.Ser;
 import algo3.algocraft.TipoRaza;
 import algo3.algocraft.exceptions.ElEdificioNoPuedeCrearEstaUnidad;
 import algo3.algocraft.exceptions.NoEsPosibleMoverException;
+import algo3.algocraft.exceptions.NoHayRecursoEnEsaPosicionException;
 import algo3.algocraft.unidades.Unidad;
 
 public class Controlador {
@@ -37,9 +38,9 @@ public class Controlador {
 	private String mensaje = "";
 	private int contMensaje = 0;
 	private boolean anteriorTerrestre = true;
-	private boolean apretoElevar = false;
 	private boolean apretoRadiacion = false;
 	private boolean apretoMisil = false;
+	private boolean apretoSubir = false;
 
 	private void cargarBotones() {
 		botones = new HashMap<String, Posicion>();
@@ -61,6 +62,9 @@ public class Controlador {
 		botones.put("Subir",
 				new Posicion((int) (botones.get("Elevar").x() + anchoCuadrado
 						* 2 + altoPantalla / 100), botones.get("Elevar").y()));
+		botones.put("Bajar",
+				new Posicion((int) (botones.get("Subir").x() + anchoCuadrado
+						* 2 + altoPantalla / 100), botones.get("Subir").y()));
 	}
 
 	public Posicion posicionMenu() {
@@ -81,7 +85,27 @@ public class Controlador {
 		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
 		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
 		juego.iniciarJuego();
+		juego.crearCreadorSoldados(5, 7);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
+		juego.crearCreadorAereos(8, 8);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
+		juego.crearCreadorTerrestres(9, 9);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
+		juego.crearNaveTransporteProtoss(8, 8);
+		juego.crearZealot(5, 7);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
 		juego.pasarTurno();
+		juego.crearCreadorSoldados(12, 12);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
+		juego.crearMarine(12, 12);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
+		/*juego.pasarTurno();
 		juego.crearCreadorSoldados(5, 7);
 		for (int a = 0; a < 30; a++)
 			juego.pasarTurno();
@@ -99,8 +123,8 @@ public class Controlador {
 		for (int a = 0; a < 30; a++)
 			juego.pasarTurno();
 		juego.crearZealot(12, 12);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
+		for (int a = 0; a < 3000; a++)
+			juego.pasarTurno();*/
 	}
 
 	private void reiniciarBotones() {
@@ -112,6 +136,7 @@ public class Controlador {
 		serActual = null;
 		apretoRadiacion = false;
 		mensaje = "";
+		apretoSubir = false;
 	}
 
 	public void hicieronClick(int x, int y) {
@@ -127,6 +152,16 @@ public class Controlador {
 				fila = fila-16;
 				serActual = juego.queHayEnCeldaAerea(fila, columna);
 				terrestre = false;
+			}
+			if(apretoSubir){//Subir
+				if(serActual == null){
+					crearError("No hay nave en esa posición");
+					reiniciarBotones();
+					return;
+				}
+				juego.subirAlTransporte(filaAnterior, columnaAnterior, fila, columna);
+				reiniciarBotones();
+				return;
 			}
 			if(apretoRadiacion){//Radiacion
 				if(serActual != null){
@@ -169,10 +204,18 @@ public class Controlador {
 					juego.crearSumaPoblacion(fila, columna);
 				}
 				if (edificioCrear == "Refineria") {
-					juego.crearRecolectableGas(fila, columna);
+					try{
+						juego.crearRecolectableGas(fila, columna);
+					}catch(NoHayRecursoEnEsaPosicionException e){
+						crearError("No hay un gas en esa posición");
+					}
 				}
 				if (edificioCrear == "CentroMineral") {
-					juego.crearRecolectableMinerales(fila, columna);
+					try{
+						juego.crearRecolectableMinerales(fila, columna);
+					}catch(NoHayRecursoEnEsaPosicionException e){
+						crearError("No hay un mineral en esa posición");
+					}
 				}
 
 				edificioCrear = "";
@@ -249,10 +292,10 @@ public class Controlador {
 					}else{
 						juego.descender(filaAnterior, columnaAnterior);
 					}
+					anteriorTerrestre = !anteriorTerrestre;
 				}catch(NoEsPosibleMoverException e){
 					crearError("No se puede mover");
 				}
-				anteriorTerrestre = !anteriorTerrestre;
 			}
 			Posicion atacarPosicion = botones.get("Atacar");
 			if (x >= atacarPosicion.x()
@@ -261,7 +304,22 @@ public class Controlador {
 					&& y <= altoPantalla - atacarPosicion.y()) {// atacar
 				apretoAtacar = true;
 			}
+			Posicion subirPosicion = botones.get("Subir");
+			if (subirPosicion != null && x >= subirPosicion.x()
+					&& x <= subirPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - subirPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - subirPosicion.y()) {// Subir
+				apretoSubir = true;
+			}
+			Posicion bajarPosicion = botones.get("Bajar");
+			if (bajarPosicion != null && x >= bajarPosicion.x()
+					&& x <= bajarPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - bajarPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - bajarPosicion.y()) {// Subir
+				juego.bajarDelTransporte(filaAnterior, columnaAnterior);
+			}
 			Posicion misilPosicion = botones.get("EMP");
+			if(misilPosicion == null) misilPosicion = botones.get("TORMENTA");
 			if (misilPosicion != null && x >= misilPosicion.x()
 					&& x <= misilPosicion.x() + anchoCuadrado
 					&& y >= altoPantalla - misilPosicion.y() - altoCuadrado
@@ -274,6 +332,17 @@ public class Controlador {
 					&& y >= altoPantalla - radiacionPosicion.y() - altoCuadrado
 					&& y <= altoPantalla - radiacionPosicion.y()) {// 
 				apretoRadiacion = true;
+			}
+			Posicion alucinacionPosicion = botones.get("ALUCINACION");//Alucinacion
+			if (alucinacionPosicion != null && x >= alucinacionPosicion.x()
+					&& x <= alucinacionPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - alucinacionPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - alucinacionPosicion.y()) {// 
+				try{
+					juego.ataqueAlucinacion(filaAnterior, columnaAnterior);
+				}catch(Exception e){
+					crearError("No se puede crear otra alucinacion");
+				}
 			}
 			Posicion barracaPosicion = botones.get("Barraca");
 			if (barracaPosicion == null)
@@ -469,6 +538,10 @@ public class Controlador {
 			Elemento subir = new Elemento("Subir");
 			subir.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(botones.get("Subir"), subir);
+			
+			Elemento bajar = new Elemento("Bajar");
+			bajar.setColorDibujable(new ColorDibujable(1, 1, 1));
+			menu.put(botones.get("Bajar"), bajar);
 
 		}
 
@@ -490,14 +563,14 @@ public class Controlador {
 			magias = juego.ataquesMagicosQueTieneAire(filaAnterior,
 					columnaAnterior);
 		}
-		int xInicial = (int) (botones.get("Subir").x() + anchoCuadrado * 2 + altoPantalla / 100);
+		int xInicial = (int) (botones.get("Bajar").x() + anchoCuadrado * 2 + altoPantalla / 100);
 		for (AtaqueMagico ataque : magias) {
 			Elemento ele = new Elemento(ataque.toString());
 			ele.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(new Posicion(xInicial, (int) botones.get("Subir").y()),
 					ele);
 			botones.put(ataque.toString(), new Posicion(xInicial, (int) botones
-					.get("Subir").y()));
+					.get("Bajar").y()));
 			xInicial += anchoCuadrado * 2 + 10;
 		}
 	}
@@ -556,7 +629,7 @@ public class Controlador {
 		palabras.put(new Posicion((int) (anchoPantalla - anchoPantalla / 4),
 				(int) (altoPantalla - 2 * altoPantalla / 20)),
 				"Raza: " + juego.razaActual());
-		if (apretoMover) {
+		if (apretoMover || apretoSubir) {
 			palabras.put(new Posicion(500, 500), "Seleccione posicion final");
 		}
 		if (apretoAtacar || apretoRadiacion || apretoMisil) {
