@@ -19,6 +19,6 @@ public abstract class UnidadMagica extends Unidad {
 		
 	}
 
-	public abstract AtaqueMagico[] devolverAtaques();
 
+	
 }
