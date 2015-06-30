@@ -1,10 +1,12 @@
 package algo3.algocraft.controlador;
 
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.management.RuntimeErrorException;
 
+import algo3.algocraft.AtaqueMagico;
 import algo3.algocraft.Celda;
 import algo3.algocraft.Color;
 import algo3.algocraft.Juego;
@@ -12,6 +14,8 @@ import algo3.algocraft.Posicion;
 import algo3.algocraft.Ser;
 import algo3.algocraft.TipoRaza;
 import algo3.algocraft.exceptions.ElEdificioNoPuedeCrearEstaUnidad;
+import algo3.algocraft.exceptions.NoEsPosibleMoverException;
+import algo3.algocraft.unidades.Unidad;
 
 public class Controlador {
 	private double altoPantalla;
@@ -28,23 +32,48 @@ public class Controlador {
 	private String apretoCrear = "";
 	private HashMap<String, Posicion> botones = new HashMap<String, Posicion>();
 	String ganador = "";
+	private String edificioCrear = "";
+	private boolean apretoAtacar = false;
+	private String mensaje = "";
+	private int contMensaje = 0;
+	private boolean anteriorTerrestre = true;
+	private boolean apretoElevar = false;
+	private boolean apretoRadiacion = false;
+	private boolean apretoMisil = false;
 
 	private void cargarBotones() {
-		botones.put("Mover", new Posicion((int)anchoPantalla/100, (int)(altoPantalla - altoPantalla/5)));
-		botones.put("PasarTurno", new Posicion((int)altoMenu, (int)(altoPantalla - altoPantalla/5)));
-		botones.put("Atacar", new Posicion((int)(2*(anchoPantalla/100)+anchoCuadrado*2), (int)(altoPantalla - altoPantalla/5)));
-		botones.put("Cancelar", new Posicion((int)(botones.get("PasarTurno").x() + anchoCuadrado*2 + altoPantalla/100),botones.get("PasarTurno").y()));
+		botones = new HashMap<String, Posicion>();
+		botones.put("Mover", new Posicion((int) anchoPantalla / 100,
+				(int) (altoPantalla - altoPantalla / 5)));
+		botones.put("PasarTurno", new Posicion((int) altoMenu,
+				(int) (altoPantalla - altoPantalla / 5)));
+		botones.put("Atacar", new Posicion(
+				(int) (2 * (anchoPantalla / 100) + anchoCuadrado * 2),
+				(int) (altoPantalla - altoPantalla / 5)));
+		botones.put(
+				"Cancelar",
+				new Posicion((int) (botones.get("PasarTurno").x()
+						+ anchoCuadrado * 2 + altoPantalla / 100), botones.get(
+						"PasarTurno").y()));
+		botones.put("Elevar",
+				new Posicion((int) (botones.get("Cancelar").x() + anchoCuadrado
+						* 2 + altoPantalla / 100), botones.get("Cancelar").y()));
+		botones.put("Subir",
+				new Posicion((int) (botones.get("Elevar").x() + anchoCuadrado
+						* 2 + altoPantalla / 100), botones.get("Elevar").y()));
 	}
-	
-	public Posicion posicionMenu(){
-		return new Posicion(0,(int)(altoPantalla-altoMenu-altoPantalla/50));
+
+	public Posicion posicionMenu() {
+		return new Posicion(0,
+				(int) (altoPantalla - altoMenu - altoPantalla / 50));
 	}
-	public Posicion medidasMenu(){
-		return new Posicion((int)altoMenu,(int)altoPantalla);
+
+	public Posicion medidasMenu() {
+		return new Posicion((int) altoMenu, (int) altoPantalla);
 	}
 
 	public Controlador(double ancho, double alto) {
-		
+
 		altoPantalla = alto;
 		anchoPantalla = ancho;
 		altoMapa = altoPantalla - altoMenu;
@@ -52,21 +81,38 @@ public class Controlador {
 		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
 		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
 		juego.iniciarJuego();
+		juego.pasarTurno();
 		juego.crearCreadorSoldados(5, 7);
-		for(int a = 0; a<30;a++)
+		for (int a = 0; a < 30; a++)
 			juego.pasarTurno();
-		juego.crearCreadorAereos(8, 8);
-		for(int a = 0; a<30;a++)
+		juego.crearCreadorTerrestres(8, 8);
+		for (int a = 0; a < 30; a++)
 			juego.pasarTurno();
-		juego.crearCreadorTerrestres(9, 9);
-		for(int a = 0; a<30;a++)
+		juego.crearCreadorAereos(9, 9);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
+		juego.crearNaveCiencia(9, 9);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
+		juego.pasarTurno();
+		juego.crearCreadorSoldados(12, 12);
+		for (int a = 0; a < 30; a++)
+			juego.pasarTurno();
+		juego.crearZealot(12, 12);
+		for (int a = 0; a < 30; a++)
 			juego.pasarTurno();
 	}
 
-	private String edificioCrear = "";
-	private boolean apretoAtacar = false;
-	private String mensaje = "";
-	private int contMensaje = 0;
+	private void reiniciarBotones() {
+		edificioCrear = "";
+		apretoAtacar = false;
+		columnaAnterior = 50;
+		filaAnterior = 50;
+		apretoMisil = false;
+		serActual = null;
+		apretoRadiacion = false;
+		mensaje = "";
+	}
 
 	public void hicieronClick(int x, int y) {
 		if (y > altoPantalla - altoMapa) { // esta en el mapa
@@ -74,12 +120,25 @@ public class Controlador {
 			int fila = (int) (x / (anchoCuadrado));
 			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
 			boolean terrestre;
-			if(columna <= 15){
+			if(fila < 15){
 				serActual = juego.queHayEnCeldaTerrestre(fila, columna);
 				terrestre = true;
 			}else{
-				serActual = juego.queHayEnCeldaAerea(fila, columna-15);
+				fila = fila-16;
+				serActual = juego.queHayEnCeldaAerea(fila, columna);
 				terrestre = false;
+			}
+			if(apretoRadiacion){//Radiacion
+				if(serActual != null){
+					juego.ataqueRadiacion(filaAnterior , columnaAnterior, fila, columna);
+				}else{
+					crearError("No hay una unidad en esa posicion");
+				}
+				reiniciarBotones();
+			}
+			if(apretoMisil){//Misil
+				ArrayList<Unidad> algo = juego.ataqueMagicoEnRadio(filaAnterior, columnaAnterior, fila, columna);
+				reiniciarBotones();
 			}
 			//quizo atacar
 			if(serActual != null && apretoAtacar){
@@ -89,11 +148,11 @@ public class Controlador {
 				apretoMover = false;
 				filaAnterior = fila;
 				columnaAnterior = columna;
-			} else if (apretoMover) {//quizo crear
-				if(!terrestre){
-					mensaje = "No se puede mover al cielo";
+			} else if (apretoMover) {//quizo mover
+				if((terrestre && !anteriorTerrestre)||(!terrestre && anteriorTerrestre)){
+					crearError("No se puede Mover");
 				}else{
-				mover(fila, columna);
+					mover(fila, columna);
 				}
 				apretoMover = false;
 			} else if (edificioCrear != "") {
@@ -150,6 +209,10 @@ public class Controlador {
 				}
 				apretoCrear = "";
 			}
+			if(serActual == null){
+				cargarBotones();
+			}
+			anteriorTerrestre  = terrestre;
 		} else { // hizo click en un menu
 
 			Posicion pasarTurno = botones.get("PasarTurno");
@@ -165,13 +228,7 @@ public class Controlador {
 			if (x >= cancelarPosicion.x() && x <= cancelarPosicion.x() + anchoCuadrado
 					&& y >= altoPantalla - cancelarPosicion.y() - altoCuadrado
 					&& y <= altoPantalla - cancelarPosicion.y()){// Cancelar
-				serActual = null;
-				filaAnterior = 50;
-				columnaAnterior = 50;
-				apretoAtacar = false;
-				apretoCrear = "";
-				edificioCrear = "";
-				apretoMover = false;
+				reiniciarBotones();
 				return;
 			}
 			Posicion moverPosicion = botones.get("Mover");
@@ -181,12 +238,42 @@ public class Controlador {
 					&& y <= altoPantalla - moverPosicion.y()) {// mover
 				apretoMover = true;
 			}
+			Posicion elevarPosicion = botones.get("Elevar");
+			if (x >= elevarPosicion.x()
+					&& x <= elevarPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - elevarPosicion.y() - altoCuadrado
+							&& y <= altoPantalla - elevarPosicion.y()) {// elevar
+				try{
+					if(anteriorTerrestre){
+						juego.elevar(filaAnterior, columnaAnterior);
+					}else{
+						juego.descender(filaAnterior, columnaAnterior);
+					}
+				}catch(NoEsPosibleMoverException e){
+					crearError("No se puede mover");
+				}
+				anteriorTerrestre = !anteriorTerrestre;
+			}
 			Posicion atacarPosicion = botones.get("Atacar");
 			if (x >= atacarPosicion.x()
 					&& x <= atacarPosicion.x() + anchoCuadrado
 					&& y >= altoPantalla - atacarPosicion.y() - altoCuadrado
-					&& y <= altoPantalla - atacarPosicion.y()) {// mover
+					&& y <= altoPantalla - atacarPosicion.y()) {// atacar
 				apretoAtacar = true;
+			}
+			Posicion misilPosicion = botones.get("EMP");
+			if (misilPosicion != null && x >= misilPosicion.x()
+					&& x <= misilPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - misilPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - misilPosicion.y()) {// Misil
+				apretoMisil = true;
+			}
+			Posicion radiacionPosicion = botones.get("RADIACION");//Radiacion
+			if (radiacionPosicion != null && x >= radiacionPosicion.x()
+					&& x <= radiacionPosicion.x() + anchoCuadrado
+					&& y >= altoPantalla - radiacionPosicion.y() - altoCuadrado
+					&& y <= altoPantalla - radiacionPosicion.y()) {// 
+				apretoRadiacion = true;
 			}
 			Posicion barracaPosicion = botones.get("Barraca");
 			if (barracaPosicion == null)
@@ -326,18 +413,23 @@ public class Controlador {
 
 	}
 
+	private void crearError(String error) {
+		contMensaje = 100;
+		mensaje = error;
+	}
+
 	public String queHay(int x, int y) {
-		/*if (y > altoPantalla - altoMapa) {
-			int fila = (int) (x / (anchoCuadrado));
-			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
-
-			Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
-
-			if (unSer != null)
-				return Codificador.obtenerElemento(unSer.devolverID(), 4)
-						.nombre();
-			return "Pasto";
-		}*/
+		/*
+		 * if (y > altoPantalla - altoMapa) { int fila = (int) (x /
+		 * (anchoCuadrado)); int columna = -(int) ((y - altoMenu) /
+		 * (altoCuadrado)) + 15;
+		 * 
+		 * Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
+		 * 
+		 * if (unSer != null) return
+		 * Codificador.obtenerElemento(unSer.devolverID(), 4) .nombre(); return
+		 * "Pasto"; }
+		 */
 		return "";
 	}
 
@@ -355,27 +447,59 @@ public class Controlador {
 
 		agregarConstruibles(menu);
 		agregarCreables(menu);
+		agregarMagicos(menu);
 
 		Elemento pasarTurno = new Elemento("PasarTurno");
 		pasarTurno.setColorDibujable(new ColorDibujable(1, 1, 1));
 		menu.put(botones.get("PasarTurno"), pasarTurno);
 
-		if (serActual != null) {
+		if (serActual != null && serActual.vision() != 3) {
 			Elemento mover = new Elemento("Mover");
 			mover.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(botones.get("Mover"), mover);
-			
+
 			Elemento atacar = new Elemento("Atacar");
 			atacar.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(botones.get("Atacar"), atacar);
+
+			Elemento elevar = new Elemento("Elevar");
+			elevar.setColorDibujable(new ColorDibujable(1, 1, 1));
+			menu.put(botones.get("Elevar"), elevar);
 			
+			Elemento subir = new Elemento("Subir");
+			subir.setColorDibujable(new ColorDibujable(1, 1, 1));
+			menu.put(botones.get("Subir"), subir);
+
 		}
-		
+
 		Elemento cancelar = new Elemento("Cancelar");
 		cancelar.setColorDibujable(new ColorDibujable(1, 1, 1));
 		menu.put(botones.get("Cancelar"), cancelar);
 
 		return menu;
+	}
+
+	private void agregarMagicos(HashMap<Posicion, Elemento> menu) {
+		AtaqueMagico[] magias;
+		if (filaAnterior == 50 || serActual == null)
+			return;
+		if (anteriorTerrestre) {
+			magias = juego.ataquesMagicosQueTieneTierra(filaAnterior,
+					columnaAnterior);
+		} else {
+			magias = juego.ataquesMagicosQueTieneAire(filaAnterior,
+					columnaAnterior);
+		}
+		int xInicial = (int) (botones.get("Subir").x() + anchoCuadrado * 2 + altoPantalla / 100);
+		for (AtaqueMagico ataque : magias) {
+			Elemento ele = new Elemento(ataque.toString());
+			ele.setColorDibujable(new ColorDibujable(1, 1, 1));
+			menu.put(new Posicion(xInicial, (int) botones.get("Subir").y()),
+					ele);
+			botones.put(ataque.toString(), new Posicion(xInicial, (int) botones
+					.get("Subir").y()));
+			xInicial += anchoCuadrado * 2 + 10;
+		}
 	}
 
 	private void agregarConstruibles(HashMap<Posicion, Elemento> menu) {
@@ -387,50 +511,68 @@ public class Controlador {
 			ele.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(new Posicion(xInicial, YInicial), ele);
 			botones.put(palabra, new Posicion(xInicial, YInicial));
-			xInicial += anchoCuadrado*2 + 10;
+			xInicial += anchoCuadrado * 2 + 10;
 		}
 	}
 
 	private void agregarCreables(HashMap<Posicion, Elemento> menu) {
 		String[] unidades = juego.queUnidadesPuedeConstruirJugadorActual();
 		int xInicial = (int) altoMenu;
-		int YInicial = (int) (altoPantalla - altoCuadrado*2 - altoPantalla/30);
+		int YInicial = (int) (altoPantalla - altoCuadrado * 2 - altoPantalla / 30);
 		for (String palabra : unidades) {
 			Elemento ele = new Elemento(palabra);
 			ele.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(new Posicion(xInicial, YInicial), ele);
 			botones.put(palabra, new Posicion(xInicial, YInicial));
-			xInicial += anchoCuadrado*2 + 10;
+			xInicial += anchoCuadrado * 2 + 10;
 		}
 	}
 
 	public HashMap<Posicion, String> palabrasDibujar() {
 		HashMap<Posicion, String> palabras = new HashMap<Posicion, String>();
 		if (serActual != null) {
-			palabras.put(new Posicion((int)anchoPantalla/100, (int)(altoPantalla - altoPantalla/100)),Codificador.obtenerElemento(serActual.devolverID(), 4).nombre());
-			palabras.put(new Posicion((int)anchoPantalla/100, (int)(altoPantalla - altoPantalla/25)), "Vida: " + serActual.vida());
-			palabras.put(new Posicion((int)anchoPantalla/100, (int)(altoPantalla - 2*altoPantalla/30)), "Escudo: " + serActual.escudo());
-			palabras.put(new Posicion((int)anchoPantalla/100, (int)(altoPantalla - 2*altoPantalla/20)), "Color: " + serActual.color());
+			palabras.put(new Posicion((int) anchoPantalla / 100,
+					(int) (altoPantalla - altoPantalla / 100)), Codificador
+					.obtenerElemento(serActual.devolverID(), 4).nombre());
+			palabras.put(new Posicion((int) anchoPantalla / 100,
+					(int) (altoPantalla - altoPantalla / 25)), "Vida: "
+					+ serActual.vida());
+			palabras.put(new Posicion((int) anchoPantalla / 100,
+					(int) (altoPantalla - 2 * altoPantalla / 30)), "Escudo: "
+					+ serActual.escudo());
+			palabras.put(new Posicion((int) anchoPantalla / 100,
+					(int) (altoPantalla - 2 * altoPantalla / 20)), "Color: "
+					+ serActual.color());
 		}
-		palabras.put(new Posicion((int)(anchoPantalla - anchoPantalla/4),  (int)(altoPantalla - altoPantalla/100)),"Jugador Actual: " + juego.JugadorActual());
-		palabras.put(new Posicion((int)(anchoPantalla - anchoPantalla/4), (int)(altoPantalla - altoPantalla/25)), "Gas: " + juego.gasJugadorActual());
-		palabras.put(new Posicion((int)(anchoPantalla - anchoPantalla/4),  (int)(altoPantalla - 2*altoPantalla/30)),"Mineral: " + juego.mineralJugadorActual());
-		palabras.put(new Posicion((int)(anchoPantalla - anchoPantalla/4), (int)(altoPantalla - 2*altoPantalla/20)),"Raza: " + juego.razaActual());
+		palabras.put(new Posicion((int) (anchoPantalla - anchoPantalla / 4),
+				(int) (altoPantalla - altoPantalla / 100)), "Jugador Actual: "
+				+ juego.JugadorActual());
+		palabras.put(new Posicion((int) (anchoPantalla - anchoPantalla / 4),
+				(int) (altoPantalla - altoPantalla / 25)),
+				"Gas: " + juego.gasJugadorActual());
+		palabras.put(new Posicion((int) (anchoPantalla - anchoPantalla / 4),
+				(int) (altoPantalla - 2 * altoPantalla / 30)), "Mineral: "
+				+ juego.mineralJugadorActual());
+		palabras.put(new Posicion((int) (anchoPantalla - anchoPantalla / 4),
+				(int) (altoPantalla - 2 * altoPantalla / 20)),
+				"Raza: " + juego.razaActual());
 		if (apretoMover) {
 			palabras.put(new Posicion(500, 500), "Seleccione posicion final");
 		}
-		if (apretoAtacar) {
+		if (apretoAtacar || apretoRadiacion || apretoMisil) {
 			palabras.put(new Posicion(500, 500), "Seleccione posicion a atacar");
 		}
 		if (edificioCrear != "") {
 			palabras.put(new Posicion(500, 500), "Seleccione posicion a crear");
 		}
 		if (apretoCrear != "") {
-			palabras.put(new Posicion(500, 500),"Seleccione edificio donde  crear");
+			palabras.put(new Posicion(500, 500),
+					"Seleccione edificio donde  crear");
 		}
 		if (ganador != "") {
 			palabras.put(new Posicion(500, 500), "Gano " + ganador);
-		}if (contMensaje > 0) {
+		}
+		if (contMensaje > 0) {
 			palabras.put(new Posicion(500, 500), mensaje);
 			contMensaje--;
 		}
@@ -439,7 +581,7 @@ public class Controlador {
 
 	private void mover(int fila, int columna) {
 		Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
-		if(columna > 15){
+		if (columna > 15) {
 			return;
 		}
 		if (unSer != null && filaAnterior == 50) {
@@ -447,16 +589,21 @@ public class Controlador {
 			columnaAnterior = columna;
 		} else {
 			if (unSer == null && filaAnterior != 50) {
-				juego.moverPosicionTerrestre(filaAnterior, columnaAnterior,
-						fila, columna);
+				if (anteriorTerrestre) {
+					juego.moverPosicionTerrestre(filaAnterior, columnaAnterior,
+							fila, columna);
+				} else {
+					juego.moverPosicionAereo(filaAnterior, columnaAnterior,
+							fila, columna);
+				}
 			}
 			filaAnterior = 50;
 			columnaAnterior = 50;
 
 		}
-		
+
 	}
-	
+
 	private Ser atacar(int fila, int columna) {
 		Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
 
@@ -465,7 +612,7 @@ public class Controlador {
 			columnaAnterior = columna;
 		} else {
 			if (filaAnterior != 50) {
-				 juego.atacarTierra(filaAnterior, columnaAnterior,fila, columna);
+				juego.atacarTierra(filaAnterior, columnaAnterior, fila, columna);
 			}
 			filaAnterior = 50;
 			columnaAnterior = 50;
@@ -473,24 +620,32 @@ public class Controlador {
 		}
 		return unSer;
 	}
-	
+
 	public HashMap<Posicion, Elemento> GrillaADibujar() {
 		cargarBotones();
-		HashMap<Posicion, Elemento> grillaResueltaTerrestre = Codificador.grillaResuelta(juego.grillaColorUnidadTerrestre());
-		HashMap<Posicion, Elemento> grillaResueltaAereo = Codificador.grillaResuelta(juego.grillaColorUnidadAerea());
+		HashMap<Posicion, Elemento> grillaResueltaTerrestre = Codificador
+				.grillaResuelta(juego.grillaColorUnidadTerrestre());
+		HashMap<Posicion, Elemento> grillaResueltaAereo = Codificador
+				.grillaResuelta(juego.grillaColorUnidadAerea());
 		HashMap<Posicion, Elemento> grillaFinal = new HashMap<Posicion, Elemento>();
-		double largo = (double) Math.sqrt(grillaResueltaTerrestre.keySet().size());
-		anchoCuadrado = (anchoPantalla) / largo/2;
+		double largo = (double) Math.sqrt(grillaResueltaTerrestre.keySet()
+				.size());
+		anchoCuadrado = (anchoPantalla) / largo / 2;
 		altoCuadrado = (altoPantalla - altoMenu) / largo;
 		for (Posicion pos : grillaResueltaTerrestre.keySet()) {
 			grillaFinal.put(new Posicion((int) anchoCuadrado * pos.x(),
-					(int) altoCuadrado * pos.y()), grillaResueltaTerrestre.get(pos));
+					(int) altoCuadrado * pos.y()), grillaResueltaTerrestre
+					.get(pos));
 		}
 		for (Posicion pos : grillaResueltaAereo.keySet()) {
-			grillaFinal.put(new Posicion((int) ((anchoCuadrado * pos.x()) + anchoPantalla/2),
-					(int) altoCuadrado * pos.y()), grillaResueltaAereo.get(pos));
+			grillaFinal
+					.put(new Posicion(
+							(int) ((anchoCuadrado * pos.x()) + anchoPantalla / 2),
+							(int) altoCuadrado * pos.y()), grillaResueltaAereo
+							.get(pos));
 		}
-		if(juego.hayGanador()) ganador = juego.JugadorActual();
+		if (juego.hayGanador())
+			ganador = juego.JugadorActual();
 		return grillaFinal;
 	}
 
