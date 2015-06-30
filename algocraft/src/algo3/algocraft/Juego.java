@@ -165,7 +165,6 @@ public class Juego {
 	public void bajarDelTransporte(int filaTransportador,int columnaTransportador){
 		Posicion posicionTransportador=new Posicion(filaTransportador, columnaTransportador);
 		UnidadDeTransporte transporte = (UnidadDeTransporte) mapa.ContenidoPosicion(posicionTransportador).serEnLaCeldaTerrestre();
-		verificarPropiedadUnidad((Unidad)transporte);
 		mapa.bajarDeUnidadDeTransporte(posicionTransportador);
 	}
 	public void elevar(int fila,int columna){
