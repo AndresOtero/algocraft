@@ -16,7 +16,10 @@ public abstract class UnidadMagica extends Unidad {
 	
 	public void recibirEmp(){
 		this.energia = 0;
-		
+	}
+	public void pasarTurno(){
+		super.pasarTurno();
+		aumentarEnergia();
 	}
 
 
