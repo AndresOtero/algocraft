@@ -78,6 +78,12 @@ public abstract class Ser implements Dibujable{
 			return color.numero();
 	}
 	public abstract boolean esInfectablePorMagia();
+	
+	
+	public AtaqueMagico[] devolverAtaques() {
+		AtaqueMagico[] a = {};
+		return a;
+	}
 
 
 }

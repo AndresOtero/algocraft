@@ -194,7 +194,7 @@ public class PartidaBasicaTest {
 			juego.pasarTurno();
 		}
 		
-		Assert.assertTrue(juego.ContenidoFilaColumna(8, 9).ocupadoTerrestre());
+		Assert.assertFalse(juego.ContenidoFilaColumna(8, 9).ocupadoTerrestre());
 	
 		
 	}

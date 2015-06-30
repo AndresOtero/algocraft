@@ -527,8 +527,8 @@ public class Juego {
 	
 
 	public AtaqueMagico[] ataquesMagicosQueTieneTierra(int fil, int col){
-	UnidadMagica unidad = (UnidadMagica) this.ContenidoFilaColumna(fil, col).serEnLaCeldaTerrestre();
-	return unidad.devolverAtaques();
+	Ser ser =  this.ContenidoFilaColumna(fil, col).serEnLaCeldaTerrestre();
+	return ser.devolverAtaques();
 	}
 		
 }
