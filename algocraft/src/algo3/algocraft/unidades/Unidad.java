@@ -5,7 +5,7 @@ import algo3.algocraft.Ser;
 
 public abstract class Unidad extends Ser {
 
-	protected boolean contaminadoRadiacion = false;
+	private boolean contaminadoRadiacion= false;
 	private int meQuedaTormenta;
 	
 
@@ -31,17 +31,15 @@ public abstract class Unidad extends Ser {
 	}
 	
 	public void recibirRadiacion(){
-		contaminadoRadiacion = true;
+		System.out.println("B");
+		this.contaminadoRadiacion = true;
+
 	}
 	
 	public boolean estoyContaminadoPorTormenta(){
 		meQuedaTormenta-=1;
 		if(meQuedaTormenta>0) return true;
 		return false;
-	}
-	
-	public boolean estoyContaminadoPorRadiacion(){
-		return contaminadoRadiacion; // En cada turno si esta contaminado le bajas vida
 	}
 	
 	@Override
@@ -56,9 +54,18 @@ public abstract class Unidad extends Ser {
 
 
 	private void revisarMagias() {
-		if (this.estoyContaminadoPorRadiacion())
+		if (this.contaminadoRadiacion){
 			this.recibirDanio(20);
+			System.out.println("a");
+		}
 		if ( estoyContaminadoPorTormenta())
 			this.recibirDanio(100); 
 	}
+	
+	@Override
+	public boolean esInfectablePorMagia(){
+		return true;
+	}
+
+	
 }

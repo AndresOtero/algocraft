@@ -390,7 +390,7 @@ public class Juego {
 	}
 
 	/* sirve para EMP y para Tormenta */
-	public void ataqueMagicoEnRadio(int filIni, int colIni, int filFinal,
+	public ArrayList<Unidad> ataqueMagicoEnRadio(int filIni, int colIni, int filFinal,
 			int colFinal) {
 		Posicion posini = new Posicion(filIni, colIni);
 		Posicion posfin = new Posicion(filFinal, colFinal);
@@ -398,6 +398,7 @@ public class Juego {
 				posini).serEnLaCeldaTerrestre();
 		ArrayList<Unidad> atacados = mapa.calcularRadio(posfin);
 		unidadQAtaca.ataqueRadio(atacados);
+		return atacados;
 	}
 
 	// Singleton
