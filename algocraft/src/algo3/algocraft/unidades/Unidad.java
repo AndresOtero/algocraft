@@ -22,7 +22,7 @@ public abstract class Unidad extends Ser {
 	
 	/* danios magicos*/
 	public void recibirEmp() {
-		this.escudo = 0;
+		this.recibirDanio(100);
 		
 	}
 
