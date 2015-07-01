@@ -17,6 +17,7 @@ import algo3.algocraft.exceptions.EdificiosAnterioresNoCreadosException;
 import algo3.algocraft.exceptions.ElEdificioNoPuedeCrearEstaUnidad;
 import algo3.algocraft.exceptions.NoEsPosibleMoverException;
 import algo3.algocraft.exceptions.NoHayRecursoEnEsaPosicionException;
+import algo3.algocraft.exceptions.NoSePuedeBajarException;
 import algo3.algocraft.unidades.Unidad;
 
 public class Controlador {
@@ -44,6 +45,7 @@ public class Controlador {
 	private double altoBotonMenu;
 	private boolean apretoSubir = false;
 	private double anchoBotonMenu;
+	private boolean mostrandoAcciones = false;
 
 	private void cargarBotones() {
 		botones = new HashMap<String, Posicion>();
@@ -106,10 +108,16 @@ public class Controlador {
 		mensaje = "";
 		apretoSubir = false;
 	}
-
+	
+	//BORRAR
+	private double  filaActual;
+	public double fila(){
+		return filaActual;
+	}
+	
 	public void hicieronClick(int x, int y) {
 		if (y > altoPantalla - altoMapa) { // esta en el mapa
-
+			filaActual =  (double) (x / (anchoCuadrado));
 			int fila = (int) (x / (anchoCuadrado));
 			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
 			boolean terrestre;
@@ -252,14 +260,14 @@ public class Controlador {
 				return;
 			}
 			Posicion moverPosicion = botones.get("Mover");
-			if (serActual != null && x >= moverPosicion.x()
+			if (mostrandoAcciones && x >= moverPosicion.x()
 					&& x <= moverPosicion.x() + anchoBotonMenu
 					&& y >= altoPantalla - moverPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - moverPosicion.y()) {// mover
 				apretoMover = true;
 			}
 			Posicion elevarPosicion = botones.get("Elevar");
-			if (serActual != null && x >= elevarPosicion.x()
+			if (mostrandoAcciones && x >= elevarPosicion.x()
 					&& x <= elevarPosicion.x() + anchoBotonMenu
 					&& y >= altoPantalla - elevarPosicion.y() - altoBotonMenu
 							&& y <= altoPantalla - elevarPosicion.y()) {// elevar
@@ -275,25 +283,29 @@ public class Controlador {
 				}
 			}
 			Posicion atacarPosicion = botones.get("Atacar");
-			if (serActual != null && x >= atacarPosicion.x()
+			if (mostrandoAcciones && x >= atacarPosicion.x()
 					&& x <= atacarPosicion.x() + anchoBotonMenu
 					&& y >= altoPantalla - atacarPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - atacarPosicion.y()) {// atacar
 				apretoAtacar = true;
 			}
 			Posicion subirPosicion = botones.get("Subir");
-			if (serActual != null && subirPosicion != null && x >= subirPosicion.x()
+			if (mostrandoAcciones && subirPosicion != null && x >= subirPosicion.x()
 					&& x <= subirPosicion.x() + anchoBotonMenu
 					&& y >= altoPantalla - subirPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - subirPosicion.y()) {// Subir
 				apretoSubir = true;
 			}
 			Posicion bajarPosicion = botones.get("Bajar");
-			if (serActual != null && bajarPosicion != null && x >= bajarPosicion.x()
+			if (mostrandoAcciones && bajarPosicion != null && x >= bajarPosicion.x()
 					&& x <= bajarPosicion.x() + anchoBotonMenu
 					&& y >= altoPantalla - bajarPosicion.y() - altoBotonMenu
-					&& y <= altoPantalla - bajarPosicion.y()) {// Subir
-				juego.bajarDelTransporte(filaAnterior, columnaAnterior);
+					&& y <= altoPantalla - bajarPosicion.y()) {// Bajar
+				try{
+					juego.bajarDelTransporte(filaAnterior, columnaAnterior);
+				}catch(NoSePuedeBajarException e){
+					crearError("No se puede bajar");
+				}
 			}
 			Posicion misilPosicion = botones.get("EMP");
 			if(misilPosicion == null) misilPosicion = botones.get("TORMENTA");
@@ -487,6 +499,7 @@ public class Controlador {
 		menu.put(botones.get("PasarTurno"), pasarTurno);
 
 		if (serActual != null && serActual.vision() != 3) {
+			mostrandoAcciones = true;
 			Elemento mover = new Elemento("Mover");
 			mover.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(botones.get("Mover"), mover);
@@ -507,6 +520,8 @@ public class Controlador {
 			bajar.setColorDibujable(new ColorDibujable(1, 1, 1));
 			menu.put(botones.get("Bajar"), bajar);
 
+		}else{
+			mostrandoAcciones = false;
 		}
 
 		Elemento cancelar = new Elemento("Cancelar");
@@ -670,27 +685,26 @@ public class Controlador {
 		return unSer;
 	}
 
-	public HashMap<Posicion, Elemento> GrillaADibujar() {
+	public HashMap<PosicionDibujable, Elemento> GrillaADibujar() {
 		cargarBotones();
 		HashMap<Posicion, Elemento> grillaResueltaTerrestre = Codificador
 				.grillaResuelta(juego.grillaColorUnidadTerrestre());
 		HashMap<Posicion, Elemento> grillaResueltaAereo = Codificador
 				.grillaResuelta(juego.grillaColorUnidadAerea());
-		HashMap<Posicion, Elemento> grillaFinal = new HashMap<Posicion, Elemento>();
-		double largo = (double) Math.sqrt(grillaResueltaTerrestre.keySet()
-				.size());
+		HashMap<PosicionDibujable, Elemento> grillaFinal = new HashMap<PosicionDibujable, Elemento>();
+		double largo = (double) Math.sqrt(grillaResueltaTerrestre.keySet().size());
 		anchoCuadrado = (anchoPantalla) / largo / 2;
 		altoCuadrado = (altoPantalla - altoMenu) / largo;
 		for (Posicion pos : grillaResueltaTerrestre.keySet()) {
-			grillaFinal.put(new Posicion((int) anchoCuadrado * pos.x(),
-					(int) altoCuadrado * pos.y()), grillaResueltaTerrestre
+			grillaFinal.put(new PosicionDibujable( anchoCuadrado * pos.x(),
+					 altoCuadrado * pos.y()), grillaResueltaTerrestre
 					.get(pos));
 		}
 		for (Posicion pos : grillaResueltaAereo.keySet()) {
 			grillaFinal
-					.put(new Posicion(
-							(int) ((anchoCuadrado * pos.x()) + anchoPantalla / 2),
-							(int) altoCuadrado * pos.y()), grillaResueltaAereo
+					.put(new PosicionDibujable(
+							 ((anchoCuadrado * pos.x()) + anchoPantalla / 2),
+							 altoCuadrado * pos.y()), grillaResueltaAereo
 							.get(pos));
 		}
 		if (juego.hayGanador())
@@ -700,6 +714,14 @@ public class Controlador {
 
 	public ColorDibujable ColorActual() {
 		return Codificador.obtenerColor(juego.ColorActual());
+	}
+	
+	public double anchoCuadrado(){
+		return anchoCuadrado;
+	}
+	
+	public double altoCuadrado(){
+		return altoCuadrado;
 	}
 
 }
