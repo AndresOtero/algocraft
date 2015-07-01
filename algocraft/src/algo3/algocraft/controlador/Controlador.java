@@ -13,6 +13,7 @@ import algo3.algocraft.Juego;
 import algo3.algocraft.Posicion;
 import algo3.algocraft.Ser;
 import algo3.algocraft.TipoRaza;
+import algo3.algocraft.exceptions.EdificiosAnterioresNoCreadosException;
 import algo3.algocraft.exceptions.ElEdificioNoPuedeCrearEstaUnidad;
 import algo3.algocraft.exceptions.NoEsPosibleMoverException;
 import algo3.algocraft.exceptions.NoHayRecursoEnEsaPosicionException;
@@ -40,7 +41,9 @@ public class Controlador {
 	private boolean anteriorTerrestre = true;
 	private boolean apretoRadiacion = false;
 	private boolean apretoMisil = false;
+	private double altoBotonMenu;
 	private boolean apretoSubir = false;
+	private double anchoBotonMenu;
 
 	private void cargarBotones() {
 		botones = new HashMap<String, Posicion>();
@@ -49,22 +52,22 @@ public class Controlador {
 		botones.put("PasarTurno", new Posicion((int) altoMenu,
 				(int) (altoPantalla - altoPantalla / 5)));
 		botones.put("Atacar", new Posicion(
-				(int) (2 * (anchoPantalla / 100) + anchoCuadrado * 2),
+				(int) (2* (anchoPantalla / 100) + anchoBotonMenu ),
 				(int) (altoPantalla - altoPantalla / 5)));
 		botones.put(
 				"Cancelar",
 				new Posicion((int) (botones.get("PasarTurno").x()
-						+ anchoCuadrado * 2 + altoPantalla / 100), botones.get(
+						+ anchoBotonMenu  + altoPantalla / 100), botones.get(
 						"PasarTurno").y()));
 		botones.put("Elevar",
-				new Posicion((int) (botones.get("Cancelar").x() + anchoCuadrado
-						* 2 + altoPantalla / 100), botones.get("Cancelar").y()));
+				new Posicion((int) (botones.get("Cancelar").x() + anchoBotonMenu
+						 + altoPantalla / 100), botones.get("Cancelar").y()));
 		botones.put("Subir",
-				new Posicion((int) (botones.get("Elevar").x() + anchoCuadrado
-						* 2 + altoPantalla / 100), botones.get("Elevar").y()));
+				new Posicion((int) (botones.get("Elevar").x() + anchoBotonMenu
+						 + altoPantalla / 100), botones.get("Elevar").y()));
 		botones.put("Bajar",
-				new Posicion((int) (botones.get("Subir").x() + anchoCuadrado
-						* 2 + altoPantalla / 100), botones.get("Subir").y()));
+				new Posicion((int) (botones.get("Subir").x() + anchoBotonMenu
+						 + altoPantalla / 100), botones.get("Subir").y()));
 	}
 
 	public Posicion posicionMenu() {
@@ -81,51 +84,15 @@ public class Controlador {
 		altoPantalla = alto;
 		anchoPantalla = ancho;
 		altoMapa = altoPantalla - altoMenu;
+		altoBotonMenu = (altoMenu-altoPantalla/15)/3;
+		anchoBotonMenu = anchoPantalla/16;
 		juego = Juego.getInstance();
 		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
 		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
 		juego.iniciarJuego();
-		juego.crearCreadorSoldados(5, 7);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.crearCreadorAereos(8, 8);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.crearCreadorTerrestres(9, 9);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.crearNaveTransporteProtoss(8, 8);
-		juego.crearZealot(5, 7);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.pasarTurno();
-		juego.crearCreadorSoldados(12, 12);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.crearMarine(12, 12);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		/*juego.pasarTurno();
-		juego.crearCreadorSoldados(5, 7);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.crearCreadorTerrestres(8, 8);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.crearCreadorAereos(9, 9);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.crearNaveCiencia(9, 9);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.pasarTurno();
-		juego.crearCreadorSoldados(12, 12);
-		for (int a = 0; a < 30; a++)
-			juego.pasarTurno();
-		juego.crearZealot(12, 12);
-		for (int a = 0; a < 3000; a++)
-			juego.pasarTurno();*/
+		
 	}
+
 
 	private void reiniciarBotones() {
 		edificioCrear = "";
@@ -133,6 +100,7 @@ public class Controlador {
 		columnaAnterior = 50;
 		filaAnterior = 50;
 		apretoMisil = false;
+		apretoCrear = "";
 		serActual = null;
 		apretoRadiacion = false;
 		mensaje = "";
@@ -145,7 +113,7 @@ public class Controlador {
 			int fila = (int) (x / (anchoCuadrado));
 			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
 			boolean terrestre;
-			if(fila < 15){
+			if(fila <= 15){
 				serActual = juego.queHayEnCeldaTerrestre(fila, columna);
 				terrestre = true;
 			}else{
@@ -172,7 +140,7 @@ public class Controlador {
 				reiniciarBotones();
 			}
 			if(apretoMisil){//Misil
-				ArrayList<Unidad> algo = juego.ataqueMagicoEnRadio(filaAnterior, columnaAnterior, fila, columna);
+				juego.ataqueMagicoEnRadio(filaAnterior, columnaAnterior, fila, columna);
 				reiniciarBotones();
 			}
 			//quizo atacar
@@ -195,10 +163,18 @@ public class Controlador {
 					juego.crearCreadorSoldados(fila, columna);
 				}
 				if (edificioCrear == "Fabrica") {
-					juego.crearCreadorTerrestres(fila, columna);
+					try{
+						juego.crearCreadorTerrestres(fila, columna);
+					}catch(EdificiosAnterioresNoCreadosException e){
+						crearError("No se crearon los edificios anteriores");
+					}
 				}
 				if (edificioCrear == "Puerto Estelar") {
-					juego.crearCreadorAereos(fila, columna);
+					try{
+						juego.crearCreadorAereos(fila, columna);
+					}catch(EdificiosAnterioresNoCreadosException e){
+						crearError("No se crearon los edificios anteriores");
+					}
 				}
 				if (edificioCrear == "Deposito Suministro") {
 					juego.crearSumaPoblacion(fila, columna);
@@ -247,8 +223,9 @@ public class Controlador {
 					juego.crearAltoTemplario(fila, columna);
 				}
 				}catch(ElEdificioNoPuedeCrearEstaUnidad e){
-					mensaje  = "No se puede crear esa unidad en ese edificio";
-					contMensaje = 100;
+					crearError("No se puede crear esa unidad en ese edificio");
+				}catch(NullPointerException e){
+					crearError("No seleccionó ningun edificio");
 				}
 				apretoCrear = "";
 			}
@@ -259,8 +236,8 @@ public class Controlador {
 		} else { // hizo click en un menu
 
 			Posicion pasarTurno = botones.get("PasarTurno");
-			if (x >= pasarTurno.x() && x <= pasarTurno.x() + anchoCuadrado
-					&& y >= altoPantalla - pasarTurno.y() - altoCuadrado
+			if (x >= pasarTurno.x() && x <= pasarTurno.x() + anchoBotonMenu
+					&& y >= altoPantalla - pasarTurno.y() - altoBotonMenu
 					&& y <= altoPantalla - pasarTurno.y()){// pasarTurno
 				juego.pasarTurno();
 				botones = new HashMap<String, Posicion>();
@@ -268,23 +245,23 @@ public class Controlador {
 				return;
 			}
 			Posicion cancelarPosicion = botones.get("Cancelar");
-			if (x >= cancelarPosicion.x() && x <= cancelarPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - cancelarPosicion.y() - altoCuadrado
+			if (x >= cancelarPosicion.x() && x <= cancelarPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - cancelarPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - cancelarPosicion.y()){// Cancelar
 				reiniciarBotones();
 				return;
 			}
 			Posicion moverPosicion = botones.get("Mover");
-			if (x >= moverPosicion.x()
-					&& x <= moverPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - moverPosicion.y() - altoCuadrado
+			if (serActual != null && x >= moverPosicion.x()
+					&& x <= moverPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - moverPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - moverPosicion.y()) {// mover
 				apretoMover = true;
 			}
 			Posicion elevarPosicion = botones.get("Elevar");
-			if (x >= elevarPosicion.x()
-					&& x <= elevarPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - elevarPosicion.y() - altoCuadrado
+			if (serActual != null && x >= elevarPosicion.x()
+					&& x <= elevarPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - elevarPosicion.y() - altoBotonMenu
 							&& y <= altoPantalla - elevarPosicion.y()) {// elevar
 				try{
 					if(anteriorTerrestre){
@@ -298,45 +275,45 @@ public class Controlador {
 				}
 			}
 			Posicion atacarPosicion = botones.get("Atacar");
-			if (x >= atacarPosicion.x()
-					&& x <= atacarPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - atacarPosicion.y() - altoCuadrado
+			if (serActual != null && x >= atacarPosicion.x()
+					&& x <= atacarPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - atacarPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - atacarPosicion.y()) {// atacar
 				apretoAtacar = true;
 			}
 			Posicion subirPosicion = botones.get("Subir");
-			if (subirPosicion != null && x >= subirPosicion.x()
-					&& x <= subirPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - subirPosicion.y() - altoCuadrado
+			if (serActual != null && subirPosicion != null && x >= subirPosicion.x()
+					&& x <= subirPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - subirPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - subirPosicion.y()) {// Subir
 				apretoSubir = true;
 			}
 			Posicion bajarPosicion = botones.get("Bajar");
-			if (bajarPosicion != null && x >= bajarPosicion.x()
-					&& x <= bajarPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - bajarPosicion.y() - altoCuadrado
+			if (serActual != null && bajarPosicion != null && x >= bajarPosicion.x()
+					&& x <= bajarPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - bajarPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - bajarPosicion.y()) {// Subir
 				juego.bajarDelTransporte(filaAnterior, columnaAnterior);
 			}
 			Posicion misilPosicion = botones.get("EMP");
 			if(misilPosicion == null) misilPosicion = botones.get("TORMENTA");
 			if (misilPosicion != null && x >= misilPosicion.x()
-					&& x <= misilPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - misilPosicion.y() - altoCuadrado
+					&& x <= misilPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - misilPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - misilPosicion.y()) {// Misil
 				apretoMisil = true;
 			}
 			Posicion radiacionPosicion = botones.get("RADIACION");//Radiacion
 			if (radiacionPosicion != null && x >= radiacionPosicion.x()
-					&& x <= radiacionPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - radiacionPosicion.y() - altoCuadrado
+					&& x <= radiacionPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - radiacionPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - radiacionPosicion.y()) {// 
 				apretoRadiacion = true;
 			}
 			Posicion alucinacionPosicion = botones.get("ALUCINACION");//Alucinacion
 			if (alucinacionPosicion != null && x >= alucinacionPosicion.x()
-					&& x <= alucinacionPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - alucinacionPosicion.y() - altoCuadrado
+					&& x <= alucinacionPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - alucinacionPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - alucinacionPosicion.y()) {// 
 				try{
 					juego.ataqueAlucinacion(filaAnterior, columnaAnterior);
@@ -348,8 +325,8 @@ public class Controlador {
 			if (barracaPosicion == null)
 				barracaPosicion = botones.get("Acesso");
 			if (x >= barracaPosicion.x()
-					&& x <= barracaPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - barracaPosicion.y() - altoCuadrado
+					&& x <= barracaPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - barracaPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - barracaPosicion.y()) {// crearBarraca
 				edificioCrear = "Barraca";
 			}
@@ -357,16 +334,16 @@ public class Controlador {
 			if (fabricaPosicion == null)
 				fabricaPosicion = botones.get("Archivos Templarios");
 			if (x >= fabricaPosicion.x()
-					&& x <= fabricaPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - fabricaPosicion.y() - altoCuadrado
+					&& x <= fabricaPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - fabricaPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - fabricaPosicion.y()) {// crearBarraca
 				edificioCrear = "Fabrica";
 			}
 			Posicion puertoEstelarPosicion = botones.get("Puerto Estelar");
 			if (x >= puertoEstelarPosicion.x()
-					&& x <= puertoEstelarPosicion.x() + anchoCuadrado
+					&& x <= puertoEstelarPosicion.x() + anchoBotonMenu
 					&& y >= altoPantalla - puertoEstelarPosicion.y()
-							- altoCuadrado
+							- altoBotonMenu
 					&& y <= altoPantalla - puertoEstelarPosicion.y()) {// crearBarraca
 				edificioCrear = "Puerto Estelar";
 			}
@@ -374,8 +351,8 @@ public class Controlador {
 			if (depositoPosicion == null)
 				depositoPosicion = botones.get("Pilon");
 			if (x >= depositoPosicion.x()
-					&& x <= depositoPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - depositoPosicion.y() - altoCuadrado
+					&& x <= depositoPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - depositoPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - depositoPosicion.y()) {// crearBarraca
 				edificioCrear = "Deposito Suministro";
 			}
@@ -383,8 +360,8 @@ public class Controlador {
 			if (refineriaPosicion == null)
 				refineriaPosicion = botones.get("Asimilador");
 			if (x >= refineriaPosicion.x()
-					&& x <= refineriaPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - refineriaPosicion.y() - altoCuadrado
+					&& x <= refineriaPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - refineriaPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - refineriaPosicion.y()) {// crearBarraca
 				edificioCrear = "Refineria";
 			}
@@ -392,8 +369,8 @@ public class Controlador {
 			if (centroPosicion == null)
 				centroPosicion = botones.get("Nexo Mineral");
 			if (x >= centroPosicion.x()
-					&& x <= centroPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - centroPosicion.y() - altoCuadrado
+					&& x <= centroPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - centroPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - centroPosicion.y()) {// crearBarraca
 				edificioCrear = "CentroMineral";
 			}
@@ -401,79 +378,79 @@ public class Controlador {
 			// UNIDADES
 			Posicion marinePosicion = botones.get("Marine");
 			if (marinePosicion != null && x >= marinePosicion.x()
-					&& x <= marinePosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - marinePosicion.y() - altoCuadrado
+					&& x <= marinePosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - marinePosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - marinePosicion.y()) {
 				apretoCrear = "Marine";
 			}
 			Posicion zealotPosicion = botones.get("Zealot");
 			if (zealotPosicion != null && x >= zealotPosicion.x()
-					&& x <= zealotPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - zealotPosicion.y() - altoCuadrado
+					&& x <= zealotPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - zealotPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - zealotPosicion.y()) {
 				apretoCrear = "Zealot";
 			
 			}
 			Posicion golliatPosicion = botones.get("Golliat");
 			if (golliatPosicion != null && x >= golliatPosicion.x()
-					&& x <= golliatPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - golliatPosicion.y() - altoCuadrado
+					&& x <= golliatPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - golliatPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - golliatPosicion.y()) {
 				apretoCrear = "Golliat";
 			
 			}
 			Posicion espectroPosicion = botones.get("Espectro");
 			if (espectroPosicion != null && x >= espectroPosicion.x()
-					&& x <= espectroPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - espectroPosicion.y() - altoCuadrado
+					&& x <= espectroPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - espectroPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - espectroPosicion.y()) {
 				apretoCrear = "Espectro";
 			
 			}
 			Posicion naveCienciaPosicion = botones.get("Nave Ciencia");
 			if (naveCienciaPosicion != null && x >= naveCienciaPosicion.x()
-					&& x <= naveCienciaPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - naveCienciaPosicion.y() - altoCuadrado
+					&& x <= naveCienciaPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - naveCienciaPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - naveCienciaPosicion.y()) {
 				apretoCrear = "NaveCiencia";
 			
 			}
 			Posicion naveTransportePosicion = botones.get("Nave Transporte Terran");
 			if (naveTransportePosicion != null && x >= naveTransportePosicion.x()
-					&& x <= naveTransportePosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - naveTransportePosicion.y() - altoCuadrado
+					&& x <= naveTransportePosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - naveTransportePosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - naveTransportePosicion.y()) {
 				apretoCrear = "NaveTransporteTerran";
 			
 			}
 			naveTransportePosicion = botones.get("Nave Transporte Protoss");
 			if (naveTransportePosicion != null && x >= naveTransportePosicion.x()
-					&& x <= naveTransportePosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - naveTransportePosicion.y() - altoCuadrado
+					&& x <= naveTransportePosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - naveTransportePosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - naveTransportePosicion.y()) {
 				apretoCrear = "NaveTransporteProtoss";
 			
 			}
 			Posicion dragonPosicion = botones.get("Dragon");
 			if (dragonPosicion != null && x >= dragonPosicion.x()
-					&& x <= dragonPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - dragonPosicion.y() - altoCuadrado
+					&& x <= dragonPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - dragonPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - dragonPosicion.y()) {
 				apretoCrear = "Dragon";
 			
 			}
 			Posicion scoutPosicion = botones.get("Scout");
 			if (scoutPosicion != null && x >= scoutPosicion.x()
-					&& x <= scoutPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - scoutPosicion.y() - altoCuadrado
+					&& x <= scoutPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - scoutPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - scoutPosicion.y()) {
 				apretoCrear = "Scout";
 			
 			}
 			Posicion templarioPosicion = botones.get("Alto Templario");
 			if (templarioPosicion != null && x >= templarioPosicion.x()
-					&& x <= templarioPosicion.x() + anchoCuadrado
-					&& y >= altoPantalla - templarioPosicion.y() - altoCuadrado
+					&& x <= templarioPosicion.x() + anchoBotonMenu
+					&& y >= altoPantalla - templarioPosicion.y() - altoBotonMenu
 					&& y <= altoPantalla - templarioPosicion.y()) {
 				apretoCrear = "AltoTemplario";
 			
@@ -487,20 +464,7 @@ public class Controlador {
 		mensaje = error;
 	}
 
-	public String queHay(int x, int y) {
-		/*
-		 * if (y > altoPantalla - altoMapa) { int fila = (int) (x /
-		 * (anchoCuadrado)); int columna = -(int) ((y - altoMenu) /
-		 * (altoCuadrado)) + 15;
-		 * 
-		 * Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
-		 * 
-		 * if (unSer != null) return
-		 * Codificador.obtenerElemento(unSer.devolverID(), 4) .nombre(); return
-		 * "Pasto"; }
-		 */
-		return "";
-	}
+
 
 	public HashMap<Posicion, Elemento> menuDibujar() {
 		HashMap<Posicion, Elemento> menu = new HashMap<Posicion, Elemento>();
@@ -662,12 +626,16 @@ public class Controlador {
 			columnaAnterior = columna;
 		} else {
 			if (unSer == null && filaAnterior != 50) {
+				boolean rta;
 				if (anteriorTerrestre) {
-					juego.moverPosicionTerrestre(filaAnterior, columnaAnterior,
+					rta = juego.moverPosicionTerrestre(filaAnterior, columnaAnterior,
 							fila, columna);
 				} else {
-					juego.moverPosicionAereo(filaAnterior, columnaAnterior,
+					rta = juego.moverPosicionAereo(filaAnterior, columnaAnterior,
 							fila, columna);
+				}
+				if(!rta){
+					crearError("El alcance de esa unidad no es suficiente");
 				}
 			}
 			filaAnterior = 50;
@@ -677,6 +645,14 @@ public class Controlador {
 
 	}
 
+	
+	public double altoBotonMenu(){
+		return altoBotonMenu;
+	}
+	public double anchoBotonMenu(){
+		return anchoBotonMenu;
+	}
+	
 	private Ser atacar(int fila, int columna) {
 		Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
 
