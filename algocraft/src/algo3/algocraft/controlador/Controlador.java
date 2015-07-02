@@ -75,7 +75,7 @@ public class Controlador {
 
 	public Posicion posicionMenu() {
 		return new Posicion(0,
-				(int) (altoPantalla - altoMenu - altoPantalla / 50));
+				(int) (altoPantalla - altoMenu));
 	}
 
 	public Posicion medidasMenu() {
@@ -93,7 +93,16 @@ public class Controlador {
 		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
 		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
 		juego.iniciarJuego();
-
+		juego.crearCreadorSoldados(10, 10);
+		juego.pasarTurno();
+		juego.crearCreadorSoldados(3, 3);
+		for(int a = 0;a <= 29; a++) juego.pasarTurno();
+		juego.crearMarine(3, 3);
+		juego.pasarTurno();
+		juego.crearCreadorAereos(9, 9);
+		for(int a = 0;a <= 31; a++) juego.pasarTurno();
+		juego.crearNaveTransporteProtoss(9, 9);
+		for(int a = 0;a <= 30; a++) juego.pasarTurno();
 	}
 
 	private void reiniciarBotones() {
@@ -104,21 +113,14 @@ public class Controlador {
 		apretoMisil = false;
 		apretoCrear = "";
 		serActual = null;
+		apretoMover = false;
 		apretoRadiacion = false;
 		mensaje = "";
 		apretoSubir = false;
 	}
 
-	// BORRAR
-	private double filaActual;
-
-	public double fila() {
-		return filaActual;
-	}
-
 	public void hicieronClick(int x, int y) {
 		if (y > altoPantalla - altoMapa) { // esta en el mapa
-			filaActual = (double) (x / (anchoCuadrado));
 			int fila = (int) (x / (anchoCuadrado));
 			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
 			boolean terrestre;
@@ -158,7 +160,7 @@ public class Controlador {
 			// quizo atacar
 			if (serActual != null && apretoAtacar) {
 				apretoAtacar = false;
-				atacar(fila, columna);
+				atacar(fila, columna,terrestre);
 			} else if (serActual != null) {// quizo seleccionar
 				apretoMover = false;
 				filaAnterior = fila;
@@ -235,9 +237,9 @@ public class Controlador {
 					} else if (apretoCrear == "Scout") {
 						rta = juego.crearScout(fila, columna);
 					} else if (apretoCrear == "AltoTemplario") {
-						rta =juego.crearAltoTemplario(fila, columna);
+						rta = juego.crearAltoTemplario(fila, columna);
 					}
-					if(!rta){
+					if (!rta) {
 						crearError("No se pudo crear");
 					}
 				} catch (ElEdificioNoPuedeCrearEstaUnidad e) {
@@ -635,6 +637,11 @@ public class Controlador {
 		palabras.put(new Posicion((int) (anchoPantalla - anchoPantalla / 4),
 				(int) (altoPantalla - 2 * altoPantalla / 20)),
 				"Raza: " + juego.razaActual());
+		palabras.put(
+				new Posicion((int) (anchoPantalla - anchoPantalla / 4),
+						(int) (altoPantalla - 2 * altoPantalla / 15)),
+				"Poblacion: " + juego.poblacionActual() + " / "
+						+ juego.limitePoblacionActual());
 		if (apretoMover || apretoSubir) {
 			palabras.put(new Posicion(500, 500), "Seleccione posicion final");
 		}
@@ -695,7 +702,7 @@ public class Controlador {
 		return anchoBotonMenu;
 	}
 
-	private Ser atacar(int fila, int columna) {
+	private void atacar(int fila, int columna,boolean terrestre) {
 		Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
 
 		if (filaAnterior == 50) {
@@ -703,16 +710,23 @@ public class Controlador {
 			columnaAnterior = columna;
 		} else {
 			if (filaAnterior != 50) {
-				if (!juego.atacarTierra(filaAnterior, columnaAnterior, fila,
+				if(terrestre && anteriorTerrestre){
+					if (!juego.atacarTierra(filaAnterior, columnaAnterior, fila,
 						columna)) {
-					crearError("No se pudo realizar el ataque");
+						crearError("No se pudo realizar el ataque terrestre");
+					}
+				}else if(anteriorTerrestre && !terrestre){
+					if (!juego.atacarAire(filaAnterior, columnaAnterior, fila,
+							columna)) {
+							crearError("No se pudo realizar el ataque aereo");
+					}
 				}
+			
 			}
 			filaAnterior = 50;
 			columnaAnterior = 50;
 
 		}
-		return unSer;
 	}
 
 	public HashMap<PosicionDibujable, Elemento> GrillaADibujar() {
