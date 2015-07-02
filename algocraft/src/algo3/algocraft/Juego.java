@@ -103,7 +103,7 @@ public class Juego {
 		for(TuplaDeSeres tupla:unidadesEnEspera ){
 			Unidad unidad=(Unidad) tupla.serB();
 			EdificioCreador ed=(EdificioCreador) tupla.serA();
-			if((jugadorActual.agregarPoblacion(unidad.suministro()))&&(jugadorActual.color()==unidad.color())){
+			if((jugadorActual.color()==unidad.color())&&(jugadorActual.agregarPoblacion(unidad.suministro()))){
 				mapa.ponerUnidadEnLaCeldaLibreMasCercana(ed, unidad);
 				tuplasCreadas.add(tupla);
 			}else{
