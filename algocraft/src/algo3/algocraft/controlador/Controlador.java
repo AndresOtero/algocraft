@@ -15,6 +15,7 @@ import algo3.algocraft.Ser;
 import algo3.algocraft.TipoRaza;
 import algo3.algocraft.exceptions.EdificiosAnterioresNoCreadosException;
 import algo3.algocraft.exceptions.ElEdificioNoPuedeCrearEstaUnidad;
+import algo3.algocraft.exceptions.LaCeldaTerrestreEstaOcupada;
 import algo3.algocraft.exceptions.NoEsPosibleMoverException;
 import algo3.algocraft.exceptions.NoHayRecursoEnEsaPosicionException;
 import algo3.algocraft.exceptions.NoHayRecursosException;
@@ -47,6 +48,7 @@ public class Controlador {
 	private boolean apretoSubir = false;
 	private double anchoBotonMenu;
 	private boolean mostrandoAcciones = false;
+	private int largoMapa;
 
 	private void cargarBotones() {
 		botones = new HashMap<String, Posicion>();
@@ -93,16 +95,6 @@ public class Controlador {
 		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
 		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
 		juego.iniciarJuego();
-		juego.crearCreadorSoldados(10, 10);
-		juego.pasarTurno();
-		juego.crearCreadorSoldados(3, 3);
-		for(int a = 0;a <= 29; a++) juego.pasarTurno();
-		juego.crearMarine(3, 3);
-		juego.pasarTurno();
-		juego.crearCreadorAereos(9, 9);
-		for(int a = 0;a <= 31; a++) juego.pasarTurno();
-		juego.crearNaveTransporteProtoss(9, 9);
-		for(int a = 0;a <= 30; a++) juego.pasarTurno();
 	}
 
 	private void reiniciarBotones() {
@@ -122,9 +114,9 @@ public class Controlador {
 	public void hicieronClick(int x, int y) {
 		if (y > altoPantalla - altoMapa) { // esta en el mapa
 			int fila = (int) (x / (anchoCuadrado));
-			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + 15;
+			int columna = -(int) ((y - altoMenu) / (altoCuadrado)) + largoMapa;
 			boolean terrestre;
-			if (fila <= 15) {
+			if (fila <= largoMapa) {
 				serActual = juego.queHayEnCeldaTerrestre(fila, columna);
 				terrestre = true;
 			} else {
@@ -161,7 +153,7 @@ public class Controlador {
 			if (serActual != null && apretoAtacar) {
 				apretoAtacar = false;
 				atacar(fila, columna,terrestre);
-			} else if (serActual != null) {// quizo seleccionar
+			} else if (serActual != null && edificioCrear == "" ) {// quizo seleccionar
 				apretoMover = false;
 				filaAnterior = fila;
 				columnaAnterior = columna;
@@ -211,6 +203,8 @@ public class Controlador {
 					}
 				} catch (NoHayRecursosException e) {
 					crearError("No hay suficientes recursos");
+				}catch (LaCeldaTerrestreEstaOcupada e) {
+					crearError("Ya hay un edificio en esa posicion");
 				}
 
 				edificioCrear = "";
@@ -738,6 +732,7 @@ public class Controlador {
 		HashMap<PosicionDibujable, Elemento> grillaFinal = new HashMap<PosicionDibujable, Elemento>();
 		double largo = (double) Math.sqrt(grillaResueltaTerrestre.keySet()
 				.size());
+		largoMapa = (int)largo - 1;
 		anchoCuadrado = (anchoPantalla) / largo / 2;
 		altoCuadrado = (altoPantalla - altoMenu) / largo;
 		for (Posicion pos : grillaResueltaTerrestre.keySet()) {
