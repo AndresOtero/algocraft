@@ -106,8 +106,6 @@ public class Juego {
 			if((jugadorActual.color()==unidad.color())&&(jugadorActual.agregarPoblacion(unidad.suministro()))){
 				mapa.ponerUnidadEnLaCeldaLibreMasCercana(ed, unidad);
 				tuplasCreadas.add(tupla);
-			}else{
-				break;
 			}
 		}
 		for (TuplaDeSeres tupla:tuplasCreadas){
