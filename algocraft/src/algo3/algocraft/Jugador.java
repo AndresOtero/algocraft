@@ -21,7 +21,14 @@ public class Jugador {
 	public Color color(){
 		return this.color;
 	}
-	
+
+	public int poblacion() {
+		return poblacion;
+	}
+
+	public int limitePoblacion() {
+		return limitePoblacion;
+	}
 	public TipoRaza tipoRaza(){
 		return this.raza;
 	}

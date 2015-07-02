@@ -564,6 +564,12 @@ public class Juego {
 	public String razaActual() {
 		return turnos.turnoActual().tipoRaza().toString();
 	}
+	public int poblacionActual() {
+		return turnos.turnoActual().poblacion();
+	}
+	public int limitePoblacionActual() {
+		return turnos.turnoActual().limitePoblacion();
+	}
 	public Ser queHayEnCeldaAerea(int fila, int columna){
 		return mapa.ContenidoPosicion(new Posicion(fila,columna)).serEnLaCeldaAerea();
 	}
