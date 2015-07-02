@@ -48,7 +48,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	@Override
 	public void fabricarCreadorAereos(Posicion pos) {
 		if(!fabricaCreada)throw new EdificiosAnterioresNoCreadosException();
-		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>100)){
+		if((jugador.Minerales()>=150)&&(jugador.GasVespeno()>=100)){
 			Edificio ed= new PuertoEstelarTerran(jugador.color(),pos);
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(100);
@@ -61,7 +61,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 	@Override
 	public void fabricarCreadorTerrestres(Posicion pos) {
 		if(!barracaCreada)throw new EdificiosAnterioresNoCreadosException();
-		if((jugador.Minerales()>200)&&(jugador.GasVespeno()>100)){
+		if((jugador.Minerales()>=200)&&(jugador.GasVespeno()>=100)){
 			Edificio ed= new Fabrica(jugador.color(),pos);
 			fabricaCreada=true;
 			edificiosEnCola.add(ed);
@@ -74,7 +74,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarCreadorSoldados(Posicion pos) {
-		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
+		if((jugador.Minerales()>=150)&&(jugador.GasVespeno()>=0)){
 			Edificio ed= new Barraca(jugador.color(),pos);
 			barracaCreada=true;
 			edificiosEnCola.add(ed);
@@ -87,7 +87,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarSumaPoblacion(Posicion pos) {
-		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
+		if((jugador.Minerales()>=100)&&(jugador.GasVespeno()>=0)){
 			Edificio ed= new DepositoDeSuminisitros(jugador.color(),pos);
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(0);
@@ -99,7 +99,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarRecolectableGas(VolcanGasVespeno volcan,Posicion pos) {
-		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
+		if((jugador.Minerales()>=100)&&(jugador.GasVespeno()>=0)){
 			Edificio ed= new Refineria(volcan, jugador.color(),pos);
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(0);
@@ -111,7 +111,7 @@ public class FactoryEdificiosTerran implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarRecolectableMinerales(Mineral mineral,Posicion pos) {
-		if((jugador.Minerales()>50)&&(jugador.GasVespeno()>0)){
+		if((jugador.Minerales()>=50)&&(jugador.GasVespeno()>=0)){
 			Edificio ed= new CentroDeMineral(mineral, jugador.color(),pos);
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(0);

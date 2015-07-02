@@ -42,7 +42,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	@Override
 	public void fabricarCreadorAereos(Posicion pos) {
 		if(!accesoCreado)throw new EdificiosAnterioresNoCreadosException() ;
-		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>150)){
+		if((jugador.Minerales()>=150)&&(jugador.GasVespeno()>=150)){
 			Edificio ed= new PuertoEstelarProtoss(jugador.color(),pos);
 			puertoEstelarCreado=true;
 			edificiosEnCola.add(ed);
@@ -55,7 +55,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarCreadorSoldados(Posicion pos) {
-		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>0)){
+		if((jugador.Minerales()>=150)&&(jugador.GasVespeno()>=0)){
 			Edificio ed= new Acceso(jugador.color(),pos);
 			accesoCreado=true;
 			edificiosEnCola.add(ed);
@@ -69,7 +69,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 	@Override
 	public void fabricarCreadorTerrestres(Posicion pos) {
 		if(!puertoEstelarCreado)throw new EdificiosAnterioresNoCreadosException();
-		if((jugador.Minerales()>150)&&(jugador.GasVespeno()>200)){
+		if((jugador.Minerales()>=150)&&(jugador.GasVespeno()>=200)){
 			Edificio ed= new ArchivosTemplarios(jugador.color(),pos);
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(150);
@@ -81,7 +81,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarSumaPoblacion(Posicion pos) {
-		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
+		if((jugador.Minerales()>=100)&&(jugador.GasVespeno()>=0)){
 			Edificio ed= new Pilon(jugador.color(),pos);
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(0);
@@ -93,7 +93,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarRecolectableGas(VolcanGasVespeno volcan,Posicion pos) {
-		if((jugador.Minerales()>100)&&(jugador.GasVespeno()>0)){
+		if((jugador.Minerales()>=100)&&(jugador.GasVespeno()>=0)){
 			Edificio ed= new Asimilador(volcan, jugador.color(),pos);
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(0);
@@ -105,7 +105,7 @@ public class FactoryEdificiosProtoss implements AbstractFactoryEdificios {
 
 	@Override
 	public void fabricarRecolectableMinerales(Mineral mineral,Posicion pos) {
-		if((jugador.Minerales()>50)&&(jugador.GasVespeno()>0)){
+		if((jugador.Minerales()>=50)&&(jugador.GasVespeno()>=0)){
 			Edificio ed= new NexoMineral(mineral, jugador.color(),pos);
 			edificiosEnCola.add(ed);
 			jugador.sacarGasVespeno(0);
