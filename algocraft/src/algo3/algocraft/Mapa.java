@@ -375,14 +375,16 @@ public class Mapa {
 	}
 	
 	private Posicion buscarLibreMasCercanoRecursivo(Posicion pos,ArrayList<Posicion> adyacentes ){
+		ArrayList<Posicion> adyacentesAAgregar = new ArrayList<Posicion>();
 		for(Posicion ady:adyacentes){
 			if(this.estaVaciaTerrestre(ady)){
 				return ady;
 			}
 		}
 		for(Posicion ady:adyacentes){
-			adyacentes.addAll(this.adyacentes(ady));
+			adyacentesAAgregar.addAll(this.adyacentes(ady));
 		}
+		adyacentes.addAll(adyacentesAAgregar);
 		return this.buscarLibreMasCercanoRecursivo(pos, adyacentes);
 	}
 
@@ -403,12 +405,20 @@ public class Mapa {
 		ArrayList<Unidad> unidadesAlcanzadas = new ArrayList<Unidad>();
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
-				Celda celda = this.ContenidoPosicion(new Posicion(pos.x()+i, pos.y()+ j));
-				if (celda.ocupadoTerrestre() && celda.serEnLaCeldaTerrestre().esInfectablePorMagia()){
-					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaTerrestre());
-				}
-				if (celda.ocupadoAerea()){
-					unidadesAlcanzadas.add((Unidad) celda.serEnLaCeldaAerea());
+				if (pos.x() + i >= 0 && pos.y() + j >= 0) {
+					Celda celda = this.ContenidoPosicion(new Posicion(pos.x()
+							+ i, pos.y() + j));
+					if (celda.ocupadoTerrestre()
+							&& celda.serEnLaCeldaTerrestre()
+									.esInfectablePorMagia()) {
+						unidadesAlcanzadas.add((Unidad) celda
+								.serEnLaCeldaTerrestre());
+
+					}
+					if (celda.ocupadoAerea()) {
+						unidadesAlcanzadas.add((Unidad) celda
+								.serEnLaCeldaAerea());
+					}
 				}
 			}
 		}

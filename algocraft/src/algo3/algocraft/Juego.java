@@ -334,21 +334,28 @@ public class Juego {
 	
 	//Metodos De Ataque
 	public boolean atacarAire(int filIni, int colIni , int filFinal , int colFinal) {
-		try{
-			Posicion posini = new Posicion(filIni,colIni);
-			Posicion posfin = new Posicion(filFinal,colFinal);
-			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaAerea();
-			Ser serAtacado1 =  mapa.ContenidoPosicion(posfin).serEnLaCeldaAerea();
-			
-			verificarSiPuedeAtacarEnRangoAereo(unidadQAtaca,posini,posfin);
-			verificarPropiedadAtaque(unidadQAtaca);
-			if ( serAtacado1 != null ) unidadQAtaca.atacarAire(serAtacado1);
-			
-			if ( serAtacado1.estaMuerto()) mapa.borrarSerAereo(serAtacado1);
-			
-			turnos.agregarQueAtaco(unidadQAtaca);
-		}
-		catch (NoEsPosibleAtacarException e){
+		try {
+			try {
+				Posicion posini = new Posicion(filIni, colIni);
+				Posicion posfin = new Posicion(filFinal, colFinal);
+				UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa
+						.ContenidoPosicion(posini).serEnLaCeldaAerea();
+				Ser serAtacado1 = mapa.ContenidoPosicion(posfin)
+						.serEnLaCeldaAerea();
+
+				verificarSiPuedeAtacarEnRangoAereo(unidadQAtaca, posini, posfin);
+				verificarPropiedadAtaque(unidadQAtaca);
+				if (serAtacado1 != null)
+					unidadQAtaca.atacarAire(serAtacado1);
+
+				if (serAtacado1.estaMuerto())
+					mapa.borrarSerAereo(serAtacado1);
+
+				turnos.agregarQueAtaco(unidadQAtaca);
+			} catch (java.lang.ClassCastException e) {
+				throw new NoEsPosibleAtacarException();
+			}
+		} catch (NoEsPosibleAtacarException e) {
 			return false;
 		}
 		return true;
@@ -374,32 +381,39 @@ public class Juego {
 	}
 
 
-	public boolean atacarTierra(int filIni,int colIni,int filFinal, int colFinal) {
-		try{
-			Posicion posini = new Posicion(filIni,colIni);
-			Posicion posfin = new Posicion(filFinal,colFinal);
-			UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa.ContenidoPosicion(posini).serEnLaCeldaTerrestre();
-			Ser serAtacado =  mapa.ContenidoPosicion(posfin).serEnLaCeldaTerrestre();
-			verificarSiPuedeAtacarEnRangoTerrestre(unidadQAtaca,posini,posfin);
-			verificarPropiedadAtaque(unidadQAtaca);
-			if ( serAtacado != null) {
-				unidadQAtaca.atacarTierra(serAtacado);	
-				if ( serAtacado.estaMuerto()){ 
-					mapa.borrarSerTerrestre(serAtacado);
-					for(Jugador jugador: jugadores){
-						if(jugador.esColor(serAtacado.color())){
-							jugador.quitarPoblacion(serAtacado.suministro());
+	public boolean atacarTierra(int filIni, int colIni, int filFinal,
+			int colFinal) {
+		try {
+			Posicion posini = new Posicion(filIni, colIni);
+			Posicion posfin = new Posicion(filFinal, colFinal);
+			try {
+				UnidadDeAtaque unidadQAtaca = (UnidadDeAtaque) mapa
+						.ContenidoPosicion(posini).serEnLaCeldaTerrestre();
+				Ser serAtacado = mapa.ContenidoPosicion(posfin)
+						.serEnLaCeldaTerrestre();
+				verificarSiPuedeAtacarEnRangoTerrestre(unidadQAtaca, posini,
+						posfin);
+				verificarPropiedadAtaque(unidadQAtaca);
+				if (serAtacado != null) {
+					unidadQAtaca.atacarTierra(serAtacado);
+					if (serAtacado.estaMuerto()) {
+						mapa.borrarSerTerrestre(serAtacado);
+						for (Jugador jugador : jugadores) {
+							if (jugador.esColor(serAtacado.color())) {
+								jugador.quitarPoblacion(serAtacado.suministro());
+							}
 						}
 					}
 				}
-			}	
-			turnos.agregarQueAtaco(unidadQAtaca);
-		}
-		catch (NoEsPosibleAtacarException e){
+				turnos.agregarQueAtaco(unidadQAtaca);
+			} catch (java.lang.ClassCastException e) {
+				throw new NoEsPosibleAtacarException();
+			}
+		} catch (NoEsPosibleAtacarException e) {
 			return false;
 		}
 		return true;
-	}	
+	}
 	
 	public void ataqueRadiacion(int filIni, int colIni, int filFinal,
 			int colFinal) {
