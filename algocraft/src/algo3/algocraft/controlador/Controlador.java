@@ -1,18 +1,11 @@
 package algo3.algocraft.controlador;
 
-import java.awt.Font;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.management.RuntimeErrorException;
-
 import algo3.algocraft.AtaqueMagico;
-import algo3.algocraft.Celda;
-import algo3.algocraft.Color;
 import algo3.algocraft.Juego;
 import algo3.algocraft.Posicion;
 import algo3.algocraft.Ser;
-import algo3.algocraft.TipoRaza;
 import algo3.algocraft.exceptions.EdificiosAnterioresNoCreadosException;
 import algo3.algocraft.exceptions.ElEdificioNoPuedeCrearEstaUnidad;
 import algo3.algocraft.exceptions.LaCeldaTerrestreEstaOcupada;
@@ -20,7 +13,6 @@ import algo3.algocraft.exceptions.NoEsPosibleMoverException;
 import algo3.algocraft.exceptions.NoHayRecursoEnEsaPosicionException;
 import algo3.algocraft.exceptions.NoHayRecursosException;
 import algo3.algocraft.exceptions.NoSePuedeBajarException;
-import algo3.algocraft.unidades.Unidad;
 
 public class Controlador {
 	private double altoPantalla;
@@ -84,7 +76,7 @@ public class Controlador {
 		return new Posicion((int) altoMenu, (int) altoPantalla);
 	}
 
-	public Controlador(double ancho, double alto) {
+	public Controlador(double ancho, double alto,String nombre1, String nombre2, String color1, String color2, String raza1, String raza2) {
 
 		altoPantalla = alto;
 		anchoPantalla = ancho;
@@ -92,8 +84,8 @@ public class Controlador {
 		altoBotonMenu = (altoMenu - altoPantalla / 15) / 3;
 		anchoBotonMenu = anchoPantalla / 16;
 		juego = Juego.getInstance();
-		juego.crearJugador("Vader", Color.ROJO, TipoRaza.TERRAN);
-		juego.crearJugador("Fede", Color.AMARILLO, TipoRaza.PROTOSS);
+		juego.crearJugador(nombre1, Codificador.obtenerColor(color1), Codificador.obtenerRaza(raza1));
+		juego.crearJugador(nombre2, Codificador.obtenerColor(color2), Codificador.obtenerRaza(raza2));
 		juego.iniciarJuego();
 	}
 
@@ -697,8 +689,6 @@ public class Controlador {
 	}
 
 	private void atacar(int fila, int columna,boolean terrestre) {
-		Ser unSer = juego.queHayEnCeldaTerrestre(fila, columna);
-
 		if (filaAnterior == 50) {
 			filaAnterior = fila;
 			columnaAnterior = columna;

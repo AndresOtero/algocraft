@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import algo3.algocraft.Color;
 import algo3.algocraft.Posicion;
+import algo3.algocraft.TipoRaza;
 
 public class Codificador {
 	public static HashMap<Posicion,Elemento> grillaResuelta(HashMap<Posicion,int[]> grillaSinResolver){
@@ -152,6 +153,31 @@ public class Codificador {
 		}
 		
 		return colorDibujar;
+	}
+	
+	public static Color obtenerColor(String unColor){
+		switch (unColor) {
+		case "AMARILLO":
+			return Color.AMARILLO;
+		case "AZUL":
+			return Color.AZUL;
+		case "ROJO":
+			return Color.ROJO;
+		case "VERDE":
+			return Color.VERDE;
+		}
+		return null;
+	}
+	
+	public static TipoRaza obtenerRaza(String unaRaza){
+		switch (unaRaza) {
+		case "PROTTOS":
+			return TipoRaza.PROTOSS;
+		case "TERRAN":
+			return TipoRaza.TERRAN;
+
+		}
+		return null;
 	}
 
 }
